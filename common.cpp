@@ -5,6 +5,8 @@
     #include <io.h>
     #include <stdio.h>
     #include <windows.h>
+#else
+    #include <random>
 #endif
 
 #include "common.h"

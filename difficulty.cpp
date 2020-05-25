@@ -2,7 +2,6 @@
 #include "ui_difficulty.h"
 
 #include "field.h"
-#include "keepsquareandcentered.h"
 #include "mainwindow.h"
 
 #include <QMessageBox>

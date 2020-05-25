@@ -1,2 +1,18 @@
-<!DOCTYPE RCC>
-<RCC version="1.0"/>
+<RCC>
+    <qresource prefix="/images"/>
+    <qresource prefix="/">
+        <file>images/button_uncovered.png</file>
+        <file>images/button_covered.png</file>
+        <file>images/button_1.png</file>
+        <file>images/button_2.png</file>
+        <file>images/button_3.png</file>
+        <file>images/button_4.png</file>
+        <file>images/button_5.png</file>
+        <file>images/button_6.png</file>
+        <file>images/button_7.png</file>
+        <file>images/button_8.png</file>
+        <file>images/button_mine.png</file>
+        <file>images/button_mine_hit.png</file>
+        <file>images/button_flag.png</file>
+    </qresource>
+</RCC>

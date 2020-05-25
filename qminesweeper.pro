@@ -19,16 +19,16 @@ SOURCES += \
     common.cpp \
     difficulty.cpp \
     field.cpp \
-    keepsquareandcentered.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    myqpushbutton.cpp
 
 HEADERS += \
     common.h \
     difficulty.h \
     field.h \
-    keepsquareandcentered.h \
-    mainwindow.h
+    mainwindow.h \
+    myqpushbutton.h
 
 FORMS += \
     difficulty.ui \
@@ -38,3 +38,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources.qrc

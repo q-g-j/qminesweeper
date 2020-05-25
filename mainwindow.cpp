@@ -1,6 +1,4 @@
 #include "mainwindow.h"
-#include "field.h"
-#include "keepsquareandcentered.h"
 
 #include "ui_mainwindow.h"
 #include "ui_difficulty.h"
@@ -8,6 +6,7 @@
 #include <QSizePolicy>
 #include <QGridLayout>
 #include <QPushButton>
+#include <QThread>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -20,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
     difficulty.rows = 9;
     difficulty.mines = 10;
 
-    setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+//    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
     newGame(difficulty);
 }
@@ -42,11 +41,12 @@ void clearLayout(QLayout * layout) {
 void MainWindow::newGame(DifficultyStruct const& difficulty)
 {
     hide();
-    Field *field = new Field(this, difficulty.cols, difficulty.rows, difficulty.mines, 25);
-    field->addCells();
+    field = new Field(centralWidget(), difficulty.cols, difficulty.rows, difficulty.mines, 30);
     setCentralWidget(field);
-    adjustSize();
+    field->addCells();
     show();
+    centralWidget()->setMinimumSize(field->cols * (field->cellSize) + 20, field->rows * (field->cellSize) + 20);
+    adjustSize();
 }
 
 void MainWindow::on_actionNew_triggered()

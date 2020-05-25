@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QGridLayout>
 #include "difficulty.h"
+#include "field.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,6 +17,8 @@ class MainWindow : public QMainWindow
 private:
     Ui::MainWindow *ui;
     QGridLayout *layout;
+    Field *field;
+
     void newGame(DifficultyStruct const&);
 
 public:

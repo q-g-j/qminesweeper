@@ -10,9 +10,9 @@ public:
         int col = 0;
         int row = 0;
     };
-    void setRandomSeed();
-    Coords intToStruct(int&, int&);
-    int structToInt(Coords&, int&);
+    static void setRandomSeed();
+    static Coords intToStruct(int&, int&);
+    static int structToInt(Coords&, int&);
 };
 
 #endif // COMMON_H
