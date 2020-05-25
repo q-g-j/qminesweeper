@@ -1,13 +1,19 @@
 #include <QPushButton>
 #include <QMouseEvent>
 
-#include "myqpushbutton.h"
+#include "cell.h"
 
-MyQPushButton::MyQPushButton(QWidget *parent) : QPushButton(parent)
+Cell::Cell(QWidget *parent) : QPushButton(parent)
 {
 }
 
-void MyQPushButton::mouseReleaseEvent(QMouseEvent *e)
+void Cell::mouseDoubleClickEvent(QMouseEvent *e)
+{
+    if(e->button() == Qt::LeftButton)
+        emit doubleClicked();
+}
+
+void Cell::mouseReleaseEvent(QMouseEvent *e)
 {
     if(e->button() == Qt::RightButton)
         emit rightReleased();
@@ -15,7 +21,7 @@ void MyQPushButton::mouseReleaseEvent(QMouseEvent *e)
         emit leftReleased();
 }
 
-void MyQPushButton::mousePressEvent(QMouseEvent *e)
+void Cell::mousePressEvent(QMouseEvent *e)
 {
     if(e->button() == Qt::RightButton)
         emit rightPressed();

@@ -6,7 +6,7 @@
 
 #include "common.h"
 
-#include "myqpushbutton.h"
+#include "cell.h"
 
 
 class Field : public QWidget
@@ -18,6 +18,7 @@ private:
     int flagsCount;
     int minesLeft;
     int countCovered;
+    bool gameover;
 
     QString stylesheet_button_flag;
     QString stylesheet_button_mine;
@@ -36,8 +37,9 @@ private:
     // private methods:
     char** createArray();
     void fillMinesArray(Common::Coords&);
-    Common::Coords gridPosition(MyQPushButton*);
+    Common::Coords gridPosition(Cell*);
     std::vector<Common::Coords> findNeighbours(char** tempArray, Common::Coords const& coords, char const& content);
+    void gameOver(Common::Coords const&);
 
 public:
     explicit Field(QWidget *parent = nullptr, int const& cols = 9, int const& rows = 9, int const& mines = 10, int const& cellSize = 25);
@@ -54,7 +56,7 @@ public:
     char** minesArray;
 
     QGridLayout *layout;
-    MyQPushButton** cell;
+    Cell** cell;
 
     // public methods:
     void addCells();
@@ -66,6 +68,7 @@ public:
     int getRows();
 
 private slots:
+    void onDoubleClicked();
     void onLeftPressed();
     void onRightPressed();
     void onLeftReleased();

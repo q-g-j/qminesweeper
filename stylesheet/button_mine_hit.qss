@@ -1,4 +1,4 @@
-MyQPushButton {
+Cell {
        border-style: inset;
        border-width: 0px;
        border-radius: 0px;

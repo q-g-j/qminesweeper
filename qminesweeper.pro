@@ -16,19 +16,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    cell.cpp \
     common.cpp \
     difficulty.cpp \
     field.cpp \
     main.cpp \
-    mainwindow.cpp \
-    myqpushbutton.cpp
+    mainwindow.cpp
 
 HEADERS += \
+    cell.h \
     common.h \
     difficulty.h \
     field.h \
-    mainwindow.h \
-    myqpushbutton.h
+    mainwindow.h
 
 FORMS += \
     difficulty.ui \

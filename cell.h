@@ -4,18 +4,20 @@
 #include <QPushButton>
 #include <QMouseEvent>
 
-class MyQPushButton : public QPushButton
+class Cell : public QPushButton
 {
     Q_OBJECT
 private:
 public:
-    explicit MyQPushButton(QWidget *parent = nullptr);
+    explicit Cell(QWidget *parent = nullptr);
 
 protected:
+    void mouseDoubleClickEvent(QMouseEvent *e);
     void mousePressEvent(QMouseEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
     //    void mouseMoveEvent(QMouseEvent *e);
 signals:
+    void doubleClicked();
     void leftPressed();
     void rightPressed();
     void leftReleased();
