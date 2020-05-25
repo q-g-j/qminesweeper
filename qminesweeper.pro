@@ -18,7 +18,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     cell.cpp \
     common.cpp \
-    dialog.cpp \
     difficulty.cpp \
     field.cpp \
     main.cpp \
@@ -27,13 +26,11 @@ SOURCES += \
 HEADERS += \
     cell.h \
     common.h \
-    dialog.h \
     difficulty.h \
     field.h \
     mainwindow.h
 
 FORMS += \
-    dialog.ui \
     difficulty.ui \
     mainwindow.ui
 
