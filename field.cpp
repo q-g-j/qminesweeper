@@ -127,6 +127,7 @@ char** Field::createArray()
     tempArray = new char*[colsNum];
     for (int i=0; i < colsNum; i++)
         tempArray[i] = new char[rowsNum];
+
     for (int i = 0; i < colsNum; i++)
         for (int j = 0; j < rowsNum; j++)
             tempArray[i][j] = ' ';
@@ -163,7 +164,7 @@ void Field::addCells()
             this->cell[i][j].setStyleSheet(stylesheet_button_covered);
 //            this->cell[i][j].setIconSize(QSize(this->cellSize, this->cellSize));
             this->cell[i][j].setFixedSize(this->cellSize, this->cellSize);
-            layout->addWidget(&this->cell[i][j], i - 1, j - 1, 1, 1);
+            layout->addWidget(&this->cell[i][j], j - 1, i - 1, 1, 1);
             connect(&this->cell[i][j], SIGNAL(doubleClicked()), this, SLOT(onDoubleClicked()));
             connect(&this->cell[i][j], SIGNAL(leftPressed()), this, SLOT(onLeftPressed()));
             connect(&this->cell[i][j], SIGNAL(rightPressed()), this, SLOT(onRightPressed()));
@@ -182,7 +183,7 @@ Common::Coords Field::gridPosition(Cell * button)
   int index = layout->indexOf(button);
   Q_ASSERT(index >= 0);
   int _ = 0;
-  layout->getItemPosition(index, &coords.col, &coords.row, &_, &_);
+  layout->getItemPosition(index, &coords.row, &coords.col, &_, &_);
   coords.col++;
   coords.row++;
   return coords;

@@ -42,8 +42,8 @@ void Difficulty::on_button_large_clicked()
 {
     close();
     DifficultyStruct diff;
-    diff.cols = 20;
-    diff.rows = 20;
+    diff.cols = 30;
+    diff.rows = 16;
     diff.mines = 99;
     emit buttonClicked(diff);
 }
