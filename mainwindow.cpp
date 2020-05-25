@@ -53,9 +53,11 @@ void MainWindow::newGame(DifficultyStruct const& difficulty)
 
 void MainWindow::on_actionNew_triggered()
 {
-    Difficulty *difficulty = new Difficulty;
-    connect(difficulty, SIGNAL(buttonClicked(DifficultyStruct)), this, SLOT(new_game_slot(DifficultyStruct)));
-    difficulty->show();
+    Difficulty difficulty(this);
+
+    connect(&difficulty, SIGNAL(buttonClicked(DifficultyStruct)), this, SLOT(new_game_slot(DifficultyStruct)));
+    difficulty.setModal(true);
+    difficulty.exec();
 }
 
 void MainWindow::new_game_slot(DifficultyStruct const& difficulty)

@@ -313,32 +313,79 @@ std::vector<Common::Coords> Field::findNeighbours(char** tempArray, Common::Coor
     return neighboursVector;
 }
 
-void Field::gameOver(Common::Coords const& coords)
+void Field::gameOver(Common::Coords const& coords, QString const& mode)
 {
     this->gameover = true;
-    this->minesArray[coords.col][coords.row] = 'H';
-    this->cell[coords.col][coords.row].setStyleSheet(stylesheet_button_mine_hit);
+
     for (int i = 1; i <= this->cols; i++)
     {
         for (int j = 1; j <= this->rows; j++)
         {
-            if (! (i == coords.col && j == coords.row))
+            Common::Coords coordsTemp;
+            coordsTemp.col = i;
+            coordsTemp.row = j;
+            std::vector<Common::Coords> neighboursMinesVector;
+            neighboursMinesVector = findNeighbours(this->minesArray, coordsTemp, 'X');
+            if (neighboursMinesVector.size() == 0)
             {
-                if (this->minesArray[i][j] == 'X')
+                this->fieldArray[coordsTemp.col][coordsTemp.row] = 'U';
+                this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_uncovered);
+            }
+            else
+            {
+                if (neighboursMinesVector.size() == 1)
                 {
-                    this->cell[i][j].setStyleSheet(stylesheet_button_mine);
+                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '1';
+                    this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_1);
                 }
-                else if (this->minesArray[i][j] == 'H')
+                if (neighboursMinesVector.size() == 2)
                 {
-                    this->cell[i][j].setStyleSheet(stylesheet_button_mine_hit);
+                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '2';
+                    this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_2);
                 }
-                else if (this->minesArray[i][j] == ' ')
+                if (neighboursMinesVector.size() == 3)
                 {
-                    this->cell[i][j].setStyleSheet(stylesheet_button_uncovered);
+                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '3';
+                    this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_3);
                 }
+                if (neighboursMinesVector.size() == 4)
+                {
+                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '4';
+                    this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_4);
+                }
+                if (neighboursMinesVector.size() == 5)
+                {
+                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '5';
+                    this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_5);
+                }
+                if (neighboursMinesVector.size() == 6)
+                {
+                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '6';
+                    this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_6);
+                }
+                if (neighboursMinesVector.size() == 7)
+                {
+                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '7';
+                    this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_7);
+                }
+                if (neighboursMinesVector.size() == 8)
+                {
+                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '8';
+                    this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_8);
+                }
+            }
+            if (this->minesArray[i][j] == 'X')
+            {
+                this->cell[i][j].setStyleSheet(stylesheet_button_mine);
+            }
+            else if (this->minesArray[i][j] == 'H')
+            {
+                this->cell[i][j].setStyleSheet(stylesheet_button_mine_hit);
             }
         }
     }
+    if (mode == "lose")
+        this->cell[coords.col][coords.row].setStyleSheet(stylesheet_button_mine_hit);
 }
 
 void Field::onLeftPressed()
@@ -371,7 +418,7 @@ void Field::onLeftReleased()
             // if user hit a mine, reveal the game field - game is lost:
             if (this->minesArray[coordsTemp.col][coordsTemp.row] == 'X')
             {
-                gameOver(coordsTemp);
+                gameOver(coordsTemp, "lose");
             }
 
             else
@@ -553,9 +600,11 @@ void Field::onLeftReleased()
                     this->cell[i][j].setStyleSheet(stylesheet_button_uncovered);
             }
         }
-        QMessageBox::information(this, "Success!", "Congratulation, you have won!");
+        Common::Coords dummyCoords;
+        dummyCoords.col = 1;
+        dummyCoords.row = 1;
+        gameOver(dummyCoords, "win");
     }
-    qDebug() << this->countCovered;
 }
 
 void Field::onRightReleased()
@@ -584,7 +633,6 @@ void Field::onRightReleased()
             }
         }
     }
-    qDebug() << this->countCovered;
 }
 
 void Field::onDoubleClicked()
@@ -634,7 +682,7 @@ void Field::onDoubleClicked()
                         Common::Coords coordsTemp;
                         coordsTemp.col = autoUncoverMissedMinesVector.at(0).col;
                         coordsTemp.row = autoUncoverMissedMinesVector.at(0).row;
-                        gameOver(coordsTemp);
+                        gameOver(coordsTemp, "lose");
                     }
 
                     // else if all flags are placed correctly:
@@ -642,7 +690,6 @@ void Field::onDoubleClicked()
                     {
                         if (autoUncoverNeighboursMinesVector.size() == autoUncoverNeighboursFlagsVector.size())
                         {
-                            qDebug() << "Here";
                             if (autoUncoverNeighboursCoveredVector.size() != 0)
                             {
                                 // for each not uncovered neighbour of coords, print the number of surrounding mines:
@@ -712,5 +759,4 @@ void Field::onDoubleClicked()
             }
         }
     }
-    qDebug() << this->countCovered;
 }

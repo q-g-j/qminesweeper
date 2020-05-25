@@ -1,16 +1,20 @@
 #ifndef DIFFICULTY_H
 #define DIFFICULTY_H
 
-#include <QWidget>
+#include <QDialog>
+#include <QValidator>
 
 namespace Ui {
 class Difficulty;
 }
 
-class Difficulty : public QWidget
+class Difficulty : public QDialog
 {
     Q_OBJECT    
 private:
+    QValidator *intValidatorCols;
+    QValidator *intValidatorRows;
+    QValidator *intValidatorMines;
 public:
     explicit Difficulty(QWidget *parent = nullptr);
     ~Difficulty();
