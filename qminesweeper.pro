@@ -41,3 +41,18 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES += \
+    stylesheet/button_1.qss \
+    stylesheet/button_2.qss \
+    stylesheet/button_3.qss \
+    stylesheet/button_4.qss \
+    stylesheet/button_5.qss \
+    stylesheet/button_6.qss \
+    stylesheet/button_7.qss \
+    stylesheet/button_8.qss \
+    stylesheet/button_covered.qss \
+    stylesheet/button_flag.qss \
+    stylesheet/button_mine.qss \
+    stylesheet/button_mine_hit.qss \
+    stylesheet/button_uncovered.qss

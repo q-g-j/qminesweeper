@@ -14,5 +14,18 @@
         <file>images/button_mine.png</file>
         <file>images/button_mine_hit.png</file>
         <file>images/button_flag.png</file>
+        <file>stylesheet/button_1.qss</file>
+        <file>stylesheet/button_2.qss</file>
+        <file>stylesheet/button_3.qss</file>
+        <file>stylesheet/button_4.qss</file>
+        <file>stylesheet/button_5.qss</file>
+        <file>stylesheet/button_6.qss</file>
+        <file>stylesheet/button_7.qss</file>
+        <file>stylesheet/button_8.qss</file>
+        <file>stylesheet/button_covered.qss</file>
+        <file>stylesheet/button_mine.qss</file>
+        <file>stylesheet/button_mine_hit.qss</file>
+        <file>stylesheet/button_uncovered.qss</file>
+        <file>stylesheet/button_flag.qss</file>
     </qresource>
 </RCC>

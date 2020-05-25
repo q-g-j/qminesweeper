@@ -2,7 +2,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QPixmap>
-#include <QThread>
+#include <QFile>
 #include <vector>
 
 #include "common.h"
@@ -34,6 +34,58 @@ Field::Field(QWidget *parent, int const& cols, int const& rows, int const& mines
     layout->setAlignment(Qt::AlignCenter);
 //    layout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(layout);
+
+    QFile file_button_flag(":/stylesheet/button_flag.qss");
+    file_button_flag.open(QFile::ReadOnly);
+    stylesheet_button_flag = QLatin1String(file_button_flag.readAll());
+
+    QFile file_button_mine(":/stylesheet/button_mine.qss");
+    file_button_mine.open(QFile::ReadOnly);
+    stylesheet_button_mine = QLatin1String(file_button_mine.readAll());
+
+    QFile file_button_mine_hit(":/stylesheet/button_mine_hit.qss");
+    file_button_mine_hit.open(QFile::ReadOnly);
+    stylesheet_button_mine_hit = QLatin1String(file_button_mine_hit.readAll());
+
+    QFile file_button_covered(":/stylesheet/button_covered.qss");
+    file_button_covered.open(QFile::ReadOnly);
+    stylesheet_button_covered = QLatin1String(file_button_covered.readAll());
+
+    QFile file_button_uncovered(":/stylesheet/button_uncovered.qss");
+    file_button_uncovered.open(QFile::ReadOnly);
+    stylesheet_button_uncovered = QLatin1String(file_button_uncovered.readAll());
+
+    QFile file_button_1(":/stylesheet/button_1.qss");
+    file_button_1.open(QFile::ReadOnly);
+    stylesheet_button_1 = QLatin1String(file_button_1.readAll());
+
+    QFile file_button_2(":/stylesheet/button_2.qss");
+    file_button_2.open(QFile::ReadOnly);
+    stylesheet_button_2 = QLatin1String(file_button_2.readAll());
+
+    QFile file_button_3(":/stylesheet/button_3.qss");
+    file_button_3.open(QFile::ReadOnly);
+    stylesheet_button_3 = QLatin1String(file_button_3.readAll());
+
+    QFile file_button_4(":/stylesheet/button_4.qss");
+    file_button_4.open(QFile::ReadOnly);
+    stylesheet_button_4 = QLatin1String(file_button_4.readAll());
+
+    QFile file_button_5(":/stylesheet/button_5.qss");
+    file_button_5.open(QFile::ReadOnly);
+    stylesheet_button_5 = QLatin1String(file_button_5.readAll());
+
+    QFile file_button_6(":/stylesheet/button_6.qss");
+    file_button_6.open(QFile::ReadOnly);
+    stylesheet_button_6 = QLatin1String(file_button_6.readAll());
+
+    QFile file_button_7(":/stylesheet/button_7.qss");
+    file_button_7.open(QFile::ReadOnly);
+    stylesheet_button_7 = QLatin1String(file_button_7.readAll());
+
+    QFile file_button_8(":/stylesheet/button_8.qss");
+    file_button_8.open(QFile::ReadOnly);
+    stylesheet_button_8 = QLatin1String(file_button_8.readAll());
 }
 
 Field::~Field()
@@ -42,20 +94,27 @@ Field::~Field()
     for (int i=0; i <= this->cols; i++)
     {
         delete[] this->fieldArray[i];
+        this->fieldArray[i] = nullptr;
     }
     delete[] this->fieldArray;
 
     for (int i=0; i <= this->cols; i++)
     {
         delete[] this->minesArray[i];
+        this->minesArray[i] = nullptr;
     }
     delete[] this->minesArray;
 
     for (int i=0; i <= this->cols; i++)
     {
         delete[] this->cell[i];
+        this->cell[i] = nullptr;
     }
     delete[] this->cell;
+    this->cell = nullptr;
+
+    delete layout;
+    layout = nullptr;
 }
 
 char** Field::createArray()
@@ -90,33 +149,17 @@ void Field::fillMinesArray(Common::Coords& userFirstInput)
         coords = Common::intToStruct(tempVector.at(i), this->cols);
         this->minesArray[coords.col][coords.row] = 'X';
     }
-//    for (int i = 1; i <= this->cols; i++)
-//    {
-//        for (int j = 1; j <= this->rows; j++)
-//        {
-//            qDebug() << "minesArray[" + QString::number(i) + "][" + QString::number(j) + "]: " + this->minesArray[i][j];
-//        }
-//    }
 }
 
 void Field::addCells()
 {
-    QString cellStyle =
-        "MyQPushButton {"
-        "   border-style: inset;"
-        "   border-width: 0px;"
-        "   border-radius: 0px;"
-        "   border-image: url() 0 0 0 0 stretch stretch;"
-        "}";
-
     for (int i = 1; i <= this->cols; i++)
     {
         for (int j = 1; j <= this->rows; j++)
         {
             this->cell[i][j].setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-            this->cell[i][j].setStyleSheet(cellStyle);
-            this->cell[i][j].setIcon(QIcon(":/images/button_covered.png"));
-            this->cell[i][j].setIconSize(QSize(this->cellSize, this->cellSize));
+            this->cell[i][j].setStyleSheet(stylesheet_button_covered);
+//            this->cell[i][j].setIconSize(QSize(this->cellSize, this->cellSize));
             this->cell[i][j].setFixedSize(this->cellSize, this->cellSize);
             layout->addWidget(&this->cell[i][j], i - 1, j - 1, 1, 1);
             connect(&this->cell[i][j], SIGNAL(leftPressed()), this, SLOT(onLeftPressed()));
@@ -280,225 +323,239 @@ void Field::onRightPressed()
 
 void Field::onLeftReleased()
 {
-    MyQPushButton *button = qobject_cast<MyQPushButton *>(sender());
-    auto coordsTemp = gridPosition(button);
-    std::vector<Common::Coords> neighboursMinesVector;
-
-    // fill minesArray with mines ONLY once after users first guess:
-    if (this->firstTurn)
-        fillMinesArray(coordsTemp);
-
-    // if user hit a mine, reveal the game field - game is lost:
-    if (this->minesArray[coordsTemp.col][coordsTemp.row] == 'X')
+    if (this->countCovered != 0)
     {
-        this->minesArray[coordsTemp.col][coordsTemp.row] = 'H';
-        for (int i = 1; i <= this->cols; i++)
-        {
-            for (int j = 1; j <= this->rows; j++)
-            {
-                if (this->minesArray[i][j] == 'X')
-                {
-                    this->cell[i][j].setIcon(QIcon(":/images/button_mine.png"));
-                }
-                else if (this->minesArray[i][j] == 'H')
-                {
-                    this->cell[i][j].setIcon(QIcon(":/images/button_mine_hit.png"));
-                }
-                else if (this->minesArray[i][j] == ' ')
-                {
-                    this->cell[i][j].setIcon(QIcon(":/images/button_uncovered.png"));
-                }
-            }
-        }
-    }
+        MyQPushButton *button = qobject_cast<MyQPushButton *>(sender());
+        auto coordsTemp = gridPosition(button);
 
-    else
-    {
-        // uncover the players choice and place the number of surrounding mines in it:
-        neighboursMinesVector = findNeighbours(this->minesArray, coordsTemp, 'X');
-        if (neighboursMinesVector.size() == 0)
+        if (fieldArray[coordsTemp.col][coordsTemp.row] != 'F')
         {
-            this->fieldArray[coordsTemp.col][coordsTemp.row] = 'U';
-            this->cell[coordsTemp.col][coordsTemp.row].setIcon(QIcon(":/images/button_uncovered.png"));
-        }
-        else
-        {
-            if (neighboursMinesVector.size() == 1)
-            {
-                this->fieldArray[coordsTemp.col][coordsTemp.row] = '1';
-                this->cell[coordsTemp.col][coordsTemp.row].setIcon(QIcon(":/images/button_1.png"));
-            }
-            if (neighboursMinesVector.size() == 2)
-            {
-                this->fieldArray[coordsTemp.col][coordsTemp.row] = '2';
-                this->cell[coordsTemp.col][coordsTemp.row].setIcon(QIcon(":/images/button_2.png"));
-            }
-            if (neighboursMinesVector.size() == 3)
-            {
-                this->fieldArray[coordsTemp.col][coordsTemp.row] = '3';
-                this->cell[coordsTemp.col][coordsTemp.row].setIcon(QIcon(":/images/button_3.png"));
-            }
-            if (neighboursMinesVector.size() == 4)
-            {
-                this->fieldArray[coordsTemp.col][coordsTemp.row] = '4';
-                this->cell[coordsTemp.col][coordsTemp.row].setIcon(QIcon(":/images/button_4.png"));
-            }
-            if (neighboursMinesVector.size() == 5)
-            {
-                this->fieldArray[coordsTemp.col][coordsTemp.row] = '5';
-                this->cell[coordsTemp.col][coordsTemp.row].setIcon(QIcon(":/images/button_5.png"));
-            }
-            if (neighboursMinesVector.size() == 6)
-            {
-                this->fieldArray[coordsTemp.col][coordsTemp.row] = '6';
-                this->cell[coordsTemp.col][coordsTemp.row].setIcon(QIcon(":/images/button_6.png"));
-            }
-            if (neighboursMinesVector.size() == 7)
-            {
-                this->fieldArray[coordsTemp.col][coordsTemp.row] = '7';
-                this->cell[coordsTemp.col][coordsTemp.row].setIcon(QIcon(":/images/button_7.png"));
-            }
-            if (neighboursMinesVector.size() == 8)
-            {
-                this->fieldArray[coordsTemp.col][coordsTemp.row] = '8';
-                this->cell[coordsTemp.col][coordsTemp.row].setIcon(QIcon(":/images/button_8.png"));
-            }
-        }
-        this->countCovered--;
-    }
+        std::vector<Common::Coords> neighboursMinesVector;
 
-    // automatically uncover all neighbour squares of squares containing a 'U' (repeat if new 'U's appears):
-    bool run = true;
-    if (neighboursMinesVector.size() == 0)
-    {
-        while (run == true)
+        // fill minesArray with mines ONLY once after users first guess:
+        if (this->firstTurn)
+            fillMinesArray(coordsTemp);
+
+        // if user hit a mine, reveal the game field - game is lost:
+        if (this->minesArray[coordsTemp.col][coordsTemp.row] == 'X')
         {
-            // for each free position do:
+            this->countCovered = 0;
+            this->minesArray[coordsTemp.col][coordsTemp.row] = 'H';
+            this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_mine_hit);
             for (int i = 1; i <= this->cols; i++)
             {
                 for (int j = 1; j <= this->rows; j++)
                 {
-                    if (this->fieldArray[i][j] == ' ')
+                    if (! (i == coordsTemp.col && j == coordsTemp.row))
                     {
-                        // create a new vector of neighbours containing a 'U':
-                        Common::Coords coordsBase;
-                        coordsBase.col = i;
-                        coordsBase.row = j;
-                        std::vector<Common::Coords> neighboursZerosVector;
-                        neighboursZerosVector = findNeighbours(this->fieldArray, coordsBase, 'U');
-
-
-                        // if there is a neighbour containing a 'U' create a new vector of neighbours containing mines:
-                        if (neighboursZerosVector.size() != 0)
+                        if (this->minesArray[i][j] == 'X')
                         {
-                            std::vector<Common::Coords> neighboursMinesVectorNew;
-                            neighboursMinesVectorNew = findNeighbours(this->minesArray, coordsBase, 'X');
-
-                            // place neighboursMinesVectorNew.size() in fieldArray:
-                            Common::Coords coordsTemp;
-                            coordsTemp.col = i;
-                            coordsTemp.row = j;
-                            if (neighboursMinesVectorNew.size() == 0)
-                            {
-                                this->fieldArray[i][j] = 'U';
-                                this->cell[i][j].setIcon(QIcon(":/images/button_uncovered.png"));
-                            }
-                            else
-                            {
-                                if (neighboursMinesVectorNew.size() == 1)
-                                {
-                                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '1';
-                                    this->cell[coordsTemp.col][coordsTemp.row].setIcon(QIcon(":/images/button_1.png"));
-                                }
-                                if (neighboursMinesVectorNew.size() == 2)
-                                {
-                                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '2';
-                                    this->cell[coordsTemp.col][coordsTemp.row].setIcon(QIcon(":/images/button_2.png"));
-                                }
-                                if (neighboursMinesVectorNew.size() == 3)
-                                {
-                                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '3';
-                                    this->cell[coordsTemp.col][coordsTemp.row].setIcon(QIcon(":/images/button_3.png"));
-                                }
-                                if (neighboursMinesVectorNew.size() == 4)
-                                {
-                                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '4';
-                                    this->cell[coordsTemp.col][coordsTemp.row].setIcon(QIcon(":/images/button_4.png"));
-                                }
-                                if (neighboursMinesVectorNew.size() == 5)
-                                {
-                                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '5';
-                                    this->cell[coordsTemp.col][coordsTemp.row].setIcon(QIcon(":/images/button_5.png"));
-                                }
-                                if (neighboursMinesVectorNew.size() == 6)
-                                {
-                                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '6';
-                                    this->cell[coordsTemp.col][coordsTemp.row].setIcon(QIcon(":/images/button_6.png"));
-                                }
-                                if (neighboursMinesVectorNew.size() == 7)
-                                {
-                                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '7';
-                                    this->cell[coordsTemp.col][coordsTemp.row].setIcon(QIcon(":/images/button_7.png"));
-                                }
-                                if (neighboursMinesVectorNew.size() == 8)
-                                {
-                                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '8';
-                                    this->cell[coordsTemp.col][coordsTemp.row].setIcon(QIcon(":/images/button_8.png"));
-                                }
-                            }
-                            this->countCovered--;
+                            this->cell[i][j].setStyleSheet(stylesheet_button_mine);
+                        }
+                        else if (this->minesArray[i][j] == 'H')
+                        {
+                            this->cell[i][j].setStyleSheet(stylesheet_button_mine_hit);
+                        }
+                        else if (this->minesArray[i][j] == ' ')
+                        {
+                            this->cell[i][j].setStyleSheet(stylesheet_button_uncovered);
                         }
                     }
                 }
             }
-            run = false;
+        }
 
-            // repeat if necessary:
-            for (int a = 1; a <= this->cols; a++)
+        else
+        {
+
+            // uncover the players choice and place the number of surrounding mines in it:
+            neighboursMinesVector = findNeighbours(this->minesArray, coordsTemp, 'X');
+            if (neighboursMinesVector.size() == 0)
             {
-                for (int b = 1; b <= this->rows; b++)
+                this->fieldArray[coordsTemp.col][coordsTemp.row] = 'U';
+                this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_uncovered);
+            }
+            else
+            {
+                if (neighboursMinesVector.size() == 1)
                 {
-                    if (this->fieldArray[a][b] == ' ')
+                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '1';
+                    this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_1);
+                }
+                if (neighboursMinesVector.size() == 2)
+                {
+                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '2';
+                    this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_2);
+                }
+                if (neighboursMinesVector.size() == 3)
+                {
+                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '3';
+                    this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_3);
+                }
+                if (neighboursMinesVector.size() == 4)
+                {
+                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '4';
+                    this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_4);
+                }
+                if (neighboursMinesVector.size() == 5)
+                {
+                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '5';
+                    this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_5);
+                }
+                if (neighboursMinesVector.size() == 6)
+                {
+                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '6';
+                    this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_6);
+                }
+                if (neighboursMinesVector.size() == 7)
+                {
+                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '7';
+                    this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_7);
+                }
+                if (neighboursMinesVector.size() == 8)
+                {
+                    this->fieldArray[coordsTemp.col][coordsTemp.row] = '8';
+                    this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_8);
+                }
+            }
+            this->countCovered--;
+        }
+
+        // automatically uncover all neighbour squares of squares containing a 'U' (repeat if new 'U's appears):
+        bool run = true;
+        if (neighboursMinesVector.size() == 0)
+        {
+            while (run == true)
+            {
+                // for each free position do:
+                for (int i = 1; i <= this->cols; i++)
+                {
+                    for (int j = 1; j <= this->rows; j++)
                     {
-                        // create a new vector of neighbours containing 'U':
-                        Common::Coords coordsBaseNew;
-                        coordsBaseNew.col = a;
-                        coordsBaseNew.row = b;
-                        std::vector<Common::Coords> neighboursZerosVectorNew;
-                        neighboursZerosVectorNew = findNeighbours(this->fieldArray, coordsBaseNew, 'U');
-                        if (neighboursZerosVectorNew.size() != 0)
-                            run = true;
+                        if (this->fieldArray[i][j] == ' ')
+                        {
+                            // create a new vector of neighbours containing a 'U':
+                            Common::Coords coordsBase;
+                            coordsBase.col = i;
+                            coordsBase.row = j;
+                            std::vector<Common::Coords> neighboursZerosVector;
+                            neighboursZerosVector = findNeighbours(this->fieldArray, coordsBase, 'U');
+
+
+                            // if there is a neighbour containing a 'U' create a new vector of neighbours containing mines:
+                            if (neighboursZerosVector.size() != 0)
+                            {
+                                std::vector<Common::Coords> neighboursMinesVectorNew;
+                                neighboursMinesVectorNew = findNeighbours(this->minesArray, coordsBase, 'X');
+
+                                // place neighboursMinesVectorNew.size() in fieldArray:
+                                Common::Coords coordsTemp;
+                                coordsTemp.col = i;
+                                coordsTemp.row = j;
+                                if (neighboursMinesVectorNew.size() == 0)
+                                {
+                                    this->fieldArray[i][j] = 'U';
+                                    this->cell[i][j].setStyleSheet(stylesheet_button_uncovered);
+                                }
+                                else
+                                {
+                                    if (neighboursMinesVectorNew.size() == 1)
+                                    {
+                                        this->fieldArray[coordsTemp.col][coordsTemp.row] = '1';
+                                        this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_1);
+                                    }
+                                    if (neighboursMinesVectorNew.size() == 2)
+                                    {
+                                        this->fieldArray[coordsTemp.col][coordsTemp.row] = '2';
+                                        this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_2);
+                                    }
+                                    if (neighboursMinesVectorNew.size() == 3)
+                                    {
+                                        this->fieldArray[coordsTemp.col][coordsTemp.row] = '3';
+                                        this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_3);
+                                    }
+                                    if (neighboursMinesVectorNew.size() == 4)
+                                    {
+                                        this->fieldArray[coordsTemp.col][coordsTemp.row] = '4';
+                                        this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_4);
+                                    }
+                                    if (neighboursMinesVectorNew.size() == 5)
+                                    {
+                                        this->fieldArray[coordsTemp.col][coordsTemp.row] = '5';
+                                        this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_5);
+                                    }
+                                    if (neighboursMinesVectorNew.size() == 6)
+                                    {
+                                        this->fieldArray[coordsTemp.col][coordsTemp.row] = '6';
+                                        this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_6);
+                                    }
+                                    if (neighboursMinesVectorNew.size() == 7)
+                                    {
+                                        this->fieldArray[coordsTemp.col][coordsTemp.row] = '7';
+                                        this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_7);
+                                    }
+                                    if (neighboursMinesVectorNew.size() == 8)
+                                    {
+                                        this->fieldArray[coordsTemp.col][coordsTemp.row] = '8';
+                                        this->cell[coordsTemp.col][coordsTemp.row].setStyleSheet(stylesheet_button_8);
+                                    }
+                                }
+                                this->countCovered--;
+                            }
+                        }
+                    }
+                }
+                run = false;
+
+                // repeat if necessary:
+                for (int a = 1; a <= this->cols; a++)
+                {
+                    for (int b = 1; b <= this->rows; b++)
+                    {
+                        if (this->fieldArray[a][b] == ' ')
+                        {
+                            // create a new vector of neighbours containing 'U':
+                            Common::Coords coordsBaseNew;
+                            coordsBaseNew.col = a;
+                            coordsBaseNew.row = b;
+                            std::vector<Common::Coords> neighboursZerosVectorNew;
+                            neighboursZerosVectorNew = findNeighbours(this->fieldArray, coordsBaseNew, 'U');
+                            if (neighboursZerosVectorNew.size() != 0)
+                                run = true;
+                        }
                     }
                 }
             }
         }
+        this->firstTurn = false;
+        }
     }
-
-
-    this->firstTurn = false;
 }
 
 void Field::onRightReleased()
 {
-    MyQPushButton *button = qobject_cast<MyQPushButton *>(sender());    
-    auto coords = gridPosition(button);
-    if (this->fieldArray[coords.col][coords.row] == ' ' || this->fieldArray[coords.col][coords.row] == 'F')
+    if (this->countCovered != 0)
     {
-        if (! isFlagSet(coords))
+        MyQPushButton *button = qobject_cast<MyQPushButton *>(sender());
+        auto coords = gridPosition(button);
+        if (this->fieldArray[coords.col][coords.row] == ' ' || this->fieldArray[coords.col][coords.row] == 'F')
         {
-            button->setIcon(QIcon(":/images/button_flag.png"));
-            this->fieldArray[coords.col][coords.row] = 'F';
-            this->flagsCount++;
-            this->minesLeft--;
-            this->countCovered--;
-        }
-        else
-        {
-            button->setIcon(QIcon(":/images/button_covered.png"));
-            this->fieldArray[coords.col][coords.row] = ' ';
-            this->flagsCount--;
-            this->minesLeft++;
-            this->countCovered++;
+            if (! isFlagSet(coords))
+            {
+                button->setStyleSheet(stylesheet_button_flag);
+                this->fieldArray[coords.col][coords.row] = 'F';
+                this->flagsCount++;
+                this->minesLeft--;
+                this->countCovered--;
+            }
+            else
+            {
+                button->setStyleSheet(stylesheet_button_covered);
+                this->fieldArray[coords.col][coords.row] = ' ';
+                this->flagsCount--;
+                this->minesLeft++;
+                this->countCovered++;
+            }
         }
     }
 }

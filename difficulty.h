@@ -24,11 +24,8 @@ public:
 
 private slots:
     void on_button_small_clicked();
-
     void on_button_medium_clicked();
-
     void on_button_large_clicked();
-
     void on_button_custom_clicked();
 
 signals:

@@ -27,6 +27,8 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete field;
+    field = nullptr;
 }
 
 void clearLayout(QLayout * layout) {
