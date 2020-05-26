@@ -377,6 +377,70 @@ void Field::gameOver(Common::Coords const& coords, QString const& mode)
         this->cell[coords.col][coords.row].setStyleSheet(stylesheet_button_mine_hit);
 }
 
+// automatically uncover all neighbours of squares with no neighbor mines:
+void Field::autoReveal(std::vector<Common::Coords>& neighboursMinesVector)
+{
+    bool run = true;
+    if (neighboursMinesVector.size() == 0)
+    {
+        while (run == true)
+        {
+            // for each free position do:
+            for (int i = 1; i <= this->cols; i++)
+            {
+                for (int j = 1; j <= this->rows; j++)
+                {
+                    if (this->fieldArray[i][j] == ' ')
+                    {
+                        // create a new vector of neighbours containing a '0':
+                        Common::Coords coordsBase;
+                        coordsBase.col = i;
+                        coordsBase.row = j;
+                        std::vector<Common::Coords> neighboursZerosVector;
+                        neighboursZerosVector = findNeighbours(this->fieldArray, coordsBase, '0');
+
+
+                        // if there is a neighbour containing a '0' create a new vector of neighbours containing mines:
+                        if (neighboursZerosVector.size() != 0)
+                        {
+                            std::vector<Common::Coords> neighboursMinesVectorNew;
+                            neighboursMinesVectorNew = findNeighbours(this->minesArray, coordsBase, 'X');
+
+                            // place neighboursMinesVectorNew.size() in fieldArray:
+                            Common::Coords coordsTemp;
+                            coordsTemp.col = i;
+                            coordsTemp.row = j;
+                            printNumber(coordsTemp, neighboursMinesVectorNew.size());
+                            this->countCovered--;
+                        }
+                    }
+                }
+            }
+            run = false;
+
+            // repeat if necessary:
+            for (int a = 1; a <= this->cols; a++)
+            {
+                for (int b = 1; b <= this->rows; b++)
+                {
+                    if (this->fieldArray[a][b] == ' ')
+                    {
+                        // create a new vector of neighbours containing '0':
+                        Common::Coords coordsBaseNew;
+                        coordsBaseNew.col = a;
+                        coordsBaseNew.row = b;
+                        std::vector<Common::Coords> neighboursZerosVectorNew;
+                        neighboursZerosVectorNew = findNeighbours(this->fieldArray, coordsBaseNew, '0');
+                        if (neighboursZerosVectorNew.size() != 0)
+                            run = true;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
 // handle left clicking on a cell:
 void Field::onLeftReleased()
 {
@@ -407,65 +471,7 @@ void Field::onLeftReleased()
                 this->countCovered--;
             }
 
-            // automatically uncover all neighbours of squares with no neighbor mines:
-            bool run = true;
-            if (neighboursMinesVector.size() == 0)
-            {
-                while (run == true)
-                {
-                    // for each free position do:
-                    for (int i = 1; i <= this->cols; i++)
-                    {
-                        for (int j = 1; j <= this->rows; j++)
-                        {
-                            if (this->fieldArray[i][j] == ' ')
-                            {
-                                // create a new vector of neighbours containing a '0':
-                                Common::Coords coordsBase;
-                                coordsBase.col = i;
-                                coordsBase.row = j;
-                                std::vector<Common::Coords> neighboursZerosVector;
-                                neighboursZerosVector = findNeighbours(this->fieldArray, coordsBase, '0');
-
-
-                                // if there is a neighbour containing a '0' create a new vector of neighbours containing mines:
-                                if (neighboursZerosVector.size() != 0)
-                                {
-                                    std::vector<Common::Coords> neighboursMinesVectorNew;
-                                    neighboursMinesVectorNew = findNeighbours(this->minesArray, coordsBase, 'X');
-
-                                    // place neighboursMinesVectorNew.size() in fieldArray:
-                                    Common::Coords coordsTemp;
-                                    coordsTemp.col = i;
-                                    coordsTemp.row = j;
-                                    printNumber(coordsTemp, neighboursMinesVectorNew.size());
-                                    this->countCovered--;
-                                }
-                            }
-                        }
-                    }
-                    run = false;
-
-                    // repeat if necessary:
-                    for (int a = 1; a <= this->cols; a++)
-                    {
-                        for (int b = 1; b <= this->rows; b++)
-                        {
-                            if (this->fieldArray[a][b] == ' ')
-                            {
-                                // create a new vector of neighbours containing '0':
-                                Common::Coords coordsBaseNew;
-                                coordsBaseNew.col = a;
-                                coordsBaseNew.row = b;
-                                std::vector<Common::Coords> neighboursZerosVectorNew;
-                                neighboursZerosVectorNew = findNeighbours(this->fieldArray, coordsBaseNew, '0');
-                                if (neighboursZerosVectorNew.size() != 0)
-                                    run = true;
-                            }
-                        }
-                    }
-                }
-            }
+            autoReveal(neighboursMinesVector);
             this->firstTurn = false;
         }
     }
@@ -575,7 +581,7 @@ void Field::onDoubleClicked()
                     // else if all flags are placed correctly:
                     else
                     {
-                        qDebug() << "Working";
+                        std::vector<Common::Coords> autoUncoverNeighboursCoveredMinesVector;
                         if (autoUncoverNeighboursMinesVector.size() == autoUncoverNeighboursFlagsVector.size())
                         {
                             // for each not uncovered neighbour of coords, print the number of surrounding mines:
@@ -584,12 +590,12 @@ void Field::onDoubleClicked()
                                 Common::Coords coordsTemp;
                                 coordsTemp.col = autoUncoverNeighboursCoveredVector.at(i).col;
                                 coordsTemp.row = autoUncoverNeighboursCoveredVector.at(i).row;
-                                std::vector<Common::Coords> autoUncoverNeighboursCoveredMinesVector;
                                 autoUncoverNeighboursCoveredMinesVector = findNeighbours(this->minesArray, coordsTemp, 'X');
                                 printNumber(coordsTemp, autoUncoverNeighboursCoveredMinesVector.size());
                                 this->countCovered--;
                             }
                         }
+                        autoReveal(autoUncoverNeighboursCoveredMinesVector);
                     }
                 }
             }

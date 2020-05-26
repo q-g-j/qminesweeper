@@ -43,6 +43,7 @@ private:
     void printNumber(Common::Coords const&, int const&);
     Common::Coords gridPosition(Cell*);
     std::vector<Common::Coords> findNeighbours(char** tempArray, Common::Coords const& coords, char const& content);
+    void autoReveal(std::vector<Common::Coords>&);
     void gameOver(Common::Coords const&, QString const&);
 public:
     explicit Field(QWidget *parent = nullptr, int const& cols = 9, int const& rows = 9, int const& mines = 10, int const& cellSize = 25);
