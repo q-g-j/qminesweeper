@@ -27,10 +27,10 @@ public:
     };
 
 private slots:
-    void on_button_small_clicked();
-    void on_button_medium_clicked();
-    void on_button_large_clicked();
-    void on_button_custom_clicked();
+
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_clicked();
 
 signals:
     void buttonClicked(Difficulty::DifficultyStruct const&);

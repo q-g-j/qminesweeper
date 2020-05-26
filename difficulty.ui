@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>378</width>
-    <height>217</height>
+    <width>339</width>
+    <height>220</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -20,57 +20,39 @@
    <string>Choose difficulty</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="sizeConstraint">
+    <enum>QLayout::SetFixedSize</enum>
+   </property>
    <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_main">
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_mode">
+      <layout class="QVBoxLayout" name="verticalLayout_mode" stretch="0,0,0,0">
+       <property name="sizeConstraint">
+        <enum>QLayout::SetDefaultConstraint</enum>
+       </property>
        <item>
-        <widget class="QPushButton" name="button_small">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+        <widget class="QRadioButton" name="radioButton_easy">
          <property name="text">
-          <string>Small</string>
+          <string>Easy</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="button_medium">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+        <widget class="QRadioButton" name="radioButton_advanced">
          <property name="text">
-          <string>Medium</string>
+          <string>Advanced </string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="button_large">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+        <widget class="QRadioButton" name="radioButton_expert">
          <property name="text">
-          <string>Large</string>
+          <string>Expert</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="button_custom">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+        <widget class="QRadioButton" name="radioButton_custom">
          <property name="text">
           <string>Custom</string>
          </property>
@@ -294,7 +276,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Mines:</string>
+          <string>Mines: </string>
          </property>
         </widget>
        </item>
@@ -307,7 +289,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Mines:</string>
+          <string>Mines: </string>
          </property>
         </widget>
        </item>
@@ -320,7 +302,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Mines:</string>
+          <string>Mines: </string>
          </property>
         </widget>
        </item>
@@ -333,7 +315,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Mines:</string>
+          <string>Mines: </string>
          </property>
         </widget>
        </item>
@@ -362,7 +344,7 @@
           <enum>Qt::LeftToRight</enum>
          </property>
          <property name="text">
-          <string>10</string>
+          <string> 10</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -387,7 +369,7 @@
           <enum>Qt::LeftToRight</enum>
          </property>
          <property name="text">
-          <string>40</string>
+          <string> 40</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -412,7 +394,7 @@
           <enum>Qt::LeftToRight</enum>
          </property>
          <property name="text">
-          <string>99</string>
+          <string> 99</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -439,8 +421,75 @@
      </item>
     </layout>
    </item>
+   <item row="1" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="text">
+        <string>Start Game</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>Cancel</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>lineEdit_custom_cols</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>radioButton_custom</receiver>
+   <slot>toggle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>163</x>
+     <y>156</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>55</x>
+     <y>156</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdit_custom_rows</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>radioButton_custom</receiver>
+   <slot>toggle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>215</x>
+     <y>149</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>69</x>
+     <y>150</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdit_custom_mines</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>radioButton_custom</receiver>
+   <slot>toggle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>309</x>
+     <y>164</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>53</x>
+     <y>160</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
