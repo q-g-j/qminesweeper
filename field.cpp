@@ -90,6 +90,10 @@ Field::Field(QWidget *parent, int const& cols, int const& rows, int const& mines
 
 Field::~Field()
 {
+    for (int i=0; i <= cols; i++)
+        delete[] this->cell[i];
+    delete[] this->cell;
+    cell = nullptr;
 }
 
 char** Field::createArray()
