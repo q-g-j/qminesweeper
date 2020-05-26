@@ -93,7 +93,14 @@ Field::~Field()
     for (int i=0; i <= cols; i++)
         delete[] this->cell[i];
     delete[] this->cell;
-    cell = nullptr;
+
+    for (int i=0; i <= cols; i++)
+        delete[] this->fieldArray[i];
+    delete[] this->fieldArray;
+
+    for (int i=0; i <= cols; i++)
+        delete[] this->minesArray[i];
+    delete[] this->minesArray;
 }
 
 char** Field::createArray()
