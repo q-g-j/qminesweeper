@@ -575,21 +575,19 @@ void Field::onDoubleClicked()
                     // else if all flags are placed correctly:
                     else
                     {
+                        qDebug() << "Working";
                         if (autoUncoverNeighboursMinesVector.size() == autoUncoverNeighboursFlagsVector.size())
                         {
-                            if (autoUncoverNeighboursCoveredVector.size() != 0)
+                            // for each not uncovered neighbour of coords, print the number of surrounding mines:
+                            for (int i = 0; i < static_cast<int>(autoUncoverNeighboursCoveredVector.size()); i++)
                             {
-                                // for each not uncovered neighbour of coords, print the number of surrounding mines:
-                                for (int i = 0; i < static_cast<int>(autoUncoverNeighboursCoveredVector.size()); i++)
-                                {
-                                    Common::Coords coordsTemp;
-                                    coordsTemp.col = autoUncoverNeighboursCoveredVector.at(i).col;
-                                    coordsTemp.row = autoUncoverNeighboursCoveredVector.at(i).row;
-                                    std::vector<Common::Coords> autoUncoverNeighboursCoveredMinesVector;
-                                    autoUncoverNeighboursCoveredMinesVector = findNeighbours(this->minesArray, coordsTemp, 'X');
-                                    printNumber(coordsTemp, autoUncoverNeighboursCoveredMinesVector.size());
-                                    this->countCovered--;
-                                }
+                                Common::Coords coordsTemp;
+                                coordsTemp.col = autoUncoverNeighboursCoveredVector.at(i).col;
+                                coordsTemp.row = autoUncoverNeighboursCoveredVector.at(i).row;
+                                std::vector<Common::Coords> autoUncoverNeighboursCoveredMinesVector;
+                                autoUncoverNeighboursCoveredMinesVector = findNeighbours(this->minesArray, coordsTemp, 'X');
+                                printNumber(coordsTemp, autoUncoverNeighboursCoveredMinesVector.size());
+                                this->countCovered--;
                             }
                         }
                     }
