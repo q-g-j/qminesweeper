@@ -33,9 +33,7 @@ private slots:
     void on_button_custom_clicked();
 
 signals:
-    void buttonClicked(DifficultyStruct const&);
+    void buttonClicked(Difficulty::DifficultyStruct const&);
 };
-
-typedef struct Difficulty::DifficultyStruct DifficultyStruct;
 
 #endif // DIFFICULTY_H

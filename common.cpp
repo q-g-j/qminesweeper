@@ -1,12 +1,8 @@
-#include "time.h"
-
 #if defined(_WIN32) || defined(WIN32) || defined(_WIN64) || defined(WIN64)
-    #include <fcntl.h>
-    #include <io.h>
-    #include <stdio.h>
     #include <windows.h>
 #else
     #include <random>
+    #include "time.h"
 #endif
 
 #include "common.h"

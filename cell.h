@@ -1,8 +1,8 @@
-#ifndef MYQPUSHBUTTON_H
-#define MYQPUSHBUTTON_H
+#ifndef CELL_H
+#define CELL_H
 
-#include <QPushButton>
 #include <QMouseEvent>
+#include <QPushButton>
 
 class Cell : public QPushButton
 {
@@ -13,15 +13,12 @@ public:
 
 protected:
     void mouseDoubleClickEvent(QMouseEvent *e);
-    void mousePressEvent(QMouseEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
     //    void mouseMoveEvent(QMouseEvent *e);
 signals:
     void doubleClicked();
-    void leftPressed();
-    void rightPressed();
     void leftReleased();
     void rightReleased();
 };
 
-#endif // MYQPUSHBUTTON_H
+#endif // CELL_H

@@ -1,8 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
 #include <QGridLayout>
+#include <QMainWindow>
+
 #include "difficulty.h"
 #include "field.h"
 
@@ -18,17 +19,16 @@ private:
     Ui::MainWindow *ui;
     QGridLayout *layout;
     Field *field;
+    int cols, rows;
 
-    void newGame(DifficultyStruct const&);
+    void newGame(Difficulty::DifficultyStruct const&);
 
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    int cols, rows;
-
 private slots:
-    void new_game_slot(DifficultyStruct const&);
+    void new_game_slot(Difficulty::DifficultyStruct const&);
 
 //protected:
 //    virtual void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;

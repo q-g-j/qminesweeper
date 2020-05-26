@@ -1,12 +1,5 @@
 #include "mainwindow.h"
-
 #include "ui_mainwindow.h"
-#include "ui_difficulty.h"
-
-#include <QSizePolicy>
-#include <QGridLayout>
-#include <QPushButton>
-#include <QThread>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -14,36 +7,31 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    DifficultyStruct difficulty;
+    Difficulty::DifficultyStruct difficulty;
     difficulty.cols = 9;
     difficulty.rows = 9;
     difficulty.mines = 10;
-
-//    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-
     newGame(difficulty);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete field;
-    field = nullptr;
 }
 
-void clearLayout(QLayout * layout) {
-   if (! layout)
-      return;
-   while (auto item = layout->takeAt(0)) {
-      delete item->widget();
-      clearLayout(item->layout());
-   }
-}
+//void clearLayout(QLayout * layout) {
+//   if (! layout)
+//      return;
+//   while (auto item = layout->takeAt(0)) {
+//      delete item->widget();
+//      clearLayout(item->layout());
+//   }
+//}
 
-void MainWindow::newGame(DifficultyStruct const& difficulty)
+void MainWindow::newGame(Difficulty::DifficultyStruct const& difficulty)
 {
     hide();
-    field = new Field(centralWidget(), difficulty.cols, difficulty.rows, difficulty.mines, 30);
+    field = new Field(this, difficulty.cols, difficulty.rows, difficulty.mines, 30);
     setCentralWidget(field);
     field->addCells();
     show();
@@ -51,16 +39,16 @@ void MainWindow::newGame(DifficultyStruct const& difficulty)
     adjustSize();
 }
 
+// open a dialog (difficulty.ui) to choose difficulty:
 void MainWindow::on_actionNew_triggered()
 {
     Difficulty difficulty(this);
-
-    connect(&difficulty, SIGNAL(buttonClicked(DifficultyStruct)), this, SLOT(new_game_slot(DifficultyStruct)));
+    connect(&difficulty, SIGNAL(buttonClicked(Difficulty::DifficultyStruct)), this, SLOT(new_game_slot(Difficulty::DifficultyStruct)));
     difficulty.setModal(true);
     difficulty.exec();
 }
 
-void MainWindow::new_game_slot(DifficultyStruct const& difficulty)
+void MainWindow::new_game_slot(Difficulty::DifficultyStruct const& difficulty)
 {
     newGame(difficulty);
 }

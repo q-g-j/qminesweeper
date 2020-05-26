@@ -1,24 +1,27 @@
-#ifndef WRAPPERWIDGET_H
-#define WRAPPERWIDGET_H
+#ifndef FIELD_H
+#define FIELD_H
 
-#include <QWidget>
 #include <QGridLayout>
-
-#include "common.h"
+#include <QWidget>
 
 #include "cell.h"
-
+#include "common.h"
 
 class Field : public QWidget
 {
      Q_OBJECT
-
 private:
     // private variables:
     int flagsCount;
     int minesLeft;
     int countCovered;
     bool gameover;
+    bool firstTurn;
+    char** fieldArray;
+    char** minesArray;
+    Cell** cell;
+
+    QGridLayout *layout;
 
     QString stylesheet_button_flag;
     QString stylesheet_button_mine;
@@ -37,45 +40,29 @@ private:
     // private methods:
     char** createArray();
     void fillMinesArray(Common::Coords&);
-    void printNumber(Common::Coords const&);
+    void printNumber(Common::Coords const&, int const&);
     Common::Coords gridPosition(Cell*);
     std::vector<Common::Coords> findNeighbours(char** tempArray, Common::Coords const& coords, char const& content);
     void gameOver(Common::Coords const&, QString const&);
-
 public:
     explicit Field(QWidget *parent = nullptr, int const& cols = 9, int const& rows = 9, int const& mines = 10, int const& cellSize = 25);
     ~Field();
-
 
     // public variables:
     int cellSize;
     int cols;
     int rows;
     int mines;
-    bool firstTurn;
-    char** fieldArray;
-    char** minesArray;
-
-    QGridLayout *layout;
-    Cell** cell;
 
     // public methods:
     void addCells();
     bool isFlagSet(Common::Coords&);
     bool isNumber(Common::Coords&);
-
-    // getters:
-    int getColumns();
-    int getRows();
-
 private slots:
-    void onDoubleClicked();
-    void onLeftPressed();
-    void onRightPressed();
     void onLeftReleased();
     void onRightReleased();
-
+    void onDoubleClicked();
 protected:
 };
 
-#endif // WRAPPERWIDGET_H
+#endif // FIELD_H

@@ -1,10 +1,7 @@
+#include <QMessageBox>
+
 #include "difficulty.h"
 #include "ui_difficulty.h"
-
-#include "field.h"
-#include "mainwindow.h"
-
-#include <QMessageBox>
 
 Difficulty::Difficulty(QWidget *parent) :
     QDialog(parent),
