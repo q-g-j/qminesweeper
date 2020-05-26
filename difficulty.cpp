@@ -16,7 +16,7 @@ Difficulty::Difficulty(QWidget *parent) :
     ui->lineEdit_custom_rows->setValidator(intValidatorRows);
     ui->lineEdit_custom_mines->setValidator(intValidatorMines);
     ui->radioButton_easy->setChecked(true);
-
+    ui->radioButton_easy->setFocus();
 }
 
 Difficulty::~Difficulty()
@@ -24,7 +24,7 @@ Difficulty::~Difficulty()
     delete ui;
 }
 
-void Difficulty::on_pushButton_2_clicked()
+void Difficulty::on_button_start_clicked()
 {
     if (ui->radioButton_easy->isChecked())
     {
@@ -81,9 +81,10 @@ void Difficulty::on_pushButton_2_clicked()
             emit buttonClicked(diff);
         }
     }
+
 }
 
-void Difficulty::on_pushButton_clicked()
+void Difficulty::on_button_cancel_clicked()
 {
     close();
 }
