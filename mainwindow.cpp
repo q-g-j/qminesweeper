@@ -1,13 +1,21 @@
+#include <QSizePolicy>
+#include <QSize>
+#include <QDebug>
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "fieldlayout.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
     Difficulty::DifficultyStruct difficulty;
+    fieldWrapperLayout = new FieldLayout;
+    ui->fieldwrapper->setLayout(fieldWrapperLayout);
     difficulty.cols = 9;
     difficulty.rows = 9;
     difficulty.mines = 10;
@@ -19,23 +27,32 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-//void clearLayout(QLayout * layout) {
-//   if (! layout)
-//      return;
-//   while (auto item = layout->takeAt(0)) {
-//      delete item->widget();
-//      clearLayout(item->layout());
-//   }
-//}
+void clearLayout(QLayout *layout) {
+    QLayoutItem *item;
+    while((item = layout->takeAt(0))) {
+        if (item->layout()) {
+            clearLayout(item->layout());
+            delete item->layout();
+        }
+        if (item->widget()) {
+           delete item->widget();
+        }
+        delete item;
+    }
+}
 
 void MainWindow::newGame(Difficulty::DifficultyStruct const& difficulty)
 {
-    hide();
-    field = new Field(this, difficulty.cols, difficulty.rows, difficulty.mines, 30);
-    setCentralWidget(field);
+    field = new Field(difficulty.cols, difficulty.rows, difficulty.mines, 30);
     field->addCells();
-    show();
-    centralWidget()->setMinimumSize(field->cols * (field->cellSize) + 20, field->rows * (field->cellSize) + 20);
+    clearLayout(fieldWrapperLayout);
+    fieldWrapperLayout->addWidget(field);
+    connect(this, SIGNAL(colsChanged(const int&)), fieldWrapperLayout, SLOT(onColsChanged(const int&)));
+    connect(this, SIGNAL(rowsChanged(const int&)), fieldWrapperLayout, SLOT(onRowsChanged(const int&)));
+    emit colsChanged(field->cols);
+    emit rowsChanged(field->rows);
+    centralWidget()->adjustSize();
+    ui->fieldwrapper->setMinimumSize(field->cols * (field->cellSize), field->rows * (field->cellSize));
     adjustSize();
 }
 

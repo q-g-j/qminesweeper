@@ -2,15 +2,16 @@
 #include <QFile>
 #include <QMessageBox>
 #include <QSizePolicy>
+#include <QGridLayout>
 
 #include <vector>
 
 #include "cell.h"
 #include "common.h"
 #include "field.h"
+#include "mainwindow.h"
 
-Field::Field(QWidget *parent, int const& cols, int const& rows, int const& mines, int const& cellSize)
-: QWidget(parent)
+Field::Field(int const& cols, int const& rows, int const& mines, int const& cellSize)
 {
     this->firstTurn = true;
     this->cols = cols;
@@ -28,10 +29,8 @@ Field::Field(QWidget *parent, int const& cols, int const& rows, int const& mines
         this->cell[i] = new Cell[this->rows + 1];
 
     layout = new QGridLayout;
-    layout->setHorizontalSpacing(0);
-    layout->setVerticalSpacing(0);
-    layout->setAlignment(Qt::AlignCenter);
-//    layout->setSizeConstraint(QLayout::SetFixedSize);
+    layout->setSpacing(0);
+    layout->setMargin(0);
     setLayout(layout);
 
     QFile file_button_flag      (":/stylesheet/button_flag.qss");
@@ -144,9 +143,9 @@ void Field::addCells()
     {
         for (int j = 1; j <= this->rows; j++)
         {
-            this->cell[i][j].setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+            this->cell[i][j].setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
             this->cell[i][j].setStyleSheet(stylesheet_button_covered);
-            this->cell[i][j].setFixedSize(this->cellSize, this->cellSize);
+            //this->cell[i][j].setFixedSize(this->cellSize, this->cellSize);
             layout->addWidget(&this->cell[i][j], j - 1, i - 1, 1, 1);
             connect(&this->cell[i][j], SIGNAL(doubleClicked()), this, SLOT(onDoubleClicked()));
             connect(&this->cell[i][j], SIGNAL(leftReleased()), this, SLOT(onLeftReleased()));
@@ -438,7 +437,6 @@ void Field::autoReveal(std::vector<Common::Coords>& neighboursMinesVector)
             }
         }
     }
-
 }
 
 // handle left clicking on a cell:
@@ -471,6 +469,7 @@ void Field::onLeftReleased()
                 this->countCovered--;
             }
 
+            // automatically uncover all neighbours of squares with no neighbor mines:
             autoReveal(neighboursMinesVector);
             this->firstTurn = false;
         }
@@ -595,6 +594,8 @@ void Field::onDoubleClicked()
                                 this->countCovered--;
                             }
                         }
+
+                        // automatically uncover all neighbours of squares with no neighbor mines:
                         autoReveal(autoUncoverNeighboursCoveredMinesVector);
                     }
                 }

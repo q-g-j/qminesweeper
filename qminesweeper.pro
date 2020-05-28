@@ -20,6 +20,7 @@ SOURCES += \
     common.cpp \
     difficulty.cpp \
     field.cpp \
+    fieldlayout.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -28,6 +29,7 @@ HEADERS += \
     common.h \
     difficulty.h \
     field.h \
+    fieldlayout.h \
     mainwindow.h
 
 FORMS += \
