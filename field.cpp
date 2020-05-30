@@ -11,7 +11,7 @@
 #include "field.h"
 #include "mainwindow.h"
 
-Field::Field(int const& cols, int const& rows, int const& mines, int const& cellSize)
+Field::Field(QWidget *parent, int const& cols, int const& rows, int const& mines, int const& cellSize) : QWidget(parent)
 {
     this->firstTurn = true;
     this->cols = cols;
@@ -361,7 +361,7 @@ void Field::gameOver(Common::Coords const& coords, QString const& mode)
             coordsTemp.row = j;
             std::vector<Common::Coords> neighboursMinesVector;
             neighboursMinesVector = findNeighbours(this->minesArray, coordsTemp, 'X');
-            printNumber(coordsTemp, neighboursMinesVector.size());
+            printNumber(coordsTemp, static_cast<int>(neighboursMinesVector.size()));
             if (this->minesArray[i][j] == 'X')
             {
                 this->cell[i][j].setStyleSheet(stylesheet_button_mine);
@@ -409,7 +409,7 @@ void Field::autoReveal(std::vector<Common::Coords>& neighboursMinesVector)
                             Common::Coords coordsTemp;
                             coordsTemp.col = i;
                             coordsTemp.row = j;
-                            printNumber(coordsTemp, neighboursMinesVectorNew.size());
+                            printNumber(coordsTemp, static_cast<int>(neighboursMinesVectorNew.size()));
                             this->countCovered--;
                         }
                     }
@@ -465,7 +465,7 @@ void Field::onLeftReleased()
             {
                 // uncover the players choice and place the number of surrounding mines in it:
                 neighboursMinesVector = findNeighbours(this->minesArray, coordsTemp, 'X');
-                printNumber(coordsTemp, neighboursMinesVector.size());
+                printNumber(coordsTemp, static_cast<int>(neighboursMinesVector.size()));
                 this->countCovered--;
             }
 
@@ -590,7 +590,7 @@ void Field::onDoubleClicked()
                                 coordsTemp.col = autoUncoverNeighboursCoveredVector.at(i).col;
                                 coordsTemp.row = autoUncoverNeighboursCoveredVector.at(i).row;
                                 autoUncoverNeighboursCoveredMinesVector = findNeighbours(this->minesArray, coordsTemp, 'X');
-                                printNumber(coordsTemp, autoUncoverNeighboursCoveredMinesVector.size());
+                                printNumber(coordsTemp, static_cast<int>(autoUncoverNeighboursCoveredMinesVector.size()));
                                 this->countCovered--;
                             }
                         }

@@ -21,6 +21,7 @@ private:
     FieldLayout *fieldWrapperLayout;
     Field *field;
     int cols, rows;
+    int cellSize;
 
     void newGame(Difficulty::DifficultyStruct const&);
 

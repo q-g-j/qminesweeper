@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>405</width>
-    <height>194</height>
+    <width>350</width>
+    <height>192</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -51,7 +51,7 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
+         <width>30</width>
          <height>30</height>
         </size>
        </property>
@@ -112,6 +112,12 @@
      </item>
      <item row="2" column="3">
       <widget class="QLabel" name="label_large_x">
+       <property name="maximumSize">
+        <size>
+         <width>10</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="text">
         <string>x</string>
        </property>
@@ -160,6 +166,12 @@
      </item>
      <item row="1" column="5">
       <widget class="QLabel" name="label_medium_mines">
+       <property name="maximumSize">
+        <size>
+         <width>30</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="text">
         <string>Mines: </string>
        </property>
@@ -181,7 +193,7 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
+         <width>30</width>
          <height>30</height>
         </size>
        </property>
@@ -195,6 +207,12 @@
      </item>
      <item row="1" column="3">
       <widget class="QLabel" name="label_medium_x">
+       <property name="maximumSize">
+        <size>
+         <width>10</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="text">
         <string>x</string>
        </property>
@@ -219,7 +237,7 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
+         <width>70</width>
          <height>30</height>
         </size>
        </property>
@@ -230,6 +248,12 @@
      </item>
      <item row="0" column="3">
       <widget class="QLabel" name="label_small_x">
+       <property name="maximumSize">
+        <size>
+         <width>10</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="text">
         <string>x</string>
        </property>
@@ -264,7 +288,7 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
+         <width>30</width>
          <height>30</height>
         </size>
        </property>
@@ -292,7 +316,7 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
+         <width>70</width>
          <height>30</height>
         </size>
        </property>
@@ -331,6 +355,12 @@
      </item>
      <item row="0" column="5">
       <widget class="QLabel" name="label_small_mines">
+       <property name="maximumSize">
+        <size>
+         <width>30</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="text">
         <string>Mines: </string>
        </property>
@@ -352,7 +382,7 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
+         <width>70</width>
          <height>30</height>
         </size>
        </property>
@@ -373,6 +403,12 @@
      </item>
      <item row="2" column="5">
       <widget class="QLabel" name="label_large_mines">
+       <property name="maximumSize">
+        <size>
+         <width>30</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="text">
         <string>Mines: </string>
        </property>
@@ -408,6 +444,12 @@
      </item>
      <item row="3" column="3">
       <widget class="QLabel" name="label_custom_x">
+       <property name="maximumSize">
+        <size>
+         <width>10</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="text">
         <string>x</string>
        </property>
@@ -432,7 +474,7 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
+         <width>70</width>
          <height>30</height>
         </size>
        </property>
@@ -457,7 +499,7 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
+         <width>30</width>
          <height>30</height>
         </size>
        </property>
@@ -471,16 +513,10 @@
      </item>
      <item row="3" column="2">
       <widget class="QLineEdit" name="lineEdit_custom_cols">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>30</height>
-        </size>
-       </property>
        <property name="maximumSize">
         <size>
          <width>30</width>
-         <height>30</height>
+         <height>16777215</height>
         </size>
        </property>
       </widget>
@@ -497,6 +533,12 @@
      </item>
      <item row="3" column="5">
       <widget class="QLabel" name="label_custom_mines">
+       <property name="maximumSize">
+        <size>
+         <width>30</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="text">
         <string>Mines: </string>
        </property>

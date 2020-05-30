@@ -13,12 +13,18 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
+    // width and height of a cell in pixels:
+    this->cellSize = 25;
+
     Difficulty::DifficultyStruct difficulty;
-    fieldWrapperLayout = new FieldLayout;
-    ui->fieldwrapper->setLayout(fieldWrapperLayout);
+
+    // start in easy mode:
     difficulty.cols = 9;
     difficulty.rows = 9;
     difficulty.mines = 10;
+    fieldWrapperLayout = new FieldLayout(ui->fieldwrapper, cellSize);
+    ui->fieldwrapper->setLayout(fieldWrapperLayout);
+
     newGame(difficulty);
 }
 
@@ -43,7 +49,8 @@ void clearLayout(QLayout *layout) {
 
 void MainWindow::newGame(Difficulty::DifficultyStruct const& difficulty)
 {
-    field = new Field(difficulty.cols, difficulty.rows, difficulty.mines, 30);
+    field = new Field(ui->fieldwrapper, difficulty.cols, difficulty.rows, difficulty.mines, this->cellSize);
+    ui->fieldwrapper->setMinimumSize(field->cols * (field->cellSize), field->rows * (field->cellSize));
     field->addCells();
     clearLayout(fieldWrapperLayout);
     fieldWrapperLayout->addWidget(field);
@@ -52,7 +59,6 @@ void MainWindow::newGame(Difficulty::DifficultyStruct const& difficulty)
     emit colsChanged(field->cols);
     emit rowsChanged(field->rows);
     centralWidget()->adjustSize();
-    ui->fieldwrapper->setMinimumSize(field->cols * (field->cellSize), field->rows * (field->cellSize));
     adjustSize();
 }
 

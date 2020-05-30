@@ -47,7 +47,7 @@ private:
     void autoReveal(std::vector<Common::Coords>&);
     void gameOver(Common::Coords const&, QString const&);
 public:
-    explicit Field(int const& cols = 9, int const& rows = 9, int const& mines = 10, int const& cellSize = 25);
+    explicit Field(QWidget *parent = nullptr, int const& cols = 9, int const& rows = 9, int const& mines = 10, int const& cellSize = 25);
     ~Field();
 
     // public variables:
@@ -64,8 +64,6 @@ private slots:
     void onLeftReleased();
     void onRightReleased();
     void onDoubleClicked();
-protected:
-signals:
 };
 
 #endif // FIELD_H
