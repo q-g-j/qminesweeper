@@ -18,8 +18,8 @@ private:
     int countCovered;
     bool gameover;
     bool firstTurn;
-    char** fieldArray;
-    char** minesArray;
+    std::vector<std::vector<char>> fieldArray;
+    std::vector<std::vector<char>> minesArray;
     Cell** cell;
 
     QGridLayout *layout;
@@ -39,13 +39,14 @@ private:
     QString stylesheet_button_8;
 
     // private methods:
-    char** createArray();
+    std::vector<std::vector<char>> createArray();
     void fillMinesArray(Common::Coords&);
-    void printNumber(Common::Coords const&, int const&);
+    void printNumber(Common::Coords&, int const&);
     Common::Coords gridPosition(Cell*);
-    std::vector<Common::Coords> findNeighbours(char** tempArray, Common::Coords const& coords, char const& content);
-    void autoReveal(std::vector<Common::Coords>&);
-    void gameOver(Common::Coords const&, QString const&);
+    std::vector<Common::Coords> findNeighbours(std::vector<std::vector<char>> tempArray, Common::Coords const& coords, char const& content);
+    void autoReveal(Common::Coords const&, std::vector<int>&);
+    void flagAutoUncover(Common::Coords const&);
+    void gameOver(Common::Coords&, QString const&);
 public:
     explicit Field(QWidget *parent = nullptr, int const& cols = 9, int const& rows = 9, int const& mines = 10, int const& cellSize = 25);
     ~Field();
@@ -59,7 +60,7 @@ public:
     // public methods:
     void addCells();
     bool isFlagSet(Common::Coords&);
-    bool isNumber(Common::Coords&);
+    bool isNumber(Common::Coords);
 private slots:
     void onLeftReleased();
     void onRightReleased();

@@ -43,9 +43,8 @@ Common::Coords Common::intToStruct(int& position, int& cols)
 // the above function the other way around
 int Common::structToInt(Common::Coords& coords, int& cols)
 {
-    int position = 0;
     if (coords.row == 1)
-        return position = coords.col;
+        return coords.col;
     else
-        return position = (cols) * (coords.row-1) + coords.col;
+        return cols * (coords.row - 1) + coords.col;
 }
