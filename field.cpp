@@ -185,7 +185,7 @@ bool Field::isNumber(Common::Coords coords)
 // find neighbours of a cell at "coords" that hold a given content (passed by variable content)
 std::vector<Common::Coords> Field::findNeighbours(std::vector<std::vector<char>> tempArray, Common::Coords const& coords, char const& content)
 {
-    std::vector<Common::Coords> findneighboursReturn;
+    std::vector<Common::Coords> findNeighboursReturn;
     std::array<std::array<int, 2>, 8> neighboursArray;
     neighboursArray.at(0) = { -1, -1 };
     neighboursArray.at(1) = {  0, -1 };
@@ -214,7 +214,7 @@ std::vector<Common::Coords> Field::findNeighbours(std::vector<std::vector<char>>
                         Common::Coords tempCoords;
                         tempCoords.col = coords.col + neighboursArray[x][0];
                         tempCoords.row = coords.row + neighboursArray[x][1];
-                        findneighboursReturn.push_back(tempCoords);
+                        findNeighboursReturn.push_back(tempCoords);
                     }
                 }
             }
@@ -223,11 +223,11 @@ std::vector<Common::Coords> Field::findNeighbours(std::vector<std::vector<char>>
                 Common::Coords tempCoords;
                 tempCoords.col = coords.col + neighboursArray[x][0];
                 tempCoords.row = coords.row + neighboursArray[x][1];
-                findneighboursReturn.push_back(tempCoords);
+                findNeighboursReturn.push_back(tempCoords);
             }
         }
     }
-    return findneighboursReturn;
+    return findNeighboursReturn;
 }
 
 // print the number of surrounding mines in this->cell[coords.col][coords.row]:
@@ -327,9 +327,18 @@ void Field::autoReveal(Common::Coords const& coords, std::vector<int>& poolVecto
         {
             if (this->minesArray[neighboursCoveredVector.at(i).col][neighboursCoveredVector.at(i).row] != 'X')
             {
-                poolVector.push_back(Common::structToInt(neighboursCoveredVector.at(i), this->cols));
-                printNumber(neighboursCoveredVector.at(i), neighboursMinesVector.size());
-                --this->countCovered;
+                std::vector<Common::Coords> neighboursUncoveredVector;
+                neighboursUncoveredVector = findNeighbours(this->fieldArray, neighboursCoveredVector.at(i), '0');
+                if (neighboursUncoveredVector.size() == 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    poolVector.push_back(Common::structToInt(neighboursCoveredVector.at(i), this->cols));
+                    printNumber(neighboursCoveredVector.at(i), neighboursMinesVector.size());
+                    --this->countCovered;
+                }
             }
         }
         if (neighboursMinesVector.size() == 0)
