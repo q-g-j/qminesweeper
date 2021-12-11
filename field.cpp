@@ -21,6 +21,7 @@ Field::Field(QWidget *parent, const int& cols, const int& rows, const int& mines
     this->fieldArray = createArray();
     this->minesArray = createArray();
     this->minesLeft = mines;
+    this->flagsCount = 0;
     this->countCovered = cols * rows;
     this->gameover = false;
     createCell();
