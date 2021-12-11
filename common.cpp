@@ -18,7 +18,7 @@ void Common::setRandomSeed()
 }
 
 // convert coords in type integer to coords in type struct (e.g. position = 4 will return coords.col = 4, coords.row = 1):
-Common::Coords Common::intToStruct(int& position, int& cols)
+Common::Coords Common::intToStruct(const int& position, const int& cols)
 {
     Common::Coords coords;
 
@@ -41,7 +41,7 @@ Common::Coords Common::intToStruct(int& position, int& cols)
 }
 
 // the above function the other way around
-int Common::structToInt(Common::Coords& coords, int& cols)
+int Common::structToInt(const Common::Coords& coords, const int& cols)
 {
     if (coords.row == 1)
         return coords.col;

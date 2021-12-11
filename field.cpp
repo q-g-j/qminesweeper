@@ -4,14 +4,14 @@
 #include <QSizePolicy>
 #include <QGridLayout>
 
-#include <vector>
+#include <QVector>
 
 #include "cell.h"
 #include "common.h"
 #include "field.h"
 #include "mainwindow.h"
 
-Field::Field(QWidget *parent, int const& cols, int const& rows, int const& mines, int const& cellSize) : QWidget(parent)
+Field::Field(QWidget *parent, const int& cols, const int& rows, const int& mines, const int& cellSize) : QWidget(parent)
 {
     this->firstTurn = true;
     this->cols = cols;
@@ -23,14 +23,11 @@ Field::Field(QWidget *parent, int const& cols, int const& rows, int const& mines
     this->minesLeft = mines;
     this->countCovered = cols * rows;
     this->gameover = false;
-    this->flagsCount = 0;
-    this->cell = new Cell*[this->cols + 1];
-    for (int i=0; i < (this->cols + 1); i++)
-        this->cell[i] = new Cell[this->rows + 1];
+    createCell();
 
     layout = new QGridLayout;
     layout->setSpacing(0);
-    layout->setMargin(0);
+    layout->setContentsMargins(0,0,0,0);
     setLayout(layout);
 
     QFile file_button_flag      (":/stylesheet/button_flag.qss");
@@ -94,12 +91,12 @@ Field::~Field()
     delete[] this->cell;
 }
 
-std::vector<std::vector<char>> Field::createArray()
+QVector<QVector<char>> Field::createArray()
 {
-    std::vector<std::vector<char>> temp2DVector;
+    QVector<QVector<char>> temp2DVector;
     for(int i = 0; i <= this->cols; ++i)
     {
-        std::vector<char> row;
+        QVector<char> row;
         for(int j = 0; j <= this->rows; ++j)
         {
             row.push_back(' ');
@@ -109,12 +106,19 @@ std::vector<std::vector<char>> Field::createArray()
     return temp2DVector;
 }
 
+void Field::createCell()
+{
+    this->cell = new Cell*[this->cols + 1];
+    for (int i=0; i < (this->cols + 1); i++)
+        this->cell[i] = new Cell[this->rows + 1];
+}
+
 // place mines at random positions of this->minesArray[][]:
-void Field::fillMinesArray(Common::Coords& userFirstInput)
+void Field::fillMinesArray(const Common::Coords& userFirstInput)
 {
     Common::Coords coords;
     int sizeOfFieldArray = this->cols * this->rows;
-    std::vector<int> tempVector;
+    QVector<int> tempVector;
     for (int i = 1; i <= sizeOfFieldArray; i++)
     {
         if (i != Common::structToInt(userFirstInput, this->cols))
@@ -163,7 +167,7 @@ Common::Coords Field::gridPosition(Cell* button)
 }
 
 // test coords if they contain a flag:
-bool Field::isFlagSet(Common::Coords& coords)
+bool Field::isFlagSet(const Common::Coords& coords)
 {
     if (this->fieldArray[coords.col][coords.row] == 'F')
         return true;
@@ -172,7 +176,7 @@ bool Field::isFlagSet(Common::Coords& coords)
 }
 
 // test coords if they contain a number:
-bool Field::isNumber(Common::Coords coords)
+bool Field::isNumber(const Common::Coords& coords)
 {
     for (int i = 1; i < 8; i++)
     {
@@ -183,9 +187,9 @@ bool Field::isNumber(Common::Coords coords)
 }
 
 // find neighbours of a cell at "coords" that hold a given content (passed by variable content)
-std::vector<Common::Coords> Field::findNeighbours(std::vector<std::vector<char>> tempArray, Common::Coords const& coords, char const& content)
+QVector<Common::Coords> Field::findNeighbours(const QVector<QVector<char>>& tempArray, const Common::Coords& coords, const char& content)
 {
-    std::vector<Common::Coords> findNeighboursReturn;
+    QVector<Common::Coords> findNeighboursReturn;
     std::array<std::array<int, 2>, 8> neighboursArray;
     neighboursArray.at(0) = { -1, -1 };
     neighboursArray.at(1) = {  0, -1 };
@@ -231,7 +235,7 @@ std::vector<Common::Coords> Field::findNeighbours(std::vector<std::vector<char>>
 }
 
 // print the number of surrounding mines in this->cell[coords.col][coords.row]:
-void Field::printNumber(Common::Coords& coords, const int &number)
+void Field::printNumber(const Common::Coords& coords, const int& number)
 {
     if (number == 0)
     {
@@ -284,7 +288,7 @@ void Field::printNumber(Common::Coords& coords, const int &number)
 }
 
 // used for both winning and losing a game (mode = "win" or "lose"):
-void Field::gameOver(Common::Coords& coords, QString const& mode)
+void Field::gameOver(const Common::Coords& coords, const QString& mode)
 {
     this->gameover = true;
 
@@ -295,7 +299,7 @@ void Field::gameOver(Common::Coords& coords, QString const& mode)
             Common::Coords coordsTemp;
             coordsTemp.col = i;
             coordsTemp.row = j;
-            std::vector<Common::Coords> neighboursMinesVector;
+            QVector<Common::Coords> neighboursMinesVector;
             neighboursMinesVector = findNeighbours(this->minesArray, coordsTemp, 'X');
             printNumber(coordsTemp, static_cast<int>(neighboursMinesVector.size()));
             if (this->minesArray[i][j] == 'X')
@@ -313,21 +317,21 @@ void Field::gameOver(Common::Coords& coords, QString const& mode)
 }
 
 // automatically uncover all connected cells, as long as they have no neighbour mines:
-void Field::autoReveal(Common::Coords const& coords, std::vector<int>& poolVector)
+void Field::autoReveal(const Common::Coords& coords, QVector<int>& poolVector)
 {
     // create vector holding covered neighbours:
-    std::vector<Common::Coords> neighboursCoveredVector;
+    QVector<Common::Coords> neighboursCoveredVector;
     neighboursCoveredVector = findNeighbours(this->fieldArray, coords, ' ');
 
-    for (size_t i = 0; i < neighboursCoveredVector.size(); ++i)
+    for (int i = 0; i < neighboursCoveredVector.size(); ++i)
     {
-        std::vector<Common::Coords> neighboursMinesVector;
+        QVector<Common::Coords> neighboursMinesVector;
         neighboursMinesVector = findNeighbours(this->minesArray, neighboursCoveredVector.at(i), 'X');
         if (std::find(poolVector.begin(), poolVector.end(), Common::structToInt(neighboursCoveredVector.at(i), this->cols)) == poolVector.end())
         {
             if (this->minesArray[neighboursCoveredVector.at(i).col][neighboursCoveredVector.at(i).row] != 'X')
             {
-                std::vector<Common::Coords> neighboursUncoveredVector;
+                QVector<Common::Coords> neighboursUncoveredVector;
                 neighboursUncoveredVector = findNeighbours(this->fieldArray, neighboursCoveredVector.at(i), '0');
                 if (neighboursUncoveredVector.size() == 0)
                 {
@@ -348,32 +352,32 @@ void Field::autoReveal(Common::Coords const& coords, std::vector<int>& poolVecto
     }
 }
 
-void Field::flagAutoUncover(Common::Coords const& coords)
+void Field::flagAutoUncover(const Common::Coords& coords)
 {
     // create a new vector of surrounding flags:
-    std::vector<Common::Coords> flagUncoverNeighboursFlagsVector;
+    QVector<Common::Coords> flagUncoverNeighboursFlagsVector;
     flagUncoverNeighboursFlagsVector = findNeighbours(this->fieldArray, coords, 'F');
 
     // if player has placed some flags around UserInput.coords:
     if (flagUncoverNeighboursFlagsVector.size() != 0)
     {
         // create a new vector of surrounding mines:
-        std::vector<Common::Coords> flagUncoverNeighboursMinesVector;
+        QVector<Common::Coords> flagUncoverNeighboursMinesVector;
         flagUncoverNeighboursMinesVector = findNeighbours(this->minesArray, coords, 'X');
 
         // only proceed if the flag number matches the number of actual surrounding mines:
         if (flagUncoverNeighboursMinesVector.size() == flagUncoverNeighboursFlagsVector.size())
         {
             // create a new vector of surrounding covered squares:
-            std::vector<Common::Coords> flagUncoverNeighboursCoveredVector;
+            QVector<Common::Coords> flagUncoverNeighboursCoveredVector;
             flagUncoverNeighboursCoveredVector = findNeighbours(this->fieldArray, coords, ' ');
 
             // create a new empty vector for missed mines:
-            std::vector<Common::Coords> flagUncoverMissedMinesVector;
+            QVector<Common::Coords> flagUncoverMissedMinesVector;
 
             // for each covered neighbour of userInput.coords check if the player has missed a mine
             // and add this mines position to flagUncoverMissedMinesVector:
-            for (size_t i = 0; i < flagUncoverNeighboursCoveredVector.size(); ++i)
+            for (int i = 0; i < flagUncoverNeighboursCoveredVector.size(); ++i)
             {
                 if (this->minesArray[flagUncoverNeighboursCoveredVector.at(i).col][flagUncoverNeighboursCoveredVector.at(i).row] == 'X')
                 {
@@ -383,7 +387,7 @@ void Field::flagAutoUncover(Common::Coords const& coords)
             // if there are missed mines, reveal the minesArray - player has lost:
             if (flagUncoverMissedMinesVector.size() != 0)
             {
-                for (size_t i = 0; i < flagUncoverMissedMinesVector.size(); ++i)
+                for (int i = 0; i < flagUncoverMissedMinesVector.size(); ++i)
                 {
                     this->minesArray[flagUncoverMissedMinesVector.at(i).col][flagUncoverMissedMinesVector.at(i).row] = 'H';
                 }
@@ -397,14 +401,14 @@ void Field::flagAutoUncover(Common::Coords const& coords)
                 if (flagUncoverNeighboursMinesVector.size() == flagUncoverNeighboursFlagsVector.size())
                 {
                     // create a pool of already uncovered cells, to avoid double checks within autoUncoverRecursive():
-                    std::vector<int> poolVector;
+                    QVector<int> poolVector;
                     // for each covered neighbour of userInput.coords, print the number of surrounding mines:
-                    for (size_t i = 0; i < flagUncoverNeighboursCoveredVector.size(); ++i)
+                    for (int i = 0; i < flagUncoverNeighboursCoveredVector.size(); ++i)
                     {
                         Common::Coords tempCoords;
                         tempCoords.col = flagUncoverNeighboursCoveredVector.at(i).col;
                         tempCoords.row = flagUncoverNeighboursCoveredVector.at(i).row;
-                        std::vector<Common::Coords> flagUncoverNeighboursCoveredMinesVector;
+                        QVector<Common::Coords> flagUncoverNeighboursCoveredMinesVector;
                         flagUncoverNeighboursCoveredMinesVector = findNeighbours(this->minesArray, tempCoords, 'X');
 
                         if (flagUncoverNeighboursCoveredMinesVector.size() == 0)
@@ -444,7 +448,7 @@ void Field::onLeftReleased()
 
         if (fieldArray[coordsTemp.col][coordsTemp.row] != 'F' && (! isNumber(coordsTemp)))
         {
-            std::vector<Common::Coords> neighboursMinesVector;
+            QVector<Common::Coords> neighboursMinesVector;
 
             // fill minesArray with mines only once after users first guess:
             if (this->firstTurn)
@@ -465,7 +469,7 @@ void Field::onLeftReleased()
             }
 
             // automatically uncover all neighbours of squares with no neighbour mines:
-            std::vector<int> poolVector;
+            QVector<int> poolVector;
             autoReveal(coordsTemp, poolVector);
             this->firstTurn = false;
         }

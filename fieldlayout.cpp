@@ -4,11 +4,11 @@
 
 #include "fieldlayout.h"
 
-FieldLayout::FieldLayout(QWidget *parent, int const& cellSize) :
+FieldLayout::FieldLayout(QWidget *parent, const int& cellSize) :
     QGridLayout(parent)
 {
     setSpacing(0);
-    setMargin(0);
+    setContentsMargins(0,0,0,0);
 
     this->cellSize = cellSize;
 }
@@ -42,13 +42,13 @@ void FieldLayout::setGeometry(const QRect& oldRect)
     itemAt(0)->setGeometry(newRect);
 }
 
-void FieldLayout::onColsChanged(int const& cols)
+void FieldLayout::onColsChanged(const int& cols)
 {
     this->cols = cols;
     this->colsChanged = true;
 }
 
-void FieldLayout::onRowsChanged(int const& rows)
+void FieldLayout::onRowsChanged(const int& rows)
 {
     this->rows = rows;
 }

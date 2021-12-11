@@ -23,20 +23,20 @@ private:
     int cols, rows;
     int cellSize;
 
-    void newGame(Difficulty::DifficultyStruct const&);
+    void newGame(const Difficulty::DifficultyStruct&);
 
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
-    void new_game_slot(Difficulty::DifficultyStruct const&);
+    void new_game_slot(const Difficulty::DifficultyStruct&);
     void on_actionNew_triggered();
     void on_actionQuit_triggered();
 
 protected:
 signals:
-    void colsChanged(int const&);
-    void rowsChanged(int const&);
+    void colsChanged(const int&);
+    void rowsChanged(const int&);
 };
 #endif // MAINWINDOW_H

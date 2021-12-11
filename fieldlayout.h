@@ -9,13 +9,13 @@ class FieldLayout : public QGridLayout
 {
 Q_OBJECT
 public:
-    explicit FieldLayout(QWidget *parent = nullptr, int const& cellSize = 0);
+    explicit FieldLayout(QWidget *parent = nullptr, const int& cellSize = 0);
  
 signals:
  
 public slots:
-    void onColsChanged(int const&);
-    void onRowsChanged(int const&);
+    void onColsChanged(const int&);
+    void onRowsChanged(const int&);
  
 protected:
     void setGeometry(const QRect& oldRect) override;

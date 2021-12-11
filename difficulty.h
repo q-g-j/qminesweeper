@@ -32,7 +32,7 @@ private slots:
     void on_button_cancel_clicked();
 
 signals:
-    void buttonClicked(Difficulty::DifficultyStruct const&);
+    void buttonClicked(const Difficulty::DifficultyStruct&);
 };
 
 #endif // DIFFICULTY_H

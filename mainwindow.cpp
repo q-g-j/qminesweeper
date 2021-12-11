@@ -47,7 +47,7 @@ void clearLayout(QLayout *layout) {
     }
 }
 
-void MainWindow::newGame(Difficulty::DifficultyStruct const& difficulty)
+void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty)
 {
     field = new Field(ui->fieldwrapper, difficulty.cols, difficulty.rows, difficulty.mines, this->cellSize);
     ui->fieldwrapper->setMinimumSize(field->cols * (field->cellSize), field->rows * (field->cellSize));
@@ -71,7 +71,7 @@ void MainWindow::on_actionNew_triggered()
     difficulty.exec();
 }
 
-void MainWindow::new_game_slot(Difficulty::DifficultyStruct const& difficulty)
+void MainWindow::new_game_slot(const Difficulty::DifficultyStruct& difficulty)
 {
     newGame(difficulty);
 }
