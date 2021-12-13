@@ -3,6 +3,7 @@
 
 #include <QSize>
 #include <QWidget>
+#include <QLabel>
 #include <QGridLayout>
 
 #include "cell.h"
@@ -21,6 +22,7 @@ private:
     QVector<QVector<char>> fieldArray;
     QVector<QVector<char>> minesArray;
     Cell** cell;
+    QLabel *labelMinesLeft;
 
     QGridLayout *layout;
 
@@ -49,7 +51,7 @@ private:
     void flagAutoUncover(const Common::Coords&);
     void gameOver(const Common::Coords&, const QString&);
 public:
-    explicit Field(QWidget *parent = nullptr, const int& cols = 9, const int& rows = 9, const int& mines = 10, const int& cellSize = 25);
+    explicit Field(QWidget *parent = nullptr, const int& cols = 9, const int& rows = 9, const int& mines = 10, const int& cellSize = 25, QLabel *labelMinesLeft = nullptr);
     ~Field();
 
     // public variables:
@@ -66,6 +68,9 @@ private slots:
     void onLeftReleased();
     void onRightReleased();
     void onDoubleClicked();
+    void on_minesLeft_changed();
+signals:
+    void minesLeftChanged();
 };
 
 #endif // FIELD_H

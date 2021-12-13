@@ -4,7 +4,6 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "fieldlayout.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -22,8 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
     difficulty.cols = 9;
     difficulty.rows = 9;
     difficulty.mines = 10;
-    fieldWrapperLayout = new FieldLayout(ui->fieldwrapper, cellSize);
-    ui->fieldwrapper->setLayout(fieldWrapperLayout);
+
+    fieldLayout = new QGridLayout(ui->fieldWrapper);
 
     newGame(difficulty);
 }
@@ -49,17 +48,18 @@ void clearLayout(QLayout *layout) {
 
 void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty)
 {
-    field = new Field(ui->fieldwrapper, difficulty.cols, difficulty.rows, difficulty.mines, this->cellSize);
-    ui->fieldwrapper->setMinimumSize(field->cols * (field->cellSize), field->rows * (field->cellSize));
+    clearLayout(fieldLayout);
+    ui->fieldWrapper->setLayout(fieldLayout);
+    fieldLayout->setSpacing(0);
+    fieldLayout->setContentsMargins(0,0,0,0);
+
+    field = new Field(ui->fieldWrapper, difficulty.cols, difficulty.rows, difficulty.mines, this->cellSize, ui->labelMinesLeft);
+    ui->fieldWrapper->setMinimumSize(field->cols * (field->cellSize), field->rows * (field->cellSize));
     field->addCells();
-    clearLayout(fieldWrapperLayout);
-    fieldWrapperLayout->addWidget(field);
-    connect(this, SIGNAL(colsChanged(const int&)), fieldWrapperLayout, SLOT(onColsChanged(const int&)));
-    connect(this, SIGNAL(rowsChanged(const int&)), fieldWrapperLayout, SLOT(onRowsChanged(const int&)));
-    emit colsChanged(field->cols);
-    emit rowsChanged(field->rows);
+    fieldLayout->addWidget(field);
     centralWidget()->adjustSize();
-    adjustSize();
+    this->adjustSize();
+    this->setFixedSize(this->size().width(), this->size().height());
 }
 
 // open a dialog (difficulty.ui) to choose difficulty:

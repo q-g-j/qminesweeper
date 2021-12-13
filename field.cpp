@@ -11,7 +11,7 @@
 #include "field.h"
 #include "mainwindow.h"
 
-Field::Field(QWidget *parent, const int& cols, const int& rows, const int& mines, const int& cellSize) : QWidget(parent)
+Field::Field(QWidget *parent, const int& cols, const int& rows, const int& mines, const int& cellSize, QLabel *labelMinesLeft_) : QWidget(parent)
 {
     this->firstTurn = true;
     this->cols = cols;
@@ -24,7 +24,10 @@ Field::Field(QWidget *parent, const int& cols, const int& rows, const int& mines
     this->flagsCount = 0;
     this->countCovered = cols * rows;
     this->gameover = false;
+    this->labelMinesLeft = labelMinesLeft_;
     createCell();
+    connect(this, SIGNAL(minesLeftChanged()), this, SLOT(on_minesLeft_changed()));
+    emit minesLeftChanged();
 
     layout = new QGridLayout;
     layout->setSpacing(0);
@@ -140,9 +143,9 @@ void Field::addCells()
     {
         for (int j = 1; j <= this->rows; j++)
         {
-            this->cell[i][j].setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+//            this->cell[i][j].setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
             this->cell[i][j].setStyleSheet(stylesheet_button_covered);
-            //this->cell[i][j].setFixedSize(this->cellSize, this->cellSize);
+            this->cell[i][j].setFixedSize(this->cellSize, this->cellSize);
             layout->addWidget(&this->cell[i][j], j - 1, i - 1, 1, 1);
             connect(&this->cell[i][j], SIGNAL(doubleClicked()), this, SLOT(onDoubleClicked()));
             connect(&this->cell[i][j], SIGNAL(leftReleased()), this, SLOT(onLeftReleased()));
@@ -300,9 +303,9 @@ void Field::gameOver(const Common::Coords& coords, const QString& mode)
             Common::Coords coordsTemp;
             coordsTemp.col = i;
             coordsTemp.row = j;
-            QVector<Common::Coords> neighboursMinesVector;
-            neighboursMinesVector = findNeighbours(this->minesArray, coordsTemp, 'X');
-            printNumber(coordsTemp, static_cast<int>(neighboursMinesVector.size()));
+            QVector<Common::Coords> neighboursMinesVector = findNeighbours(this->minesArray, coordsTemp, 'X');
+            QVector<Common::Coords> neighboursMinesHitVector = findNeighbours(this->minesArray, coordsTemp, 'H');
+            printNumber(coordsTemp, static_cast<int>(neighboursMinesVector.size() + neighboursMinesHitVector.size()));
             if (this->minesArray[i][j] == 'X')
             {
                 this->cell[i][j].setStyleSheet(stylesheet_button_mine);
@@ -315,6 +318,8 @@ void Field::gameOver(const Common::Coords& coords, const QString& mode)
     }
     if (mode == "lose")
         this->cell[coords.col][coords.row].setStyleSheet(stylesheet_button_mine_hit);
+    this->minesLeft = 0;
+    emit minesLeftChanged();
 }
 
 // automatically uncover all connected cells, as long as they have no neighbour mines:
@@ -393,8 +398,8 @@ void Field::flagAutoUncover(const Common::Coords& coords)
                     this->minesArray[flagUncoverMissedMinesVector.at(i).col][flagUncoverMissedMinesVector.at(i).row] = 'H';
                 }
                 this->gameover = true;
-                Common::Coords dummyCoords;
-                gameOver(dummyCoords, "lost");
+//                Common::Coords coords;
+                gameOver(coords, "lost");
             }
             // else if all flags are placed correctly:
             else
@@ -524,6 +529,7 @@ void Field::onRightReleased()
             }
         }
     }
+    emit minesLeftChanged();
 }
 
 // auto-reveal safe cells with no neighbour mines by double clicking on a number
@@ -539,4 +545,9 @@ void Field::onDoubleClicked()
             flagAutoUncover(coords);
         }
     }
+}
+
+void Field::on_minesLeft_changed()
+{
+    this->labelMinesLeft->setText(QString::number(this->minesLeft));
 }

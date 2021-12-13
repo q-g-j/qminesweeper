@@ -6,7 +6,6 @@
 
 #include "difficulty.h"
 #include "field.h"
-#include "fieldlayout.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,7 +17,7 @@ class MainWindow : public QMainWindow
 
 private:
     Ui::MainWindow *ui;
-    FieldLayout *fieldWrapperLayout;
+    QGridLayout *fieldLayout;
     Field *field;
     int cols, rows;
     int cellSize;
@@ -33,10 +32,6 @@ private slots:
     void new_game_slot(const Difficulty::DifficultyStruct&);
     void on_actionNew_triggered();
     void on_actionQuit_triggered();
-
 protected:
-signals:
-    void colsChanged(const int&);
-    void rowsChanged(const int&);
 };
 #endif // MAINWINDOW_H
