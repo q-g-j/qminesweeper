@@ -332,9 +332,9 @@ void Field::autoReveal(const Common::Coords& coords, QVector<int>& poolVector)
         {
             if (this->minesArray[neighboursCoveredVector.at(i).col][neighboursCoveredVector.at(i).row] != 'X')
             {
-                QVector<Common::Coords> neighboursUncoveredVector;
-                neighboursUncoveredVector = findNeighbours(this->fieldArray, neighboursCoveredVector.at(i), '0');
-                if (neighboursUncoveredVector.size() == 0)
+                QVector<Common::Coords> neighboursZerosVector;
+                neighboursZerosVector = findNeighbours(this->fieldArray, neighboursCoveredVector.at(i), '0');
+                if (neighboursZerosVector.size() == 0)
                 {
                     continue;
                 }
