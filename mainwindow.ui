@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>910</width>
-    <height>647</height>
+    <width>561</width>
+    <height>374</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -221,6 +221,7 @@
           <font>
            <family>Bahnschrift Light Condensed</family>
            <pointsize>15</pointsize>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -264,6 +265,7 @@
           <font>
            <family>Bahnschrift Light Condensed</family>
            <pointsize>15</pointsize>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -301,6 +303,7 @@
           <font>
            <family>Bahnschrift Light Condensed</family>
            <pointsize>15</pointsize>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -344,6 +347,7 @@
           <font>
            <family>Bahnschrift Light Condensed</family>
            <pointsize>15</pointsize>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -387,6 +391,7 @@
           <font>
            <family>Bahnschrift Light Condensed</family>
            <pointsize>15</pointsize>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -429,7 +434,7 @@
       <property name="minimumSize">
        <size>
         <width>0</width>
-        <height>80</height>
+        <height>300</height>
        </size>
       </property>
      </widget>
@@ -441,8 +446,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>910</width>
-     <height>21</height>
+     <width>561</width>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuGame">
