@@ -26,5 +26,9 @@
         <file>stylesheet/button_mine_hit.qss</file>
         <file>stylesheet/button_uncovered.qss</file>
         <file>stylesheet/button_flag.qss</file>
+        <file>stylesheet/infobar_smiley_won.qss</file>
+        <file>stylesheet/infobar_smiley_lost.qss</file>
+        <file>stylesheet/infobar_smiley.qss</file>
+        <file>stylesheet/infobar_smiley_pressed.qss</file>
     </qresource>
 </RCC>

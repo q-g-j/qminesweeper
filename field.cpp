@@ -9,9 +9,8 @@
 #include "cell.h"
 #include "common.h"
 #include "field.h"
-#include "mainwindow.h"
 
-Field::Field(QWidget *parent, const int& cols, const int& rows, const int& mines, const int& cellSize, QLabel *labelMinesLeft_) : QWidget(parent)
+Field::Field(QWidget *parent, const int& cols, const int& rows, const int& mines, const int& cellSize, QLabel *labelMinesLeft_, QPushButton *smiley_, Timer *timer_) : QWidget(parent)
 {
     this->firstTurn = true;
     this->cols = cols;
@@ -25,9 +24,11 @@ Field::Field(QWidget *parent, const int& cols, const int& rows, const int& mines
     this->countCovered = cols * rows;
     this->gameover = false;
     this->labelMinesLeft = labelMinesLeft_;
+    this->smiley = smiley_;
+    this->timer = timer_;
     createCell();
-    connect(this, SIGNAL(minesLeftChanged()), this, SLOT(on_minesLeft_changed()));
-    emit minesLeftChanged();
+
+    this->labelMinesLeft->setText(QString::number(this->minesLeft));
 
     layout = new QGridLayout;
     layout->setSpacing(0);
@@ -86,6 +87,23 @@ Field::Field(QWidget *parent, const int& cols, const int& rows, const int& mines
     file_button_6.close();
     file_button_7.close();
     file_button_8.close();
+
+    QFile smiley                (":/stylesheet/infobar_smiley.qss");
+    QFile smiley_pressed        (":/stylesheet/infobar_smiley_pressed.qss");
+    QFile smiley_won            (":/stylesheet/infobar_smiley_won.qss");
+    QFile smiley_lost           (":/stylesheet/infobar_smiley_lost.qss");
+    smiley.open                 (QFile::ReadOnly);
+    smiley_pressed.open         (QFile::ReadOnly);
+    smiley_won.open             (QFile::ReadOnly);
+    smiley_lost.open            (QFile::ReadOnly);
+    stylesheet_smiley =         QLatin1String(smiley.readAll());
+    stylesheet_smiley_pressed = QLatin1String(smiley_pressed.readAll());
+    stylesheet_smiley_won =     QLatin1String(smiley_won.readAll());
+    stylesheet_smiley_lost =    QLatin1String(smiley_lost.readAll());
+    smiley.close();
+    smiley_pressed.close();
+    smiley_won.close();
+    smiley_lost.close();
 }
 
 Field::~Field()
@@ -317,9 +335,15 @@ void Field::gameOver(const Common::Coords& coords, const QString& mode)
         }
     }
     if (mode == "lose")
+    {
         this->cell[coords.col][coords.row].setStyleSheet(stylesheet_button_mine_hit);
+        this->smiley->setStyleSheet(stylesheet_smiley_lost);
+    }
+    else
+        this->smiley->setStyleSheet(stylesheet_smiley_won);
     this->minesLeft = 0;
-    emit minesLeftChanged();
+    this->labelMinesLeft->setText(QString::number(this->minesLeft));
+    timer->keepGoing = false;
 }
 
 // automatically uncover all connected cells, as long as they have no neighbour mines:
@@ -398,8 +422,8 @@ void Field::flagAutoUncover(const Common::Coords& coords)
                     this->minesArray[flagUncoverMissedMinesVector.at(i).col][flagUncoverMissedMinesVector.at(i).row] = 'H';
                 }
                 this->gameover = true;
-//                Common::Coords coords;
-                gameOver(coords, "lost");
+                Common::Coords dummyCoords;
+                gameOver(dummyCoords, "lose");
             }
             // else if all flags are placed correctly:
             else
@@ -529,7 +553,7 @@ void Field::onRightReleased()
             }
         }
     }
-    emit minesLeftChanged();
+    this->labelMinesLeft->setText(QString::number(this->minesLeft));
 }
 
 // auto-reveal safe cells with no neighbour mines by double clicking on a number
@@ -545,9 +569,4 @@ void Field::onDoubleClicked()
             flagAutoUncover(coords);
         }
     }
-}
-
-void Field::on_minesLeft_changed()
-{
-    this->labelMinesLeft->setText(QString::number(this->minesLeft));
 }

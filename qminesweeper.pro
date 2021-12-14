@@ -19,14 +19,16 @@ SOURCES += \
     difficulty.cpp \
     field.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    timer.cpp
 
 HEADERS += \
     cell.h \
     common.h \
     difficulty.h \
     field.h \
-    mainwindow.h
+    mainwindow.h \
+    timer.h
 
 FORMS += \
     difficulty.ui \
@@ -53,4 +55,8 @@ DISTFILES += \
     stylesheet/button_flag.qss \
     stylesheet/button_mine.qss \
     stylesheet/button_mine_hit.qss \
-    stylesheet/button_uncovered.qss
+    stylesheet/button_uncovered.qss \
+    stylesheet/infobar_smiley.qss \
+    stylesheet/infobar_smiley_pressed.qss \
+    stylesheet/infobar_smiley_won.qss \
+    stylesheet/infobar_smiley_lost.qss

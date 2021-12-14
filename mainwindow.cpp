@@ -4,6 +4,7 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "timer.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -25,6 +26,23 @@ MainWindow::MainWindow(QWidget *parent)
     fieldLayout = new QGridLayout(ui->fieldWrapper);
 
     newGame(difficulty);
+    QFile smiley                (":/stylesheet/infobar_smiley.qss");
+    QFile smiley_pressed        (":/stylesheet/infobar_smiley_pressed.qss");
+    QFile smiley_won            (":/stylesheet/infobar_smiley_won.qss");
+    QFile smiley_lost           (":/stylesheet/infobar_smiley_lost.qss");
+    smiley.open                 (QFile::ReadOnly);
+    smiley_pressed.open         (QFile::ReadOnly);
+    smiley_won.open             (QFile::ReadOnly);
+    smiley_lost.open            (QFile::ReadOnly);
+    stylesheet_smiley =         QLatin1String(smiley.readAll());
+    stylesheet_smiley_pressed = QLatin1String(smiley_pressed.readAll());
+    stylesheet_smiley_won =     QLatin1String(smiley_won.readAll());
+    stylesheet_smiley_lost =    QLatin1String(smiley_lost.readAll());
+    smiley.close();
+    smiley_pressed.close();
+    smiley_won.close();
+    smiley_lost.close();
+    ui->smiley->setStyleSheet(stylesheet_smiley);
 }
 
 MainWindow::~MainWindow()
@@ -48,18 +66,21 @@ void clearLayout(QLayout *layout) {
 
 void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty)
 {
+    if (field != nullptr) delete field;
+    if (timer != nullptr) delete timer;
     clearLayout(fieldLayout);
     ui->fieldWrapper->setLayout(fieldLayout);
     fieldLayout->setSpacing(0);
     fieldLayout->setContentsMargins(0,0,0,0);
-
-    field = new Field(ui->fieldWrapper, difficulty.cols, difficulty.rows, difficulty.mines, this->cellSize, ui->labelMinesLeft);
+    timer = new Timer(ui->timerSeconds, ui->timerTenSeconds, ui->timerMinutes, ui->timerTenMinutes);
+    field = new Field(ui->fieldWrapper, difficulty.cols, difficulty.rows, difficulty.mines, this->cellSize, ui->labelMinesLeft, ui->smiley, timer);
     ui->fieldWrapper->setMinimumSize(field->cols * (field->cellSize), field->rows * (field->cellSize));
     field->addCells();
     fieldLayout->addWidget(field);
     centralWidget()->adjustSize();
     this->adjustSize();
     this->setFixedSize(this->size().width(), this->size().height());
+    ui->smiley->setStyleSheet(stylesheet_smiley);
 }
 
 // open a dialog (difficulty.ui) to choose difficulty:
@@ -79,4 +100,15 @@ void MainWindow::new_game_slot(const Difficulty::DifficultyStruct& difficulty)
 void MainWindow::on_actionQuit_triggered()
 {
     close();
+}
+
+void MainWindow::on_smiley_pressed()
+{
+    ui->smiley->setStyleSheet(stylesheet_smiley_pressed);
+}
+
+
+void MainWindow::on_smiley_released()
+{
+    ui->smiley->setStyleSheet(stylesheet_smiley);
 }

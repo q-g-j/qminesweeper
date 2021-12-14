@@ -8,6 +8,7 @@
 
 #include "cell.h"
 #include "common.h"
+#include "timer.h"
 
 class Field : public QWidget
 {
@@ -23,6 +24,8 @@ private:
     QVector<QVector<char>> minesArray;
     Cell** cell;
     QLabel *labelMinesLeft;
+    QPushButton *smiley;
+    Timer *timer;
 
     QGridLayout *layout;
 
@@ -40,6 +43,11 @@ private:
     QString stylesheet_button_7;
     QString stylesheet_button_8;
 
+    QString stylesheet_smiley;
+    QString stylesheet_smiley_pressed;
+    QString stylesheet_smiley_won;
+    QString stylesheet_smiley_lost;
+
     // private methods:
     QVector<QVector<char>> createArray();
     void createCell();
@@ -50,8 +58,9 @@ private:
     void autoReveal(const Common::Coords&, QVector<int>&);
     void flagAutoUncover(const Common::Coords&);
     void gameOver(const Common::Coords&, const QString&);
+
 public:
-    explicit Field(QWidget *parent = nullptr, const int& cols = 9, const int& rows = 9, const int& mines = 10, const int& cellSize = 25, QLabel *labelMinesLeft = nullptr);
+    explicit Field(QWidget *parent = nullptr, const int& cols = 9, const int& rows = 9, const int& mines = 10, const int& cellSize = 25, QLabel *labelMinesLeft = nullptr, QPushButton *smiley = nullptr, Timer *timer = nullptr);
     ~Field();
 
     // public variables:
@@ -68,9 +77,6 @@ private slots:
     void onLeftReleased();
     void onRightReleased();
     void onDoubleClicked();
-    void on_minesLeft_changed();
-signals:
-    void minesLeftChanged();
 };
 
 #endif // FIELD_H

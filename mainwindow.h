@@ -3,6 +3,7 @@
 
 #include <QGridLayout>
 #include <QMainWindow>
+#include "timer.h"
 
 #include "difficulty.h"
 #include "field.h"
@@ -18,20 +19,28 @@ class MainWindow : public QMainWindow
 private:
     Ui::MainWindow *ui;
     QGridLayout *fieldLayout;
-    Field *field;
+    Field *field = nullptr;
+    Timer *timer = nullptr;
     int cols, rows;
     int cellSize;
 
     void newGame(const Difficulty::DifficultyStruct&);
 
+    QString stylesheet_smiley;
+    QString stylesheet_smiley_pressed;
+    QString stylesheet_smiley_won;
+    QString stylesheet_smiley_lost;
+
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
 private slots:
     void new_game_slot(const Difficulty::DifficultyStruct&);
     void on_actionNew_triggered();
     void on_actionQuit_triggered();
+    void on_smiley_pressed();
+    void on_smiley_released();
+
 protected:
 };
 #endif // MAINWINDOW_H

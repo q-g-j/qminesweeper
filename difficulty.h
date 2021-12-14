@@ -28,7 +28,6 @@ public:
 
 private slots:
     void on_button_start_clicked();
-
     void on_button_cancel_clicked();
 
 signals:
