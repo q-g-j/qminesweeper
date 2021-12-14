@@ -569,4 +569,23 @@ void Field::onDoubleClicked()
             flagAutoUncover(coords);
         }
     }
+    // check if player has won:
+    if (this->flagsCount + this->countCovered == this->mines)
+    {
+        this->gameover = true;
+        for (int i = 1; i <= this->cols; i++)
+        {
+            for (int j = 1; j <= this->rows; j++)
+            {
+                if (this->minesArray[i][j] == 'X')
+                    this->cell[i][j].setStyleSheet(stylesheet_button_mine);
+                else
+                    this->cell[i][j].setStyleSheet(stylesheet_button_uncovered);
+            }
+        }
+        Common::Coords dummyCoords;
+        dummyCoords.col = 1;
+        dummyCoords.row = 1;
+        gameOver(dummyCoords, "win");
+    }
 }
