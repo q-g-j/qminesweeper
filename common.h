@@ -10,8 +10,8 @@ public:
         int row = 0;
     };
     static void setRandomSeed();
-    static Coords intToStruct(const int&, const int &);
-    static int structToInt(const Coords&, const int&);
+    static Coords intToCoords(const int&, const int&);
+    static int CoordsToInt(const Coords&, const int&);
 };
 
 #endif // COMMON_H

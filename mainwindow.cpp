@@ -16,8 +16,6 @@ MainWindow::MainWindow(QWidget *parent)
     // width and height of a cell in pixels:
     this->cellSize = 25;
 
-    Difficulty::DifficultyStruct difficulty;
-
     // start in easy mode:
     difficulty.cols = 9;
     difficulty.rows = 9;
@@ -26,10 +24,10 @@ MainWindow::MainWindow(QWidget *parent)
     fieldLayout = new QGridLayout(ui->fieldWrapper);
 
     newGame(difficulty);
-    QFile smiley                (":/stylesheet/infobar_smiley.qss");
-    QFile smiley_pressed        (":/stylesheet/infobar_smiley_pressed.qss");
-    QFile smiley_won            (":/stylesheet/infobar_smiley_won.qss");
-    QFile smiley_lost           (":/stylesheet/infobar_smiley_lost.qss");
+    QFile smiley                (":/stylesheet/infobar_smiley.css");
+    QFile smiley_pressed        (":/stylesheet/infobar_smiley_pressed.css");
+    QFile smiley_won            (":/stylesheet/infobar_smiley_won.css");
+    QFile smiley_lost           (":/stylesheet/infobar_smiley_lost.css");
     smiley.open                 (QFile::ReadOnly);
     smiley_pressed.open         (QFile::ReadOnly);
     smiley_won.open             (QFile::ReadOnly);
@@ -94,6 +92,9 @@ void MainWindow::on_actionNew_triggered()
 
 void MainWindow::new_game_slot(const Difficulty::DifficultyStruct& difficulty)
 {
+    this->difficulty.cols = difficulty.cols;
+    this->difficulty.rows = difficulty.rows;
+    this->difficulty.mines = difficulty.mines;
     newGame(difficulty);
 }
 
@@ -107,8 +108,11 @@ void MainWindow::on_smiley_pressed()
     ui->smiley->setStyleSheet(stylesheet_smiley_pressed);
 }
 
-
 void MainWindow::on_smiley_released()
 {
-    ui->smiley->setStyleSheet(stylesheet_smiley);
+    Difficulty::DifficultyStruct difficulty_;
+    difficulty_.cols = this->difficulty.cols;
+    difficulty_.rows = this->difficulty.rows;
+    difficulty_.mines = this->difficulty.mines;
+    this->newGame(difficulty_);
 }

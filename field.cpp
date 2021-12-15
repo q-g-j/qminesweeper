@@ -10,22 +10,22 @@
 #include "common.h"
 #include "field.h"
 
-Field::Field(QWidget *parent, const int& cols, const int& rows, const int& mines, const int& cellSize, QLabel *labelMinesLeft_, QPushButton *smiley_, Timer *timer_) : QWidget(parent)
+Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& mines_, const int& cellSize_, QLabel *labelMinesLeft_, QPushButton *smiley_, Timer *timer_) : QWidget(parent)
 {
-    this->firstTurn = true;
-    this->cols = cols;
-    this->rows = rows;
-    this->mines = mines;
-    this->cellSize = cellSize;
-    this->fieldArray = createArray();
-    this->minesArray = createArray();
-    this->minesLeft = mines;
-    this->flagsCount = 0;
-    this->countCovered = cols * rows;
-    this->gameover = false;
+    this->cols = cols_;
+    this->rows = rows_;
+    this->mines = mines_;
+    this->cellSize = cellSize_;
+    this->minesLeft = mines_;
     this->labelMinesLeft = labelMinesLeft_;
     this->smiley = smiley_;
     this->timer = timer_;
+    this->countCovered = cols_ * rows_;
+    this->flagsCount = 0;
+    this->firstTurn = true;
+    this->gameover = false;
+    this->fieldArray = createArray();
+    this->minesArray = createArray();
     createCell();
 
     this->labelMinesLeft->setText(QString::number(this->minesLeft));
@@ -35,19 +35,19 @@ Field::Field(QWidget *parent, const int& cols, const int& rows, const int& mines
     layout->setContentsMargins(0,0,0,0);
     setLayout(layout);
 
-    QFile file_button_flag      (":/stylesheet/button_flag.qss");
-    QFile file_button_mine      (":/stylesheet/button_mine.qss");
-    QFile file_button_mine_hit  (":/stylesheet/button_mine_hit.qss");
-    QFile file_button_covered   (":/stylesheet/button_covered.qss");
-    QFile file_button_uncovered (":/stylesheet/button_uncovered.qss");
-    QFile file_button_1         (":/stylesheet/button_1.qss");
-    QFile file_button_2         (":/stylesheet/button_2.qss");
-    QFile file_button_3         (":/stylesheet/button_3.qss");
-    QFile file_button_4         (":/stylesheet/button_4.qss");
-    QFile file_button_5         (":/stylesheet/button_5.qss");
-    QFile file_button_6         (":/stylesheet/button_6.qss");
-    QFile file_button_7         (":/stylesheet/button_7.qss");
-    QFile file_button_8         (":/stylesheet/button_8.qss");
+    QFile file_button_flag      (":/stylesheet/button_flag.css");
+    QFile file_button_mine      (":/stylesheet/button_mine.css");
+    QFile file_button_mine_hit  (":/stylesheet/button_mine_hit.css");
+    QFile file_button_covered   (":/stylesheet/button_covered.css");
+    QFile file_button_uncovered (":/stylesheet/button_uncovered.css");
+    QFile file_button_1         (":/stylesheet/button_1.css");
+    QFile file_button_2         (":/stylesheet/button_2.css");
+    QFile file_button_3         (":/stylesheet/button_3.css");
+    QFile file_button_4         (":/stylesheet/button_4.css");
+    QFile file_button_5         (":/stylesheet/button_5.css");
+    QFile file_button_6         (":/stylesheet/button_6.css");
+    QFile file_button_7         (":/stylesheet/button_7.css");
+    QFile file_button_8         (":/stylesheet/button_8.css");
     file_button_flag.open       (QFile::ReadOnly);
     file_button_mine.open       (QFile::ReadOnly);
     file_button_mine_hit.open   (QFile::ReadOnly);
@@ -88,10 +88,10 @@ Field::Field(QWidget *parent, const int& cols, const int& rows, const int& mines
     file_button_7.close();
     file_button_8.close();
 
-    QFile smiley                (":/stylesheet/infobar_smiley.qss");
-    QFile smiley_pressed        (":/stylesheet/infobar_smiley_pressed.qss");
-    QFile smiley_won            (":/stylesheet/infobar_smiley_won.qss");
-    QFile smiley_lost           (":/stylesheet/infobar_smiley_lost.qss");
+    QFile smiley                (":/stylesheet/infobar_smiley.css");
+    QFile smiley_pressed        (":/stylesheet/infobar_smiley_pressed.css");
+    QFile smiley_won            (":/stylesheet/infobar_smiley_won.css");
+    QFile smiley_lost           (":/stylesheet/infobar_smiley_lost.css");
     smiley.open                 (QFile::ReadOnly);
     smiley_pressed.open         (QFile::ReadOnly);
     smiley_won.open             (QFile::ReadOnly);
@@ -143,14 +143,14 @@ void Field::fillMinesArray(const Common::Coords& userFirstInput)
     QVector<int> tempVector;
     for (int i = 1; i <= sizeOfFieldArray; i++)
     {
-        if (i != Common::structToInt(userFirstInput, this->cols))
+        if (i != Common::CoordsToInt(userFirstInput, this->cols))
             tempVector.push_back(i);
     }
 
     std::random_shuffle(tempVector.begin(), tempVector.end());
     for (int i = 0; i < this->mines; i++)
     {
-        coords = Common::intToStruct(tempVector.at(i), this->cols);
+        coords = Common::intToCoords(tempVector.at(i), this->cols);
         this->minesArray[coords.col][coords.row] = 'X';
     }
 }
@@ -357,7 +357,7 @@ void Field::autoReveal(const Common::Coords& coords, QVector<int>& poolVector)
     {
         QVector<Common::Coords> neighboursMinesVector;
         neighboursMinesVector = findNeighbours(this->minesArray, neighboursCoveredVector.at(i), 'X');
-        if (std::find(poolVector.begin(), poolVector.end(), Common::structToInt(neighboursCoveredVector.at(i), this->cols)) == poolVector.end())
+        if (std::find(poolVector.begin(), poolVector.end(), Common::CoordsToInt(neighboursCoveredVector.at(i), this->cols)) == poolVector.end())
         {
             if (this->minesArray[neighboursCoveredVector.at(i).col][neighboursCoveredVector.at(i).row] != 'X')
             {
@@ -369,7 +369,7 @@ void Field::autoReveal(const Common::Coords& coords, QVector<int>& poolVector)
                 }
                 else
                 {
-                    poolVector.push_back(Common::structToInt(neighboursCoveredVector.at(i), this->cols));
+                    poolVector.push_back(Common::CoordsToInt(neighboursCoveredVector.at(i), this->cols));
                     printNumber(neighboursCoveredVector.at(i), neighboursMinesVector.size());
                     --this->countCovered;
                 }
@@ -443,20 +443,20 @@ void Field::flagAutoUncover(const Common::Coords& coords)
 
                         if (flagUncoverNeighboursCoveredMinesVector.size() == 0)
                         {
-                            if (std::find(poolVector.begin(), poolVector.end(), Common::structToInt(tempCoords, this->cols)) == poolVector.end())
+                            if (std::find(poolVector.begin(), poolVector.end(), Common::CoordsToInt(tempCoords, this->cols)) == poolVector.end())
                             {
                                 printNumber(tempCoords, 0);
-                                poolVector.push_back(Common::structToInt(tempCoords, this->cols));
+                                poolVector.push_back(Common::CoordsToInt(tempCoords, this->cols));
                                 --this->countCovered;
                                 autoReveal(tempCoords, poolVector);
                             }
                         }
                         else
                         {
-                            if (std::find(poolVector.begin(), poolVector.end(), Common::structToInt(tempCoords, this->cols)) == poolVector.end())
+                            if (std::find(poolVector.begin(), poolVector.end(), Common::CoordsToInt(tempCoords, this->cols)) == poolVector.end())
                             {
                                 printNumber(tempCoords, static_cast<int>(flagUncoverNeighboursCoveredMinesVector.size()));
-                                poolVector.push_back(Common::structToInt(tempCoords, this->cols));
+                                poolVector.push_back(Common::CoordsToInt(tempCoords, this->cols));
                                 --this->countCovered;
                             }
                         }

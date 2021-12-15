@@ -1,6 +1,6 @@
 QT += core gui widgets
 
-CONFIG += c++11
+CONFIG += c++14
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -43,20 +43,20 @@ RESOURCES += \
     resources.qrc
 
 DISTFILES += \
-    stylesheet/button_1.qss \
-    stylesheet/button_2.qss \
-    stylesheet/button_3.qss \
-    stylesheet/button_4.qss \
-    stylesheet/button_5.qss \
-    stylesheet/button_6.qss \
-    stylesheet/button_7.qss \
-    stylesheet/button_8.qss \
-    stylesheet/button_covered.qss \
-    stylesheet/button_flag.qss \
-    stylesheet/button_mine.qss \
-    stylesheet/button_mine_hit.qss \
-    stylesheet/button_uncovered.qss \
-    stylesheet/infobar_smiley.qss \
-    stylesheet/infobar_smiley_pressed.qss \
-    stylesheet/infobar_smiley_won.qss \
-    stylesheet/infobar_smiley_lost.qss
+    stylesheet/button_1.css \
+    stylesheet/button_2.css \
+    stylesheet/button_3.css \
+    stylesheet/button_4.css \
+    stylesheet/button_5.css \
+    stylesheet/button_6.css \
+    stylesheet/button_7.css \
+    stylesheet/button_8.css \
+    stylesheet/button_covered.css \
+    stylesheet/button_flag.css \
+    stylesheet/button_mine.css \
+    stylesheet/button_mine_hit.css \
+    stylesheet/button_uncovered.css \
+    stylesheet/infobar_smiley.css \
+    stylesheet/infobar_smiley_pressed.css \
+    stylesheet/infobar_smiley_won.css \
+    stylesheet/infobar_smiley_lost.css

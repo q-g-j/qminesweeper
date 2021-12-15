@@ -15,6 +15,7 @@ class Field : public QWidget
      Q_OBJECT
 private:
     // private variables:
+    int mines;
     int flagsCount;
     int minesLeft;
     int countCovered;
@@ -26,7 +27,6 @@ private:
     QLabel *labelMinesLeft;
     QPushButton *smiley;
     Timer *timer;
-
     QGridLayout *layout;
 
     QString stylesheet_button_flag;
@@ -42,7 +42,6 @@ private:
     QString stylesheet_button_6;
     QString stylesheet_button_7;
     QString stylesheet_button_8;
-
     QString stylesheet_smiley;
     QString stylesheet_smiley_pressed;
     QString stylesheet_smiley_won;
@@ -57,22 +56,28 @@ private:
     QVector<Common::Coords> findNeighbours(const QVector<QVector<char>>& tempArray, const Common::Coords& coords, const char& content);
     void autoReveal(const Common::Coords&, QVector<int>&);
     void flagAutoUncover(const Common::Coords&);
+    bool isFlagSet(const Common::Coords&);
+    bool isNumber(const Common::Coords&);
     void gameOver(const Common::Coords&, const QString&);
 
 public:
-    explicit Field(QWidget *parent = nullptr, const int& cols = 9, const int& rows = 9, const int& mines = 10, const int& cellSize = 25, QLabel *labelMinesLeft = nullptr, QPushButton *smiley = nullptr, Timer *timer = nullptr);
+    explicit Field(QWidget *parent = nullptr,
+                   const int& cols = 9,
+                   const int& rows = 9,
+                   const int& mines = 10,
+                   const int& cellSize = 25,
+                   QLabel *labelMinesLeft = nullptr,
+                   QPushButton *smiley = nullptr,
+                   Timer *timer = nullptr);
     ~Field();
 
     // public variables:
     int cellSize;
     int cols;
     int rows;
-    int mines;
 
     // public methods:
     void addCells();
-    bool isFlagSet(const Common::Coords&);
-    bool isNumber(const Common::Coords&);
 private slots:
     void onLeftReleased();
     void onRightReleased();

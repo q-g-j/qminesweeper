@@ -22,7 +22,8 @@ private:
     Field *field = nullptr;
     Timer *timer = nullptr;
     int cols, rows;
-    int cellSize;
+    int cellSize;    
+    Difficulty::DifficultyStruct difficulty;
 
     void newGame(const Difficulty::DifficultyStruct&);
 

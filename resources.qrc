@@ -13,22 +13,26 @@
         <file>images/button_mine.png</file>
         <file>images/button_mine_hit.png</file>
         <file>images/button_flag.png</file>
-        <file>stylesheet/button_1.qss</file>
-        <file>stylesheet/button_2.qss</file>
-        <file>stylesheet/button_3.qss</file>
-        <file>stylesheet/button_4.qss</file>
-        <file>stylesheet/button_5.qss</file>
-        <file>stylesheet/button_6.qss</file>
-        <file>stylesheet/button_7.qss</file>
-        <file>stylesheet/button_8.qss</file>
-        <file>stylesheet/button_covered.qss</file>
-        <file>stylesheet/button_mine.qss</file>
-        <file>stylesheet/button_mine_hit.qss</file>
-        <file>stylesheet/button_uncovered.qss</file>
-        <file>stylesheet/button_flag.qss</file>
-        <file>stylesheet/infobar_smiley_won.qss</file>
-        <file>stylesheet/infobar_smiley_lost.qss</file>
-        <file>stylesheet/infobar_smiley.qss</file>
-        <file>stylesheet/infobar_smiley_pressed.qss</file>
+        <file>stylesheet/button_2.css</file>
+        <file>stylesheet/button_3.css</file>
+        <file>stylesheet/button_4.css</file>
+        <file>stylesheet/button_5.css</file>
+        <file>stylesheet/button_6.css</file>
+        <file>stylesheet/button_7.css</file>
+        <file>stylesheet/button_8.css</file>
+        <file>stylesheet/button_covered.css</file>
+        <file>stylesheet/button_mine.css</file>
+        <file>stylesheet/button_mine_hit.css</file>
+        <file>stylesheet/button_uncovered.css</file>
+        <file>stylesheet/button_flag.css</file>
+        <file>stylesheet/infobar_smiley_won.css</file>
+        <file>stylesheet/infobar_smiley_lost.css</file>
+        <file>stylesheet/infobar_smiley.css</file>
+        <file>stylesheet/infobar_smiley_pressed.css</file>
+        <file>stylesheet/button_1.css</file>
+        <file>images/smiley_lost.png</file>
+        <file>images/smiley.png</file>
+        <file>images/smiley_won.png</file>
+        <file>images/smiley_pressed.png</file>
     </qresource>
 </RCC>

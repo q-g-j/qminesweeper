@@ -1,4 +1,0 @@
-QPushButton#smiley {
-       border: none;
-       background-color: green;
-};

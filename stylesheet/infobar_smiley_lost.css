@@ -1,0 +1,7 @@
+QPushButton#smiley {
+    border-style: inset;
+    border-width: 0px;
+    border-radius: 0px;
+    border-image: url(:/images/smiley_lost.png) 0 0 0 0 stretch stretch;
+    margin: 3 3 3 3;
+};
