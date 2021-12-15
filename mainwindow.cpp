@@ -1,6 +1,7 @@
 #include <QSizePolicy>
 #include <QSize>
 #include <QDebug>
+#include <QFontDatabase>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -12,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-
+    QFontDatabase::addApplicationFont(":/fonts/NotoSans-CondensedMedium.ttf");
     // width and height of a cell in pixels:
     this->cellSize = 25;
 

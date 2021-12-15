@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>561</width>
-    <height>374</height>
+    <width>468</width>
+    <height>370</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -62,6 +62,12 @@
         <height>40</height>
        </size>
       </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>40</height>
+       </size>
+      </property>
       <property name="font">
        <font>
         <pointsize>10</pointsize>
@@ -77,13 +83,13 @@
         <number>0</number>
        </property>
        <property name="leftMargin">
-        <number>0</number>
+        <number>3</number>
        </property>
        <property name="topMargin">
         <number>0</number>
        </property>
        <property name="rightMargin">
-        <number>0</number>
+        <number>3</number>
        </property>
        <property name="bottomMargin">
         <number>0</number>
@@ -102,16 +108,10 @@
            <height>0</height>
           </size>
          </property>
-         <property name="maximumSize">
-          <size>
-           <width>40</width>
-           <height>16777215</height>
-          </size>
-         </property>
          <property name="font">
           <font>
-           <family>Bahnschrift Condensed</family>
-           <pointsize>30</pointsize>
+           <family>Noto Sans Condensed Medium</family>
+           <pointsize>24</pointsize>
           </font>
          </property>
          <property name="styleSheet">
@@ -126,10 +126,10 @@
           <string/>
          </property>
          <property name="alignment">
-          <set>Qt::AlignCenter</set>
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
          </property>
          <property name="margin">
-          <number>-5</number>
+          <number>0</number>
          </property>
          <property name="indent">
           <number>0</number>
@@ -234,8 +234,9 @@
          </property>
          <property name="font">
           <font>
-           <family>Bahnschrift Condensed</family>
-           <pointsize>30</pointsize>
+           <family>Noto Sans Condensed Medium</family>
+           <pointsize>24</pointsize>
+           <weight>50</weight>
            <bold>false</bold>
           </font>
          </property>
@@ -254,7 +255,7 @@
           <set>Qt::AlignCenter</set>
          </property>
          <property name="margin">
-          <number>-5</number>
+          <number>0</number>
          </property>
         </widget>
        </item>
@@ -280,8 +281,9 @@
          </property>
          <property name="font">
           <font>
-           <family>Bahnschrift Condensed</family>
-           <pointsize>30</pointsize>
+           <family>Noto Sans Condensed Medium</family>
+           <pointsize>24</pointsize>
+           <weight>50</weight>
            <bold>false</bold>
           </font>
          </property>
@@ -300,7 +302,7 @@
           <set>Qt::AlignCenter</set>
          </property>
          <property name="margin">
-          <number>-5</number>
+          <number>0</number>
          </property>
         </widget>
        </item>
@@ -320,8 +322,9 @@
          </property>
          <property name="font">
           <font>
-           <family>Bahnschrift Condensed</family>
-           <pointsize>30</pointsize>
+           <family>Noto Sans Condensed Medium</family>
+           <pointsize>24</pointsize>
+           <weight>50</weight>
            <bold>false</bold>
           </font>
          </property>
@@ -340,7 +343,7 @@
           <set>Qt::AlignCenter</set>
          </property>
          <property name="margin">
-          <number>-5</number>
+          <number>0</number>
          </property>
         </widget>
        </item>
@@ -366,8 +369,9 @@
          </property>
          <property name="font">
           <font>
-           <family>Bahnschrift Condensed</family>
-           <pointsize>30</pointsize>
+           <family>Noto Sans Condensed Medium</family>
+           <pointsize>24</pointsize>
+           <weight>50</weight>
            <bold>false</bold>
           </font>
          </property>
@@ -386,7 +390,7 @@
           <set>Qt::AlignCenter</set>
          </property>
          <property name="margin">
-          <number>-5</number>
+          <number>0</number>
          </property>
         </widget>
        </item>
@@ -412,8 +416,9 @@
          </property>
          <property name="font">
           <font>
-           <family>Bahnschrift Condensed</family>
-           <pointsize>30</pointsize>
+           <family>Noto Sans Condensed Medium</family>
+           <pointsize>24</pointsize>
+           <weight>50</weight>
            <bold>false</bold>
           </font>
          </property>
@@ -435,7 +440,7 @@
           <set>Qt::AlignCenter</set>
          </property>
          <property name="margin">
-          <number>-5</number>
+          <number>0</number>
          </property>
          <property name="indent">
           <number>0</number>
@@ -471,8 +476,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>561</width>
-     <height>21</height>
+     <width>468</width>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuGame">
