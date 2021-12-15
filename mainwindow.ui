@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>468</width>
-    <height>370</height>
+    <width>448</width>
+    <height>361</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -28,6 +28,11 @@
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget:focus {
+    outline: none;
+}</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">
@@ -110,8 +115,7 @@
          </property>
          <property name="font">
           <font>
-           <family>Noto Sans Condensed Medium</family>
-           <pointsize>24</pointsize>
+           <pointsize>22</pointsize>
           </font>
          </property>
          <property name="styleSheet">
@@ -234,9 +238,7 @@
          </property>
          <property name="font">
           <font>
-           <family>Noto Sans Condensed Medium</family>
-           <pointsize>24</pointsize>
-           <weight>50</weight>
+           <pointsize>22</pointsize>
            <bold>false</bold>
           </font>
          </property>
@@ -281,9 +283,7 @@
          </property>
          <property name="font">
           <font>
-           <family>Noto Sans Condensed Medium</family>
-           <pointsize>24</pointsize>
-           <weight>50</weight>
+           <pointsize>22</pointsize>
            <bold>false</bold>
           </font>
          </property>
@@ -322,9 +322,7 @@
          </property>
          <property name="font">
           <font>
-           <family>Noto Sans Condensed Medium</family>
-           <pointsize>24</pointsize>
-           <weight>50</weight>
+           <pointsize>22</pointsize>
            <bold>false</bold>
           </font>
          </property>
@@ -369,9 +367,7 @@
          </property>
          <property name="font">
           <font>
-           <family>Noto Sans Condensed Medium</family>
-           <pointsize>24</pointsize>
-           <weight>50</weight>
+           <pointsize>22</pointsize>
            <bold>false</bold>
           </font>
          </property>
@@ -416,9 +412,7 @@
          </property>
          <property name="font">
           <font>
-           <family>Noto Sans Condensed Medium</family>
-           <pointsize>24</pointsize>
-           <weight>50</weight>
+           <pointsize>22</pointsize>
            <bold>false</bold>
           </font>
          </property>
@@ -476,8 +470,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>468</width>
-     <height>30</height>
+     <width>448</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuGame">
