@@ -17,6 +17,7 @@ Difficulty::Difficulty(QWidget *parent) :
     ui->lineEdit_custom_mines->setValidator(intValidatorMines);
     ui->radioButton_easy->setChecked(true);
     ui->radioButton_easy->setFocus();
+    this->setFixedSize(this->size().width(), this->size().height());
 }
 
 Difficulty::~Difficulty()
