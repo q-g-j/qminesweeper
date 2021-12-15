@@ -8,7 +8,7 @@ Controls:
 |-----------|------|
 |Left click|reveal a cell|
 |Right click|place or remove a flag|
-|Double left click (on a number)|auto reveal connected secure cells (if flags are placed right)|
+|Double left click on a number|auto reveal connected secure cells (if flags are placed right)|
 |Left click on smiley|start a new game with the same difficulty|
 
 Screenshots:
