@@ -89,6 +89,22 @@
         <number>0</number>
        </property>
        <item>
+        <spacer name="spacerEdgeLeft">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>3</width>
+           <height>1</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
         <widget class="QLabel" name="labelMinesLeft">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="MinimumExpanding">
@@ -98,18 +114,19 @@
          </property>
          <property name="minimumSize">
           <size>
-           <width>60</width>
+           <width>73</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>60</width>
+           <width>73</width>
            <height>16777215</height>
           </size>
          </property>
          <property name="font">
           <font>
+           <family>Noto Sans Condensed Medium</family>
            <pointsize>26</pointsize>
            <italic>false</italic>
           </font>
@@ -120,7 +137,7 @@
 	margin-top: -5;
 	margin-bottom: -5;
   	margin-right: 0;
- 	margin-left: 3;
+ 	margin-left: 0;
 	font-family: &quot;Noto Sans Condensed Medium&quot;;
 	font-style: normal;
 }</string>
@@ -138,22 +155,6 @@
           <number>0</number>
          </property>
         </widget>
-       </item>
-       <item>
-        <spacer name="spacerLeftFixed">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>13</width>
-           <height>0</height>
-          </size>
-         </property>
-        </spacer>
        </item>
        <item>
         <spacer name="spacerLeft">
@@ -237,6 +238,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Noto Sans Condensed Medium</family>
            <pointsize>26</pointsize>
            <italic>false</italic>
           </font>
@@ -267,6 +269,22 @@
         </widget>
        </item>
        <item>
+        <spacer name="spacerMinutes">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>2</width>
+           <height>1</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
         <widget class="QLabel" name="timerMinutes">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
@@ -288,6 +306,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Noto Sans Condensed Medium</family>
            <pointsize>26</pointsize>
            <italic>false</italic>
           </font>
@@ -333,6 +352,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Noto Sans Condensed Medium</family>
            <pointsize>26</pointsize>
            <italic>false</italic>
           </font>
@@ -384,6 +404,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Noto Sans Condensed Medium</family>
            <pointsize>26</pointsize>
            <italic>false</italic>
           </font>
@@ -414,6 +435,22 @@
         </widget>
        </item>
        <item>
+        <spacer name="spacerSeconds">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>2</width>
+           <height>1</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
         <widget class="QLabel" name="timerSeconds">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="MinimumExpanding">
@@ -435,6 +472,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Noto Sans Condensed Medium</family>
            <pointsize>26</pointsize>
            <italic>false</italic>
           </font>
@@ -471,7 +509,7 @@
         </widget>
        </item>
        <item>
-        <spacer name="spacerRightFixed">
+        <spacer name="spacerEdgeRight">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -516,7 +554,7 @@
      <x>0</x>
      <y>0</y>
      <width>561</width>
-     <height>21</height>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuGame">
