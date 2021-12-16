@@ -41,23 +41,3 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc
-
-DISTFILES += \
-    fonts/NotoSans-CondensedMedium.ttf \
-    stylesheet/button_1.css \
-    stylesheet/button_2.css \
-    stylesheet/button_3.css \
-    stylesheet/button_4.css \
-    stylesheet/button_5.css \
-    stylesheet/button_6.css \
-    stylesheet/button_7.css \
-    stylesheet/button_8.css \
-    stylesheet/button_covered.css \
-    stylesheet/button_flag.css \
-    stylesheet/button_mine.css \
-    stylesheet/button_mine_hit.css \
-    stylesheet/button_uncovered.css \
-    stylesheet/infobar_smiley.css \
-    stylesheet/infobar_smiley_pressed.css \
-    stylesheet/infobar_smiley_won.css \
-    stylesheet/infobar_smiley_lost.css
