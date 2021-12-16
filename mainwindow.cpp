@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
     fieldLayout = new QGridLayout(ui->fieldWrapper);
 
     QFontDatabase::addApplicationFont(":/fonts/NotoSans-CondensedMedium.ttf");
+
     QFile smiley                (":/stylesheet/infobar_smiley.css");
     QFile smiley_pressed        (":/stylesheet/infobar_smiley_pressed.css");
     QFile smiley_won            (":/stylesheet/infobar_smiley_won.css");
@@ -33,10 +34,10 @@ MainWindow::MainWindow(QWidget *parent)
     smiley_pressed.open         (QFile::ReadOnly);
     smiley_won.open             (QFile::ReadOnly);
     smiley_lost.open            (QFile::ReadOnly);
-    stylesheet_smiley =         QLatin1String(smiley.readAll());
-    stylesheet_smiley_pressed = QLatin1String(smiley_pressed.readAll());
-    stylesheet_smiley_won =     QLatin1String(smiley_won.readAll());
-    stylesheet_smiley_lost =    QLatin1String(smiley_lost.readAll());
+    stylesheet_smiley           = QLatin1String(smiley.readAll());
+    stylesheet_smiley_pressed   = QLatin1String(smiley_pressed.readAll());
+    stylesheet_smiley_won       = QLatin1String(smiley_won.readAll());
+    stylesheet_smiley_lost      = QLatin1String(smiley_lost.readAll());
     smiley.close();
     smiley_pressed.close();
     smiley_won.close();
@@ -83,12 +84,6 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty)
     this->adjustSize();
     this->setFixedSize(this->size().width(), this->size().height());
     ui->smiley->setStyleSheet(stylesheet_smiley);
-//    ui->labelMinesLeft->setFont(QFont("Noto Sans Condensed Medium", 26));
-//    ui->timerTenMinutes->setFont(QFont("Noto Sans Condensed Medium", 26));
-//    ui->timerMinutes->setFont(QFont("Noto Sans Condensed Medium", 26));
-//    ui->timerColon->setFont(QFont("Noto Sans Condensed Medium", 26));
-//    ui->timerTenSeconds->setFont(QFont("Noto Sans Condensed Medium", 26));
-//    ui->timerSeconds->setFont(QFont("Noto Sans Condensed Medium", 26));
 }
 
 // open a dialog (difficulty.ui) to choose difficulty:

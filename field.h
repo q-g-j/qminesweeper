@@ -18,7 +18,7 @@ private:
     int mines;
     int flagsCount;
     int minesLeft;
-    int countCovered;
+    int countUnrevealed;
     bool gameover;
     bool firstTurn;
     QVector<QVector<char>> fieldArray;
@@ -32,8 +32,8 @@ private:
     QString stylesheet_button_flag;
     QString stylesheet_button_mine;
     QString stylesheet_button_mine_hit;
-    QString stylesheet_button_covered;
-    QString stylesheet_button_uncovered;
+    QString stylesheet_button_revealed;
+    QString stylesheet_button_unrevealed;
     QString stylesheet_button_1;
     QString stylesheet_button_2;
     QString stylesheet_button_3;
@@ -55,7 +55,7 @@ private:
     Common::Coords gridPosition(Cell*);
     QVector<Common::Coords> findNeighbours(const QVector<QVector<char>>& tempArray, const Common::Coords& coords, const char& content);
     void autoReveal(const Common::Coords&, QVector<int>&);
-    void flagAutoUncover(const Common::Coords&);
+    void flagAutoReveal(const Common::Coords&);
     bool isFlagSet(const Common::Coords&);
     bool isNumber(const Common::Coords&);
     void gameOver(const Common::Coords&, const QString&);

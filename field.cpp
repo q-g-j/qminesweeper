@@ -20,12 +20,13 @@ Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& min
     this->labelMinesLeft = labelMinesLeft_;
     this->smiley = smiley_;
     this->timer = timer_;
-    this->countCovered = cols_ * rows_;
+    this->countUnrevealed = cols_ * rows_;
     this->flagsCount = 0;
     this->firstTurn = true;
     this->gameover = false;
     this->fieldArray = createArray();
     this->minesArray = createArray();
+    this->labelMinesLeft->setText(QString::number(this->minesLeft));
     createCells();
 
     layout = new QGridLayout;
@@ -33,64 +34,62 @@ Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& min
     layout->setContentsMargins(0,0,0,0);
     setLayout(layout);
 
-    this->labelMinesLeft->setText(QString::number(this->minesLeft));
-
-    QFile file_button_flag      (":/stylesheet/button_flag.css");
-    QFile file_button_mine      (":/stylesheet/button_mine.css");
-    QFile file_button_mine_hit  (":/stylesheet/button_mine_hit.css");
-    QFile file_button_covered   (":/stylesheet/button_covered.css");
-    QFile file_button_uncovered (":/stylesheet/button_uncovered.css");
-    QFile file_button_1         (":/stylesheet/button_1.css");
-    QFile file_button_2         (":/stylesheet/button_2.css");
-    QFile file_button_3         (":/stylesheet/button_3.css");
-    QFile file_button_4         (":/stylesheet/button_4.css");
-    QFile file_button_5         (":/stylesheet/button_5.css");
-    QFile file_button_6         (":/stylesheet/button_6.css");
-    QFile file_button_7         (":/stylesheet/button_7.css");
-    QFile file_button_8         (":/stylesheet/button_8.css");
-    QFile smiley                (":/stylesheet/infobar_smiley.css");
-    QFile smiley_pressed        (":/stylesheet/infobar_smiley_pressed.css");
-    QFile smiley_won            (":/stylesheet/infobar_smiley_won.css");
-    QFile smiley_lost           (":/stylesheet/infobar_smiley_lost.css");
-    file_button_flag.open       (QFile::ReadOnly);
-    file_button_mine.open       (QFile::ReadOnly);
-    file_button_mine_hit.open   (QFile::ReadOnly);
-    file_button_covered.open    (QFile::ReadOnly);
-    file_button_uncovered.open  (QFile::ReadOnly);
-    file_button_1.open          (QFile::ReadOnly);
-    file_button_2.open          (QFile::ReadOnly);
-    file_button_3.open          (QFile::ReadOnly);
-    file_button_4.open          (QFile::ReadOnly);
-    file_button_5.open          (QFile::ReadOnly);
-    file_button_6.open          (QFile::ReadOnly);
-    file_button_7.open          (QFile::ReadOnly);
-    file_button_8.open          (QFile::ReadOnly);
-    smiley.open                 (QFile::ReadOnly);
-    smiley_pressed.open         (QFile::ReadOnly);
-    smiley_won.open             (QFile::ReadOnly);
-    smiley_lost.open            (QFile::ReadOnly);
-    stylesheet_button_flag      = QLatin1String(file_button_flag.readAll());
-    stylesheet_button_mine      = QLatin1String(file_button_mine.readAll());
-    stylesheet_button_mine_hit  = QLatin1String(file_button_mine_hit.readAll());
-    stylesheet_button_covered   = QLatin1String(file_button_covered.readAll());
-    stylesheet_button_uncovered = QLatin1String(file_button_uncovered.readAll());
-    stylesheet_button_1         = QLatin1String(file_button_1.readAll());
-    stylesheet_button_2         = QLatin1String(file_button_2.readAll());
-    stylesheet_button_3         = QLatin1String(file_button_3.readAll());
-    stylesheet_button_4         = QLatin1String(file_button_4.readAll());
-    stylesheet_button_5         = QLatin1String(file_button_5.readAll());
-    stylesheet_button_6         = QLatin1String(file_button_6.readAll());
-    stylesheet_button_7         = QLatin1String(file_button_7.readAll());
-    stylesheet_button_8         = QLatin1String(file_button_8.readAll());
-    stylesheet_smiley =         QLatin1String(smiley.readAll());
-    stylesheet_smiley_pressed = QLatin1String(smiley_pressed.readAll());
-    stylesheet_smiley_won =     QLatin1String(smiley_won.readAll());
-    stylesheet_smiley_lost =    QLatin1String(smiley_lost.readAll());
+    QFile file_button_flag          (":/stylesheet/button_flag.css");
+    QFile file_button_mine          (":/stylesheet/button_mine.css");
+    QFile file_button_mine_hit      (":/stylesheet/button_mine_hit.css");
+    QFile file_button_revealed      (":/stylesheet/button_revealed.css");
+    QFile file_button_unrevealed    (":/stylesheet/button_unrevealed.css");
+    QFile file_button_1             (":/stylesheet/button_1.css");
+    QFile file_button_2             (":/stylesheet/button_2.css");
+    QFile file_button_3             (":/stylesheet/button_3.css");
+    QFile file_button_4             (":/stylesheet/button_4.css");
+    QFile file_button_5             (":/stylesheet/button_5.css");
+    QFile file_button_6             (":/stylesheet/button_6.css");
+    QFile file_button_7             (":/stylesheet/button_7.css");
+    QFile file_button_8             (":/stylesheet/button_8.css");
+    QFile smiley                    (":/stylesheet/infobar_smiley.css");
+    QFile smiley_pressed            (":/stylesheet/infobar_smiley_pressed.css");
+    QFile smiley_won                (":/stylesheet/infobar_smiley_won.css");
+    QFile smiley_lost               (":/stylesheet/infobar_smiley_lost.css");
+    file_button_flag.open           (QFile::ReadOnly);
+    file_button_mine.open           (QFile::ReadOnly);
+    file_button_mine_hit.open       (QFile::ReadOnly);
+    file_button_revealed.open       (QFile::ReadOnly);
+    file_button_unrevealed.open     (QFile::ReadOnly);
+    file_button_1.open              (QFile::ReadOnly);
+    file_button_2.open              (QFile::ReadOnly);
+    file_button_3.open              (QFile::ReadOnly);
+    file_button_4.open              (QFile::ReadOnly);
+    file_button_5.open              (QFile::ReadOnly);
+    file_button_6.open              (QFile::ReadOnly);
+    file_button_7.open              (QFile::ReadOnly);
+    file_button_8.open              (QFile::ReadOnly);
+    smiley.open                     (QFile::ReadOnly);
+    smiley_pressed.open             (QFile::ReadOnly);
+    smiley_won.open                 (QFile::ReadOnly);
+    smiley_lost.open                (QFile::ReadOnly);
+    stylesheet_button_flag          = QLatin1String(file_button_flag.readAll());
+    stylesheet_button_mine          = QLatin1String(file_button_mine.readAll());
+    stylesheet_button_mine_hit      = QLatin1String(file_button_mine_hit.readAll());
+    stylesheet_button_revealed      = QLatin1String(file_button_revealed.readAll());
+    stylesheet_button_unrevealed    = QLatin1String(file_button_unrevealed.readAll());
+    stylesheet_button_1             = QLatin1String(file_button_1.readAll());
+    stylesheet_button_2             = QLatin1String(file_button_2.readAll());
+    stylesheet_button_3             = QLatin1String(file_button_3.readAll());
+    stylesheet_button_4             = QLatin1String(file_button_4.readAll());
+    stylesheet_button_5             = QLatin1String(file_button_5.readAll());
+    stylesheet_button_6             = QLatin1String(file_button_6.readAll());
+    stylesheet_button_7             = QLatin1String(file_button_7.readAll());
+    stylesheet_button_8             = QLatin1String(file_button_8.readAll());
+    stylesheet_smiley               = QLatin1String(smiley.readAll());
+    stylesheet_smiley_pressed       = QLatin1String(smiley_pressed.readAll());
+    stylesheet_smiley_won           = QLatin1String(smiley_won.readAll());
+    stylesheet_smiley_lost          = QLatin1String(smiley_lost.readAll());
     file_button_flag.close();
     file_button_mine.close();
     file_button_mine_hit.close();
-    file_button_covered.close();
-    file_button_uncovered.close();
+    file_button_revealed.close();
+    file_button_unrevealed.close();
     file_button_1.close();
     file_button_2.close();
     file_button_3.close();
@@ -160,7 +159,7 @@ void Field::addCells()
     {
         for (int j = 1; j <= this->rows; j++)
         {
-            this->cell[i][j].setStyleSheet(stylesheet_button_covered);
+            this->cell[i][j].setStyleSheet(stylesheet_button_unrevealed);
             this->cell[i][j].setFixedSize(this->cellSize, this->cellSize);
             layout->addWidget(&this->cell[i][j], j - 1, i - 1, 1, 1);
             connect(&this->cell[i][j], SIGNAL(doubleClicked()), this, SLOT(onDoubleClicked()));
@@ -260,7 +259,7 @@ void Field::printNumber(const Common::Coords& coords, const int& number)
     if (number == 0)
     {
         this->fieldArray[coords.col][coords.row] = '0';
-        this->cell[coords.col][coords.row].setStyleSheet(stylesheet_button_uncovered);
+        this->cell[coords.col][coords.row].setStyleSheet(stylesheet_button_revealed);
     }
     else
     {
@@ -319,7 +318,7 @@ void Field::gameOver(const Common::Coords& coords, const QString& mode)
             if (this->minesArray[i][j] == 'X')
                 this->cell[i][j].setStyleSheet(stylesheet_button_mine);
             else
-                this->cell[i][j].setStyleSheet(stylesheet_button_uncovered);
+                this->cell[i][j].setStyleSheet(stylesheet_button_revealed);
 
             if (this->minesArray[i][j] != 'X' && this->minesArray[i][j] != 'H')
             {
@@ -352,80 +351,80 @@ void Field::gameOver(const Common::Coords& coords, const QString& mode)
     timer->keepGoing = false;
 }
 
-// automatically uncover all connected cells, as long as they have no neighbour mines:
+// automatically reveal all connected cells, as long as they have no neighbour mines:
 void Field::autoReveal(const Common::Coords& coords, QVector<int>& poolVector)
 {
-    // create vector holding covered neighbours:
-    QVector<Common::Coords> neighboursCoveredVector;
-    neighboursCoveredVector = findNeighbours(this->fieldArray, coords, ' ');
+    // create vector holding unrevealed neighbours:
+    QVector<Common::Coords> neighboursUnrevealedVector;
+    neighboursUnrevealedVector = findNeighbours(this->fieldArray, coords, ' ');
 
-    for (int i = 0; i < neighboursCoveredVector.size(); ++i)
+    for (int i = 0; i < neighboursUnrevealedVector.size(); ++i)
     {
         QVector<Common::Coords> neighboursMinesVector;
-        neighboursMinesVector = findNeighbours(this->minesArray, neighboursCoveredVector.at(i), 'X');
-        if (std::find(poolVector.begin(), poolVector.end(), Common::CoordsToInt(neighboursCoveredVector.at(i), this->cols)) == poolVector.end())
+        neighboursMinesVector = findNeighbours(this->minesArray, neighboursUnrevealedVector.at(i), 'X');
+        if (std::find(poolVector.begin(), poolVector.end(), Common::CoordsToInt(neighboursUnrevealedVector.at(i), this->cols)) == poolVector.end())
         {
-            if (this->minesArray[neighboursCoveredVector.at(i).col][neighboursCoveredVector.at(i).row] != 'X')
+            if (this->minesArray[neighboursUnrevealedVector.at(i).col][neighboursUnrevealedVector.at(i).row] != 'X')
             {
                 QVector<Common::Coords> neighboursZerosVector;
-                neighboursZerosVector = findNeighbours(this->fieldArray, neighboursCoveredVector.at(i), '0');
+                neighboursZerosVector = findNeighbours(this->fieldArray, neighboursUnrevealedVector.at(i), '0');
                 if (neighboursZerosVector.size() == 0)
                 {
                     continue;
                 }
                 else
                 {
-                    poolVector.push_back(Common::CoordsToInt(neighboursCoveredVector.at(i), this->cols));
-                    printNumber(neighboursCoveredVector.at(i), neighboursMinesVector.size());
-                    --this->countCovered;
+                    poolVector.push_back(Common::CoordsToInt(neighboursUnrevealedVector.at(i), this->cols));
+                    printNumber(neighboursUnrevealedVector.at(i), neighboursMinesVector.size());
+                    --this->countUnrevealed;
                 }
             }
         }
         if (neighboursMinesVector.size() == 0)
         {
-            autoReveal(neighboursCoveredVector.at(i), poolVector);
+            autoReveal(neighboursUnrevealedVector.at(i), poolVector);
         }
     }
 }
 
-void Field::flagAutoUncover(const Common::Coords& coords)
+void Field::flagAutoReveal(const Common::Coords& coords)
 {
     // create a new vector of surrounding flags:
-    QVector<Common::Coords> flagUncoverNeighboursFlagsVector;
-    flagUncoverNeighboursFlagsVector = findNeighbours(this->fieldArray, coords, 'F');
+    QVector<Common::Coords> flagRevealNeighboursFlagsVector;
+    flagRevealNeighboursFlagsVector = findNeighbours(this->fieldArray, coords, 'F');
 
     // if player has placed some flags around UserInput.coords:
-    if (flagUncoverNeighboursFlagsVector.size() != 0)
+    if (flagRevealNeighboursFlagsVector.size() != 0)
     {
         // create a new vector of surrounding mines:
-        QVector<Common::Coords> flagUncoverNeighboursMinesVector;
-        flagUncoverNeighboursMinesVector = findNeighbours(this->minesArray, coords, 'X');
+        QVector<Common::Coords> flagRevealNeighboursMinesVector;
+        flagRevealNeighboursMinesVector = findNeighbours(this->minesArray, coords, 'X');
 
         // only proceed if the flag number matches the number of actual surrounding mines:
-        if (flagUncoverNeighboursMinesVector.size() == flagUncoverNeighboursFlagsVector.size())
+        if (flagRevealNeighboursMinesVector.size() == flagRevealNeighboursFlagsVector.size())
         {
-            // create a new vector of surrounding covered squares:
-            QVector<Common::Coords> flagUncoverNeighboursCoveredVector;
-            flagUncoverNeighboursCoveredVector = findNeighbours(this->fieldArray, coords, ' ');
+            // create a new vector of surrounding unrevealed squares:
+            QVector<Common::Coords> flagRevealNeighboursUnrevealedVector;
+            flagRevealNeighboursUnrevealedVector = findNeighbours(this->fieldArray, coords, ' ');
 
             // create a new empty vector for missed mines:
-            QVector<Common::Coords> flagUncoverMissedMinesVector;
+            QVector<Common::Coords> flagRevealMissedMinesVector;
 
-            // for each covered neighbour of userInput.coords check if the player has missed a mine
-            // and add this mines position to flagUncoverMissedMinesVector:
-            for (int i = 0; i < flagUncoverNeighboursCoveredVector.size(); ++i)
+            // for each unrevealed neighbour of userInput.coords check if the player has missed a mine
+            // and add this mines position to flagRevealMissedMinesVector:
+            for (int i = 0; i < flagRevealNeighboursUnrevealedVector.size(); ++i)
             {
-                if (this->minesArray[flagUncoverNeighboursCoveredVector.at(i).col][flagUncoverNeighboursCoveredVector.at(i).row] == 'X')
+                if (this->minesArray[flagRevealNeighboursUnrevealedVector.at(i).col][flagRevealNeighboursUnrevealedVector.at(i).row] == 'X')
                 {
-                    flagUncoverMissedMinesVector.push_back(flagUncoverNeighboursCoveredVector.at(i));
+                    flagRevealMissedMinesVector.push_back(flagRevealNeighboursUnrevealedVector.at(i));
                 }
             }
             // if there are missed mines, reveal the minesArray - player has lost:
-            if (flagUncoverMissedMinesVector.size() != 0)
+            if (flagRevealMissedMinesVector.size() != 0)
             {
-                for (int i = 0; i < flagUncoverMissedMinesVector.size(); ++i)
+                for (int i = 0; i < flagRevealMissedMinesVector.size(); ++i)
                 {
-                    this->minesArray[flagUncoverMissedMinesVector.at(i).col][flagUncoverMissedMinesVector.at(i).row] = 'H';
+                    this->minesArray[flagRevealMissedMinesVector.at(i).col][flagRevealMissedMinesVector.at(i).row] = 'H';
                 }
                 Common::Coords dummyCoords;
                 gameOver(dummyCoords, "lose");
@@ -433,26 +432,26 @@ void Field::flagAutoUncover(const Common::Coords& coords)
             // else if all flags are placed correctly:
             else
             {
-                if (flagUncoverNeighboursMinesVector.size() == flagUncoverNeighboursFlagsVector.size())
+                if (flagRevealNeighboursMinesVector.size() == flagRevealNeighboursFlagsVector.size())
                 {
-                    // create a pool of already uncovered cells, to avoid double checks within autoUncoverRecursive():
+                    // create a pool of already revealed cells, to avoid double checks within autoRevealRecursive():
                     QVector<int> poolVector;
-                    // for each covered neighbour of userInput.coords, print the number of surrounding mines:
-                    for (int i = 0; i < flagUncoverNeighboursCoveredVector.size(); ++i)
+                    // for each unrevealed neighbour of userInput.coords, print the number of surrounding mines:
+                    for (int i = 0; i < flagRevealNeighboursUnrevealedVector.size(); ++i)
                     {
                         Common::Coords tempCoords;
-                        tempCoords.col = flagUncoverNeighboursCoveredVector.at(i).col;
-                        tempCoords.row = flagUncoverNeighboursCoveredVector.at(i).row;
-                        QVector<Common::Coords> flagUncoverNeighboursCoveredMinesVector;
-                        flagUncoverNeighboursCoveredMinesVector = findNeighbours(this->minesArray, tempCoords, 'X');
+                        tempCoords.col = flagRevealNeighboursUnrevealedVector.at(i).col;
+                        tempCoords.row = flagRevealNeighboursUnrevealedVector.at(i).row;
+                        QVector<Common::Coords> flagRevealNeighboursUnrevealedMinesVector;
+                        flagRevealNeighboursUnrevealedMinesVector = findNeighbours(this->minesArray, tempCoords, 'X');
 
-                        if (flagUncoverNeighboursCoveredMinesVector.size() == 0)
+                        if (flagRevealNeighboursUnrevealedMinesVector.size() == 0)
                         {
                             if (std::find(poolVector.begin(), poolVector.end(), Common::CoordsToInt(tempCoords, this->cols)) == poolVector.end())
                             {
                                 printNumber(tempCoords, 0);
                                 poolVector.push_back(Common::CoordsToInt(tempCoords, this->cols));
-                                --this->countCovered;
+                                --this->countUnrevealed;
                                 autoReveal(tempCoords, poolVector);
                             }
                         }
@@ -460,9 +459,9 @@ void Field::flagAutoUncover(const Common::Coords& coords)
                         {
                             if (std::find(poolVector.begin(), poolVector.end(), Common::CoordsToInt(tempCoords, this->cols)) == poolVector.end())
                             {
-                                printNumber(tempCoords, static_cast<int>(flagUncoverNeighboursCoveredMinesVector.size()));
+                                printNumber(tempCoords, static_cast<int>(flagRevealNeighboursUnrevealedMinesVector.size()));
                                 poolVector.push_back(Common::CoordsToInt(tempCoords, this->cols));
-                                --this->countCovered;
+                                --this->countUnrevealed;
                             }
                         }
                     }
@@ -497,13 +496,13 @@ void Field::onLeftReleased()
 
             else
             {
-                // uncover the players choice and place the number of surrounding mines in it:
+                // reveal the players choice and place the number of surrounding mines in it:
                 neighboursMinesVector = findNeighbours(this->minesArray, coordsTemp, 'X');
                 printNumber(coordsTemp, neighboursMinesVector.size());
-                --this->countCovered;
+                --this->countUnrevealed;
             }
 
-            // automatically uncover all neighbours of squares with no neighbour mines:
+            // automatically reveal all neighbours of squares with no neighbour mines:
             QVector<int> poolVector;
             autoReveal(coordsTemp, poolVector);
             this->firstTurn = false;
@@ -511,7 +510,7 @@ void Field::onLeftReleased()
     }
 
     // check if player has won:
-    if (this->flagsCount + this->countCovered == this->mines)
+    if (this->flagsCount + this->countUnrevealed == this->mines)
     {
         Common::Coords dummyCoords;
         gameOver(dummyCoords, "win");
@@ -533,15 +532,15 @@ void Field::onRightReleased()
                 this->fieldArray[coords.col][coords.row] = 'F';
                 this->flagsCount++;
                 this->minesLeft--;
-                this->countCovered--;
+                this->countUnrevealed--;
             }
             else
             {
-                button->setStyleSheet(stylesheet_button_covered);
+                button->setStyleSheet(stylesheet_button_unrevealed);
                 this->fieldArray[coords.col][coords.row] = ' ';
                 this->flagsCount--;
                 this->minesLeft++;
-                this->countCovered++;
+                this->countUnrevealed++;
             }
         }
     }
@@ -558,11 +557,11 @@ void Field::onDoubleClicked()
         Common::Coords coords = gridPosition(button);
         if (isNumber(coords))
         {
-            flagAutoUncover(coords);
+            flagAutoReveal(coords);
         }
     }
     // check if player has won:
-    if (this->flagsCount + this->countCovered == this->mines)
+    if (this->flagsCount + this->countUnrevealed == this->mines)
     {
         Common::Coords dummyCoords;
         dummyCoords.col = 1;

@@ -1,7 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/button_uncovered.png</file>
-        <file>images/button_covered.png</file>
         <file>images/button_1.png</file>
         <file>images/button_2.png</file>
         <file>images/button_3.png</file>
@@ -20,10 +18,8 @@
         <file>stylesheet/button_6.css</file>
         <file>stylesheet/button_7.css</file>
         <file>stylesheet/button_8.css</file>
-        <file>stylesheet/button_covered.css</file>
         <file>stylesheet/button_mine.css</file>
         <file>stylesheet/button_mine_hit.css</file>
-        <file>stylesheet/button_uncovered.css</file>
         <file>stylesheet/button_flag.css</file>
         <file>stylesheet/infobar_smiley_won.css</file>
         <file>stylesheet/infobar_smiley_lost.css</file>
@@ -35,5 +31,9 @@
         <file>images/smiley_won.png</file>
         <file>images/smiley_pressed.png</file>
         <file>fonts/NotoSans-CondensedMedium.ttf</file>
+        <file>stylesheet/button_revealed.css</file>
+        <file>stylesheet/button_unrevealed.css</file>
+        <file>images/button_unrevealed.png</file>
+        <file>images/button_revealed.png</file>
     </qresource>
 </RCC>
