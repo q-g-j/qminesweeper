@@ -43,6 +43,7 @@ RESOURCES += \
     resources.qrc
 
 DISTFILES += \
+    fonts/NotoSans-CondensedMedium.ttf \
     stylesheet/button_1.css \
     stylesheet/button_2.css \
     stylesheet/button_3.css \

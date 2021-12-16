@@ -1,6 +1,7 @@
 #include <QSizePolicy>
 #include <QSize>
 #include <QDebug>
+#include <QFontDatabase>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -22,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent)
     difficulty.mines = 10;
 
     fieldLayout = new QGridLayout(ui->fieldWrapper);
+
+    QFontDatabase::addApplicationFont(":/fonts/NotoSans-CondensedMedium.ttf");
     QFile smiley                (":/stylesheet/infobar_smiley.css");
     QFile smiley_pressed        (":/stylesheet/infobar_smiley_pressed.css");
     QFile smiley_won            (":/stylesheet/infobar_smiley_won.css");
@@ -80,6 +83,12 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty)
     this->adjustSize();
     this->setFixedSize(this->size().width(), this->size().height());
     ui->smiley->setStyleSheet(stylesheet_smiley);
+//    ui->labelMinesLeft->setFont(QFont("Noto Sans Condensed Medium", 26));
+//    ui->timerTenMinutes->setFont(QFont("Noto Sans Condensed Medium", 26));
+//    ui->timerMinutes->setFont(QFont("Noto Sans Condensed Medium", 26));
+//    ui->timerColon->setFont(QFont("Noto Sans Condensed Medium", 26));
+//    ui->timerTenSeconds->setFont(QFont("Noto Sans Condensed Medium", 26));
+//    ui->timerSeconds->setFont(QFont("Noto Sans Condensed Medium", 26));
 }
 
 // open a dialog (difficulty.ui) to choose difficulty:

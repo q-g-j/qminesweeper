@@ -98,25 +98,31 @@
          </property>
          <property name="minimumSize">
           <size>
-           <width>40</width>
+           <width>60</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>40</width>
+           <width>60</width>
            <height>16777215</height>
           </size>
          </property>
          <property name="font">
           <font>
-           <family>Bahnschrift Condensed</family>
-           <pointsize>30</pointsize>
+           <pointsize>26</pointsize>
+           <italic>false</italic>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">QLabel#labelMinesLeft {
 	color: black;
+	margin-top: -5;
+	margin-bottom: -5;
+  	margin-right: 0;
+ 	margin-left: 3;
+	font-family: &quot;Noto Sans Condensed Medium&quot;;
+	font-style: normal;
 }</string>
          </property>
          <property name="frameShape">
@@ -126,10 +132,7 @@
           <string/>
          </property>
          <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="margin">
-          <number>-5</number>
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
          </property>
          <property name="indent">
           <number>0</number>
@@ -146,7 +149,7 @@
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>30</width>
+           <width>13</width>
            <height>0</height>
           </size>
          </property>
@@ -234,14 +237,19 @@
          </property>
          <property name="font">
           <font>
-           <family>Bahnschrift Condensed</family>
-           <pointsize>30</pointsize>
-           <bold>false</bold>
+           <pointsize>26</pointsize>
+           <italic>false</italic>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">QLabel#timerTenMinutes {
 	color: black;
+	margin-top: -5;
+	margin-bottom: -5;
+  	margin-right: 0;
+    margin-left: 0;
+	font-family: &quot;Noto Sans Condensed Medium&quot;;
+	font-style: normal;
 }</string>
          </property>
          <property name="frameShape">
@@ -254,7 +262,7 @@
           <set>Qt::AlignCenter</set>
          </property>
          <property name="margin">
-          <number>-5</number>
+          <number>0</number>
          </property>
         </widget>
        </item>
@@ -280,14 +288,19 @@
          </property>
          <property name="font">
           <font>
-           <family>Bahnschrift Condensed</family>
-           <pointsize>30</pointsize>
-           <bold>false</bold>
+           <pointsize>26</pointsize>
+           <italic>false</italic>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">QLabel#timerMinutes {
 	color: black;
+	margin-top: -5;
+	margin-bottom: -5;
+  	margin-right: 0;
+    margin-left: 0;
+	font-family: &quot;Noto Sans Condensed Medium&quot;;
+	font-style: normal;
 }</string>
          </property>
          <property name="frameShape">
@@ -300,7 +313,7 @@
           <set>Qt::AlignCenter</set>
          </property>
          <property name="margin">
-          <number>-5</number>
+          <number>0</number>
          </property>
         </widget>
        </item>
@@ -320,14 +333,19 @@
          </property>
          <property name="font">
           <font>
-           <family>Bahnschrift Condensed</family>
-           <pointsize>30</pointsize>
-           <bold>false</bold>
+           <pointsize>26</pointsize>
+           <italic>false</italic>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">QLabel#timerColon {
 	color: black;
+	margin-top: -5;
+	margin-bottom: -5;
+  	margin-right: 0;
+    margin-left: 0;
+	font-family: &quot;Noto Sans Condensed Medium&quot;;
+	font-style: normal;
 }</string>
          </property>
          <property name="frameShape">
@@ -340,7 +358,7 @@
           <set>Qt::AlignCenter</set>
          </property>
          <property name="margin">
-          <number>-5</number>
+          <number>0</number>
          </property>
         </widget>
        </item>
@@ -366,14 +384,19 @@
          </property>
          <property name="font">
           <font>
-           <family>Bahnschrift Condensed</family>
-           <pointsize>30</pointsize>
-           <bold>false</bold>
+           <pointsize>26</pointsize>
+           <italic>false</italic>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">QLabel#timerTenSeconds {
 	color: black;
+	margin-top: -5;
+	margin-bottom: -5;
+  	margin-right: 0;
+    margin-left: 0;
+	font-family: &quot;Noto Sans Condensed Medium&quot;;
+	font-style: normal;
 }</string>
          </property>
          <property name="frameShape">
@@ -386,7 +409,7 @@
           <set>Qt::AlignCenter</set>
          </property>
          <property name="margin">
-          <number>-5</number>
+          <number>0</number>
          </property>
         </widget>
        </item>
@@ -412,9 +435,8 @@
          </property>
          <property name="font">
           <font>
-           <family>Bahnschrift Condensed</family>
-           <pointsize>30</pointsize>
-           <bold>false</bold>
+           <pointsize>26</pointsize>
+           <italic>false</italic>
           </font>
          </property>
          <property name="layoutDirection">
@@ -423,6 +445,12 @@
          <property name="styleSheet">
           <string notr="true">QLabel#timerSeconds {
 	color: black;
+	margin-top: -5;
+	margin-bottom: -5;
+  	margin-right: 0;
+    margin-left: 0;
+	font-family: &quot;Noto Sans Condensed Medium&quot;;
+	font-style: normal;
 }</string>
          </property>
          <property name="frameShape">
@@ -435,12 +463,28 @@
           <set>Qt::AlignCenter</set>
          </property>
          <property name="margin">
-          <number>-5</number>
+          <number>0</number>
          </property>
          <property name="indent">
           <number>0</number>
          </property>
         </widget>
+       </item>
+       <item>
+        <spacer name="spacerRightFixed">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>3</width>
+           <height>1</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>
