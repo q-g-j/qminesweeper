@@ -26,14 +26,14 @@ Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& min
     this->gameover = false;
     this->fieldArray = createArray();
     this->minesArray = createArray();
-    createCell();
-
-    this->labelMinesLeft->setText(QString::number(this->minesLeft));
+    createCells();
 
     layout = new QGridLayout;
     layout->setSpacing(0);
     layout->setContentsMargins(0,0,0,0);
     setLayout(layout);
+
+    this->labelMinesLeft->setText(QString::number(this->minesLeft));
 
     QFile file_button_flag      (":/stylesheet/button_flag.css");
     QFile file_button_mine      (":/stylesheet/button_mine.css");
@@ -48,6 +48,10 @@ Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& min
     QFile file_button_6         (":/stylesheet/button_6.css");
     QFile file_button_7         (":/stylesheet/button_7.css");
     QFile file_button_8         (":/stylesheet/button_8.css");
+    QFile smiley                (":/stylesheet/infobar_smiley.css");
+    QFile smiley_pressed        (":/stylesheet/infobar_smiley_pressed.css");
+    QFile smiley_won            (":/stylesheet/infobar_smiley_won.css");
+    QFile smiley_lost           (":/stylesheet/infobar_smiley_lost.css");
     file_button_flag.open       (QFile::ReadOnly);
     file_button_mine.open       (QFile::ReadOnly);
     file_button_mine_hit.open   (QFile::ReadOnly);
@@ -61,6 +65,10 @@ Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& min
     file_button_6.open          (QFile::ReadOnly);
     file_button_7.open          (QFile::ReadOnly);
     file_button_8.open          (QFile::ReadOnly);
+    smiley.open                 (QFile::ReadOnly);
+    smiley_pressed.open         (QFile::ReadOnly);
+    smiley_won.open             (QFile::ReadOnly);
+    smiley_lost.open            (QFile::ReadOnly);
     stylesheet_button_flag      = QLatin1String(file_button_flag.readAll());
     stylesheet_button_mine      = QLatin1String(file_button_mine.readAll());
     stylesheet_button_mine_hit  = QLatin1String(file_button_mine_hit.readAll());
@@ -74,6 +82,10 @@ Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& min
     stylesheet_button_6         = QLatin1String(file_button_6.readAll());
     stylesheet_button_7         = QLatin1String(file_button_7.readAll());
     stylesheet_button_8         = QLatin1String(file_button_8.readAll());
+    stylesheet_smiley =         QLatin1String(smiley.readAll());
+    stylesheet_smiley_pressed = QLatin1String(smiley_pressed.readAll());
+    stylesheet_smiley_won =     QLatin1String(smiley_won.readAll());
+    stylesheet_smiley_lost =    QLatin1String(smiley_lost.readAll());
     file_button_flag.close();
     file_button_mine.close();
     file_button_mine_hit.close();
@@ -87,19 +99,6 @@ Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& min
     file_button_6.close();
     file_button_7.close();
     file_button_8.close();
-
-    QFile smiley                (":/stylesheet/infobar_smiley.css");
-    QFile smiley_pressed        (":/stylesheet/infobar_smiley_pressed.css");
-    QFile smiley_won            (":/stylesheet/infobar_smiley_won.css");
-    QFile smiley_lost           (":/stylesheet/infobar_smiley_lost.css");
-    smiley.open                 (QFile::ReadOnly);
-    smiley_pressed.open         (QFile::ReadOnly);
-    smiley_won.open             (QFile::ReadOnly);
-    smiley_lost.open            (QFile::ReadOnly);
-    stylesheet_smiley =         QLatin1String(smiley.readAll());
-    stylesheet_smiley_pressed = QLatin1String(smiley_pressed.readAll());
-    stylesheet_smiley_won =     QLatin1String(smiley_won.readAll());
-    stylesheet_smiley_lost =    QLatin1String(smiley_lost.readAll());
     smiley.close();
     smiley_pressed.close();
     smiley_won.close();
@@ -128,7 +127,7 @@ QVector<QVector<char>> Field::createArray()
     return temp2DVector;
 }
 
-void Field::createCell()
+void Field::createCells()
 {
     this->cell = new Cell*[this->cols + 1];
     for (int i=0; i < (this->cols + 1); i++)
@@ -161,7 +160,6 @@ void Field::addCells()
     {
         for (int j = 1; j <= this->rows; j++)
         {
-//            this->cell[i][j].setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
             this->cell[i][j].setStyleSheet(stylesheet_button_covered);
             this->cell[i][j].setFixedSize(this->cellSize, this->cellSize);
             layout->addWidget(&this->cell[i][j], j - 1, i - 1, 1, 1);
@@ -318,13 +316,21 @@ void Field::gameOver(const Common::Coords& coords, const QString& mode)
     {
         for (int j = 1; j <= this->rows; j++)
         {
-            Common::Coords coordsTemp;
-            coordsTemp.col = i;
-            coordsTemp.row = j;
-            QVector<Common::Coords> neighboursMinesVector = findNeighbours(this->minesArray, coordsTemp, 'X');
-            QVector<Common::Coords> neighboursMinesHitVector = findNeighbours(this->minesArray, coordsTemp, 'H');
-            printNumber(coordsTemp, static_cast<int>(neighboursMinesVector.size() + neighboursMinesHitVector.size()));
             if (this->minesArray[i][j] == 'X')
+                this->cell[i][j].setStyleSheet(stylesheet_button_mine);
+            else
+                this->cell[i][j].setStyleSheet(stylesheet_button_uncovered);
+
+            if (this->minesArray[i][j] != 'X' && this->minesArray[i][j] != 'H')
+            {
+                Common::Coords coordsTemp;
+                coordsTemp.col = i;
+                coordsTemp.row = j;
+                QVector<Common::Coords> neighboursMinesVector = findNeighbours(this->minesArray, coordsTemp, 'X');
+                QVector<Common::Coords> neighboursMinesHitVector = findNeighbours(this->minesArray, coordsTemp, 'H');
+                printNumber(coordsTemp, static_cast<int>(neighboursMinesVector.size() + neighboursMinesHitVector.size()));
+            }
+            else if (this->minesArray[i][j] == 'X')
             {
                 this->cell[i][j].setStyleSheet(stylesheet_button_mine);
             }
@@ -421,7 +427,6 @@ void Field::flagAutoUncover(const Common::Coords& coords)
                 {
                     this->minesArray[flagUncoverMissedMinesVector.at(i).col][flagUncoverMissedMinesVector.at(i).row] = 'H';
                 }
-                this->gameover = true;
                 Common::Coords dummyCoords;
                 gameOver(dummyCoords, "lose");
             }
@@ -508,20 +513,7 @@ void Field::onLeftReleased()
     // check if player has won:
     if (this->flagsCount + this->countCovered == this->mines)
     {
-        this->gameover = true;
-        for (int i = 1; i <= this->cols; i++)
-        {
-            for (int j = 1; j <= this->rows; j++)
-            {
-                if (this->minesArray[i][j] == 'X')
-                    this->cell[i][j].setStyleSheet(stylesheet_button_mine);
-                else
-                    this->cell[i][j].setStyleSheet(stylesheet_button_uncovered);
-            }
-        }
         Common::Coords dummyCoords;
-        dummyCoords.col = 1;
-        dummyCoords.row = 1;
         gameOver(dummyCoords, "win");
     }
 }
@@ -572,17 +564,6 @@ void Field::onDoubleClicked()
     // check if player has won:
     if (this->flagsCount + this->countCovered == this->mines)
     {
-        this->gameover = true;
-        for (int i = 1; i <= this->cols; i++)
-        {
-            for (int j = 1; j <= this->rows; j++)
-            {
-                if (this->minesArray[i][j] == 'X')
-                    this->cell[i][j].setStyleSheet(stylesheet_button_mine);
-                else
-                    this->cell[i][j].setStyleSheet(stylesheet_button_uncovered);
-            }
-        }
         Common::Coords dummyCoords;
         dummyCoords.col = 1;
         dummyCoords.row = 1;

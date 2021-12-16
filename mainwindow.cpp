@@ -1,7 +1,6 @@
 #include <QSizePolicy>
 #include <QSize>
 #include <QDebug>
-#include <QFontDatabase>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -13,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-    QFontDatabase::addApplicationFont(":/fonts/NotoSans-CondensedMedium.ttf");
+
     // width and height of a cell in pixels:
     this->cellSize = 25;
 
@@ -23,8 +22,6 @@ MainWindow::MainWindow(QWidget *parent)
     difficulty.mines = 10;
 
     fieldLayout = new QGridLayout(ui->fieldWrapper);
-
-    newGame(difficulty);
     QFile smiley                (":/stylesheet/infobar_smiley.css");
     QFile smiley_pressed        (":/stylesheet/infobar_smiley_pressed.css");
     QFile smiley_won            (":/stylesheet/infobar_smiley_won.css");
@@ -41,7 +38,10 @@ MainWindow::MainWindow(QWidget *parent)
     smiley_pressed.close();
     smiley_won.close();
     smiley_lost.close();
+
     ui->smiley->setStyleSheet(stylesheet_smiley);
+
+    newGame(difficulty);
 }
 
 MainWindow::~MainWindow()

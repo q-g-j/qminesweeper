@@ -49,7 +49,7 @@ private:
 
     // private methods:
     QVector<QVector<char>> createArray();
-    void createCell();
+    void createCells();
     void fillMinesArray(const Common::Coords&);
     void printNumber(const Common::Coords&, const int&);
     Common::Coords gridPosition(Cell*);

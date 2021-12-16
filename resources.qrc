@@ -34,6 +34,5 @@
         <file>images/smiley.png</file>
         <file>images/smiley_won.png</file>
         <file>images/smiley_pressed.png</file>
-        <file>fonts/NotoSans-CondensedMedium.ttf</file>
     </qresource>
 </RCC>
