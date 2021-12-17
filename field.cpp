@@ -130,7 +130,9 @@ void Field::createCells()
 {
     this->cell = new Cell*[this->cols + 1];
     for (int i=0; i < (this->cols + 1); i++)
+    {
         this->cell[i] = new Cell[this->rows + 1];
+    }
 }
 
 // place mines at random positions of this->minesArray[][]:

@@ -43,7 +43,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Start Game</string>
@@ -71,7 +74,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Cancel</string>
@@ -109,7 +115,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -131,7 +140,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Mines: </string>
@@ -162,7 +174,11 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+         <bold>true</bold>
+        </font>
        </property>
        <property name="text">
         <string>Advanced </string>
@@ -190,7 +206,11 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+         <bold>true</bold>
+        </font>
        </property>
        <property name="text">
         <string>Custom</string>
@@ -218,7 +238,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>x</string>
@@ -249,7 +272,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -277,7 +303,11 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+         <bold>true</bold>
+        </font>
        </property>
        <property name="text">
         <string>Expert</string>
@@ -305,7 +335,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>9</string>
@@ -330,7 +363,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>16</string>
@@ -361,7 +397,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -389,7 +428,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>x</string>
@@ -420,7 +462,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="layoutDirection">
         <enum>Qt::LeftToRight</enum>
@@ -448,7 +493,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Size:</string>
@@ -479,7 +527,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>x</string>
@@ -510,7 +561,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>x</string>
@@ -535,7 +589,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Size:</string>
@@ -560,7 +617,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>9</string>
@@ -591,7 +651,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="layoutDirection">
         <enum>Qt::LeftToRight</enum>
@@ -625,7 +688,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>16</string>
@@ -656,7 +722,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="layoutDirection">
         <enum>Qt::LeftToRight</enum>
@@ -684,7 +753,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>30</string>
@@ -709,7 +781,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Mines: </string>
@@ -734,7 +809,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Mines: </string>
@@ -765,7 +843,11 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+         <bold>true</bold>
+        </font>
        </property>
        <property name="text">
         <string>Easy</string>
@@ -787,7 +869,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Size:</string>
@@ -812,7 +897,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Mines: </string>
@@ -843,7 +931,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>16</string>
@@ -868,7 +959,10 @@
         </size>
        </property>
        <property name="font">
-        <font/>
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>Size:</string>
