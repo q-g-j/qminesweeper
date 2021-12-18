@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>314</width>
-    <height>181</height>
+    <width>333</width>
+    <height>176</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -177,6 +177,7 @@
         <font>
          <family>Arial</family>
          <pointsize>10</pointsize>
+         <weight>75</weight>
          <bold>true</bold>
         </font>
        </property>
@@ -209,6 +210,7 @@
         <font>
          <family>Arial</family>
          <pointsize>10</pointsize>
+         <weight>75</weight>
          <bold>true</bold>
         </font>
        </property>
@@ -267,7 +269,7 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>35</width>
+         <width>50</width>
          <height>16777215</height>
         </size>
        </property>
@@ -306,6 +308,7 @@
         <font>
          <family>Arial</family>
          <pointsize>10</pointsize>
+         <weight>75</weight>
          <bold>true</bold>
         </font>
        </property>
@@ -846,6 +849,7 @@
         <font>
          <family>Arial</family>
          <pointsize>10</pointsize>
+         <weight>75</weight>
          <bold>true</bold>
         </font>
        </property>

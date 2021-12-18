@@ -9,9 +9,9 @@ Difficulty::Difficulty(QWidget *parent) :
     ui(new Ui::Difficulty)
 {
     ui->setupUi(this);
-    intValidatorCols = new QIntValidator(9, 30, this);
+    intValidatorCols = new QIntValidator(9, 60, this);
     intValidatorRows = new QIntValidator(9, 30, this);
-    intValidatorMines = new QIntValidator(1, 200, this);
+    intValidatorMines = new QIntValidator(1, 9999, this);
     ui->lineEdit_custom_cols->setValidator(intValidatorCols);
     ui->lineEdit_custom_rows->setValidator(intValidatorRows);
     ui->lineEdit_custom_mines->setValidator(intValidatorMines);
@@ -65,12 +65,14 @@ void Difficulty::on_button_start_clicked()
         if (ui->lineEdit_custom_cols->text() == ""
                 || ui->lineEdit_custom_rows->text() == ""
                 || ui->lineEdit_custom_mines->text() == ""
+                || cols > 60
                 || cols < 9
                 || rows < 9
+                || rows > 30
                 || mines > (cols * rows - 1)
-                || mines == 0)
+                || mines < 1)
         {
-            QMessageBox::warning(this, "Error", "Wrong input, try again...\n\nHint:\nThe number of columns and rows must be greater than 8 and smaller than 31. The number of mines must be greater than 0 and smaller than columns * rows.");
+            QMessageBox::warning(this, "Error", "Wrong input, try again...\n\Valid numbers are:\n\ncolumns: 9 to 60\nrows: 9 to 30\nmines: 1 to (columns * rows - 1)");
         }
         else
         {
