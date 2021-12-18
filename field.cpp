@@ -192,43 +192,44 @@ bool Field::isNumber(const Common::Coords& coords)
 QVector<Common::Coords> Field::findNeighbours(const QVector<QVector<char>>& tempArray, const Common::Coords& coords, const char& content)
 {
     QVector<Common::Coords> findNeighboursReturn;
-    std::array<std::array<int, 2>, 8> neighboursArray;
-    neighboursArray.at(0) = { -1, -1 };
-    neighboursArray.at(1) = {  0, -1 };
-    neighboursArray.at(2) = {  1, -1 };
-    neighboursArray.at(3) = {  1,  0 };
-    neighboursArray.at(4) = {  1,  1 };
-    neighboursArray.at(5) = {  0,  1 };
-    neighboursArray.at(6) = { -1,  1 };
-    neighboursArray.at(7) = { -1,  0 };
+    QVector<QVector<int>> neighboursVector;
 
-    for (size_t x = 0; x < sizeof(neighboursArray) / sizeof(neighboursArray[0]); ++x)
+    neighboursVector.push_back({ -1, -1 });
+    neighboursVector.push_back({  0, -1 });
+    neighboursVector.push_back({  1, -1 });
+    neighboursVector.push_back({  1,  0 });
+    neighboursVector.push_back({  1,  1 });
+    neighboursVector.push_back({  0,  1 });
+    neighboursVector.push_back({ -1,  1 });
+    neighboursVector.push_back({ -1,  0 });
+
+    for (size_t x = 0; x < 8; ++x)
     {
         if (
-            !(coords.col == 1 && neighboursArray[x][0] == -1) &&
-            !(coords.row == 1 && neighboursArray[x][1] == -1) &&
-            !(coords.col == this->cols && neighboursArray[x][0] == 1) &&
-            !(coords.row == this->rows && neighboursArray[x][1] == 1)
+            !(coords.col == 1 && neighboursVector[x][0] == -1) &&
+            !(coords.row == 1 && neighboursVector[x][1] == -1) &&
+            !(coords.col == this->cols && neighboursVector[x][0] == 1) &&
+            !(coords.row == this->rows && neighboursVector[x][1] == 1)
             )
         {
             if (content == isNumber(coords))
             {
                 for (int i = 1; i < 8; ++i)
                 {
-                    if (tempArray[coords.col + neighboursArray[x][0]][coords.row + neighboursArray[x][1]] == i)
+                    if (tempArray[coords.col + neighboursVector[x][0]][coords.row + neighboursVector[x][1]] == i)
                     {
                         Common::Coords tempCoords;
-                        tempCoords.col = coords.col + neighboursArray[x][0];
-                        tempCoords.row = coords.row + neighboursArray[x][1];
+                        tempCoords.col = coords.col + neighboursVector[x][0];
+                        tempCoords.row = coords.row + neighboursVector[x][1];
                         findNeighboursReturn.push_back(tempCoords);
                     }
                 }
             }
-            else if (tempArray[coords.col + neighboursArray[x][0]][coords.row + neighboursArray[x][1]] == content)
+            else if (tempArray[coords.col + neighboursVector[x][0]][coords.row + neighboursVector[x][1]] == content)
             {
                 Common::Coords tempCoords;
-                tempCoords.col = coords.col + neighboursArray[x][0];
-                tempCoords.row = coords.row + neighboursArray[x][1];
+                tempCoords.col = coords.col + neighboursVector[x][0];
+                tempCoords.row = coords.row + neighboursVector[x][1];
                 findNeighboursReturn.push_back(tempCoords);
             }
         }
