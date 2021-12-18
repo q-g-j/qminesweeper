@@ -19,8 +19,8 @@ private:
     int minesLeft;
     int countUnrevealed;
     bool firstTurn;
-    QVector<QVector<char>> fieldArray;
-    QVector<QVector<char>> minesArray;
+    QVector<QVector<char>> field2DVector;
+    QVector<QVector<char>> mines2DVector;
     Cell** cell;
     QGridLayout *layout;
 
@@ -39,12 +39,12 @@ private:
     QString stylesheet_button_8;
 
     // private methods:
-    QVector<QVector<char>> createArray();
+    QVector<QVector<char>> create2DVector();
     void createCells();
-    void fillMinesArray(const Common::Coords&);
+    void fillMinesVector(const Common::Coords&);
     void printNumber(const Common::Coords&, const int&);
     Common::Coords gridPosition(Cell*);
-    QVector<Common::Coords> findNeighbours(const QVector<QVector<char>>& tempArray, const Common::Coords& coords, const char& content);
+    QVector<Common::Coords> findNeighbours(const QVector<QVector<char>>&, const Common::Coords&, const char&);
     void autoReveal(const Common::Coords&, QVector<int>&);
     void flagAutoReveal(const Common::Coords&);
     bool isFlagSet(const Common::Coords&);

@@ -126,9 +126,10 @@ void MainWindow::on_smiley_released()
     difficulty_.rows = this->difficulty.rows;
     difficulty_.mines = this->difficulty.mines;
     this->newGame(difficulty_);
-    timer->timerInstance->stop();
     timer->counterFine = 0;
+    timer->timerInstance->stop();
     timer->timerInstance->start(10);
+    minesleft_changed(0);
 }
 
 void MainWindow::game_over(const QString& mode)
