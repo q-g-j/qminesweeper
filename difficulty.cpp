@@ -66,13 +66,13 @@ void Difficulty::on_button_start_clicked()
                 || ui->lineEdit_custom_rows->text() == ""
                 || ui->lineEdit_custom_mines->text() == ""
                 || cols > 60
+                || rows > 30
                 || cols < 9
                 || rows < 9
-                || rows > 30
                 || mines > (cols * rows - 1)
                 || mines < 1)
         {
-            QMessageBox::warning(this, "Error", "Wrong input, try again...\n\Valid numbers are:\n\ncolumns: 9 to 60\nrows: 9 to 30\nmines: 1 to (columns * rows - 1)");
+            QMessageBox::warning(this, "Error", "Wrong input, try again...\n\nValid numbers are:\n\ncolumns: 9 to 60\nrows: 9 to 30\nmines: 1 to (columns * rows - 1)");
         }
         else
         {
