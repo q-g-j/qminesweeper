@@ -8,7 +8,6 @@
 
 #include "cell.h"
 #include "common.h"
-#include "timer.h"
 
 class Field : public QWidget
 {
@@ -19,14 +18,10 @@ private:
     int flagsCount;
     int minesLeft;
     int countUnrevealed;
-    bool gameover;
     bool firstTurn;
     QVector<QVector<char>> fieldArray;
     QVector<QVector<char>> minesArray;
     Cell** cell;
-    QLabel *labelMinesLeft;
-    QPushButton *smiley;
-    Timer *timer;
     QGridLayout *layout;
 
     QString stylesheet_button_flag;
@@ -42,10 +37,6 @@ private:
     QString stylesheet_button_6;
     QString stylesheet_button_7;
     QString stylesheet_button_8;
-    QString stylesheet_smiley;
-    QString stylesheet_smiley_pressed;
-    QString stylesheet_smiley_won;
-    QString stylesheet_smiley_lost;
 
     // private methods:
     QVector<QVector<char>> createArray();
@@ -65,23 +56,24 @@ public:
                    const int& cols = 9,
                    const int& rows = 9,
                    const int& mines = 10,
-                   const int& cellSize = 25,
-                   QLabel *labelMinesLeft = nullptr,
-                   QPushButton *smiley = nullptr,
-                   Timer *timer = nullptr);
+                   const int& cellSize = 25);
     ~Field();
 
     // public variables:
     int cellSize;
     int cols;
     int rows;
+    bool isGameOver;
 
     // public methods:
     void addCells();
+signals:
+    void game_over(const QString&);
+    void minesleft_changed(const int&);
 private slots:
-    void onLeftReleased();
-    void onRightReleased();
-    void onDoubleClicked();
+    void on_left_released();
+    void on_right_released();
+    void on_double_clicked();
 };
 
 #endif // FIELD_H

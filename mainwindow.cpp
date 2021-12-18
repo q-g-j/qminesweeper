@@ -46,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->smiley->setStyleSheet(stylesheet_smiley);
 
     newGame(difficulty);
+    timer = new Timer(ui->timerSeconds, ui->timerTenSeconds, ui->timerMinutes, ui->timerTenMinutes);
 }
 
 MainWindow::~MainWindow()
@@ -70,20 +71,22 @@ void clearLayout(QLayout *layout) {
 void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty)
 {
     if (field != nullptr) delete field;
-    if (timer != nullptr) delete timer;
+    field = nullptr;
     clearLayout(fieldLayout);
-    ui->fieldWrapper->setLayout(fieldLayout);
     fieldLayout->setSpacing(0);
     fieldLayout->setContentsMargins(0,0,0,0);
-    timer = new Timer(ui->timerSeconds, ui->timerTenSeconds, ui->timerMinutes, ui->timerTenMinutes);
-    field = new Field(ui->fieldWrapper, difficulty.cols, difficulty.rows, difficulty.mines, this->cellSize, ui->labelMinesLeft, ui->smiley, timer);
+    field = new Field(ui->fieldWrapper, difficulty.cols, difficulty.rows, difficulty.mines, this->cellSize);
+    ui->fieldWrapper->setLayout(fieldLayout);
     ui->fieldWrapper->setMinimumSize(field->cols * (field->cellSize), field->rows * (field->cellSize));
+    ui->smiley->setStyleSheet(stylesheet_smiley);
     field->addCells();
     fieldLayout->addWidget(field);
     centralWidget()->adjustSize();
     this->adjustSize();
     this->setFixedSize(this->size().width(), this->size().height());
-    ui->smiley->setStyleSheet(stylesheet_smiley);
+    minesleft_changed(difficulty.mines);
+    connect(field, SIGNAL(game_over(const QString&)), this, SLOT(game_over(const QString&)));
+    connect(field, SIGNAL(minesleft_changed(const int&)), this, SLOT(minesleft_changed(const int&)));
 }
 
 // open a dialog (difficulty.ui) to choose difficulty:
@@ -101,6 +104,9 @@ void MainWindow::new_game_slot(const Difficulty::DifficultyStruct& difficulty)
     this->difficulty.rows = difficulty.rows;
     this->difficulty.mines = difficulty.mines;
     newGame(difficulty);
+    timer->timerInstance->stop();
+    timer->counterFine = 0;
+    timer->timerInstance->start(10);
 }
 
 void MainWindow::on_actionQuit_triggered()
@@ -120,4 +126,23 @@ void MainWindow::on_smiley_released()
     difficulty_.rows = this->difficulty.rows;
     difficulty_.mines = this->difficulty.mines;
     this->newGame(difficulty_);
+    timer->timerInstance->stop();
+    timer->counterFine = 0;
+    timer->timerInstance->start(10);
 }
+
+void MainWindow::game_over(const QString& mode)
+{
+    timer->timerInstance->stop();
+    timer->counterFine = 0;
+    if (mode == "lose")
+        ui->smiley->setStyleSheet(stylesheet_smiley_lost);
+    else if (mode == "win")
+        ui->smiley->setStyleSheet(stylesheet_smiley_won);
+}
+
+void MainWindow::minesleft_changed(const int& minesLeft)
+{
+    ui->labelMinesLeft->setText(QString::number(minesLeft));
+}
+

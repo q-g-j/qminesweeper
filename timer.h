@@ -10,10 +10,9 @@ class Timer : public QObject
     Q_OBJECT
 public:
     Timer(QLabel* = nullptr, QLabel* = nullptr, QLabel* = nullptr, QLabel* = nullptr);
-    bool keepGoing = true;
+    QTimer *timerInstance;
+    int counterFine = 0;
 private:
-    QTimer *timer;
-    int counterFine = 10;
     int counter = 0;
     QLabel *timerSeconds;
     QLabel *timerTenSeconds;

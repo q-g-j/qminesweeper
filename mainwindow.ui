@@ -126,6 +126,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Noto Sans Condensed Medium</family>
            <pointsize>26</pointsize>
            <italic>false</italic>
           </font>
@@ -136,22 +137,13 @@
 	margin-top: -5;
 	margin-bottom: -5;
   	margin-right: 0;
- 	margin-left: 0;
+    margin-left: 0;
 	font-family: &quot;Noto Sans Condensed Medium&quot;;
 	font-style: normal;
 }</string>
          </property>
-         <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
-         </property>
          <property name="text">
           <string/>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-         <property name="indent">
-          <number>0</number>
          </property>
         </widget>
        </item>
@@ -234,6 +226,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Noto Sans Condensed Medium</family>
            <pointsize>26</pointsize>
            <italic>false</italic>
           </font>
@@ -301,6 +294,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Noto Sans Condensed Medium</family>
            <pointsize>26</pointsize>
            <italic>false</italic>
           </font>
@@ -346,6 +340,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Noto Sans Condensed Medium</family>
            <pointsize>26</pointsize>
            <italic>false</italic>
           </font>
@@ -397,6 +392,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Noto Sans Condensed Medium</family>
            <pointsize>26</pointsize>
            <italic>false</italic>
           </font>
@@ -464,6 +460,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Noto Sans Condensed Medium</family>
            <pointsize>26</pointsize>
            <italic>false</italic>
           </font>
@@ -550,7 +547,7 @@
      <x>0</x>
      <y>0</y>
      <width>561</width>
-     <height>20</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="font">

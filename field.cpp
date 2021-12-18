@@ -10,23 +10,20 @@
 #include "common.h"
 #include "field.h"
 
-Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& mines_, const int& cellSize_, QLabel *labelMinesLeft_, QPushButton *smiley_, Timer *timer_) : QWidget(parent)
+Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& mines_, const int& cellSize_) : QWidget(parent)
 {
     this->cols = cols_;
     this->rows = rows_;
     this->mines = mines_;
     this->cellSize = cellSize_;
     this->minesLeft = mines_;
-    this->labelMinesLeft = labelMinesLeft_;
-    this->smiley = smiley_;
-    this->timer = timer_;
     this->countUnrevealed = cols_ * rows_;
     this->flagsCount = 0;
     this->firstTurn = true;
-    this->gameover = false;
+    this->isGameOver = false;
     this->fieldArray = createArray();
     this->minesArray = createArray();
-    this->labelMinesLeft->setText(QString::number(this->minesLeft));
+    emit minesleft_changed(this->minesLeft);
     createCells();
 
     layout = new QGridLayout;
@@ -47,10 +44,6 @@ Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& min
     QFile file_button_6             (":/stylesheet/button_6.css");
     QFile file_button_7             (":/stylesheet/button_7.css");
     QFile file_button_8             (":/stylesheet/button_8.css");
-    QFile smiley                    (":/stylesheet/infobar_smiley.css");
-    QFile smiley_pressed            (":/stylesheet/infobar_smiley_pressed.css");
-    QFile smiley_won                (":/stylesheet/infobar_smiley_won.css");
-    QFile smiley_lost               (":/stylesheet/infobar_smiley_lost.css");
     file_button_flag.open           (QFile::ReadOnly);
     file_button_mine.open           (QFile::ReadOnly);
     file_button_mine_hit.open       (QFile::ReadOnly);
@@ -64,10 +57,6 @@ Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& min
     file_button_6.open              (QFile::ReadOnly);
     file_button_7.open              (QFile::ReadOnly);
     file_button_8.open              (QFile::ReadOnly);
-    smiley.open                     (QFile::ReadOnly);
-    smiley_pressed.open             (QFile::ReadOnly);
-    smiley_won.open                 (QFile::ReadOnly);
-    smiley_lost.open                (QFile::ReadOnly);
     stylesheet_button_flag          = QLatin1String(file_button_flag.readAll());
     stylesheet_button_mine          = QLatin1String(file_button_mine.readAll());
     stylesheet_button_mine_hit      = QLatin1String(file_button_mine_hit.readAll());
@@ -81,10 +70,6 @@ Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& min
     stylesheet_button_6             = QLatin1String(file_button_6.readAll());
     stylesheet_button_7             = QLatin1String(file_button_7.readAll());
     stylesheet_button_8             = QLatin1String(file_button_8.readAll());
-    stylesheet_smiley               = QLatin1String(smiley.readAll());
-    stylesheet_smiley_pressed       = QLatin1String(smiley_pressed.readAll());
-    stylesheet_smiley_won           = QLatin1String(smiley_won.readAll());
-    stylesheet_smiley_lost          = QLatin1String(smiley_lost.readAll());
     file_button_flag.close();
     file_button_mine.close();
     file_button_mine_hit.close();
@@ -98,10 +83,6 @@ Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& min
     file_button_6.close();
     file_button_7.close();
     file_button_8.close();
-    smiley.close();
-    smiley_pressed.close();
-    smiley_won.close();
-    smiley_lost.close();
 }
 
 Field::~Field()
@@ -164,9 +145,9 @@ void Field::addCells()
             this->cell[i][j].setStyleSheet(stylesheet_button_unrevealed);
             this->cell[i][j].setFixedSize(this->cellSize, this->cellSize);
             layout->addWidget(&this->cell[i][j], j - 1, i - 1, 1, 1);
-            connect(&this->cell[i][j], SIGNAL(doubleClicked()), this, SLOT(onDoubleClicked()));
-            connect(&this->cell[i][j], SIGNAL(leftReleased()), this, SLOT(onLeftReleased()));
-            connect(&this->cell[i][j], SIGNAL(rightReleased()), this, SLOT(onRightReleased()));
+            connect(&this->cell[i][j], SIGNAL(doubleClicked()), this, SLOT(on_double_clicked()));
+            connect(&this->cell[i][j], SIGNAL(leftReleased()), this, SLOT(on_left_released()));
+            connect(&this->cell[i][j], SIGNAL(rightReleased()), this, SLOT(on_right_released()));
         }
     }
 }
@@ -311,7 +292,10 @@ void Field::printNumber(const Common::Coords& coords, const int& number)
 // used for both winning and losing a game (mode = "win" or "lose"):
 void Field::gameOver(const Common::Coords& coords, const QString& mode)
 {
-    this->gameover = true;
+    this->minesLeft = 0;
+    this->isGameOver = true;
+    emit minesleft_changed(this->minesLeft);
+    emit game_over(mode);
 
     for (int i = 1; i <= this->cols; i++)
     {
@@ -344,13 +328,7 @@ void Field::gameOver(const Common::Coords& coords, const QString& mode)
     if (mode == "lose")
     {
         this->cell[coords.col][coords.row].setStyleSheet(stylesheet_button_mine_hit);
-        this->smiley->setStyleSheet(stylesheet_smiley_lost);
     }
-    else
-        this->smiley->setStyleSheet(stylesheet_smiley_won);
-    this->minesLeft = 0;
-    this->labelMinesLeft->setText(QString::number(this->minesLeft));
-    timer->keepGoing = false;
 }
 
 // automatically reveal all connected cells, as long as they have no neighbour mines:
@@ -475,9 +453,9 @@ void Field::flagAutoReveal(const Common::Coords& coords)
 
 
 // handle left clicking on a cell:
-void Field::onLeftReleased()
+void Field::on_left_released()
 {
-    if (this->gameover != true)
+    if (this->isGameOver != true)
     {
         Cell *button = qobject_cast<Cell*>(sender());
         Common::Coords coordsTemp = gridPosition(button);
@@ -520,9 +498,9 @@ void Field::onLeftReleased()
 }
 
 // place and remove flags with right click:
-void Field::onRightReleased()
+void Field::on_right_released()
 {
-    if (this->gameover != true)
+    if (this->isGameOver != true)
     {
         Cell *button = qobject_cast<Cell *>(sender());
         auto coords = gridPosition(button);
@@ -546,14 +524,14 @@ void Field::onRightReleased()
             }
         }
     }
-    this->labelMinesLeft->setText(QString::number(this->minesLeft));
+    emit minesleft_changed(this->minesLeft);
 }
 
 // auto-reveal safe cells with no neighbour mines by double clicking on a number
 // (flags around the numbered button must be placed right):
-void Field::onDoubleClicked()
+void Field::on_double_clicked()
 {
-    if (this->gameover != true)
+    if (this->isGameOver != true)
     {
         Cell *button = qobject_cast<Cell *>(sender());
         Common::Coords coords = gridPosition(button);

@@ -1,16 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/button_1.png</file>
-        <file>images/button_2.png</file>
-        <file>images/button_3.png</file>
-        <file>images/button_4.png</file>
-        <file>images/button_5.png</file>
-        <file>images/button_6.png</file>
-        <file>images/button_7.png</file>
-        <file>images/button_8.png</file>
-        <file>images/button_mine.png</file>
-        <file>images/button_mine_hit.png</file>
-        <file>images/button_flag.png</file>
+        <file>fonts/NotoSans-CondensedMedium.ttf</file>
+        <file>stylesheet/button_1.css</file>
         <file>stylesheet/button_2.css</file>
         <file>stylesheet/button_3.css</file>
         <file>stylesheet/button_4.css</file>
@@ -25,15 +16,24 @@
         <file>stylesheet/infobar_smiley_lost.css</file>
         <file>stylesheet/infobar_smiley.css</file>
         <file>stylesheet/infobar_smiley_pressed.css</file>
-        <file>stylesheet/button_1.css</file>
-        <file>images/smiley_lost.png</file>
-        <file>images/smiley.png</file>
-        <file>images/smiley_won.png</file>
-        <file>images/smiley_pressed.png</file>
-        <file>fonts/NotoSans-CondensedMedium.ttf</file>
         <file>stylesheet/button_revealed.css</file>
         <file>stylesheet/button_unrevealed.css</file>
-        <file>images/button_unrevealed.png</file>
-        <file>images/button_revealed.png</file>
+        <file>images/png/button_1.png</file>
+        <file>images/png/button_2.png</file>
+        <file>images/png/button_3.png</file>
+        <file>images/png/button_4.png</file>
+        <file>images/png/button_5.png</file>
+        <file>images/png/button_6.png</file>
+        <file>images/png/button_7.png</file>
+        <file>images/png/button_8.png</file>
+        <file>images/png/button_flag.png</file>
+        <file>images/png/button_mine.png</file>
+        <file>images/png/button_mine_hit.png</file>
+        <file>images/png/button_revealed.png</file>
+        <file>images/png/button_unrevealed.png</file>
+        <file>images/png/smiley.png</file>
+        <file>images/png/smiley_lost.png</file>
+        <file>images/png/smiley_pressed.png</file>
+        <file>images/png/smiley_won.png</file>
     </qresource>
 </RCC>

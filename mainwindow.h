@@ -41,6 +41,8 @@ private slots:
     void on_actionQuit_triggered();
     void on_smiley_pressed();
     void on_smiley_released();
+    void game_over(const QString&);
+    void minesleft_changed(const int&);
 
 protected:
 };
