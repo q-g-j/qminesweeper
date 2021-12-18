@@ -129,7 +129,6 @@ void MainWindow::on_smiley_released()
     timer->counterFine = 0;
     timer->timerInstance->stop();
     timer->timerInstance->start(10);
-    minesleft_changed(0);
 }
 
 void MainWindow::game_over(const QString& mode)
