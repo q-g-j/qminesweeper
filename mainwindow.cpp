@@ -77,6 +77,10 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty)
     field = new Field(ui->fieldWrapper, difficulty.cols, difficulty.rows, difficulty.mines, this->cellSize);
     ui->fieldWrapper->setLayout(fieldLayout);
     ui->fieldWrapper->setMinimumSize(field->cols * field->cellSize, field->rows * field->cellSize);
+    ui->timerTenMinutes->setText("0");
+    ui->timerMinutes->setText("0");
+    ui->timerTenSeconds->setText("0");
+    ui->timerSeconds->setText("0");
     ui->smiley->setStyleSheet(stylesheet_smiley);
     field->addCells();
     fieldLayout->addWidget(field);
