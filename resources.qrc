@@ -39,5 +39,6 @@
         <file>images/png/smiley_surprised_hover.png</file>
         <file>images/png/smiley_won_hover.png</file>
         <file>images/png/smiley_lost_hover.png</file>
+        <file>images/png/menubar_quit.png</file>
     </qresource>
 </RCC>

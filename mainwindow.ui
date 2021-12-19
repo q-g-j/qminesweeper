@@ -492,21 +492,16 @@
       <pointsize>10</pointsize>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="title">
      <string>Game</string>
     </property>
     <addaction name="actionNew"/>
     <addaction name="actionQuit"/>
    </widget>
-   <widget class="QMenu" name="menuHelp">
-    <property name="title">
-     <string>Help</string>
-    </property>
-    <addaction name="actionHow_to_play"/>
-    <addaction name="actionAbout"/>
-   </widget>
    <addaction name="menuGame"/>
-   <addaction name="menuHelp"/>
   </widget>
   <action name="actionHow_to_play">
    <property name="text">
@@ -519,11 +514,21 @@
    </property>
   </action>
   <action name="actionNew">
+   <property name="icon">
+    <iconset>
+     <normalon>:/images/png/smiley.png</normalon>
+    </iconset>
+   </property>
    <property name="text">
-    <string>New</string>
+    <string>New Game</string>
    </property>
   </action>
   <action name="actionQuit">
+   <property name="icon">
+    <iconset>
+     <normalon>:/images/png/menubar_quit.png</normalon>
+    </iconset>
+   </property>
    <property name="text">
     <string>Quit</string>
    </property>
