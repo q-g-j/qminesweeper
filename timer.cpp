@@ -11,7 +11,7 @@ Timer::Timer(QLabel *timerSeconds_, QLabel *timerTenSeconds_, QLabel *timerMinut
     timerInstance = new QTimer(this);
     timerInstance->setTimerType(Qt::PreciseTimer);
 
-    connect(timerInstance, &Timer::timerInstance->timeout, this, &Timer::TimerSlot);
+    connect(timerInstance, SIGNAL(timeout()), this, SLOT(TimerSlot()));
     timerInstance->start(10);
     timerSeconds->setText(QString::number(0));
     timerTenSeconds->setText(QString::number(0));
