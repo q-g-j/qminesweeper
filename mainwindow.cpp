@@ -1,6 +1,5 @@
-#include <QSizePolicy>
-#include <QSize>
 #include <QDebug>
+#include <QSizePolicy>
 #include <QFontDatabase>
 
 #include "mainwindow.h"
@@ -13,14 +12,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+    setWindowFlags(Qt::Window | Qt::MSWindowsFixedSizeDialogHint);
 
     // width and height of a cell in pixels:
     this->cellSize = 25;
-
-    // start in easy mode:
-    difficulty.cols = 9;
-    difficulty.rows = 9;
-    difficulty.mines = 10;
 
     fieldLayout = new QGridLayout(ui->fieldWrapper);
 
@@ -43,11 +38,13 @@ MainWindow::MainWindow(QWidget *parent)
     smiley_won.close();
     smiley_lost.close();
 
-    ui->smiley->setStyleSheet(stylesheet_smiley);
+    // start in easy mode:
+    difficulty.cols = 9;
+    difficulty.rows = 9;
+    difficulty.mines = 10;
 
     newGame(difficulty);
     timer = new Timer(ui->timerSeconds, ui->timerTenSeconds, ui->timerMinutes, ui->timerTenMinutes);
-    setWindowFlags(Qt::Window | Qt::MSWindowsFixedSizeDialogHint);
 }
 
 MainWindow::~MainWindow()

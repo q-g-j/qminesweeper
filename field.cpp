@@ -1,10 +1,6 @@
 #include <QDebug>
 #include <QFile>
-#include <QMessageBox>
 #include <QSizePolicy>
-#include <QGridLayout>
-#include <iostream>
-
 #include <QVector>
 
 #include "cell.h"

@@ -1,5 +1,4 @@
 #include <QApplication>
-#include <QSizePolicy>
 
 #include "common.h"
 #include "mainwindow.h"

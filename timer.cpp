@@ -1,5 +1,4 @@
 #include <QDebug>
-#include <iostream>
 
 #include "timer.h"
 

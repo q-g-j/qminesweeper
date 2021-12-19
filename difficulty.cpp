@@ -1,5 +1,5 @@
-#include <QMessageBox>
 #include <QDebug>
+#include <QMessageBox>
 
 #include "difficulty.h"
 #include "ui_difficulty.h"
@@ -72,7 +72,14 @@ void Difficulty::on_button_start_clicked()
                 || mines > (cols * rows - 1)
                 || mines < 1)
         {
-            QMessageBox::warning(this, "Error", "Wrong input, try again...\n\nValid numbers are:\n\ncolumns: 9 to 60\nrows: 9 to 30\nmines: 1 to (columns * rows - 1)");
+            QString msg = "Wrong input, try again. Valid numbers are:\n\n"
+                    "columns:\n"
+                    "   9 to 60\n"
+                    "rows:\n"
+                    "   9 to 30\n"
+                    "mines:\n"
+                    "   1 to (columns * rows - 1)";
+            QMessageBox::warning(this, "Error", msg);
         }
         else
         {
