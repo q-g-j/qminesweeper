@@ -334,6 +334,7 @@ void Field::autoReveal(const Common::Coords& coords, QVector<int>& poolVector)
     QVector<Common::Coords> neighboursUnrevealedVector;
     neighboursUnrevealedVector = this->findNeighbours(this->field2DVector, coords, ' ');
 
+    // check if player has won:
     for (int i = 0; i < neighboursUnrevealedVector.size(); ++i)
     {
         QVector<Common::Coords> neighboursMinesVector;
@@ -408,48 +409,42 @@ void Field::flagAutoReveal(const Common::Coords& coords)
             // else if all flags are placed correctly:
             else
             {
-                if (flagRevealNeighboursMinesVector.size() == flagRevealNeighboursFlagsVector.size())
+                // create a pool of already revealed cells, to avoid double checks within autoReveal():
+                QVector<int> poolVector;
+                // for each unrevealed neighbour of coords, print the number of surrounding mines:
+                for (int i = 0; i < flagRevealNeighboursUnrevealedVector.size(); ++i)
                 {
-                    // create a pool of already revealed cells, to avoid double checks within autoReveal():
-                    QVector<int> poolVector;
-                    // for each unrevealed neighbour of coords, print the number of surrounding mines:
-                    for (int i = 0; i < flagRevealNeighboursUnrevealedVector.size(); ++i)
-                    {
-                        Common::Coords coordsTemp;
-                        coordsTemp.col = flagRevealNeighboursUnrevealedVector.at(i).col;
-                        coordsTemp.row = flagRevealNeighboursUnrevealedVector.at(i).row;
-                        QVector<Common::Coords> flagRevealNeighboursUnrevealedMinesVector;
-                        flagRevealNeighboursUnrevealedMinesVector = this->findNeighbours(this->mines2DVector, coordsTemp, 'X');
+                    Common::Coords coordsTemp;
+                    coordsTemp.col = flagRevealNeighboursUnrevealedVector.at(i).col;
+                    coordsTemp.row = flagRevealNeighboursUnrevealedVector.at(i).row;
+                    QVector<Common::Coords> flagRevealNeighboursUnrevealedMinesVector;
+                    flagRevealNeighboursUnrevealedMinesVector = this->findNeighbours(this->mines2DVector, coordsTemp, 'X');
 
-                        if (flagRevealNeighboursUnrevealedMinesVector.size() == 0)
+                    if (std::find(poolVector.begin(), poolVector.end(), Common::CoordsToInt(coordsTemp, this->cols)) == poolVector.end())
+                    {
+                        if (this->flagsCount + this->countUnrevealed == this->mines)
                         {
-                            if (std::find(poolVector.begin(), poolVector.end(), Common::CoordsToInt(coordsTemp, this->cols)) == poolVector.end())
-                            {
-                                this->printNumber(coordsTemp, 0);
-                                poolVector.push_back(Common::CoordsToInt(coordsTemp, this->cols));
-                                --this->countUnrevealed;
-                                this->autoReveal(coordsTemp, poolVector);
-                            }
+                            Common::Coords dummyCoords;
+                            this->gameOver(dummyCoords, "win");
+                        }
+                        else if (flagRevealNeighboursUnrevealedMinesVector.size() == 0)
+                        {
+                            this->printNumber(coordsTemp, 0);
+                            poolVector.push_back(Common::CoordsToInt(coordsTemp, this->cols));
+                            --this->countUnrevealed;
+                            this->autoReveal(coordsTemp, poolVector);
                         }
                         else
                         {
-                            if (std::find(poolVector.begin(), poolVector.end(), Common::CoordsToInt(coordsTemp, this->cols)) == poolVector.end())
-                            {
-                                this->printNumber(coordsTemp, static_cast<int>(flagRevealNeighboursUnrevealedMinesVector.size()));
-                                poolVector.push_back(Common::CoordsToInt(coordsTemp, this->cols));
-                                --this->countUnrevealed;
-                            }
+                            this->printNumber(coordsTemp, static_cast<int>(flagRevealNeighboursUnrevealedMinesVector.size()));
+                            poolVector.push_back(Common::CoordsToInt(coordsTemp, this->cols));
+                            --this->countUnrevealed;
                         }
-                    }
-                    if (flagRevealNeighboursUnrevealedVector.size() != 0)
-                    {
-                        int col = coords.col;
-                        int row = coords.row;
-                        if (this->field2DVector[col][row] != '0')
-                            emit this->smiley_surprised();
                     }
                 }
             }
+            if (this->flagsCount + this->countUnrevealed != this->mines)
+                emit this->smiley_surprised();
         }
     }
 }
@@ -502,7 +497,9 @@ void Field::on_left_released()
 
             // if user hit a mine, reveal the game field - game is lost:
             if (this->mines2DVector[coordsTemp.col][coordsTemp.row] == 'X')
+            {
                 this->gameOver(coordsTemp, "lose");
+            }
 
             else
             {
@@ -510,6 +507,13 @@ void Field::on_left_released()
                 neighboursMinesVector = this->findNeighbours(this->mines2DVector, coordsTemp, 'X');
                 this->printNumber(coordsTemp, neighboursMinesVector.size());
                 --this->countUnrevealed;
+
+                // check if player has won:
+                if (this->flagsCount + this->countUnrevealed == this->mines)
+                {
+                    Common::Coords dummyCoords;
+                    this->gameOver(dummyCoords, "win");
+                }
             }
             if (this->isGameOver != true)
             {
@@ -517,15 +521,15 @@ void Field::on_left_released()
                 QVector<int> poolVector;
                 this->autoReveal(coordsTemp, poolVector);
                 this->firstTurn = false;
-                emit this->smiley_surprised();
-            }
-        }
 
-        // check if player has won:
-        if (this->flagsCount + this->countUnrevealed == this->mines)
-        {
-            Common::Coords dummyCoords;
-            this->gameOver(dummyCoords, "win");
+                // check if player has won:
+                if (this->flagsCount + this->countUnrevealed == this->mines)
+                {
+                    Common::Coords dummyCoords;
+                    this->gameOver(dummyCoords, "win");
+                }
+            }
+            emit this->smiley_surprised();
         }
     }
 }
