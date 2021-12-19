@@ -47,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     newGame(difficulty);
     timer = new Timer(ui->timerSeconds, ui->timerTenSeconds, ui->timerMinutes, ui->timerTenMinutes);
+    setWindowFlags(Qt::Window | Qt::MSWindowsFixedSizeDialogHint);
 }
 
 MainWindow::~MainWindow()
@@ -77,7 +78,7 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty)
     fieldLayout->setContentsMargins(0,0,0,0);
     field = new Field(ui->fieldWrapper, difficulty.cols, difficulty.rows, difficulty.mines, this->cellSize);
     ui->fieldWrapper->setLayout(fieldLayout);
-    ui->fieldWrapper->setMinimumSize(field->cols * (field->cellSize), field->rows * (field->cellSize));
+    ui->fieldWrapper->setMinimumSize(field->cols * field->cellSize, field->rows * field->cellSize);
     ui->smiley->setStyleSheet(stylesheet_smiley);
     field->addCells();
     fieldLayout->addWidget(field);
