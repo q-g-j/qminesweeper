@@ -75,6 +75,7 @@ public:
 signals:
     void game_over(const QString&);
     void minesleft_changed(const int&);
+    void smiley_surprised();
 private slots:
     void on_left_released();
     void on_right_released();

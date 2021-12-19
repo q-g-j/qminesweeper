@@ -5,6 +5,8 @@
     #include "time.h"
 #endif
 
+#include <QThread>
+
 #include "common.h"
 
 // needed for random_shuffle() (place the mines):

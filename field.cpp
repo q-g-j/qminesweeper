@@ -437,6 +437,13 @@ void Field::flagAutoReveal(const Common::Coords& coords)
                             }
                         }
                     }
+                    if (flagRevealNeighboursUnrevealedVector.size() != 0)
+                    {
+                        int col = coords.col;
+                        int row = coords.row;
+                        if (this->field2DVector[col][row] != '0')
+                            emit smiley_surprised();
+                    }
                 }
             }
         }

@@ -1,6 +1,7 @@
 #include <QDebug>
 #include <QSizePolicy>
 #include <QFontDatabase>
+#include <QThread>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -22,21 +23,21 @@ MainWindow::MainWindow(QWidget *parent)
     QFontDatabase::addApplicationFont(":/fonts/NotoSans-CondensedMedium.ttf");
 
     QFile smiley                (":/stylesheet/infobar_smiley.css");
-    QFile smiley_pressed        (":/stylesheet/infobar_smiley_pressed.css");
     QFile smiley_won            (":/stylesheet/infobar_smiley_won.css");
     QFile smiley_lost           (":/stylesheet/infobar_smiley_lost.css");
+    QFile smiley_surprised      (":/stylesheet/infobar_smiley_surprised.css");
     smiley.open                 (QFile::ReadOnly);
-    smiley_pressed.open         (QFile::ReadOnly);
     smiley_won.open             (QFile::ReadOnly);
     smiley_lost.open            (QFile::ReadOnly);
+    smiley_surprised.open       (QFile::ReadOnly);
     stylesheet_smiley           = QLatin1String(smiley.readAll());
-    stylesheet_smiley_pressed   = QLatin1String(smiley_pressed.readAll());
     stylesheet_smiley_won       = QLatin1String(smiley_won.readAll());
     stylesheet_smiley_lost      = QLatin1String(smiley_lost.readAll());
+    stylesheet_smiley_surprised = QLatin1String(smiley_surprised.readAll());
     smiley.close();
-    smiley_pressed.close();
     smiley_won.close();
     smiley_lost.close();
+    smiley_surprised.close();
 
     // start in easy mode:
     difficulty.cols = 9;
@@ -83,15 +84,15 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty)
     this->adjustSize();
     this->setFixedSize(this->size().width(), this->size().height());
     minesleft_changed(difficulty.mines);
-    connect(field, SIGNAL(game_over(const QString&)), this, SLOT(game_over(const QString&)));
-    connect(field, SIGNAL(minesleft_changed(const int&)), this, SLOT(minesleft_changed(const int&)));
+    connect(field, &Field::game_over, this, &MainWindow::game_over);
+    connect(field, &Field::minesleft_changed, this, &MainWindow::minesleft_changed);
+    connect(field, &Field::smiley_surprised, this, &MainWindow::smiley_surprised);
 }
-
 // open a dialog (difficulty.ui) to choose difficulty:
 void MainWindow::on_actionNew_triggered()
 {
     Difficulty difficulty(this);
-    connect(&difficulty, SIGNAL(buttonClicked(Difficulty::DifficultyStruct)), this, SLOT(new_game_slot(Difficulty::DifficultyStruct)));
+    connect(&difficulty, &Difficulty::buttonClicked, this, &MainWindow::new_game_slot);
     difficulty.setModal(true);
     difficulty.exec();
 }
@@ -112,11 +113,6 @@ void MainWindow::on_actionQuit_triggered()
     close();
 }
 
-void MainWindow::on_smiley_pressed()
-{
-    ui->smiley->setStyleSheet(stylesheet_smiley_pressed);
-}
-
 void MainWindow::on_smiley_released()
 {
     Difficulty::DifficultyStruct difficulty_;
@@ -127,6 +123,11 @@ void MainWindow::on_smiley_released()
     timer->counterFine = 0;
     timer->timerInstance->stop();
     timer->timerInstance->start(10);
+}
+
+void MainWindow::smiley_surprised()
+{
+    sleep(500);
 }
 
 void MainWindow::game_over(const QString& mode)
@@ -144,3 +145,14 @@ void MainWindow::minesleft_changed(const int& minesLeft)
     ui->labelMinesLeft->setText(QString::number(minesLeft));
 }
 
+
+void MainWindow::sleep(const int& milliseconds)
+{
+    ui->smiley->setStyleSheet(stylesheet_smiley_surprised);
+    QEventLoop loop;
+
+    QTimer::singleShot(milliseconds, &loop, &QEventLoop::quit);
+
+    loop.exec();
+    ui->smiley->setStyleSheet(stylesheet_smiley);
+}

@@ -15,7 +15,6 @@
         <file>stylesheet/infobar_smiley_won.css</file>
         <file>stylesheet/infobar_smiley_lost.css</file>
         <file>stylesheet/infobar_smiley.css</file>
-        <file>stylesheet/infobar_smiley_pressed.css</file>
         <file>stylesheet/button_revealed.css</file>
         <file>stylesheet/button_unrevealed.css</file>
         <file>images/png/button_1.png</file>
@@ -33,7 +32,12 @@
         <file>images/png/button_unrevealed.png</file>
         <file>images/png/smiley.png</file>
         <file>images/png/smiley_lost.png</file>
-        <file>images/png/smiley_pressed.png</file>
+        <file>images/png/smiley_hover.png</file>
         <file>images/png/smiley_won.png</file>
+        <file>images/png/smiley_surprised.png</file>
+        <file>stylesheet/infobar_smiley_surprised.css</file>
+        <file>images/png/smiley_surprised_hover.png</file>
+        <file>images/png/smiley_won_hover.png</file>
+        <file>images/png/smiley_lost_hover.png</file>
     </qresource>
 </RCC>
