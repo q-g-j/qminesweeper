@@ -3,6 +3,7 @@
 #include <QMessageBox>
 #include <QSizePolicy>
 #include <QGridLayout>
+#include <iostream>
 
 #include <QVector>
 
@@ -144,28 +145,22 @@ void Field::addCells()
         {
             this->cell[i][j].setStyleSheet(stylesheet_button_unrevealed);
             this->cell[i][j].setFixedSize(this->cellSize, this->cellSize);
+
+            // create a vector holding structs of each button together with its coords:
+            Common::Coords coordsTemp;
+            coordsTemp.col = i;
+            coordsTemp.row = j;
+            buttonStruct structTemp;
+            structTemp.coords = coordsTemp;
+            structTemp.button = &this->cell[i][j];
+            this->buttonStructVector.append(structTemp);
+
             layout->addWidget(&this->cell[i][j], j - 1, i - 1, 1, 1);
-            connect(&this->cell[i][j], SIGNAL(doubleClicked()), this, SLOT(on_double_clicked()));
-            connect(&this->cell[i][j], SIGNAL(leftReleased()), this, SLOT(on_left_released()));
-            connect(&this->cell[i][j], SIGNAL(rightReleased()), this, SLOT(on_right_released()));
+            connect(&this->cell[i][j], &Cell::doubleClicked, this, &Field::on_double_clicked);
+            connect(&this->cell[i][j], &Cell::leftReleased, this, &Field::on_left_released);
+            connect(&this->cell[i][j], &Cell::rightReleased, this, &Field::on_right_released);
         }
     }
-}
-
-// return the coords of a button in the QGridLayout:
-Common::Coords Field::gridPosition(Cell* button)
-{
-  Common::Coords coords;
-  if (! button->parentWidget()) return coords;
-  auto layout = qobject_cast<QGridLayout*>(button->parentWidget()->layout());
-  if (! layout) return coords;
-  int index = layout->indexOf(button);
-  Q_ASSERT(index >= 0);
-  int _ = 0;
-  layout->getItemPosition(index, &coords.row, &coords.col, &_, &_);
-  coords.col++;
-  coords.row++;
-  return coords;
 }
 
 // test coords if they contain a flag:
@@ -452,6 +447,35 @@ void Field::flagAutoReveal(const Common::Coords& coords)
     }
 }
 
+// return the coords of a button:
+// (my own approach with std::find_if to get rid of the complicated gridPosition() method)
+Common::Coords Field::getButtonCoords(Cell *button)
+{
+    buttonStruct *structTemp = std::find_if(
+                this->buttonStructVector.begin(),
+                this->buttonStructVector.end(),
+                [button] (buttonStruct& s) { return s.button == button; }
+            );
+    return structTemp->coords;
+}
+
+// return the coords of a button in the QGridLayout:
+/*
+Common::Coords Field::gridPosition(Cell* button)
+{
+  Common::Coords coords;
+  if (! button->parentWidget()) return coords;
+  auto layout = qobject_cast<QGridLayout*>(button->parentWidget()->layout());
+  if (! layout) return coords;
+  int index = layout->indexOf(button);
+  Q_ASSERT(index >= 0);
+  int _ = 0;
+  layout->getItemPosition(index, &coords.row, &coords.col, &_, &_);
+  coords.col++;
+  coords.row++;
+  return coords;
+}
+*/
 
 // handle left clicking on a cell:
 void Field::on_left_released()
@@ -459,7 +483,7 @@ void Field::on_left_released()
     if (this->isGameOver != true)
     {
         Cell *button = qobject_cast<Cell*>(sender());
-        Common::Coords coordsTemp = gridPosition(button);
+        Common::Coords coordsTemp = getButtonCoords(button);
 
         if (field2DVector[coordsTemp.col][coordsTemp.row] != 'F' && (! isNumber(coordsTemp)))
         {
@@ -504,13 +528,14 @@ void Field::on_right_released()
     if (this->isGameOver != true)
     {
         Cell *button = qobject_cast<Cell *>(sender());
-        auto coords = gridPosition(button);
-        if (this->field2DVector[coords.col][coords.row] == ' ' || this->field2DVector[coords.col][coords.row] == 'F')
+        Common::Coords coordsTemp = getButtonCoords(button);
+
+        if (this->field2DVector[coordsTemp.col][coordsTemp.row] == ' ' || this->field2DVector[coordsTemp.col][coordsTemp.row] == 'F')
         {
-            if (! isFlagSet(coords))
+            if (! isFlagSet(coordsTemp))
             {
                 button->setStyleSheet(stylesheet_button_flag);
-                this->field2DVector[coords.col][coords.row] = 'F';
+                this->field2DVector[coordsTemp.col][coordsTemp.row] = 'F';
                 this->flagsCount++;
                 this->minesLeft--;
                 this->countUnrevealed--;
@@ -518,7 +543,7 @@ void Field::on_right_released()
             else
             {
                 button->setStyleSheet(stylesheet_button_unrevealed);
-                this->field2DVector[coords.col][coords.row] = ' ';
+                this->field2DVector[coordsTemp.col][coordsTemp.row] = ' ';
                 this->flagsCount--;
                 this->minesLeft++;
                 this->countUnrevealed++;
@@ -535,10 +560,10 @@ void Field::on_double_clicked()
     if (this->isGameOver != true)
     {
         Cell *button = qobject_cast<Cell *>(sender());
-        Common::Coords coords = gridPosition(button);
-        if (isNumber(coords))
+        Common::Coords coordsTemp = getButtonCoords(button);
+        if (isNumber(coordsTemp))
         {
-            flagAutoReveal(coords);
+            flagAutoReveal(coordsTemp);
         }
     }
     // check if player has won:

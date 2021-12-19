@@ -21,6 +21,13 @@ private:
     bool firstTurn;
     QVector<QVector<char>> field2DVector;
     QVector<QVector<char>> mines2DVector;
+    struct buttonStruct
+    {
+        Cell* button;
+        Common::Coords coords;
+    };
+    QVector<buttonStruct> buttonStructVector;
+
     Cell** cell;
     QGridLayout *layout;
 
@@ -43,13 +50,13 @@ private:
     void createCells();
     void fillMinesVector(const Common::Coords&);
     void printNumber(const Common::Coords&, const int&);
-    Common::Coords gridPosition(Cell*);
     QVector<Common::Coords> findNeighbours(const QVector<QVector<char>>&, const Common::Coords&, const char&);
     void autoReveal(const Common::Coords&, QVector<int>&);
     void flagAutoReveal(const Common::Coords&);
     bool isFlagSet(const Common::Coords&);
     bool isNumber(const Common::Coords&);
     void gameOver(const Common::Coords&, const QString&);
+    Common::Coords getButtonCoords(Cell*);
 
 public:
     explicit Field(QWidget *parent = nullptr,
