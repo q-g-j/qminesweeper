@@ -131,7 +131,7 @@ void MainWindow::on_smiley_released()
 
 void MainWindow::smiley_surprised()
 {
-    this->sleep(500);
+    this->sleep(350);
 }
 
 void MainWindow::game_over(const QString& mode)
@@ -151,11 +151,13 @@ void MainWindow::minesleft_changed(const int& minesLeft)
 
 void MainWindow::sleep(const int& milliseconds)
 {
-    ui->smiley->setStyleSheet(this->stylesheet_smiley_surprised);
-    QEventLoop loop;
-
-    QTimer::singleShot(milliseconds, &loop, &QEventLoop::quit);
-
-    loop.exec();
-    ui->smiley->setStyleSheet(this->stylesheet_smiley);
+    if (field->isGameOver != true)
+    {
+        ui->smiley->setStyleSheet(this->stylesheet_smiley_surprised);
+        QEventLoop loop;
+        QTimer::singleShot(milliseconds, &loop, &QEventLoop::quit);
+        loop.exec();
+        if (field->isGameOver != true)
+            ui->smiley->setStyleSheet(this->stylesheet_smiley);
+    }
 }

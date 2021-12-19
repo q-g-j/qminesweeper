@@ -288,8 +288,8 @@ void Field::printNumber(const Common::Coords& coords, const int& number)
 // used for both winning and losing a game (mode = "win" or "lose"):
 void Field::gameOver(const Common::Coords& coords, const QString& mode)
 {
-    this->minesLeft = 0;
     this->isGameOver = true;
+    this->minesLeft = 0;
     emit this->minesleft_changed(this->minesLeft);
     emit this->game_over(mode);
 
@@ -502,9 +502,7 @@ void Field::on_left_released()
 
             // if user hit a mine, reveal the game field - game is lost:
             if (this->mines2DVector[coordsTemp.col][coordsTemp.row] == 'X')
-            {
                 this->gameOver(coordsTemp, "lose");
-            }
 
             else
             {
@@ -513,19 +511,22 @@ void Field::on_left_released()
                 this->printNumber(coordsTemp, neighboursMinesVector.size());
                 --this->countUnrevealed;
             }
-
-            // automatically reveal all neighbours of squares with no neighbour mines:
-            QVector<int> poolVector;
-            this->autoReveal(coordsTemp, poolVector);
-            this->firstTurn = false;
+            if (this->isGameOver != true)
+            {
+                // automatically reveal all neighbours of squares with no neighbour mines:
+                QVector<int> poolVector;
+                this->autoReveal(coordsTemp, poolVector);
+                this->firstTurn = false;
+                emit this->smiley_surprised();
+            }
         }
-    }
 
-    // check if player has won:
-    if (this->flagsCount + this->countUnrevealed == this->mines)
-    {
-        Common::Coords dummyCoords;
-        this->gameOver(dummyCoords, "win");
+        // check if player has won:
+        if (this->flagsCount + this->countUnrevealed == this->mines)
+        {
+            Common::Coords dummyCoords;
+            this->gameOver(dummyCoords, "win");
+        }
     }
 }
 
@@ -556,8 +557,8 @@ void Field::on_right_released()
                 this->countUnrevealed++;
             }
         }
+        emit this->minesleft_changed(this->minesLeft);
     }
-    emit this->minesleft_changed(this->minesLeft);
 }
 
 // auto-reveal safe cells with no neighbour mines by double clicking on a number
@@ -572,11 +573,11 @@ void Field::on_double_clicked()
         {
             this->flagAutoReveal(coordsTemp);
         }
-    }
-    // check if player has won:
-    if (this->flagsCount + this->countUnrevealed == this->mines)
-    {
-        Common::Coords dummyCoords;
-        this->gameOver(dummyCoords, "win");
+        // check if player has won:
+        if (this->flagsCount + this->countUnrevealed == this->mines)
+        {
+            Common::Coords dummyCoords;
+            this->gameOver(dummyCoords, "win");
+        }
     }
 }
