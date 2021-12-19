@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>561</width>
-    <height>374</height>
+    <width>488</width>
+    <height>370</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -64,6 +64,12 @@
       <property name="minimumSize">
        <size>
         <width>0</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
         <height>40</height>
        </size>
       </property>
@@ -136,6 +142,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Noto Sans Condensed Medium</family>
            <pointsize>26</pointsize>
            <italic>false</italic>
           </font>
@@ -234,6 +241,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Noto Sans Condensed Medium</family>
            <pointsize>26</pointsize>
            <italic>false</italic>
           </font>
@@ -287,6 +295,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Noto Sans Condensed Medium</family>
            <pointsize>26</pointsize>
            <italic>false</italic>
           </font>
@@ -318,6 +327,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Noto Sans Condensed Medium</family>
            <pointsize>26</pointsize>
            <italic>false</italic>
           </font>
@@ -355,6 +365,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Noto Sans Condensed Medium</family>
            <pointsize>26</pointsize>
            <italic>false</italic>
           </font>
@@ -408,6 +419,7 @@
          </property>
          <property name="font">
           <font>
+           <family>Noto Sans Condensed Medium</family>
            <pointsize>26</pointsize>
            <italic>false</italic>
           </font>
@@ -477,8 +489,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>561</width>
-     <height>23</height>
+     <width>488</width>
+     <height>30</height>
     </rect>
    </property>
    <property name="font">

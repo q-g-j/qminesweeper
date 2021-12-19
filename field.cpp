@@ -85,8 +85,12 @@ Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& min
 Field::~Field()
 {
     for (int i=0; i <= cols; i++)
+    {
         delete[] this->cell[i];
-    delete[] this->cell;
+        this->cell[i] = nullptr;
+    }
+    delete[] this->cell;    
+    this->cell = nullptr;
 }
 
 QVector<QVector<char>> Field::create2DVector()
