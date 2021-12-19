@@ -18,15 +18,15 @@ Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& min
     this->flagsCount = 0;
     this->firstTurn = true;
     this->isGameOver = false;
-    this->field2DVector = create2DVector();
-    this->mines2DVector = create2DVector();
-    emit minesleft_changed(this->minesLeft);
-    createCells();
+    this->field2DVector = this->create2DVector();
+    this->mines2DVector = this->create2DVector();
+    emit this->minesleft_changed(this->minesLeft);
+    this->createCells();
 
-    layout = new QGridLayout;
-    layout->setSpacing(0);
-    layout->setContentsMargins(0,0,0,0);
-    setLayout(layout);
+    this->layout = new QGridLayout;
+    this->layout->setSpacing(0);
+    this->layout->setContentsMargins(0,0,0,0);
+    this->setLayout(this->layout);
 
     QFile file_button_flag          (":/stylesheet/button_flag.css");
     QFile file_button_mine          (":/stylesheet/button_mine.css");
@@ -54,19 +54,19 @@ Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& min
     file_button_6.open              (QFile::ReadOnly);
     file_button_7.open              (QFile::ReadOnly);
     file_button_8.open              (QFile::ReadOnly);
-    stylesheet_button_flag          = QLatin1String(file_button_flag.readAll());
-    stylesheet_button_mine          = QLatin1String(file_button_mine.readAll());
-    stylesheet_button_mine_hit      = QLatin1String(file_button_mine_hit.readAll());
-    stylesheet_button_revealed      = QLatin1String(file_button_revealed.readAll());
-    stylesheet_button_unrevealed    = QLatin1String(file_button_unrevealed.readAll());
-    stylesheet_button_1             = QLatin1String(file_button_1.readAll());
-    stylesheet_button_2             = QLatin1String(file_button_2.readAll());
-    stylesheet_button_3             = QLatin1String(file_button_3.readAll());
-    stylesheet_button_4             = QLatin1String(file_button_4.readAll());
-    stylesheet_button_5             = QLatin1String(file_button_5.readAll());
-    stylesheet_button_6             = QLatin1String(file_button_6.readAll());
-    stylesheet_button_7             = QLatin1String(file_button_7.readAll());
-    stylesheet_button_8             = QLatin1String(file_button_8.readAll());
+    this->stylesheet_button_flag          = QLatin1String(file_button_flag.readAll());
+    this->stylesheet_button_mine          = QLatin1String(file_button_mine.readAll());
+    this->stylesheet_button_mine_hit      = QLatin1String(file_button_mine_hit.readAll());
+    this->stylesheet_button_revealed      = QLatin1String(file_button_revealed.readAll());
+    this->stylesheet_button_unrevealed    = QLatin1String(file_button_unrevealed.readAll());
+    this->stylesheet_button_1             = QLatin1String(file_button_1.readAll());
+    this->stylesheet_button_2             = QLatin1String(file_button_2.readAll());
+    this->stylesheet_button_3             = QLatin1String(file_button_3.readAll());
+    this->stylesheet_button_4             = QLatin1String(file_button_4.readAll());
+    this->stylesheet_button_5             = QLatin1String(file_button_5.readAll());
+    this->stylesheet_button_6             = QLatin1String(file_button_6.readAll());
+    this->stylesheet_button_7             = QLatin1String(file_button_7.readAll());
+    this->stylesheet_button_8             = QLatin1String(file_button_8.readAll());
     file_button_flag.close();
     file_button_mine.close();
     file_button_mine_hit.close();
@@ -139,7 +139,7 @@ void Field::addCells()
     {
         for (int j = 1; j <= this->rows; j++)
         {
-            this->cell[i][j].setStyleSheet(stylesheet_button_unrevealed);
+            this->cell[i][j].setStyleSheet(this->stylesheet_button_unrevealed);
             this->cell[i][j].setFixedSize(this->cellSize, this->cellSize);
 
             // create a vector holding structs of each button together with its coords:
@@ -151,7 +151,7 @@ void Field::addCells()
             structTemp.button = &this->cell[i][j];
             this->buttonStructVector.append(structTemp);
 
-            layout->addWidget(&this->cell[i][j], j - 1, i - 1, 1, 1);
+            this->layout->addWidget(&this->cell[i][j], j - 1, i - 1, 1, 1);
             connect(&this->cell[i][j], &Cell::doubleClicked, this, &Field::on_double_clicked);
             connect(&this->cell[i][j], &Cell::leftReleased, this, &Field::on_left_released);
             connect(&this->cell[i][j], &Cell::rightReleased, this, &Field::on_right_released);
@@ -203,7 +203,7 @@ QVector<Common::Coords> Field::findNeighbours(const QVector<QVector<char>>& temp
             !(coords.row == this->rows && neighboursVector[x][1] == 1)
             )
         {
-            if (content == isNumber(coords))
+            if (content == this->isNumber(coords))
             {
                 for (int i = 1; i < 8; ++i)
                 {
@@ -234,49 +234,49 @@ void Field::printNumber(const Common::Coords& coords, const int& number)
     if (number == 0)
     {
         this->field2DVector[coords.col][coords.row] = '0';
-        this->cell[coords.col][coords.row].setStyleSheet(stylesheet_button_revealed);
+        this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet_button_revealed);
     }
     else
     {
         if (number == 1)
         {
             this->field2DVector[coords.col][coords.row] = '1';
-            this->cell[coords.col][coords.row].setStyleSheet(stylesheet_button_1);
+            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet_button_1);
         }
         if (number == 2)
         {
             this->field2DVector[coords.col][coords.row] = '2';
-            this->cell[coords.col][coords.row].setStyleSheet(stylesheet_button_2);
+            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet_button_2);
         }
         if (number == 3)
         {
             this->field2DVector[coords.col][coords.row] = '3';
-            this->cell[coords.col][coords.row].setStyleSheet(stylesheet_button_3);
+            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet_button_3);
         }
         if (number == 4)
         {
             this->field2DVector[coords.col][coords.row] = '4';
-            this->cell[coords.col][coords.row].setStyleSheet(stylesheet_button_4);
+            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet_button_4);
         }
         if (number == 5)
         {
             this->field2DVector[coords.col][coords.row] = '5';
-            this->cell[coords.col][coords.row].setStyleSheet(stylesheet_button_5);
+            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet_button_5);
         }
         if (number == 6)
         {
             this->field2DVector[coords.col][coords.row] = '6';
-            this->cell[coords.col][coords.row].setStyleSheet(stylesheet_button_6);
+            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet_button_6);
         }
         if (number == 7)
         {
             this->field2DVector[coords.col][coords.row] = '7';
-            this->cell[coords.col][coords.row].setStyleSheet(stylesheet_button_7);
+            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet_button_7);
         }
         if (number == 8)
         {
             this->field2DVector[coords.col][coords.row] = '8';
-            this->cell[coords.col][coords.row].setStyleSheet(stylesheet_button_8);
+            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet_button_8);
         }
     }
 }
@@ -286,40 +286,40 @@ void Field::gameOver(const Common::Coords& coords, const QString& mode)
 {
     this->minesLeft = 0;
     this->isGameOver = true;
-    emit minesleft_changed(this->minesLeft);
-    emit game_over(mode);
+    emit this->minesleft_changed(this->minesLeft);
+    emit this->game_over(mode);
 
     for (int i = 1; i <= this->cols; i++)
     {
         for (int j = 1; j <= this->rows; j++)
         {
             if (this->mines2DVector[i][j] == 'X')
-                this->cell[i][j].setStyleSheet(stylesheet_button_mine);
+                this->cell[i][j].setStyleSheet(this->stylesheet_button_mine);
             else
-                this->cell[i][j].setStyleSheet(stylesheet_button_revealed);
+                this->cell[i][j].setStyleSheet(this->stylesheet_button_revealed);
 
             if (this->mines2DVector[i][j] != 'X' && this->mines2DVector[i][j] != 'H')
             {
                 Common::Coords coordsTemp;
                 coordsTemp.col = i;
                 coordsTemp.row = j;
-                QVector<Common::Coords> neighboursMinesVector = findNeighbours(this->mines2DVector, coordsTemp, 'X');
-                QVector<Common::Coords> neighboursMinesHitVector = findNeighbours(this->mines2DVector, coordsTemp, 'H');
-                printNumber(coordsTemp, static_cast<int>(neighboursMinesVector.size() + neighboursMinesHitVector.size()));
+                QVector<Common::Coords> neighboursMinesVector = this->findNeighbours(this->mines2DVector, coordsTemp, 'X');
+                QVector<Common::Coords> neighboursMinesHitVector = this->findNeighbours(this->mines2DVector, coordsTemp, 'H');
+                this->printNumber(coordsTemp, static_cast<int>(neighboursMinesVector.size() + neighboursMinesHitVector.size()));
             }
             else if (this->mines2DVector[i][j] == 'X')
             {
-                this->cell[i][j].setStyleSheet(stylesheet_button_mine);
+                this->cell[i][j].setStyleSheet(this->stylesheet_button_mine);
             }
             else if (this->mines2DVector[i][j] == 'H')
             {
-                this->cell[i][j].setStyleSheet(stylesheet_button_mine_hit);
+                this->cell[i][j].setStyleSheet(this->stylesheet_button_mine_hit);
             }
         }
     }
     if (mode == "lose")
     {
-        this->cell[coords.col][coords.row].setStyleSheet(stylesheet_button_mine_hit);
+        this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet_button_mine_hit);
     }
 }
 
@@ -328,18 +328,18 @@ void Field::autoReveal(const Common::Coords& coords, QVector<int>& poolVector)
 {
     // create vector holding unrevealed neighbours:
     QVector<Common::Coords> neighboursUnrevealedVector;
-    neighboursUnrevealedVector = findNeighbours(this->field2DVector, coords, ' ');
+    neighboursUnrevealedVector = this->findNeighbours(this->field2DVector, coords, ' ');
 
     for (int i = 0; i < neighboursUnrevealedVector.size(); ++i)
     {
         QVector<Common::Coords> neighboursMinesVector;
-        neighboursMinesVector = findNeighbours(this->mines2DVector, neighboursUnrevealedVector.at(i), 'X');
+        neighboursMinesVector = this->findNeighbours(this->mines2DVector, neighboursUnrevealedVector.at(i), 'X');
         if (std::find(poolVector.begin(), poolVector.end(), Common::CoordsToInt(neighboursUnrevealedVector.at(i), this->cols)) == poolVector.end())
         {
             if (this->mines2DVector[neighboursUnrevealedVector.at(i).col][neighboursUnrevealedVector.at(i).row] != 'X')
             {
                 QVector<Common::Coords> neighboursZerosVector;
-                neighboursZerosVector = findNeighbours(this->field2DVector, neighboursUnrevealedVector.at(i), '0');
+                neighboursZerosVector = this->findNeighbours(this->field2DVector, neighboursUnrevealedVector.at(i), '0');
                 if (neighboursZerosVector.size() == 0)
                 {
                     continue;
@@ -347,14 +347,14 @@ void Field::autoReveal(const Common::Coords& coords, QVector<int>& poolVector)
                 else
                 {
                     poolVector.push_back(Common::CoordsToInt(neighboursUnrevealedVector.at(i), this->cols));
-                    printNumber(neighboursUnrevealedVector.at(i), neighboursMinesVector.size());
+                    this->printNumber(neighboursUnrevealedVector.at(i), neighboursMinesVector.size());
                     --this->countUnrevealed;
                 }
             }
         }
         if (neighboursMinesVector.size() == 0)
         {
-            autoReveal(neighboursUnrevealedVector.at(i), poolVector);
+            this->autoReveal(neighboursUnrevealedVector.at(i), poolVector);
         }
     }
 }
@@ -363,21 +363,21 @@ void Field::flagAutoReveal(const Common::Coords& coords)
 {
     // create a new vector of surrounding flags:
     QVector<Common::Coords> flagRevealNeighboursFlagsVector;
-    flagRevealNeighboursFlagsVector = findNeighbours(this->field2DVector, coords, 'F');
+    flagRevealNeighboursFlagsVector = this->findNeighbours(this->field2DVector, coords, 'F');
 
     // if player has placed some flags around coords:
     if (flagRevealNeighboursFlagsVector.size() != 0)
     {
         // create a new vector of surrounding mines:
         QVector<Common::Coords> flagRevealNeighboursMinesVector;
-        flagRevealNeighboursMinesVector = findNeighbours(this->mines2DVector, coords, 'X');
+        flagRevealNeighboursMinesVector = this->findNeighbours(this->mines2DVector, coords, 'X');
 
         // only proceed if the flag number matches the number of actual surrounding mines:
         if (flagRevealNeighboursMinesVector.size() == flagRevealNeighboursFlagsVector.size())
         {
             // create a new vector of surrounding unrevealed squares:
             QVector<Common::Coords> flagRevealNeighboursUnrevealedVector;
-            flagRevealNeighboursUnrevealedVector = findNeighbours(this->field2DVector, coords, ' ');
+            flagRevealNeighboursUnrevealedVector = this->findNeighbours(this->field2DVector, coords, ' ');
 
             // create a new empty vector for missed mines:
             QVector<Common::Coords> flagRevealMissedMinesVector;
@@ -399,7 +399,7 @@ void Field::flagAutoReveal(const Common::Coords& coords)
                     this->mines2DVector[flagRevealMissedMinesVector.at(i).col][flagRevealMissedMinesVector.at(i).row] = 'H';
                 }
                 Common::Coords dummyCoords;
-                gameOver(dummyCoords, "lose");
+                this->gameOver(dummyCoords, "lose");
             }
             // else if all flags are placed correctly:
             else
@@ -415,23 +415,23 @@ void Field::flagAutoReveal(const Common::Coords& coords)
                         coordsTemp.col = flagRevealNeighboursUnrevealedVector.at(i).col;
                         coordsTemp.row = flagRevealNeighboursUnrevealedVector.at(i).row;
                         QVector<Common::Coords> flagRevealNeighboursUnrevealedMinesVector;
-                        flagRevealNeighboursUnrevealedMinesVector = findNeighbours(this->mines2DVector, coordsTemp, 'X');
+                        flagRevealNeighboursUnrevealedMinesVector = this->findNeighbours(this->mines2DVector, coordsTemp, 'X');
 
                         if (flagRevealNeighboursUnrevealedMinesVector.size() == 0)
                         {
                             if (std::find(poolVector.begin(), poolVector.end(), Common::CoordsToInt(coordsTemp, this->cols)) == poolVector.end())
                             {
-                                printNumber(coordsTemp, 0);
+                                this->printNumber(coordsTemp, 0);
                                 poolVector.push_back(Common::CoordsToInt(coordsTemp, this->cols));
                                 --this->countUnrevealed;
-                                autoReveal(coordsTemp, poolVector);
+                                this->autoReveal(coordsTemp, poolVector);
                             }
                         }
                         else
                         {
                             if (std::find(poolVector.begin(), poolVector.end(), Common::CoordsToInt(coordsTemp, this->cols)) == poolVector.end())
                             {
-                                printNumber(coordsTemp, static_cast<int>(flagRevealNeighboursUnrevealedMinesVector.size()));
+                                this->printNumber(coordsTemp, static_cast<int>(flagRevealNeighboursUnrevealedMinesVector.size()));
                                 poolVector.push_back(Common::CoordsToInt(coordsTemp, this->cols));
                                 --this->countUnrevealed;
                             }
@@ -442,7 +442,7 @@ void Field::flagAutoReveal(const Common::Coords& coords)
                         int col = coords.col;
                         int row = coords.row;
                         if (this->field2DVector[col][row] != '0')
-                            emit smiley_surprised();
+                            emit this->smiley_surprised();
                     }
                 }
             }
@@ -486,33 +486,33 @@ void Field::on_left_released()
     if (this->isGameOver != true)
     {
         Cell *button = qobject_cast<Cell*>(sender());
-        Common::Coords coordsTemp = getButtonCoords(button);
+        Common::Coords coordsTemp = this->getButtonCoords(button);
 
-        if (field2DVector[coordsTemp.col][coordsTemp.row] != 'F' && (! isNumber(coordsTemp)))
+        if (this->field2DVector[coordsTemp.col][coordsTemp.row] != 'F' && (! this->isNumber(coordsTemp)))
         {
             QVector<Common::Coords> neighboursMinesVector;
 
             // fill mines2DVector with mines only once after users first guess:
             if (this->firstTurn)
-                fillMinesVector(coordsTemp);
+                this->fillMinesVector(coordsTemp);
 
             // if user hit a mine, reveal the game field - game is lost:
             if (this->mines2DVector[coordsTemp.col][coordsTemp.row] == 'X')
             {
-                gameOver(coordsTemp, "lose");
+                this->gameOver(coordsTemp, "lose");
             }
 
             else
             {
                 // reveal the players choice and place the number of surrounding mines in it:
-                neighboursMinesVector = findNeighbours(this->mines2DVector, coordsTemp, 'X');
-                printNumber(coordsTemp, neighboursMinesVector.size());
+                neighboursMinesVector = this->findNeighbours(this->mines2DVector, coordsTemp, 'X');
+                this->printNumber(coordsTemp, neighboursMinesVector.size());
                 --this->countUnrevealed;
             }
 
             // automatically reveal all neighbours of squares with no neighbour mines:
             QVector<int> poolVector;
-            autoReveal(coordsTemp, poolVector);
+            this->autoReveal(coordsTemp, poolVector);
             this->firstTurn = false;
         }
     }
@@ -521,7 +521,7 @@ void Field::on_left_released()
     if (this->flagsCount + this->countUnrevealed == this->mines)
     {
         Common::Coords dummyCoords;
-        gameOver(dummyCoords, "win");
+        this->gameOver(dummyCoords, "win");
     }
 }
 
@@ -531,13 +531,13 @@ void Field::on_right_released()
     if (this->isGameOver != true)
     {
         Cell *button = qobject_cast<Cell *>(sender());
-        Common::Coords coordsTemp = getButtonCoords(button);
+        Common::Coords coordsTemp = this->getButtonCoords(button);
 
         if (this->field2DVector[coordsTemp.col][coordsTemp.row] == ' ' || this->field2DVector[coordsTemp.col][coordsTemp.row] == 'F')
         {
-            if (! isFlagSet(coordsTemp))
+            if (! this->isFlagSet(coordsTemp))
             {
-                button->setStyleSheet(stylesheet_button_flag);
+                button->setStyleSheet(this->stylesheet_button_flag);
                 this->field2DVector[coordsTemp.col][coordsTemp.row] = 'F';
                 this->flagsCount++;
                 this->minesLeft--;
@@ -545,7 +545,7 @@ void Field::on_right_released()
             }
             else
             {
-                button->setStyleSheet(stylesheet_button_unrevealed);
+                button->setStyleSheet(this->stylesheet_button_unrevealed);
                 this->field2DVector[coordsTemp.col][coordsTemp.row] = ' ';
                 this->flagsCount--;
                 this->minesLeft++;
@@ -553,7 +553,7 @@ void Field::on_right_released()
             }
         }
     }
-    emit minesleft_changed(this->minesLeft);
+    emit this->minesleft_changed(this->minesLeft);
 }
 
 // auto-reveal safe cells with no neighbour mines by double clicking on a number
@@ -563,16 +563,16 @@ void Field::on_double_clicked()
     if (this->isGameOver != true)
     {
         Cell *button = qobject_cast<Cell *>(sender());
-        Common::Coords coordsTemp = getButtonCoords(button);
-        if (isNumber(coordsTemp))
+        Common::Coords coordsTemp = this->getButtonCoords(button);
+        if (this->isNumber(coordsTemp))
         {
-            flagAutoReveal(coordsTemp);
+            this->flagAutoReveal(coordsTemp);
         }
     }
     // check if player has won:
     if (this->flagsCount + this->countUnrevealed == this->mines)
     {
         Common::Coords dummyCoords;
-        gameOver(dummyCoords, "win");
+        this->gameOver(dummyCoords, "win");
     }
 }

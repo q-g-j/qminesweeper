@@ -10,13 +10,13 @@ Cell::Cell(QWidget *parent) : QPushButton(parent)
 void Cell::mouseDoubleClickEvent(QMouseEvent *e)
 {
     if(e->button() == Qt::LeftButton)
-        emit doubleClicked();
+        emit this->doubleClicked();
 }
 
 void Cell::mouseReleaseEvent(QMouseEvent *e)
 {
     if(e->button() == Qt::RightButton)
-        emit rightReleased();
+        emit this->rightReleased();
     else if(e->button() == Qt::LeftButton)
-        emit leftReleased();
+        emit this->leftReleased();
 }

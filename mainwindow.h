@@ -25,6 +25,7 @@ private:
     int cellSize;    
     Difficulty::DifficultyStruct difficulty;
 
+    void clearLayout(QLayout*);
     void newGame(const Difficulty::DifficultyStruct&);
 
     QString stylesheet_smiley;

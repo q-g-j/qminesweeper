@@ -12,9 +12,9 @@ Difficulty::Difficulty(QWidget *parent) :
     intValidatorCols = new QIntValidator(9, 60, this);
     intValidatorRows = new QIntValidator(9, 30, this);
     intValidatorMines = new QIntValidator(1, 9999, this);
-    ui->lineEdit_custom_cols->setValidator(intValidatorCols);
-    ui->lineEdit_custom_rows->setValidator(intValidatorRows);
-    ui->lineEdit_custom_mines->setValidator(intValidatorMines);
+    ui->lineEdit_custom_cols->setValidator(this->intValidatorCols);
+    ui->lineEdit_custom_rows->setValidator(this->intValidatorRows);
+    ui->lineEdit_custom_mines->setValidator(this->intValidatorMines);
     ui->radioButton_easy->setChecked(true);
     ui->radioButton_easy->setFocus();
     this->setFixedSize(this->size().width(), this->size().height());
@@ -34,7 +34,7 @@ void Difficulty::on_button_start_clicked()
         diff.cols = 9;
         diff.rows = 9;
         diff.mines = 10;
-        emit buttonClicked(diff);
+        emit this->buttonClicked(diff);
     }
 
     else if (ui->radioButton_advanced->isChecked())
@@ -44,7 +44,7 @@ void Difficulty::on_button_start_clicked()
         diff.cols = 16;
         diff.rows = 16;
         diff.mines = 40;
-        emit buttonClicked(diff);
+        emit this->buttonClicked(diff);
     }
 
     else if (ui->radioButton_expert->isChecked())
@@ -54,7 +54,7 @@ void Difficulty::on_button_start_clicked()
         diff.cols = 30;
         diff.rows = 16;
         diff.mines = 99;
-        emit buttonClicked(diff);
+        emit this->buttonClicked(diff);
     }
 
     else if (ui->radioButton_custom->isChecked())
@@ -88,7 +88,7 @@ void Difficulty::on_button_start_clicked()
             diff.cols = cols;
             diff.rows = rows;
             diff.mines = mines;
-            emit buttonClicked(diff);
+            emit this->buttonClicked(diff);
         }
     }
 
