@@ -20,7 +20,7 @@ private:
     QLabel *timerTenMinutes;
 
 private slots:
-    void TimerSlot();
+    void timer_slot();
 };
 
 #endif // TIMER_H

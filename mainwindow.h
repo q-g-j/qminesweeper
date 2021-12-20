@@ -37,13 +37,13 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 private slots:
-    void new_game_slot(const Difficulty::DifficultyStruct&);
     void on_actionNew_triggered();
     void on_actionQuit_triggered();
     void on_smiley_released();
-    void smiley_surprised();
-    void game_over(const QString&);
-    void minesleft_changed(const int&);
+    void new_game_slot(const Difficulty::DifficultyStruct&);
+    void smiley_surprised_slot();
+    void game_over_slot(const QString&);
+    void minesleft_changed_slot(const int&);
 
 protected:
 };

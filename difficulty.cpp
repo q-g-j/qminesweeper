@@ -34,7 +34,7 @@ void Difficulty::on_button_start_clicked()
         diff.cols = 9;
         diff.rows = 9;
         diff.mines = 10;
-        emit this->buttonClicked(diff);
+        emit this->button_clicked_signal(diff);
     }
 
     else if (ui->radioButton_advanced->isChecked())
@@ -44,7 +44,7 @@ void Difficulty::on_button_start_clicked()
         diff.cols = 16;
         diff.rows = 16;
         diff.mines = 40;
-        emit this->buttonClicked(diff);
+        emit this->button_clicked_signal(diff);
     }
 
     else if (ui->radioButton_expert->isChecked())
@@ -54,7 +54,7 @@ void Difficulty::on_button_start_clicked()
         diff.cols = 30;
         diff.rows = 16;
         diff.mines = 99;
-        emit this->buttonClicked(diff);
+        emit this->button_clicked_signal(diff);
     }
 
     else if (ui->radioButton_custom->isChecked())
@@ -88,7 +88,7 @@ void Difficulty::on_button_start_clicked()
             diff.cols = cols;
             diff.rows = rows;
             diff.mines = mines;
-            emit this->buttonClicked(diff);
+            emit this->button_clicked_signal(diff);
         }
     }
 

@@ -11,7 +11,8 @@ Timer::Timer(QLabel *timerSeconds_, QLabel *timerTenSeconds_, QLabel *timerMinut
     this->timerInstance = new QTimer(this);
     this->timerInstance->setTimerType(Qt::PreciseTimer);
 
-    connect(this->timerInstance, SIGNAL(timeout()), this, SLOT(TimerSlot()));
+    connect(this->timerInstance, Timer::timerInstance->timeout, this, &Timer::timer_slot);
+
     this->timerInstance->start(10);
     this->timerSeconds->setText(QString::number(0));
     this->timerTenSeconds->setText(QString::number(0));
@@ -19,10 +20,8 @@ Timer::Timer(QLabel *timerSeconds_, QLabel *timerTenSeconds_, QLabel *timerMinut
     this->timerTenMinutes->setText(QString::number(0));
 }
 
-void Timer::TimerSlot()
+void Timer::timer_slot()
 {
-    if (this->counterFine < 599900)
-        this->counterFine++;
     if (this->counterFine % 100 == 0)
     {
         this->counter = this->counterFine / 100;
@@ -42,4 +41,6 @@ void Timer::TimerSlot()
         this->timerMinutes->setText(QString::number(minutes));
         this->timerTenMinutes->setText(QString::number(tenMinutes));
     }
+    if (this->counterFine < 599900)
+        this->counterFine++;
 }

@@ -20,7 +20,7 @@ Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& min
     this->isGameOver = false;
     this->field2DVector = this->create2DVector();
     this->mines2DVector = this->create2DVector();
-    emit this->minesleft_changed(this->minesLeft);
+    emit this->minesleft_changed_signal(this->minesLeft);
     this->createCells();
 
     this->layout = new QGridLayout;
@@ -156,9 +156,9 @@ void Field::addCells()
             this->buttonStructVector.append(structTemp);
 
             this->layout->addWidget(&this->cell[i][j], j - 1, i - 1, 1, 1);
-            connect(&this->cell[i][j], &Cell::doubleClicked, this, &Field::on_double_clicked);
-            connect(&this->cell[i][j], &Cell::leftReleased, this, &Field::on_left_released);
-            connect(&this->cell[i][j], &Cell::rightReleased, this, &Field::on_right_released);
+            connect(&this->cell[i][j], &Cell::double_clicked_signal, this, &Field::on_double_clicked);
+            connect(&this->cell[i][j], &Cell::left_released_signal, this, &Field::on_left_released);
+            connect(&this->cell[i][j], &Cell::right_released_signal, this, &Field::on_right_released);
         }
     }
 }
@@ -290,8 +290,8 @@ void Field::gameOver(const Common::Coords& coords, const QString& mode)
 {
     this->isGameOver = true;
     this->minesLeft = 0;
-    emit this->minesleft_changed(this->minesLeft);
-    emit this->game_over(mode);
+    emit this->minesleft_changed_signal(this->minesLeft);
+    emit this->game_over_signal(mode);
 
     for (int i = 1; i <= this->cols; i++)
     {
@@ -446,7 +446,7 @@ void Field::flagAutoReveal(const Common::Coords& coords)
             if (flagRevealNeighboursUnrevealedVector.size() != 0)
             {
                 if (this->flagsCount + this->countUnrevealed != this->mines)
-                    emit this->smiley_surprised();
+                    emit this->smiley_surprised_signal();
             }
         }
     }
@@ -532,7 +532,7 @@ void Field::on_left_released()
                     this->gameOver(dummyCoords, "win");
                 }
             }
-            emit this->smiley_surprised();
+            emit this->smiley_surprised_signal();
         }
     }
 }
@@ -564,7 +564,7 @@ void Field::on_right_released()
                 this->countUnrevealed++;
             }
         }
-        emit this->minesleft_changed(this->minesLeft);
+        emit this->minesleft_changed_signal(this->minesLeft);
     }
 }
 

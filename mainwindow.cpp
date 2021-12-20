@@ -86,17 +86,17 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     this->centralWidget()->adjustSize();
     this->adjustSize();
     this->setFixedSize(this->size().width(), this->size().height());
-    this->minesleft_changed(difficulty_.mines);
-    connect(this->field, &Field::game_over, this, &MainWindow::game_over);
-    connect(this->field, &Field::minesleft_changed, this, &MainWindow::minesleft_changed);
-    connect(this->field, &Field::smiley_surprised, this, &MainWindow::smiley_surprised);
+    this->minesleft_changed_slot(difficulty_.mines);
+    connect(this->field, &Field::game_over_signal, this, &MainWindow::game_over_slot);
+    connect(this->field, &Field::minesleft_changed_signal, this, &MainWindow::minesleft_changed_slot);
+    connect(this->field, &Field::smiley_surprised_signal, this, &MainWindow::smiley_surprised_slot);
 }
 
 // open a dialog (difficulty.ui) to choose difficulty:
 void MainWindow::on_actionNew_triggered()
 {
     Difficulty difficulty_(this);
-    connect(&difficulty_, &Difficulty::buttonClicked, this, &MainWindow::new_game_slot);
+    connect(&difficulty_, &Difficulty::button_clicked_signal, this, &MainWindow::new_game_slot);
     difficulty_.setModal(true);
     difficulty_.exec();
 }
@@ -129,7 +129,7 @@ void MainWindow::on_smiley_released()
     this->timer->timerInstance->start(10);
 }
 
-void MainWindow::smiley_surprised()
+void MainWindow::smiley_surprised_slot()
 {
     if (field->isGameOver != true)
     {
@@ -140,7 +140,7 @@ void MainWindow::smiley_surprised()
     }
 }
 
-void MainWindow::game_over(const QString& mode)
+void MainWindow::game_over_slot(const QString& mode)
 {
     timer->timerInstance->stop();
     if (mode == "lose")
@@ -149,7 +149,7 @@ void MainWindow::game_over(const QString& mode)
         ui->smiley->setStyleSheet(this->stylesheet_smiley_won);
 }
 
-void MainWindow::minesleft_changed(const int& minesLeft)
+void MainWindow::minesleft_changed_slot(const int& minesLeft)
 {
     ui->labelMinesLeft->setText(QString::number(minesLeft));
 }

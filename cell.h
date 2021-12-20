@@ -15,9 +15,9 @@ protected:
     void mouseDoubleClickEvent(QMouseEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
 signals:
-    void doubleClicked();
-    void leftReleased();
-    void rightReleased();
+    void double_clicked_signal();
+    void left_released_signal();
+    void right_released_signal();
 };
 
 #endif // CELL_H
