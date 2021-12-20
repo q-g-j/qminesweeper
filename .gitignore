@@ -1,3 +1,5 @@
 qminesweeper.pro.user
 ui_*.h
 .qmake.stash
+
+/release/qminesweeper.exe

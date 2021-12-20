@@ -496,7 +496,10 @@ void Field::on_left_released()
 
             // fill mines2DVector with mines only once after users first guess:
             if (this->firstTurn)
+            {
                 this->fillMinesVector(coordsTemp);
+                emit this->game_started_signal();
+            }
 
             // if user hit a mine, reveal the game field - game is lost:
             if (this->mines2DVector[coordsTemp.col][coordsTemp.row] == 'X')

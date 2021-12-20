@@ -73,6 +73,7 @@ public:
     // public methods:
     void addCells();
 signals:
+    void game_started_signal();
     void game_over_signal(const QString&);
     void minesleft_changed_signal(const int&);
     void smiley_surprised_signal();

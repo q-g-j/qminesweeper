@@ -52,8 +52,6 @@ MainWindow::MainWindow(QWidget *parent)
     this->difficulty.mines = 10;
 
     this->newGame(this->difficulty);
-    this->timer = new Timer(ui->timerSeconds, ui->timerTenSeconds, ui->timerMinutes, ui->timerTenMinutes);
-
 }
 
 MainWindow::~MainWindow()
@@ -111,6 +109,8 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     ui->timerWrapper->adjustSize();
     ui->labelMinesLeftWrapper->adjustSize();
 
+    if (this->timer != nullptr) delete this->timer;
+    this->timer = nullptr;
     if (this->field != nullptr) delete this->field;
     this->field = nullptr;
     this->clearLayout(this->fieldLayout);
@@ -133,6 +133,8 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     connect(this->field, &Field::game_over_signal, this, &MainWindow::game_over_slot);
     connect(this->field, &Field::minesleft_changed_signal, this, &MainWindow::minesleft_changed_slot);
     connect(this->field, &Field::smiley_surprised_signal, this, &MainWindow::smiley_surprised_slot);
+    connect(this->field, &Field::game_started_signal, this, &MainWindow::start_timer_slot);
+    this->timer = new Timer(ui->timerSeconds, ui->timerTenSeconds, ui->timerMinutes, ui->timerTenMinutes);
 }
 
 // open a dialog (difficulty.ui) to choose difficulty:
@@ -150,9 +152,7 @@ void MainWindow::new_game_slot(const Difficulty::DifficultyStruct& difficulty)
     this->difficulty.rows = difficulty.rows;
     this->difficulty.mines = difficulty.mines;
     this->newGame(difficulty);
-    this->timer->timerInstance->stop();
     this->timer->counterFine = 0;
-    this->timer->timerInstance->start(10);
 }
 
 void MainWindow::on_actionQuit_triggered()
@@ -167,9 +167,7 @@ void MainWindow::on_smiley_released()
     difficulty_.rows = this->difficulty.rows;
     difficulty_.mines = this->difficulty.mines;
     this->newGame(difficulty_);
-    this->timer->timerInstance->stop();
     this->timer->counterFine = 0;
-    this->timer->timerInstance->start(10);
 }
 
 void MainWindow::smiley_surprised_slot()
@@ -185,7 +183,7 @@ void MainWindow::smiley_surprised_slot()
 
 void MainWindow::game_over_slot(const QString& mode)
 {
-    timer->timerInstance->stop();
+    this->timer->timerStop();
     if (mode == "lose")
         ui->smiley->setStyleSheet(this->stylesheet_smiley_lost);
     else if (mode == "win")
@@ -233,4 +231,9 @@ void MainWindow::minesleft_changed_slot(const int& minesLeft)
         ui->labelMinesLeftHundreds->setText(QString::number(hundreds));
         ui->labelMinesLeftThousands->setText(QString::number(thousands));
     }
+}
+
+void MainWindow::start_timer_slot()
+{
+    this->timer->timerStart();
 }
