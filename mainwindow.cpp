@@ -1,7 +1,6 @@
 #include <QDebug>
 #include <QSizePolicy>
 #include <QFontDatabase>
-#include <QThread>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -92,6 +91,7 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     connect(this->field, &Field::minesleft_changed, this, &MainWindow::minesleft_changed);
     connect(this->field, &Field::smiley_surprised, this, &MainWindow::smiley_surprised);
 }
+
 // open a dialog (difficulty.ui) to choose difficulty:
 void MainWindow::on_actionNew_triggered()
 {
@@ -131,7 +131,13 @@ void MainWindow::on_smiley_released()
 
 void MainWindow::smiley_surprised()
 {
-    this->sleep(350);
+    if (field->isGameOver != true)
+    {
+        ui->smiley->setStyleSheet(this->stylesheet_smiley_surprised);
+        Common::sleep(350);
+        if (field->isGameOver != true)
+            ui->smiley->setStyleSheet(this->stylesheet_smiley);
+    }
 }
 
 void MainWindow::game_over(const QString& mode)
@@ -146,18 +152,4 @@ void MainWindow::game_over(const QString& mode)
 void MainWindow::minesleft_changed(const int& minesLeft)
 {
     ui->labelMinesLeft->setText(QString::number(minesLeft));
-}
-
-
-void MainWindow::sleep(const int& milliseconds)
-{
-    if (field->isGameOver != true)
-    {
-        ui->smiley->setStyleSheet(this->stylesheet_smiley_surprised);
-        QEventLoop loop;
-        QTimer::singleShot(milliseconds, &loop, &QEventLoop::quit);
-        loop.exec();
-        if (field->isGameOver != true)
-            ui->smiley->setStyleSheet(this->stylesheet_smiley);
-    }
 }

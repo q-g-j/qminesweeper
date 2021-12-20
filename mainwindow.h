@@ -33,8 +33,6 @@ private:
     QString stylesheet_smiley_lost;
     QString stylesheet_smiley_surprised;
 
-    void sleep(const int&);
-
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();

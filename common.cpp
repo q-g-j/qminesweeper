@@ -6,6 +6,8 @@
 #endif
 
 #include <QThread>
+#include <QTimer>
+#include <QEventLoop>
 
 #include "common.h"
 
@@ -49,4 +51,11 @@ int Common::CoordsToInt(const Common::Coords& coords, const int& cols)
         return coords.col;
     else
         return cols * (coords.row - 1) + coords.col;
+}
+
+void Common::sleep(const int& milliseconds)
+{
+    QEventLoop loop;
+    QTimer::singleShot(milliseconds, &loop, &QEventLoop::quit);
+    loop.exec();
 }

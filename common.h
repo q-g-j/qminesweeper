@@ -12,6 +12,7 @@ public:
     static void setRandomSeed();
     static Coords intToCoords(const int&, const int&);
     static int CoordsToInt(const Coords&, const int&);
+    static void sleep(const int&);
 };
 
 #endif // COMMON_H

@@ -443,8 +443,11 @@ void Field::flagAutoReveal(const Common::Coords& coords)
                     }
                 }
             }
-            if (this->flagsCount + this->countUnrevealed != this->mines)
-                emit this->smiley_surprised();
+            if (flagRevealNeighboursUnrevealedVector.size() != 0)
+            {
+                if (this->flagsCount + this->countUnrevealed != this->mines)
+                    emit this->smiley_surprised();
+            }
         }
     }
 }
