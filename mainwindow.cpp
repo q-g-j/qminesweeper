@@ -105,7 +105,7 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
         ui->spacerMiddleLeftFixed->changeSize(spacerMiddleLeftFixedWidth, labelMinesLeftWrapperHeight);
     }
 
-    // if changing the size of a spacer, need to invalidate its layout:
+    // after changing the size of a spacer, need to invalidate its parent's layout:
     ui->infoBarLayout->invalidate();
 
     ui->timerWrapper->adjustSize();
