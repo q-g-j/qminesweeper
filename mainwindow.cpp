@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->fieldLayout = new QGridLayout(ui->fieldWrapper);
 
     QFontDatabase::addApplicationFont(":/fonts/NotoSans-CondensedMedium.ttf");
+    QFontDatabase::addApplicationFont(":/fonts/digital-7.ttf");
 
     QFile smiley                (":/stylesheet/infobar_smiley.css");
     QFile smiley_won            (":/stylesheet/infobar_smiley_won.css");
