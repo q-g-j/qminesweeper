@@ -3,7 +3,7 @@ Minesweeper clone for Qt written in C++
 
 Latest release:
 ---------------
-[qminesweeper.exe](https://github.com/q-g-j/qminesweeper/raw/master/release/qminesweeper.exe) (win32 static build)
+[qminesweeper.exe](https://github.com/q-g-j/qminesweeper/releases/download/latest/qminesweeper.exe) (win32 static build)
 
 Controls:
 ---------
