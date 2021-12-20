@@ -1,6 +1,7 @@
 #include <QDebug>
 #include <QSizePolicy>
 #include <QFontDatabase>
+#include <QGraphicsDropShadowEffect>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -13,6 +14,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     this->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     this->setWindowFlags(Qt::Window | Qt::MSWindowsFixedSizeDialogHint);
+
+    labelMinesLeftWrapperWidth = ui->labelMinesLeftWrapper->width();
+    labelMinesLeftWrapperHeight = ui->labelMinesLeftWrapper->height();
+    timerWrapperHeight = ui->timerWrapper->height();
+    minesLeftNumberWidth = ui->labelMinesLeftOnes->width();
+    spacerMiddleLeftFixedWidth = 8;
 
     // width and height of a cell in pixels:
     this->cellSize = 25;
@@ -46,6 +53,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->newGame(this->difficulty);
     this->timer = new Timer(ui->timerSeconds, ui->timerTenSeconds, ui->timerMinutes, ui->timerTenMinutes);
+
 }
 
 MainWindow::~MainWindow()
@@ -69,6 +77,40 @@ void MainWindow::clearLayout(QLayout *layout) {
 
 void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
 {
+    if (difficulty_.mines < 100)
+    {
+        ui->labelMinesLeftTens->show();
+        ui->labelMinesLeftOnes->show();
+        ui->labelMinesLeftThousands->hide();
+        ui->labelMinesLeftHundreds->hide();
+        ui->labelMinesLeftWrapper->resize(labelMinesLeftWrapperWidth - 2*minesLeftNumberWidth, labelMinesLeftWrapperHeight);
+        ui->spacerMiddleLeftFixed->changeSize(spacerMiddleLeftFixedWidth + 2 * minesLeftNumberWidth, labelMinesLeftWrapperHeight);
+    }
+    else if (difficulty_.mines < 1000)
+    {
+        ui->labelMinesLeftHundreds->show();
+        ui->labelMinesLeftTens->show();
+        ui->labelMinesLeftOnes->show();
+        ui->labelMinesLeftThousands->hide();
+        ui->labelMinesLeftWrapper->resize(labelMinesLeftWrapperWidth - minesLeftNumberWidth, labelMinesLeftWrapperHeight);
+        ui->spacerMiddleLeftFixed->changeSize(spacerMiddleLeftFixedWidth + minesLeftNumberWidth, labelMinesLeftWrapperHeight);
+    }
+    else
+    {
+        ui->labelMinesLeftThousands->show();
+        ui->labelMinesLeftHundreds->show();
+        ui->labelMinesLeftTens->show();
+        ui->labelMinesLeftOnes->show();
+        ui->labelMinesLeftWrapper->resize(labelMinesLeftWrapperWidth, labelMinesLeftWrapperHeight);
+        ui->spacerMiddleLeftFixed->changeSize(spacerMiddleLeftFixedWidth, labelMinesLeftWrapperHeight);
+    }
+
+    // if changing the size of a spacer, need to invalidate its layout:
+    ui->infoBarLayout->invalidate();
+
+    ui->timerWrapper->adjustSize();
+    ui->labelMinesLeftWrapper->adjustSize();
+
     if (this->field != nullptr) delete this->field;
     this->field = nullptr;
     this->clearLayout(this->fieldLayout);
@@ -152,5 +194,43 @@ void MainWindow::game_over_slot(const QString& mode)
 
 void MainWindow::minesleft_changed_slot(const int& minesLeft)
 {
-    ui->labelMinesLeft->setText(QString::number(minesLeft));
+    if (minesLeft < 0)
+        ui->labelMinesLeftOnes->setText("0");
+    else if (minesLeft < 10)
+    {
+        ui->labelMinesLeftOnes->setText(QString::number(minesLeft));
+        ui->labelMinesLeftTens->setText("");
+        ui->labelMinesLeftHundreds->setText("");
+        ui->labelMinesLeftThousands->setText("");
+    }
+    else if (minesLeft < 100)
+    {
+        int ones = minesLeft % 10;
+        int tens = minesLeft / 10;
+        ui->labelMinesLeftOnes->setText(QString::number(ones));
+        ui->labelMinesLeftTens->setText(QString::number(tens));
+        ui->labelMinesLeftHundreds->setText("");
+        ui->labelMinesLeftThousands->setText("");
+    }
+    else if (minesLeft < 1000)
+    {
+        int ones = minesLeft % 10;
+        int tens = (minesLeft % 100) / 10;
+        int hundreds = minesLeft / 100;
+        ui->labelMinesLeftOnes->setText(QString::number(ones));
+        ui->labelMinesLeftTens->setText(QString::number(tens));
+        ui->labelMinesLeftHundreds->setText(QString::number(hundreds));
+        ui->labelMinesLeftThousands->setText("");
+    }
+    else
+    {
+        int ones = minesLeft % 10;
+        int tens = ((minesLeft % 1000) % 100) / 10;
+        int hundreds = (minesLeft % 1000) / 100;
+        int thousands = minesLeft / 1000;
+        ui->labelMinesLeftOnes->setText(QString::number(ones));
+        ui->labelMinesLeftTens->setText(QString::number(tens));
+        ui->labelMinesLeftHundreds->setText(QString::number(hundreds));
+        ui->labelMinesLeftThousands->setText(QString::number(thousands));
+    }
 }

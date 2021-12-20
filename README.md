@@ -18,6 +18,6 @@ Controls:
 Screenshots:
 -----------
 
-<img src="https://github.com/q-g-j/qminesweeper/raw/master/images/screenshots/screenshot.jpg" width="400">
+<img src="https://github.com/q-g-j/qminesweeper/raw/master/images/screenshots/screenshot.jpg" width="500">
 
-<img src="https://github.com/q-g-j/qminesweeper/raw/master/images/screenshots/screenshot_lost.jpg" width="400">
+<img src="https://github.com/q-g-j/qminesweeper/raw/master/images/screenshots/screenshot_lost.jpg" width="500">

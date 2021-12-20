@@ -22,7 +22,12 @@ private:
     Field *field = nullptr;
     Timer *timer = nullptr;
     int cols, rows;
-    int cellSize;    
+    int cellSize;
+    int labelMinesLeftWrapperWidth;
+    int labelMinesLeftWrapperHeight;
+    int timerWrapperHeight;
+    int minesLeftNumberWidth;
+    int spacerMiddleLeftFixedWidth;
     Difficulty::DifficultyStruct difficulty;
 
     void clearLayout(QLayout*);
