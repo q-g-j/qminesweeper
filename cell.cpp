@@ -44,6 +44,7 @@ bool Cell::eventFilter(QObject* /*object*/, QEvent *e)
     if (e->type() == QEvent::MouseMove)
     {
         QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(e);
+//        qDebug() << QString::number(mouseEvent->pos().x()) << "," << QString::number(mouseEvent->pos().y());
         if (leftbuttonpressedflag)
         {
             emit left_pressed_and_moved_signal(mouseEvent);

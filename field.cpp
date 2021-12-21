@@ -508,7 +508,7 @@ void Field::on_left_released()
     {
         Cell *button = qobject_cast<Cell*>(sender());
         Common::Coords coordsTemp = this->getButtonCoords(button);
-        if (this->isGameOver != true && 0 <= mouseCurrentPosition.x() && mouseCurrentPosition.x() <= 25 && 0 <= mouseCurrentPosition.y() && mouseCurrentPosition.y() <= 25)
+        if (this->isGameOver != true && 0 <= mouseCurrentPosition.x() && mouseCurrentPosition.x() < this->cellSize && 0 <= mouseCurrentPosition.y() && mouseCurrentPosition.y() < this->cellSize)
         {
 
             if (this->field2DVector[coordsTemp.col][coordsTemp.row] != 'F' && ! (this->isNumber(coordsTemp)))
@@ -559,7 +559,7 @@ void Field::on_left_released()
                 emit this->smiley_surprised_signal();
             }
         }
-        else
+        else if (this->field2DVector[coordsTemp.col][coordsTemp.row] != 'F' && ! this->isNumber(coordsTemp))
         {
             if (this->tempRevealed)
                 button->setStyleSheet(stylesheet_button_unrevealed);
