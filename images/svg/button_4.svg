@@ -7,9 +7,9 @@
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    id="svg8"
    version="1.1"
-   viewBox="0 0 90.772728 90.772728"
-   height="90.772728mm"
-   width="90.772728mm"
+   viewBox="0 0 300 300"
+   height="300mm"
+   width="300mm"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -21,10 +21,10 @@
      id="defs2">
     <inkscape:perspective
        id="perspective29"
-       inkscape:persp3d-origin="105 : -107.22727 : 1"
-       inkscape:vp_z="210 : -57.727275 : 1"
-       inkscape:vp_y="0 : 999.99995 : 0"
-       inkscape:vp_x="0 : -57.727275 : 1"
+       inkscape:persp3d-origin="105 : 102 : 1"
+       inkscape:vp_z="210 : 151.49999 : 1"
+       inkscape:vp_y="0 : 999.99996 : 0"
+       inkscape:vp_x="0 : 151.49999 : 1"
        sodipodi:type="inkscape:persp3d" />
   </defs>
   <sodipodi:namedview
@@ -42,9 +42,9 @@
      inkscape:document-rotation="0"
      inkscape:current-layer="layer2"
      inkscape:document-units="mm"
-     inkscape:cy="169.20055"
-     inkscape:cx="120.20815"
-     inkscape:zoom="0.98994949"
+     inkscape:cy="627.30473"
+     inkscape:cx="333.35034"
+     inkscape:zoom="0.49497475"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
@@ -53,7 +53,7 @@
      id="base"
      inkscape:pagecheckerboard="0">
     <inkscape:grid
-       originy="-75.133603"
+       originy="-75.133602"
        originx="-60.39219"
        id="grid92"
        type="xygrid" />
@@ -66,7 +66,6 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -77,13 +76,12 @@
      id="layer3"
      inkscape:groupmode="layer">
     <path
-       d="M 0,0 V 343.07812 L 343.07812,0 Z M 343.07812,0 0,343.07812 h 343.07812 z"
-       transform="matrix(0.26458333,0,0,0.26458333,60.392193,75.133606)"
-       style="display:inline;fill:#b4b4b4;stroke-width:0.999999;fill-opacity:1"
+       d="M 60.392193,75.133606 V 375.13361 L 360.39219,75.133606 Z m 299.999997,0 L 60.392193,375.13361 H 360.39219 Z"
+       style="display:inline;fill:#b4b4b4;fill-opacity:1;stroke-width:0.874436"
        id="path1799"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/button_4.png"
-       inkscape:export-xdpi="17.908457"
-       inkscape:export-ydpi="17.908457" />
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_4.png"
+       inkscape:export-xdpi="4.23"
+       inkscape:export-ydpi="4.23" />
   </g>
   <g
      transform="translate(-60.392193,-75.133606)"
@@ -92,19 +90,18 @@
      id="layer2"
      inkscape:groupmode="layer">
     <text
-       transform="translate(-5.8333332e-7)"
        xml:space="preserve"
-       style="display:inline;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:70.5556px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="84.367302"
-       y="148.41147"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:233.183px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.874435"
+       x="139.62889"
+       y="317.31375"
        id="text2542"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/button_4.png"
-       inkscape:export-xdpi="17.908457"
-       inkscape:export-ydpi="17.908457"><tspan
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_4.png"
+       inkscape:export-xdpi="4.23"
+       inkscape:export-ydpi="4.23"><tspan
          sodipodi:role="line"
          id="tspan2540"
-         x="84.367302"
-         y="148.41147"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:77.6111px;font-family:Arial;-inkscape-font-specification:'Arial, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#800080;fill-opacity:1;stroke-width:0.264583">4</tspan></text>
+         x="139.62889"
+         y="317.31375"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:256.501px;font-family:Arial;-inkscape-font-specification:'Arial, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#800080;fill-opacity:1;stroke-width:0.874435">4</tspan></text>
   </g>
 </svg>
