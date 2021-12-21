@@ -154,11 +154,13 @@ void Field::addCells()
             structTemp.coords = coordsTemp;
             structTemp.button = &this->cell[i][j];
             this->buttonStructVector.append(structTemp);
-
+            this->cell[i][j].setMouseTracking(true);
             this->layout->addWidget(&this->cell[i][j], j - 1, i - 1, 1, 1);
             connect(&this->cell[i][j], &Cell::double_clicked_signal, this, &Field::on_double_clicked);
+            connect(&this->cell[i][j], &Cell::left_pressed_signal, this, &Field::on_left_pressed);
             connect(&this->cell[i][j], &Cell::left_released_signal, this, &Field::on_left_released);
             connect(&this->cell[i][j], &Cell::right_released_signal, this, &Field::on_right_released);
+            connect(&this->cell[i][j], &Cell::left_pressed_and_moved_signal, this, &Field::on_left_pressed_and_moved);
         }
     }
 }
@@ -482,13 +484,21 @@ Common::Coords Field::gridPosition(Cell* button)
 }
 */
 
+void Field::on_left_pressed()
+{
+    this->mouseCurrentPosition.setX(0);
+    this->mouseCurrentPosition.setY(0);
+    Cell *button = qobject_cast<Cell*>(sender());
+    button->setStyleSheet(stylesheet_button_revealed);
+}
+
 // handle left clicking on a cell:
 void Field::on_left_released()
 {
-    if (this->isGameOver != true)
+    Cell *button = qobject_cast<Cell*>(sender());
+    Common::Coords coordsTemp = this->getButtonCoords(button);
+    if (this->isGameOver != true && 0 <= mouseCurrentPosition.x() && mouseCurrentPosition.x() <= 25 && 0 <= mouseCurrentPosition.y() && mouseCurrentPosition.y() <= 25)
     {
-        Cell *button = qobject_cast<Cell*>(sender());
-        Common::Coords coordsTemp = this->getButtonCoords(button);
 
         if (this->field2DVector[coordsTemp.col][coordsTemp.row] != 'F' && (! this->isNumber(coordsTemp)))
         {
@@ -538,6 +548,8 @@ void Field::on_left_released()
             emit this->smiley_surprised_signal();
         }
     }
+    else
+        button->setStyleSheet(stylesheet_button_unrevealed);
 }
 
 // place and remove flags with right click:
@@ -590,4 +602,10 @@ void Field::on_double_clicked()
             this->gameOver(dummyCoords, "win");
         }
     }
+}
+
+void Field::on_left_pressed_and_moved(QMouseEvent *e)
+{
+//    qDebug() << QString::number(e->pos().x()) << "," << QString::number(e->pos().y());
+    this->mouseCurrentPosition = e->pos();
 }

@@ -17,8 +17,7 @@ private:
     int minesLeft;
     int countUnrevealed;
     bool firstTurn;
-    QVector<QVector<char>> field2DVector;
-    QVector<QVector<char>> mines2DVector;
+    QPoint mouseCurrentPosition;
     struct buttonStruct
     {
         Cell* button;
@@ -48,11 +47,8 @@ private:
     void createCells();
     void fillMinesVector(const Common::Coords&);
     void printNumber(const Common::Coords&, const int&);
-    QVector<Common::Coords> findNeighbours(const QVector<QVector<char>>&, const Common::Coords&, const char&);
     void autoReveal(const Common::Coords&, QVector<int>&);
-    void flagAutoReveal(const Common::Coords&);
     bool isFlagSet(const Common::Coords&);
-    bool isNumber(const Common::Coords&);
     void gameOver(const Common::Coords&, const QString&);
     Common::Coords getButtonCoords(Cell*);
 
@@ -65,6 +61,8 @@ public:
     ~Field();
 
     // public variables:
+    QVector<QVector<char>> field2DVector;
+    QVector<QVector<char>> mines2DVector;
     int cellSize;
     int cols;
     int rows;
@@ -72,15 +70,21 @@ public:
 
     // public methods:
     void addCells();
+    bool isNumber(const Common::Coords&);
+    QVector<Common::Coords> findNeighbours(const QVector<QVector<char>>&, const Common::Coords&, const char&);
+    void flagAutoReveal(const Common::Coords&);
 signals:
     void game_started_signal();
     void game_over_signal(const QString&);
     void minesleft_changed_signal(const int&);
     void smiley_surprised_signal();
+    void left_pressed_signal();
 private slots:
+    void on_left_pressed();
     void on_left_released();
     void on_right_released();
     void on_double_clicked();
+    void on_left_pressed_and_moved(QMouseEvent*);
 };
 
 #endif // FIELD_H

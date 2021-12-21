@@ -8,16 +8,21 @@ class Cell : public QPushButton
 {
     Q_OBJECT
 private:
+    bool leftbuttonpressedflag = false;
 public:
     explicit Cell(QWidget *parent = nullptr);
 
 protected:
     void mouseDoubleClickEvent(QMouseEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
+    void mousePressEvent(QMouseEvent *e);
+    bool eventFilter(QObject*, QEvent*);
 signals:
     void double_clicked_signal();
     void left_released_signal();
+    void left_pressed_signal();
     void right_released_signal();
+    void left_pressed_and_moved_signal(QMouseEvent*);
 };
 
 #endif // CELL_H

@@ -5,6 +5,7 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "solver.h"
 #include "timer.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -237,3 +238,9 @@ void MainWindow::start_timer_slot()
 {
     this->timer->timerStart();
 }
+
+void MainWindow::on_actionPlace_Flags_triggered()
+{
+;
+}
+

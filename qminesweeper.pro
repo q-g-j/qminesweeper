@@ -20,6 +20,7 @@ SOURCES += \
     field.cpp \
     main.cpp \
     mainwindow.cpp \
+    solver.cpp \
     timer.cpp
 
 HEADERS += \
@@ -28,6 +29,7 @@ HEADERS += \
     difficulty.h \
     field.h \
     mainwindow.h \
+    solver.h \
     timer.h
 
 FORMS += \
