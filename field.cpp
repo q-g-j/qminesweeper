@@ -178,7 +178,7 @@ bool Field::isFlagSet(const Common::Coords& coords)
 // test coords if they contain a number:
 bool Field::isNumber(const Common::Coords& coords)
 {
-    for (int i = 1; i < 8; i++)
+    for (int i = 0; i < 8; i++)
     {
         if (this->field2DVector[coords.col][coords.row] == i + 48)
             return true;
@@ -511,7 +511,7 @@ void Field::on_left_released()
         if (this->isGameOver != true && 0 <= mouseCurrentPosition.x() && mouseCurrentPosition.x() <= 25 && 0 <= mouseCurrentPosition.y() && mouseCurrentPosition.y() <= 25)
         {
 
-            if (this->field2DVector[coordsTemp.col][coordsTemp.row] != 'F' && (! this->isNumber(coordsTemp)))
+            if (this->field2DVector[coordsTemp.col][coordsTemp.row] != 'F' && ! (this->isNumber(coordsTemp)))
             {
                 QVector<Common::Coords> neighboursMinesVector;
 
