@@ -17,6 +17,7 @@ private:
     int minesLeft;
     int countUnrevealed;
     bool firstTurn;
+    bool tempRevealed;
     QPoint mouseCurrentPosition;
     struct buttonStruct
     {

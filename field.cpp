@@ -18,6 +18,7 @@ Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& min
     this->flagsCount = 0;
     this->firstTurn = true;
     this->isGameOver = false;
+    this->tempRevealed = false;
     this->field2DVector = this->create2DVector();
     this->mines2DVector = this->create2DVector();
     emit this->minesleft_changed_signal(this->minesLeft);
@@ -486,70 +487,85 @@ Common::Coords Field::gridPosition(Cell* button)
 
 void Field::on_left_pressed()
 {
-    this->mouseCurrentPosition.setX(0);
-    this->mouseCurrentPosition.setY(0);
-    Cell *button = qobject_cast<Cell*>(sender());
-    button->setStyleSheet(stylesheet_button_revealed);
+    if (this->isGameOver != true)
+    {
+        this->mouseCurrentPosition.setX(0);
+        this->mouseCurrentPosition.setY(0);
+        Cell *button = qobject_cast<Cell*>(sender());
+        Common::Coords coordsTemp = this->getButtonCoords(button);
+        if (this->field2DVector[coordsTemp.col][coordsTemp.row] == ' ')
+        {
+            button->setStyleSheet(stylesheet_button_revealed);
+            this->tempRevealed = true;
+        }
+    }
 }
 
 // handle left clicking on a cell:
 void Field::on_left_released()
 {
-    Cell *button = qobject_cast<Cell*>(sender());
-    Common::Coords coordsTemp = this->getButtonCoords(button);
-    if (this->isGameOver != true && 0 <= mouseCurrentPosition.x() && mouseCurrentPosition.x() <= 25 && 0 <= mouseCurrentPosition.y() && mouseCurrentPosition.y() <= 25)
+    if (this->isGameOver != true)
     {
-
-        if (this->field2DVector[coordsTemp.col][coordsTemp.row] != 'F' && (! this->isNumber(coordsTemp)))
+        Cell *button = qobject_cast<Cell*>(sender());
+        Common::Coords coordsTemp = this->getButtonCoords(button);
+        if (this->isGameOver != true && 0 <= mouseCurrentPosition.x() && mouseCurrentPosition.x() <= 25 && 0 <= mouseCurrentPosition.y() && mouseCurrentPosition.y() <= 25)
         {
-            QVector<Common::Coords> neighboursMinesVector;
 
-            // fill mines2DVector with mines only once after users first guess:
-            if (this->firstTurn)
+            if (this->field2DVector[coordsTemp.col][coordsTemp.row] != 'F' && (! this->isNumber(coordsTemp)))
             {
-                this->fillMinesVector(coordsTemp);
-                emit this->game_started_signal();
-            }
+                QVector<Common::Coords> neighboursMinesVector;
 
-            // if user hit a mine, reveal the game field - game is lost:
-            if (this->mines2DVector[coordsTemp.col][coordsTemp.row] == 'X')
-            {
-                this->gameOver(coordsTemp, "lose");
-            }
-
-            else
-            {
-                // reveal the players choice and place the number of surrounding mines in it:
-                neighboursMinesVector = this->findNeighbours(this->mines2DVector, coordsTemp, 'X');
-                this->printNumber(coordsTemp, neighboursMinesVector.size());
-                --this->countUnrevealed;
-
-                // check if player has won:
-                if (this->flagsCount + this->countUnrevealed == this->mines)
+                // fill mines2DVector with mines only once after users first guess:
+                if (this->firstTurn)
                 {
-                    Common::Coords dummyCoords;
-                    this->gameOver(dummyCoords, "win");
+                    this->fillMinesVector(coordsTemp);
+                    emit this->game_started_signal();
                 }
-            }
-            if (this->isGameOver != true)
-            {
-                // automatically reveal all neighbours of squares with no neighbour mines:
-                QVector<int> poolVector;
-                this->autoReveal(coordsTemp, poolVector);
-                this->firstTurn = false;
 
-                // check if player has won:
-                if (this->flagsCount + this->countUnrevealed == this->mines)
+                // if user hit a mine, reveal the game field - game is lost:
+                if (this->mines2DVector[coordsTemp.col][coordsTemp.row] == 'X')
                 {
-                    Common::Coords dummyCoords;
-                    this->gameOver(dummyCoords, "win");
+                    this->gameOver(coordsTemp, "lose");
                 }
+
+                else
+                {
+                    // reveal the players choice and place the number of surrounding mines in it:
+                    neighboursMinesVector = this->findNeighbours(this->mines2DVector, coordsTemp, 'X');
+                    this->printNumber(coordsTemp, neighboursMinesVector.size());
+                    --this->countUnrevealed;
+
+                    // check if player has won:
+                    if (this->flagsCount + this->countUnrevealed == this->mines)
+                    {
+                        Common::Coords dummyCoords;
+                        this->gameOver(dummyCoords, "win");
+                    }
+                }
+                if (this->isGameOver != true)
+                {
+                    // automatically reveal all neighbours of squares with no neighbour mines:
+                    QVector<int> poolVector;
+                    this->autoReveal(coordsTemp, poolVector);
+                    this->firstTurn = false;
+
+                    // check if player has won:
+                    if (this->flagsCount + this->countUnrevealed == this->mines)
+                    {
+                        Common::Coords dummyCoords;
+                        this->gameOver(dummyCoords, "win");
+                    }
+                }
+                emit this->smiley_surprised_signal();
             }
-            emit this->smiley_surprised_signal();
         }
+        else
+        {
+            if (this->tempRevealed)
+                button->setStyleSheet(stylesheet_button_unrevealed);
+        }
+        this->tempRevealed = false;
     }
-    else
-        button->setStyleSheet(stylesheet_button_unrevealed);
 }
 
 // place and remove flags with right click:
@@ -606,6 +622,8 @@ void Field::on_double_clicked()
 
 void Field::on_left_pressed_and_moved(QMouseEvent *e)
 {
-//    qDebug() << QString::number(e->pos().x()) << "," << QString::number(e->pos().y());
-    this->mouseCurrentPosition = e->pos();
+    if (this->isGameOver != true)
+    {
+        this->mouseCurrentPosition = e->pos();
+    }
 }
