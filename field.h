@@ -6,7 +6,7 @@
 
 #include "cell.h"
 #include "common.h"
-#include "icons.h"
+#include "stylesheet.h"
 
 class Field : public QWidget
 {
@@ -29,8 +29,7 @@ private:
 
     Cell** cell;
     QGridLayout *layout;
-
-    Icons icons;
+    Stylesheet *stylesheet;
 
     // private methods:
     QVector<QVector<char>> create2DVector();
@@ -44,6 +43,7 @@ private:
 
 public:
     explicit Field(QWidget *parent = nullptr,
+                   Stylesheet *stylesheet = nullptr,
                    const int& cols = 9,
                    const int& rows = 9,
                    const int& mines = 10,

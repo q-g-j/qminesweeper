@@ -34,6 +34,8 @@ MainWindow::MainWindow(QWidget *parent)
     this->difficulty.rows = 9;
     this->difficulty.mines = 10;
 
+    ui->menuCheat->menuAction()->setVisible(false);
+
     this->newGame(this->difficulty);
 }
 
@@ -99,14 +101,14 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     this->clearLayout(this->fieldLayout);
     this->fieldLayout->setSpacing(0);
     this->fieldLayout->setContentsMargins(0,0,0,0);
-    this->field = new Field(ui->fieldWrapper, difficulty_.cols, difficulty_.rows, difficulty_.mines, this->cellSize);
+    this->field = new Field(ui->fieldWrapper, &this->stylesheet, difficulty_.cols, difficulty_.rows, difficulty_.mines, this->cellSize);
     ui->fieldWrapper->setLayout(this->fieldLayout);
     ui->fieldWrapper->setMinimumSize(field->cols * field->cellSize, field->rows * field->cellSize);
     ui->timerTenMinutes->setText("0");
     ui->timerMinutes->setText("0");
     ui->timerTenSeconds->setText("0");
     ui->timerSeconds->setText("0");
-    ui->smiley->setStyleSheet(icons.stylesheet_smiley);
+    ui->smiley->setStyleSheet(this->stylesheet.stylesheet_smiley);
     this->field->addCells();
     this->fieldLayout->addWidget(this->field);
     this->centralWidget()->adjustSize();
@@ -157,10 +159,10 @@ void MainWindow::smiley_surprised_slot()
 {
     if (field->isGameOver != true)
     {
-        ui->smiley->setStyleSheet(icons.stylesheet_smiley_surprised);
+        ui->smiley->setStyleSheet(this->stylesheet.stylesheet_smiley_surprised);
         Common::sleep(350);
         if (field->isGameOver != true)
-            ui->smiley->setStyleSheet(icons.stylesheet_smiley);
+            ui->smiley->setStyleSheet(this->stylesheet.stylesheet_smiley);
     }
 }
 
@@ -168,9 +170,9 @@ void MainWindow::game_over_slot(const QString& mode)
 {
     this->timer->timerStop();
     if (mode == "lose")
-        ui->smiley->setStyleSheet(icons.stylesheet_smiley_lost);
+        ui->smiley->setStyleSheet(this->stylesheet.stylesheet_smiley_lost);
     else if (mode == "win")
-        ui->smiley->setStyleSheet(icons.stylesheet_smiley_won);
+        ui->smiley->setStyleSheet(this->stylesheet.stylesheet_smiley_won);
 }
 
 void MainWindow::minesleft_changed_slot(const int& minesLeft)

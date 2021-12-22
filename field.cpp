@@ -6,8 +6,9 @@
 #include "common.h"
 #include "field.h"
 
-Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& mines_, const int& cellSize_) : QWidget(parent)
+Field::Field(QWidget *parent, Stylesheet *stylesheet_, const int& cols_, const int& rows_, const int& mines_, const int& cellSize_) : QWidget(parent)
 {
+    this->stylesheet = stylesheet_;
     this->cols = cols_;
     this->rows = rows_;
     this->mines = mines_;
@@ -90,7 +91,7 @@ void Field::addCells()
     {
         for (int j = 1; j <= this->rows; j++)
         {
-            this->cell[i][j].setStyleSheet(icons.stylesheet_button_unrevealed);
+            this->cell[i][j].setStyleSheet(stylesheet->stylesheet_button_unrevealed);
             this->cell[i][j].setFixedSize(this->cellSize, this->cellSize);
 
             // create a vector holding structs of each button together with its coords:
@@ -187,49 +188,49 @@ void Field::printNumber(const Common::Coords& coords, const int& number)
     if (number == 0)
     {
         this->field2DVector[coords.col][coords.row] = '0';
-        this->cell[coords.col][coords.row].setStyleSheet(icons.stylesheet_button_revealed);
+        this->cell[coords.col][coords.row].setStyleSheet(stylesheet->stylesheet_button_revealed);
     }
     else
     {
         if (number == 1)
         {
             this->field2DVector[coords.col][coords.row] = '1';
-            this->cell[coords.col][coords.row].setStyleSheet(icons.stylesheet_button_1);
+            this->cell[coords.col][coords.row].setStyleSheet(stylesheet->stylesheet_button_1);
         }
         if (number == 2)
         {
             this->field2DVector[coords.col][coords.row] = '2';
-            this->cell[coords.col][coords.row].setStyleSheet(icons.stylesheet_button_2);
+            this->cell[coords.col][coords.row].setStyleSheet(stylesheet->stylesheet_button_2);
         }
         if (number == 3)
         {
             this->field2DVector[coords.col][coords.row] = '3';
-            this->cell[coords.col][coords.row].setStyleSheet(icons.stylesheet_button_3);
+            this->cell[coords.col][coords.row].setStyleSheet(stylesheet->stylesheet_button_3);
         }
         if (number == 4)
         {
             this->field2DVector[coords.col][coords.row] = '4';
-            this->cell[coords.col][coords.row].setStyleSheet(icons.stylesheet_button_4);
+            this->cell[coords.col][coords.row].setStyleSheet(stylesheet->stylesheet_button_4);
         }
         if (number == 5)
         {
             this->field2DVector[coords.col][coords.row] = '5';
-            this->cell[coords.col][coords.row].setStyleSheet(icons.stylesheet_button_5);
+            this->cell[coords.col][coords.row].setStyleSheet(stylesheet->stylesheet_button_5);
         }
         if (number == 6)
         {
             this->field2DVector[coords.col][coords.row] = '6';
-            this->cell[coords.col][coords.row].setStyleSheet(icons.stylesheet_button_6);
+            this->cell[coords.col][coords.row].setStyleSheet(stylesheet->stylesheet_button_6);
         }
         if (number == 7)
         {
             this->field2DVector[coords.col][coords.row] = '7';
-            this->cell[coords.col][coords.row].setStyleSheet(icons.stylesheet_button_7);
+            this->cell[coords.col][coords.row].setStyleSheet(stylesheet->stylesheet_button_7);
         }
         if (number == 8)
         {
             this->field2DVector[coords.col][coords.row] = '8';
-            this->cell[coords.col][coords.row].setStyleSheet(icons.stylesheet_button_8);
+            this->cell[coords.col][coords.row].setStyleSheet(stylesheet->stylesheet_button_8);
         }
     }
 }
@@ -247,9 +248,9 @@ void Field::gameOver(const Common::Coords& coords, const QString& mode)
         for (int j = 1; j <= this->rows; j++)
         {
             if (this->mines2DVector[i][j] == 'X')
-                this->cell[i][j].setStyleSheet(icons.stylesheet_button_mine);
+                this->cell[i][j].setStyleSheet(stylesheet->stylesheet_button_mine);
             else
-                this->cell[i][j].setStyleSheet(icons.stylesheet_button_revealed);
+                this->cell[i][j].setStyleSheet(stylesheet->stylesheet_button_revealed);
 
             if (this->mines2DVector[i][j] != 'X' && this->mines2DVector[i][j] != 'H')
             {
@@ -262,17 +263,17 @@ void Field::gameOver(const Common::Coords& coords, const QString& mode)
             }
             else if (this->mines2DVector[i][j] == 'X')
             {
-                this->cell[i][j].setStyleSheet(icons.stylesheet_button_mine);
+                this->cell[i][j].setStyleSheet(stylesheet->stylesheet_button_mine);
             }
             else if (this->mines2DVector[i][j] == 'H')
             {
-                this->cell[i][j].setStyleSheet(icons.stylesheet_button_mine_hit);
+                this->cell[i][j].setStyleSheet(stylesheet->stylesheet_button_mine_hit);
             }
         }
     }
     if (mode == "lose")
     {
-        this->cell[coords.col][coords.row].setStyleSheet(icons.stylesheet_button_mine_hit);
+        this->cell[coords.col][coords.row].setStyleSheet(stylesheet->stylesheet_button_mine_hit);
     }
 }
 
@@ -441,7 +442,7 @@ void Field::on_left_pressed()
         Common::Coords coordsTemp = this->getButtonCoords(button);
         if (this->field2DVector[coordsTemp.col][coordsTemp.row] == ' ')
         {
-            button->setStyleSheet(icons.stylesheet_button_revealed);
+            button->setStyleSheet(stylesheet->stylesheet_button_revealed);
             this->tempRevealed = true;
         }
     }
@@ -508,7 +509,7 @@ void Field::on_left_released()
         else if (this->field2DVector[coordsTemp.col][coordsTemp.row] != 'F' && ! this->isNumber(coordsTemp))
         {
             if (this->tempRevealed)
-                button->setStyleSheet(icons.stylesheet_button_unrevealed);
+                button->setStyleSheet(stylesheet->stylesheet_button_unrevealed);
         }
         this->tempRevealed = false;
     }
@@ -526,7 +527,7 @@ void Field::on_right_released()
         {
             if (! this->isFlagSet(coordsTemp))
             {
-                button->setStyleSheet(icons.stylesheet_button_flag);
+                button->setStyleSheet(stylesheet->stylesheet_button_flag);
                 this->field2DVector[coordsTemp.col][coordsTemp.row] = 'F';
                 this->flagsCount++;
                 this->minesLeft--;
@@ -534,7 +535,7 @@ void Field::on_right_released()
             }
             else
             {
-                button->setStyleSheet(icons.stylesheet_button_unrevealed);
+                button->setStyleSheet(stylesheet->stylesheet_button_unrevealed);
                 this->field2DVector[coordsTemp.col][coordsTemp.row] = ' ';
                 this->flagsCount--;
                 this->minesLeft++;

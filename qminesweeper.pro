@@ -18,10 +18,10 @@ SOURCES += \
     common.cpp \
     difficulty.cpp \
     field.cpp \
-    icons.cpp \
     main.cpp \
     mainwindow.cpp \
     solver.cpp \
+    stylesheet.cpp \
     timer.cpp
 
 HEADERS += \
@@ -29,9 +29,9 @@ HEADERS += \
     common.h \
     difficulty.h \
     field.h \
-    icons.h \
     mainwindow.h \
     solver.h \
+    stylesheet.h \
     timer.h
 
 FORMS += \

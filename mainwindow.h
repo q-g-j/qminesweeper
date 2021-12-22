@@ -7,7 +7,7 @@
 
 #include "difficulty.h"
 #include "field.h"
-#include "icons.h"
+#include "stylesheet.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,8 +22,7 @@ private:
     QGridLayout *fieldLayout;
     Field *field = nullptr;
     Timer *timer = nullptr;
-
-    Icons icons;
+    Stylesheet stylesheet;
 
     int cols, rows;
     int cellSize;

@@ -1,13 +1,13 @@
 #include <QFile>
 
-#include "icons.h"
+#include "stylesheet.h"
 
-Icons::Icons()
+Stylesheet::Stylesheet()
 {
-    this->initializeIcons();
+    this->initializeStylesheet();
 }
 
-void Icons::initializeIcons()
+void Stylesheet::initializeStylesheet()
 {
     QFile smiley                        (":/stylesheet/infobar_smiley.css");
     QFile smiley_won                    (":/stylesheet/infobar_smiley_won.css");

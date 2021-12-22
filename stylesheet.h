@@ -1,10 +1,10 @@
-#ifndef ICONS_H
-#define ICONS_H
+#ifndef STYLESHEET_H
+#define STYLESHEET_H
 
-class Icons
+class Stylesheet
 {
 public:
-    Icons();
+    Stylesheet();
 
     QString stylesheet_button_flag;
     QString stylesheet_button_mine;
@@ -24,7 +24,7 @@ public:
     QString stylesheet_smiley_lost;
     QString stylesheet_smiley_surprised;
 
-    void initializeIcons();
+    void initializeStylesheet();
 };
 
-#endif // ICONS_H
+#endif // STYLESHEET_H
