@@ -19,6 +19,11 @@
   <property name="windowTitle">
    <string>Qt Minesweeper</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normalon>:/icons/png/window-icon.png</normalon>
+   </iconset>
+  </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
   </property>
@@ -79,7 +84,11 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">QLabel {
+       <string notr="true">QWidget#infoBar {
+	background-color: #d9d9d9;
+}
+
+QLabel {
 	margin-top: -2;
 	margin-bottom: -2;
     margin-left: -2;
@@ -204,6 +213,7 @@ QFrame {
             </property>
             <property name="font">
              <font>
+              <family>Digital-7</family>
               <pointsize>-1</pointsize>
               <italic>false</italic>
              </font>
@@ -238,6 +248,7 @@ QFrame {
             </property>
             <property name="font">
              <font>
+              <family>Digital-7</family>
               <pointsize>-1</pointsize>
               <italic>false</italic>
              </font>
@@ -272,6 +283,7 @@ QFrame {
             </property>
             <property name="font">
              <font>
+              <family>Digital-7</family>
               <pointsize>-1</pointsize>
               <italic>false</italic>
              </font>
@@ -306,6 +318,7 @@ QFrame {
             </property>
             <property name="font">
              <font>
+              <family>Digital-7</family>
               <pointsize>-1</pointsize>
               <italic>false</italic>
              </font>
@@ -518,6 +531,7 @@ QFrame {
             </property>
             <property name="font">
              <font>
+              <family>Digital-7</family>
               <pointsize>-1</pointsize>
               <italic>false</italic>
              </font>
@@ -552,6 +566,7 @@ QFrame {
             </property>
             <property name="font">
              <font>
+              <family>Digital-7</family>
               <pointsize>-1</pointsize>
               <italic>false</italic>
              </font>
@@ -586,6 +601,7 @@ QFrame {
             </property>
             <property name="font">
              <font>
+              <family>Digital-7</family>
               <pointsize>-1</pointsize>
               <italic>false</italic>
              </font>
@@ -620,6 +636,7 @@ QFrame {
             </property>
             <property name="font">
              <font>
+              <family>Digital-7</family>
               <pointsize>-1</pointsize>
               <italic>false</italic>
              </font>
@@ -654,6 +671,7 @@ QFrame {
             </property>
             <property name="font">
              <font>
+              <family>Digital-7</family>
               <pointsize>-1</pointsize>
               <italic>false</italic>
              </font>
@@ -727,7 +745,7 @@ QFrame {
      <x>0</x>
      <y>0</y>
      <width>416</width>
-     <height>24</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="font">

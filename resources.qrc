@@ -42,5 +42,6 @@
         <file>icons/png/menubar_game_quit.png</file>
         <file>fonts/digital-7.ttf</file>
         <file>icons/png/menubar_cheat_place_flags.png</file>
+        <file>icons/png/window-icon.png</file>
     </qresource>
 </RCC>
