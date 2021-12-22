@@ -15,6 +15,7 @@
         <file>stylesheet/infobar_smiley_won.css</file>
         <file>stylesheet/infobar_smiley_lost.css</file>
         <file>stylesheet/infobar_smiley.css</file>
+        <file>stylesheet/infobar_smiley_surprised.css</file>
         <file>stylesheet/button_revealed.css</file>
         <file>stylesheet/button_unrevealed.css</file>
         <file>icons/png/button_1.png</file>
@@ -35,11 +36,11 @@
         <file>icons/png/smiley_hover.png</file>
         <file>icons/png/smiley_won.png</file>
         <file>icons/png/smiley_surprised.png</file>
-        <file>stylesheet/infobar_smiley_surprised.css</file>
         <file>icons/png/smiley_surprised_hover.png</file>
         <file>icons/png/smiley_won_hover.png</file>
         <file>icons/png/smiley_lost_hover.png</file>
         <file>icons/png/menubar_game_quit.png</file>
         <file>fonts/digital-7.ttf</file>
+        <file>icons/png/menubar_cheat_place_flags.png</file>
     </qresource>
 </RCC>

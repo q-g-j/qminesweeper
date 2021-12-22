@@ -204,7 +204,6 @@ QFrame {
             </property>
             <property name="font">
              <font>
-              <family>Digital-7</family>
               <pointsize>-1</pointsize>
               <italic>false</italic>
              </font>
@@ -239,7 +238,6 @@ QFrame {
             </property>
             <property name="font">
              <font>
-              <family>Digital-7</family>
               <pointsize>-1</pointsize>
               <italic>false</italic>
              </font>
@@ -274,7 +272,6 @@ QFrame {
             </property>
             <property name="font">
              <font>
-              <family>Digital-7</family>
               <pointsize>-1</pointsize>
               <italic>false</italic>
              </font>
@@ -309,7 +306,6 @@ QFrame {
             </property>
             <property name="font">
              <font>
-              <family>Digital-7</family>
               <pointsize>-1</pointsize>
               <italic>false</italic>
              </font>
@@ -410,7 +406,7 @@ QFrame {
     border-style: inset;
     border-width: 0px;
     border-radius: 0px;
-    border-image: url(:/images/png/smiley.png) 0 0 0 0 stretch stretch;
+    border-image: url(:/icons/png/smiley.png) 0 0 0 0 stretch stretch;
     margin: 3 3 3 3;
 };
 </string>
@@ -522,7 +518,6 @@ QFrame {
             </property>
             <property name="font">
              <font>
-              <family>Digital-7</family>
               <pointsize>-1</pointsize>
               <italic>false</italic>
              </font>
@@ -557,7 +552,6 @@ QFrame {
             </property>
             <property name="font">
              <font>
-              <family>Digital-7</family>
               <pointsize>-1</pointsize>
               <italic>false</italic>
              </font>
@@ -592,7 +586,6 @@ QFrame {
             </property>
             <property name="font">
              <font>
-              <family>Digital-7</family>
               <pointsize>-1</pointsize>
               <italic>false</italic>
              </font>
@@ -627,7 +620,6 @@ QFrame {
             </property>
             <property name="font">
              <font>
-              <family>Digital-7</family>
               <pointsize>-1</pointsize>
               <italic>false</italic>
              </font>
@@ -662,7 +654,6 @@ QFrame {
             </property>
             <property name="font">
              <font>
-              <family>Digital-7</family>
               <pointsize>-1</pointsize>
               <italic>false</italic>
              </font>
@@ -736,7 +727,7 @@ QFrame {
      <x>0</x>
      <y>0</y>
      <width>416</width>
-     <height>30</height>
+     <height>24</height>
     </rect>
    </property>
    <property name="font">
@@ -781,7 +772,7 @@ QFrame {
   <action name="actionNew">
    <property name="icon">
     <iconset>
-     <normalon>:/images/png/smiley.png</normalon>
+     <normalon>:/icons/png/smiley.png</normalon>
     </iconset>
    </property>
    <property name="text">
@@ -791,7 +782,7 @@ QFrame {
   <action name="actionQuit">
    <property name="icon">
     <iconset>
-     <normalon>:/images/png/menubar_quit.png</normalon>
+     <normalon>:/icons/png/menubar_game_quit.png</normalon>
     </iconset>
    </property>
    <property name="text">
@@ -799,6 +790,11 @@ QFrame {
    </property>
   </action>
   <action name="actionPlace_Flags">
+   <property name="icon">
+    <iconset>
+     <normalon>:/icons/png/menubar_cheat_place_flags.png</normalon>
+    </iconset>
+   </property>
    <property name="text">
     <string>Place Flags</string>
    </property>
