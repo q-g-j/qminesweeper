@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="300mm"
+   height="300mm"
+   viewBox="0 0 300 300"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="button_mine_hit.svg"
+   inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/button_mine_hit.png"
+   inkscape:export-xdpi="16.790001"
+   inkscape:export-ydpi="16.790001"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs2">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : -57.727275 : 1"
+       inkscape:vp_y="0 : 999.99995 : 0"
+       inkscape:vp_z="210 : -57.727275 : 1"
+       inkscape:persp3d-origin="105 : -107.22727 : 1"
+       id="perspective29" />
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker1882-6"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path1880-2"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker1892-9"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path1890-1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker1902-2"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path1900-7"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1882-6-3"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lstart">
+      <path
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         style="fill:#b40000;fill-opacity:1;fill-rule:evenodd;stroke:#b40000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path1880-2-6" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1892-9-7"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lstart">
+      <path
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         style="fill:#b40000;fill-opacity:1;fill-rule:evenodd;stroke:#b40000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path1890-1-5" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1902-2-3"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lstart">
+      <path
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         style="fill:#b40000;fill-opacity:1;fill-rule:evenodd;stroke:#b40000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path1900-7-5" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.30246157"
+     inkscape:cx="46.286872"
+     inkscape:cy="831.51059"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer2"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:snap-grids="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1007"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:pagecheckerboard="0"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:object-paths="true"
+     inkscape:snap-intersection-paths="true"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:snap-midpoints="true"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-center="true"
+     inkscape:snap-text-baseline="true"
+     inkscape:snap-page="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid92"
+       originx="-60.39219"
+       originy="-75.133601" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Background"
+     style="display:inline"
+     transform="translate(-60.392193,-75.133606)">
+    <path
+       id="path1799"
+       style="display:inline;fill:#b4b4b4;fill-opacity:1;stroke-width:0.874436"
+       d="M 60.392193,75.133606 V 375.13361 L 360.39219,75.133606 Z m 299.999997,0 L 60.392193,375.13361 H 360.39219 Z"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_mine_hit.png"
+       inkscape:export-xdpi="4.23"
+       inkscape:export-ydpi="4.23" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Mine"
+     style="display:inline"
+     transform="translate(-60.392193,-75.133606)">
+    <path
+       style="fill:none;stroke:#dc0000;stroke-width:33.915;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 333.39331,225.13361 -246.00223,-1e-5"
+       id="path1741"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_mine_hit.png"
+       inkscape:export-xdpi="4.23"
+       inkscape:export-ydpi="4.23" />
+    <path
+       style="fill:none;stroke:#dc0000;stroke-width:33.915;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 210.3922,102.13249 V 348.13472"
+       id="path1743"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_mine_hit.png"
+       inkscape:export-xdpi="4.23"
+       inkscape:export-ydpi="4.23" />
+    <path
+       style="fill:none;stroke:#dc0000;stroke-width:21.4138;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 289.46032,146.06549 131.32408,304.20172"
+       id="path1626"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_mine_hit.png"
+       inkscape:export-xdpi="4.23"
+       inkscape:export-ydpi="4.23" />
+    <path
+       style="fill:none;stroke:#dc0000;stroke-width:21.4138;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 131.32408,146.06549 289.46032,304.20172"
+       id="path1298"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_mine_hit.png"
+       inkscape:export-xdpi="4.23"
+       inkscape:export-ydpi="4.23" />
+    <circle
+       style="fill:#dc0000;fill-opacity:1;stroke:none;stroke-width:32.056;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path1500"
+       cx="210.39218"
+       cy="225.13364"
+       r="89.775002"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_mine_hit.png"
+       inkscape:export-xdpi="4.23"
+       inkscape:export-ydpi="4.23" />
+    <ellipse
+       transform="matrix(0.74899948,-0.66257059,0.57900479,0.81532414,0,0)"
+       ry="17.18364"
+       rx="30.14389"
+       cy="254.54436"
+       cx="32.465099"
+       id="path2169"
+       style="display:inline;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:9.05101;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_mine_hit.png"
+       inkscape:export-xdpi="4.23"
+       inkscape:export-ydpi="4.23" />
+  </g>
+</svg>

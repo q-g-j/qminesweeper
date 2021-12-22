@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="300mm"
+   height="299.99997mm"
+   viewBox="0 0 300 299.99997"
+   version="1.1"
+   id="svg3543"
+   sodipodi:docname="button_flag.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview3545"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:object-paths="true"
+     inkscape:snap-intersection-paths="true"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:snap-midpoints="true"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-center="true"
+     inkscape:snap-text-baseline="true"
+     inkscape:snap-page="true"
+     inkscape:zoom="0.56123737"
+     inkscape:cx="393.77278"
+     inkscape:cy="613.82228"
+     inkscape:window-width="1920"
+     inkscape:window-height="1007"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs3540" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-71.159996,-67.67442)">
+    <path
+       id="path4879"
+       style="display:inline;opacity:1;fill:#666666;fill-opacity:1;stroke-width:2.76603"
+       d="M 371.16,367.6744 H 71.159996 L 371.16,67.67442 Z"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_flag.png"
+       inkscape:export-xdpi="4.23"
+       inkscape:export-ydpi="4.23" />
+    <path
+       id="path4316"
+       style="display:inline;opacity:1;fill:#e6e6e6;fill-opacity:1;stroke-width:2.76603"
+       d="M 71.159997,67.674421 V 367.6744 L 371.15998,67.674421 Z"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_flag.png"
+       inkscape:export-xdpi="4.23"
+       inkscape:export-ydpi="4.23" />
+    <path
+       id="path4313"
+       style="display:inline;opacity:1;fill:#b3b3b3;stroke-width:5.93741"
+       d="m 101.15996,97.675095 h 240 V 337.67509 h -240 z"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_flag.png"
+       inkscape:export-xdpi="4.23"
+       inkscape:export-ydpi="4.23" />
+    <path
+       id="path835"
+       d="M 140.37583,136.10098 V 299.24784"
+       style="display:inline;fill:none;stroke:#000000;stroke-width:26.9796;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_flag.png"
+       inkscape:export-xdpi="4.23"
+       inkscape:export-ydpi="4.23" />
+    <path
+       sodipodi:nodetypes="scccccs"
+       id="path837"
+       d="m 171.77778,133.09264 c -0.67296,0.0563 -1.35056,0.11849 -2.03294,0.18667 v 1.38904 103.46891 c 66.69016,-6.66829 88.06097,44.34365 145.68912,22.31819 V 155.59754 c -57.03847,21.80013 -78.55781,-27.95023 -143.65618,-22.5049 z"
+       style="display:inline;fill:#dc0000;fill-opacity:1;stroke:none;stroke-width:0.648317px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_flag.png"
+       inkscape:export-xdpi="4.23"
+       inkscape:export-ydpi="4.23" />
+  </g>
+</svg>
