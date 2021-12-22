@@ -2,7 +2,7 @@ QPushButton#smiley {
     border-style: inset;
     border-width: 0px;
     border-radius: 0px;
-    border-image: url(:/images/png/smiley.png) 0 0 0 0 stretch stretch;
+    border-image: url(:/icons/png/smiley.png) 0 0 0 0 stretch stretch;
     margin: 3 3 3 3;
 }
 
@@ -10,7 +10,7 @@ QPushButton#smiley:hover {
     border-style: inset;
     border-width: 0px;
     border-radius: 0px;
-    border-image: url(:/images/png/smiley_hover.png) 0 0 0 0 stretch stretch;
+    border-image: url(:/icons/png/smiley_hover.png) 0 0 0 0 stretch stretch;
     margin: 3 3 3 3;
 }
 

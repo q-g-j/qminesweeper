@@ -1,7 +1,6 @@
 #include <QDebug>
 #include <QSizePolicy>
 #include <QFontDatabase>
-#include <QGraphicsDropShadowEffect>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -29,23 +28,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     QFontDatabase::addApplicationFont(":/fonts/NotoSans-CondensedMedium.ttf");
     QFontDatabase::addApplicationFont(":/fonts/digital-7.ttf");
-
-    QFile smiley                (":/stylesheet/infobar_smiley.css");
-    QFile smiley_won            (":/stylesheet/infobar_smiley_won.css");
-    QFile smiley_lost           (":/stylesheet/infobar_smiley_lost.css");
-    QFile smiley_surprised      (":/stylesheet/infobar_smiley_surprised.css");
-    smiley.open                 (QFile::ReadOnly);
-    smiley_won.open             (QFile::ReadOnly);
-    smiley_lost.open            (QFile::ReadOnly);
-    smiley_surprised.open       (QFile::ReadOnly);
-    this->stylesheet_smiley           = QLatin1String(smiley.readAll());
-    this->stylesheet_smiley_won       = QLatin1String(smiley_won.readAll());
-    this->stylesheet_smiley_lost      = QLatin1String(smiley_lost.readAll());
-    this->stylesheet_smiley_surprised = QLatin1String(smiley_surprised.readAll());
-    smiley.close();
-    smiley_won.close();
-    smiley_lost.close();
-    smiley_surprised.close();
 
     // start in easy mode:
     this->difficulty.cols = 9;
@@ -124,7 +106,7 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     ui->timerMinutes->setText("0");
     ui->timerTenSeconds->setText("0");
     ui->timerSeconds->setText("0");
-    ui->smiley->setStyleSheet(this->stylesheet_smiley);
+    ui->smiley->setStyleSheet(icons.stylesheet_smiley);
     this->field->addCells();
     this->fieldLayout->addWidget(this->field);
     this->centralWidget()->adjustSize();
@@ -175,10 +157,10 @@ void MainWindow::smiley_surprised_slot()
 {
     if (field->isGameOver != true)
     {
-        ui->smiley->setStyleSheet(this->stylesheet_smiley_surprised);
+        ui->smiley->setStyleSheet(icons.stylesheet_smiley_surprised);
         Common::sleep(350);
         if (field->isGameOver != true)
-            ui->smiley->setStyleSheet(this->stylesheet_smiley);
+            ui->smiley->setStyleSheet(icons.stylesheet_smiley);
     }
 }
 
@@ -186,9 +168,9 @@ void MainWindow::game_over_slot(const QString& mode)
 {
     this->timer->timerStop();
     if (mode == "lose")
-        ui->smiley->setStyleSheet(this->stylesheet_smiley_lost);
+        ui->smiley->setStyleSheet(icons.stylesheet_smiley_lost);
     else if (mode == "win")
-        ui->smiley->setStyleSheet(this->stylesheet_smiley_won);
+        ui->smiley->setStyleSheet(icons.stylesheet_smiley_won);
 }
 
 void MainWindow::minesleft_changed_slot(const int& minesLeft)

@@ -7,6 +7,7 @@
 
 #include "difficulty.h"
 #include "field.h"
+#include "icons.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,6 +22,9 @@ private:
     QGridLayout *fieldLayout;
     Field *field = nullptr;
     Timer *timer = nullptr;
+
+    Icons icons;
+
     int cols, rows;
     int cellSize;
     int labelMinesLeftWrapperWidth;
@@ -32,11 +36,6 @@ private:
 
     void clearLayout(QLayout*);
     void newGame(const Difficulty::DifficultyStruct&);
-
-    QString stylesheet_smiley;
-    QString stylesheet_smiley_won;
-    QString stylesheet_smiley_lost;
-    QString stylesheet_smiley_surprised;
 
 public:
     MainWindow(QWidget *parent = nullptr);

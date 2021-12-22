@@ -18,6 +18,7 @@ SOURCES += \
     common.cpp \
     difficulty.cpp \
     field.cpp \
+    icons.cpp \
     main.cpp \
     mainwindow.cpp \
     solver.cpp \
@@ -28,6 +29,7 @@ HEADERS += \
     common.h \
     difficulty.h \
     field.h \
+    icons.h \
     mainwindow.h \
     solver.h \
     timer.h
@@ -43,3 +45,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES += \
+    README.md

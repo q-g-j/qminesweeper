@@ -6,6 +6,7 @@
 
 #include "cell.h"
 #include "common.h"
+#include "icons.h"
 
 class Field : public QWidget
 {
@@ -29,19 +30,7 @@ private:
     Cell** cell;
     QGridLayout *layout;
 
-    QString stylesheet_button_flag;
-    QString stylesheet_button_mine;
-    QString stylesheet_button_mine_hit;
-    QString stylesheet_button_revealed;
-    QString stylesheet_button_unrevealed;
-    QString stylesheet_button_1;
-    QString stylesheet_button_2;
-    QString stylesheet_button_3;
-    QString stylesheet_button_4;
-    QString stylesheet_button_5;
-    QString stylesheet_button_6;
-    QString stylesheet_button_7;
-    QString stylesheet_button_8;
+    Icons icons;
 
     // private methods:
     QVector<QVector<char>> create2DVector();

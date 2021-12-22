@@ -17,29 +17,29 @@
         <file>stylesheet/infobar_smiley.css</file>
         <file>stylesheet/button_revealed.css</file>
         <file>stylesheet/button_unrevealed.css</file>
-        <file>images/png/button_1.png</file>
-        <file>images/png/button_2.png</file>
-        <file>images/png/button_3.png</file>
-        <file>images/png/button_4.png</file>
-        <file>images/png/button_5.png</file>
-        <file>images/png/button_6.png</file>
-        <file>images/png/button_7.png</file>
-        <file>images/png/button_8.png</file>
-        <file>images/png/button_flag.png</file>
-        <file>images/png/button_mine.png</file>
-        <file>images/png/button_mine_hit.png</file>
-        <file>images/png/button_revealed.png</file>
-        <file>images/png/button_unrevealed.png</file>
-        <file>images/png/smiley.png</file>
-        <file>images/png/smiley_lost.png</file>
-        <file>images/png/smiley_hover.png</file>
-        <file>images/png/smiley_won.png</file>
-        <file>images/png/smiley_surprised.png</file>
+        <file>icons/png/button_1.png</file>
+        <file>icons/png/button_2.png</file>
+        <file>icons/png/button_3.png</file>
+        <file>icons/png/button_4.png</file>
+        <file>icons/png/button_5.png</file>
+        <file>icons/png/button_6.png</file>
+        <file>icons/png/button_7.png</file>
+        <file>icons/png/button_8.png</file>
+        <file>icons/png/button_flag.png</file>
+        <file>icons/png/button_mine.png</file>
+        <file>icons/png/button_mine_hit.png</file>
+        <file>icons/png/button_revealed.png</file>
+        <file>icons/png/button_unrevealed.png</file>
+        <file>icons/png/smiley.png</file>
+        <file>icons/png/smiley_lost.png</file>
+        <file>icons/png/smiley_hover.png</file>
+        <file>icons/png/smiley_won.png</file>
+        <file>icons/png/smiley_surprised.png</file>
         <file>stylesheet/infobar_smiley_surprised.css</file>
-        <file>images/png/smiley_surprised_hover.png</file>
-        <file>images/png/smiley_won_hover.png</file>
-        <file>images/png/smiley_lost_hover.png</file>
-        <file>images/png/menubar_quit.png</file>
+        <file>icons/png/smiley_surprised_hover.png</file>
+        <file>icons/png/smiley_won_hover.png</file>
+        <file>icons/png/smiley_lost_hover.png</file>
+        <file>icons/png/menubar_game_quit.png</file>
         <file>fonts/digital-7.ttf</file>
     </qresource>
 </RCC>
