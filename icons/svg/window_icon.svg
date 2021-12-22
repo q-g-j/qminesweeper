@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   width="266.58783mm"
-   height="266.58783mm"
-   viewBox="0 0 266.58783 266.58783"
+   width="276.58786mm"
+   height="276.58786mm"
+   viewBox="0 0 276.58786 276.58786"
    version="1.1"
    id="svg8"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
@@ -21,10 +21,10 @@
      id="defs2">
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : -91.139446 : 1"
-       inkscape:vp_y="0 : 999.99996 : 0"
-       inkscape:vp_z="210 : -91.139446 : 1"
-       inkscape:persp3d-origin="105 : -140.63944 : 1"
+       inkscape:vp_x="0 : -81.139414 : 1"
+       inkscape:vp_y="0 : 999.99994 : 0"
+       inkscape:vp_z="209.99999 : -81.139414 : 1"
+       inkscape:persp3d-origin="105 : -130.63941 : 1"
        id="perspective29" />
     <marker
        inkscape:stockid="Arrow1Lstart"
@@ -119,8 +119,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.30246158"
-     inkscape:cx="-714.14029"
-     inkscape:cy="609.99483"
+     inkscape:cx="-694.30306"
+     inkscape:cy="631.48516"
      inkscape:document-units="mm"
      inkscape:current-layer="layer2"
      inkscape:document-rotation="0"
@@ -131,7 +131,7 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:window-width="1920"
-     inkscape:window-height="1009"
+     inkscape:window-height="866"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
@@ -152,8 +152,8 @@
     <inkscape:grid
        type="xygrid"
        id="grid92"
-       originx="-77.098273"
-       originy="-91.839686" />
+       originx="-72.097752"
+       originy="-86.83968" />
   </sodipodi:namedview>
   <metadata
      id="metadata5">
@@ -171,22 +171,28 @@
      id="layer3"
      inkscape:label="Background"
      style="display:inline"
-     transform="translate(-77.098276,-91.83969)" />
+     transform="translate(-72.097756,-86.839687)" />
   <g
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Mine"
      style="display:inline"
-     transform="translate(-77.098276,-91.83969)">
+     transform="translate(-72.097756,-86.839687)">
     <path
        id="path1741"
-       style="color:#000000;fill:#000000;stroke-width:11.33858282;stroke-linecap:round;stroke:#ffffff;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       style="color:#000000;fill:#000000;stroke:#ffffff;stroke-width:37.79527607;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
        d="M 503.78906,0 A 61.03937,61.03937 0 0 0 442.74805,61.041016 V 186.68359 a 323.14961,323.14961 0 0 0 -138.52539,63.04102 l -57.79493,-57.79492 a 38.540031,38.540031 0 0 0 -27.24609,-11.29492 38.540031,38.540031 0 0 0 -27.25391,11.29492 38.540031,38.540031 0 0 0 0,54.5 l 57.79688,57.79687 A 323.14961,323.14961 0 0 0 186.68359,442.75195 H 61.039062 A 61.03937,61.03937 0 0 0 -0.00195313,503.78516 61.03937,61.03937 0 0 0 61.039062,564.82617 H 186.68359 a 323.14961,323.14961 0 0 0 63.03907,138.52539 l -57.79493,57.79492 a 38.540031,38.540031 0 0 0 0,54.50196 38.540031,38.540031 0 0 0 54.5,0 l 57.79688,-57.79492 a 323.14961,323.14961 0 0 0 138.52344,63.03906 v 125.64258 a 61.03937,61.03937 0 0 0 61.04101,61.04104 61.03937,61.03937 0 0 0 61.04102,-61.04104 V 820.89062 a 323.14961,323.14961 0 0 0 138.51953,-63.0371 l 57.79492,57.79492 a 38.540031,38.540031 0 0 0 54.50781,0 38.540031,38.540031 0 0 0 0,-54.50196 L 757.85352,703.34766 A 323.14961,323.14961 0 0 0 820.89258,564.82617 H 946.5332 a 61.03937,61.03937 0 0 0 61.041,-61.04101 61.03937,61.03937 0 0 0 -61.041,-61.03321 H 821.0957 A 323.14961,323.14961 0 0 0 757.90234,304.17969 l 57.75,-57.75 a 38.540031,38.540031 0 0 0 0,-54.5 38.540031,38.540031 0 0 0 -27.2539,-11.29492 38.540031,38.540031 0 0 0 -27.25391,11.29492 l -57.74609,57.74609 A 323.14961,323.14961 0 0 0 564.83008,186.48242 V 61.041016 A 61.03937,61.03937 0 0 0 503.78906,0 Z"
-       transform="matrix(0.26458333,0,0,0.26458333,77.098276,91.83969)" />
+       transform="matrix(0.26458333,0,0,0.26458333,77.098276,91.83969)"
+       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\window-icon.png"
+       inkscape:export-xdpi="4.5900002"
+       inkscape:export-ydpi="4.5900002" />
     <path
        id="path2169"
-       style="display:inline;fill:#ffffff;fill-rule:evenodd;stroke-width:8.62001"
+       style="display:inline;fill:#ffffff;fill-rule:evenodd;stroke-width:8.62001;paint-order:fill markers stroke"
        transform="matrix(0.74899948,-0.66257059,0.57900479,0.81532414,0,0)"
-       d="M 61.599997,257.17499 A 28.708467,16.365372 0 0 1 32.891529,273.54036 28.708467,16.365372 0 0 1 4.1830616,257.17499 28.708467,16.365372 0 0 1 32.891529,240.80962 28.708467,16.365372 0 0 1 61.599997,257.17499 Z" />
+       d="M 61.599997,257.17499 A 28.708467,16.365372 0 0 1 32.891529,273.54036 28.708467,16.365372 0 0 1 4.1830616,257.17499 28.708467,16.365372 0 0 1 32.891529,240.80962 28.708467,16.365372 0 0 1 61.599997,257.17499 Z"
+       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\window-icon.png"
+       inkscape:export-xdpi="4.5900002"
+       inkscape:export-ydpi="4.5900002" />
   </g>
 </svg>
