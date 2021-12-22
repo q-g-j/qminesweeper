@@ -1,5 +1,5 @@
-Minesweeper clone for Qt written in C++
-=======================================
+A Qt5/C++ based Minesweeper clone
+=================================
 
 Latest release:
 ---------------
