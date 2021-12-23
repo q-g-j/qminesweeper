@@ -12,12 +12,14 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-    this->setWindowFlags(Qt::Window | Qt::MSWindowsFixedSizeDialogHint);
 
-    labelMinesLeftWrapperWidth = ui->labelMinesLeftWrapper->width();
-    labelMinesLeftWrapperHeight = ui->labelMinesLeftWrapper->height();
-    timerWrapperHeight = ui->timerWrapper->height();
+    this->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+
+    setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowCloseButtonHint);
+
+    labelMinesLeftFrameWidth = ui->labelMinesLeftFrame->width();
+    labelMinesLeftFrameHeight = ui->labelMinesLeftFrame->height();
+    timerFrameHeight = ui->timerFrame->height();
     minesLeftNumberWidth = ui->labelMinesLeftOnes->width();
     spacerMiddleLeftFixedWidth = 8;
 
@@ -60,14 +62,41 @@ void MainWindow::clearLayout(QLayout *layout) {
 
 void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
 {
+    if (this->field != nullptr) delete this->field;
+    if (this->timer != nullptr) delete this->timer;
+    this->field = nullptr;
+    this->timer = nullptr;
+
+    this->field = new Field(ui->fieldWrapper, &this->stylesheet, difficulty_.cols, difficulty_.rows, difficulty_.mines, this->cellSize);
+    this->field->addCells();
+    this->clearLayout(this->fieldLayout);
+    this->fieldLayout->setSpacing(0);
+    this->fieldLayout->setContentsMargins(0,0,0,0);
+    this->fieldLayout->addWidget(this->field);
+    ui->fieldWrapper->setLayout(this->fieldLayout);
+    ui->fieldWrapper->setMinimumSize(field->cols * field->cellSize, field->rows * field->cellSize);
+
+    connect(this->field, &Field::game_over_signal, this, &MainWindow::game_over_slot);
+    connect(this->field, &Field::minesleft_changed_signal, this, &MainWindow::minesleft_changed_slot);
+    connect(this->field, &Field::smiley_surprised_signal, this, &MainWindow::smiley_surprised_slot);
+    connect(this->field, &Field::game_started_signal, this, &MainWindow::start_timer_slot);
+
+    this->minesleft_changed_slot(difficulty_.mines);
+
+    ui->timerTenMinutes->setText("0");
+    ui->timerMinutes->setText("0");
+    ui->timerTenSeconds->setText("0");
+    ui->timerSeconds->setText("0");
+    ui->smiley->setStyleSheet(this->stylesheet.stylesheet_smiley);
+
     if (difficulty_.mines < 100)
     {
         ui->labelMinesLeftTens->show();
         ui->labelMinesLeftOnes->show();
         ui->labelMinesLeftThousands->hide();
         ui->labelMinesLeftHundreds->hide();
-        ui->labelMinesLeftWrapper->resize(labelMinesLeftWrapperWidth - 2*minesLeftNumberWidth, labelMinesLeftWrapperHeight);
-        ui->spacerMiddleLeftFixed->changeSize(spacerMiddleLeftFixedWidth + 2 * minesLeftNumberWidth, labelMinesLeftWrapperHeight);
+        ui->labelMinesLeftFrame->resize(labelMinesLeftFrameWidth - 2 * minesLeftNumberWidth, labelMinesLeftFrameHeight);
+        ui->spacerMiddleLeftFixed->changeSize(spacerMiddleLeftFixedWidth + 2 * minesLeftNumberWidth, labelMinesLeftFrameHeight);
     }
     else if (difficulty_.mines < 1000)
     {
@@ -75,8 +104,8 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
         ui->labelMinesLeftTens->show();
         ui->labelMinesLeftOnes->show();
         ui->labelMinesLeftThousands->hide();
-        ui->labelMinesLeftWrapper->resize(labelMinesLeftWrapperWidth - minesLeftNumberWidth, labelMinesLeftWrapperHeight);
-        ui->spacerMiddleLeftFixed->changeSize(spacerMiddleLeftFixedWidth + minesLeftNumberWidth, labelMinesLeftWrapperHeight);
+        ui->labelMinesLeftFrame->resize(labelMinesLeftFrameWidth - minesLeftNumberWidth, labelMinesLeftFrameHeight);
+        ui->spacerMiddleLeftFixed->changeSize(spacerMiddleLeftFixedWidth + minesLeftNumberWidth, labelMinesLeftFrameHeight);
     }
     else
     {
@@ -84,41 +113,19 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
         ui->labelMinesLeftHundreds->show();
         ui->labelMinesLeftTens->show();
         ui->labelMinesLeftOnes->show();
-        ui->labelMinesLeftWrapper->resize(labelMinesLeftWrapperWidth, labelMinesLeftWrapperHeight);
-        ui->spacerMiddleLeftFixed->changeSize(spacerMiddleLeftFixedWidth, labelMinesLeftWrapperHeight);
+        ui->labelMinesLeftFrame->resize(labelMinesLeftFrameWidth, labelMinesLeftFrameHeight);
+        ui->spacerMiddleLeftFixed->changeSize(spacerMiddleLeftFixedWidth, labelMinesLeftFrameHeight);
     }
 
     // after changing the size of a spacer, need to invalidate its parent's layout:
     ui->infoBarLayout->invalidate();
 
-    ui->timerWrapper->adjustSize();
-    ui->labelMinesLeftWrapper->adjustSize();
-
-    if (this->timer != nullptr) delete this->timer;
-    this->timer = nullptr;
-    if (this->field != nullptr) delete this->field;
-    this->field = nullptr;
-    this->clearLayout(this->fieldLayout);
-    this->fieldLayout->setSpacing(0);
-    this->fieldLayout->setContentsMargins(0,0,0,0);
-    this->field = new Field(ui->fieldWrapper, &this->stylesheet, difficulty_.cols, difficulty_.rows, difficulty_.mines, this->cellSize);
-    ui->fieldWrapper->setLayout(this->fieldLayout);
-    ui->fieldWrapper->setMinimumSize(field->cols * field->cellSize, field->rows * field->cellSize);
-    ui->timerTenMinutes->setText("0");
-    ui->timerMinutes->setText("0");
-    ui->timerTenSeconds->setText("0");
-    ui->timerSeconds->setText("0");
-    ui->smiley->setStyleSheet(this->stylesheet.stylesheet_smiley);
-    this->field->addCells();
-    this->fieldLayout->addWidget(this->field);
+    ui->labelMinesLeftFrame->adjustSize();
+    ui->timerFrame->adjustSize();
     this->centralWidget()->adjustSize();
     this->adjustSize();
     this->setFixedSize(this->size().width(), this->size().height());
-    this->minesleft_changed_slot(difficulty_.mines);
-    connect(this->field, &Field::game_over_signal, this, &MainWindow::game_over_slot);
-    connect(this->field, &Field::minesleft_changed_signal, this, &MainWindow::minesleft_changed_slot);
-    connect(this->field, &Field::smiley_surprised_signal, this, &MainWindow::smiley_surprised_slot);
-    connect(this->field, &Field::game_started_signal, this, &MainWindow::start_timer_slot);
+
     this->timer = new Timer(ui->timerSeconds, ui->timerTenSeconds, ui->timerMinutes, ui->timerTenMinutes);
 }
 

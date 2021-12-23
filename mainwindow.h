@@ -26,9 +26,9 @@ private:
 
     int cols, rows;
     int cellSize;
-    int labelMinesLeftWrapperWidth;
-    int labelMinesLeftWrapperHeight;
-    int timerWrapperHeight;
+    int labelMinesLeftFrameWidth;
+    int labelMinesLeftFrameHeight;
+    int timerFrameHeight;
     int minesLeftNumberWidth;
     int spacerMiddleLeftFixedWidth;
     Difficulty::DifficultyStruct difficulty;
