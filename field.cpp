@@ -21,8 +21,8 @@ Field::Field(QWidget *parent, Stylesheet *stylesheet_, const int& cols_, const i
     this->tempRevealed = false;
     this->field2DVector = this->create2DVector();
     this->mines2DVector = this->create2DVector();
-    emit this->minesleft_changed_signal(this->minesLeft);
     this->createCells();
+    emit this->minesleft_changed_signal(this->minesLeft);
 
     this->layout = new QGridLayout;
     this->layout->setSpacing(0);
@@ -69,9 +69,9 @@ void Field::createCells()
 void Field::fillMinesVector(const Common::Coords& userFirstInput)
 {
     Common::Coords coords;
-    int sizeOfField2DVector = this->cols * this->rows;
+    int sizeOfField = this->cols * this->rows;
     QVector<int> tempVector;
-    for (int i = 1; i <= sizeOfField2DVector; i++)
+    for (int i = 1; i <= sizeOfField; i++)
     {
         if (i != Common::CoordsToInt(userFirstInput, this->cols))
             tempVector.push_back(i);
@@ -91,8 +91,9 @@ void Field::addCells()
     {
         for (int j = 1; j <= this->rows; j++)
         {
-            this->cell[i][j].setStyleSheet(stylesheet->stylesheet_button_unrevealed);
+            this->cell[i][j].setStyleSheet(this->stylesheet->stylesheet_button_unrevealed);
             this->cell[i][j].setFixedSize(this->cellSize, this->cellSize);
+            this->layout->addWidget(&this->cell[i][j], j - 1, i - 1, 1, 1);
 
             // create a vector holding structs of each button together with its coords:
             Common::Coords coordsTemp;
@@ -101,9 +102,10 @@ void Field::addCells()
             buttonStruct structTemp;
             structTemp.coords = coordsTemp;
             structTemp.button = &this->cell[i][j];
-            this->buttonStructVector.append(structTemp);
+            this->buttonsVector.append(structTemp);
+
             this->cell[i][j].setMouseTracking(true);
-            this->layout->addWidget(&this->cell[i][j], j - 1, i - 1, 1, 1);
+
             connect(&this->cell[i][j], &Cell::double_clicked_signal, this, &Field::on_double_clicked);
             connect(&this->cell[i][j], &Cell::left_pressed_signal, this, &Field::on_left_pressed);
             connect(&this->cell[i][j], &Cell::left_released_signal, this, &Field::on_left_released);
@@ -188,71 +190,72 @@ void Field::printNumber(const Common::Coords& coords, const int& number)
     if (number == 0)
     {
         this->field2DVector[coords.col][coords.row] = '0';
-        this->cell[coords.col][coords.row].setStyleSheet(stylesheet->stylesheet_button_revealed);
+        this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet->stylesheet_button_revealed);
     }
     else
     {
         if (number == 1)
         {
             this->field2DVector[coords.col][coords.row] = '1';
-            this->cell[coords.col][coords.row].setStyleSheet(stylesheet->stylesheet_button_1);
+            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet->stylesheet_button_1);
         }
-        if (number == 2)
+        else if (number == 2)
         {
             this->field2DVector[coords.col][coords.row] = '2';
-            this->cell[coords.col][coords.row].setStyleSheet(stylesheet->stylesheet_button_2);
+            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet->stylesheet_button_2);
         }
-        if (number == 3)
+        else if (number == 3)
         {
             this->field2DVector[coords.col][coords.row] = '3';
-            this->cell[coords.col][coords.row].setStyleSheet(stylesheet->stylesheet_button_3);
+            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet->stylesheet_button_3);
         }
-        if (number == 4)
+        else if (number == 4)
         {
             this->field2DVector[coords.col][coords.row] = '4';
-            this->cell[coords.col][coords.row].setStyleSheet(stylesheet->stylesheet_button_4);
+            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet->stylesheet_button_4);
         }
-        if (number == 5)
+        else if (number == 5)
         {
             this->field2DVector[coords.col][coords.row] = '5';
-            this->cell[coords.col][coords.row].setStyleSheet(stylesheet->stylesheet_button_5);
+            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet->stylesheet_button_5);
         }
-        if (number == 6)
+        else if (number == 6)
         {
             this->field2DVector[coords.col][coords.row] = '6';
-            this->cell[coords.col][coords.row].setStyleSheet(stylesheet->stylesheet_button_6);
+            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet->stylesheet_button_6);
         }
-        if (number == 7)
+        else if (number == 7)
         {
             this->field2DVector[coords.col][coords.row] = '7';
-            this->cell[coords.col][coords.row].setStyleSheet(stylesheet->stylesheet_button_7);
+            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet->stylesheet_button_7);
         }
-        if (number == 8)
+        else if (number == 8)
         {
             this->field2DVector[coords.col][coords.row] = '8';
-            this->cell[coords.col][coords.row].setStyleSheet(stylesheet->stylesheet_button_8);
+            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet->stylesheet_button_8);
         }
     }
 }
 
-// used for both winning and losing a game (mode = "win" or "lose"):
-void Field::gameOver(const Common::Coords& coords, const QString& mode)
+// used for both winning and losing a game:
+void Field::gameOver(const Common::Coords& coords, bool hasLost)
 {
     this->isGameOver = true;
     this->minesLeft = 0;
     emit this->minesleft_changed_signal(this->minesLeft);
-    emit this->game_over_signal(mode);
+    emit this->game_over_signal(hasLost);
 
     for (int i = 1; i <= this->cols; i++)
     {
         for (int j = 1; j <= this->rows; j++)
         {
             if (this->mines2DVector[i][j] == 'X')
-                this->cell[i][j].setStyleSheet(stylesheet->stylesheet_button_mine);
-            else
-                this->cell[i][j].setStyleSheet(stylesheet->stylesheet_button_revealed);
-
-            if (this->mines2DVector[i][j] != 'X' && this->mines2DVector[i][j] != 'H')
+                this->cell[i][j].setStyleSheet(this->stylesheet->stylesheet_button_mine);
+            else if (this->mines2DVector[i][j] == '0')
+                this->cell[i][j].setStyleSheet(this->stylesheet->stylesheet_button_revealed);
+            else if (this->mines2DVector[i][j] == 'H')
+                this->cell[i][j].setStyleSheet(this->stylesheet->stylesheet_button_mine_hit);
+            else if (hasLost == true)
             {
                 Common::Coords coordsTemp;
                 coordsTemp.col = i;
@@ -261,19 +264,11 @@ void Field::gameOver(const Common::Coords& coords, const QString& mode)
                 QVector<Common::Coords> neighboursMinesHitVector = this->findNeighbours(this->mines2DVector, coordsTemp, 'H');
                 this->printNumber(coordsTemp, static_cast<int>(neighboursMinesVector.size() + neighboursMinesHitVector.size()));
             }
-            else if (this->mines2DVector[i][j] == 'X')
-            {
-                this->cell[i][j].setStyleSheet(stylesheet->stylesheet_button_mine);
-            }
-            else if (this->mines2DVector[i][j] == 'H')
-            {
-                this->cell[i][j].setStyleSheet(stylesheet->stylesheet_button_mine_hit);
-            }
         }
     }
-    if (mode == "lose")
+    if (mines2DVector[coords.col][coords.row] == 'X')
     {
-        this->cell[coords.col][coords.row].setStyleSheet(stylesheet->stylesheet_button_mine_hit);
+        this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet->stylesheet_button_mine_hit);
     }
 }
 
@@ -354,7 +349,7 @@ void Field::flagAutoReveal(const Common::Coords& coords)
                     this->mines2DVector[flagRevealMissedMinesVector.at(i).col][flagRevealMissedMinesVector.at(i).row] = 'H';
                 }
                 Common::Coords dummyCoords;
-                this->gameOver(dummyCoords, "lose");
+                this->gameOver(dummyCoords, true);
             }
             // else if all flags are placed correctly:
             else
@@ -375,7 +370,7 @@ void Field::flagAutoReveal(const Common::Coords& coords)
                         if (this->flagsCount + this->countUnrevealed == this->mines)
                         {
                             Common::Coords dummyCoords;
-                            this->gameOver(dummyCoords, "win");
+                            this->gameOver(dummyCoords, false);
                         }
                         else if (flagRevealNeighboursUnrevealedMinesVector.size() == 0)
                         {
@@ -407,8 +402,8 @@ void Field::flagAutoReveal(const Common::Coords& coords)
 Common::Coords Field::getButtonCoords(Cell *button)
 {
     buttonStruct *structTemp = std::find_if(
-                this->buttonStructVector.begin(),
-                this->buttonStructVector.end(),
+                this->buttonsVector.begin(),
+                this->buttonsVector.end(),
                 [button] (buttonStruct& s) { return s.button == button; }
             );
     return structTemp->coords;
@@ -442,7 +437,7 @@ void Field::on_left_pressed()
         Common::Coords coordsTemp = this->getButtonCoords(button);
         if (this->field2DVector[coordsTemp.col][coordsTemp.row] == ' ')
         {
-            button->setStyleSheet(stylesheet->stylesheet_button_revealed);
+            button->setStyleSheet(this->stylesheet->stylesheet_button_revealed);
             this->tempRevealed = true;
         }
     }
@@ -472,7 +467,7 @@ void Field::on_left_released()
                 // if user hit a mine, reveal the game field - game is lost:
                 if (this->mines2DVector[coordsTemp.col][coordsTemp.row] == 'X')
                 {
-                    this->gameOver(coordsTemp, "lose");
+                    this->gameOver(coordsTemp, true);
                 }
 
                 else
@@ -486,7 +481,7 @@ void Field::on_left_released()
                     if (this->flagsCount + this->countUnrevealed == this->mines)
                     {
                         Common::Coords dummyCoords;
-                        this->gameOver(dummyCoords, "win");
+                        this->gameOver(dummyCoords, false);
                     }
                 }
                 if (this->isGameOver != true)
@@ -500,7 +495,7 @@ void Field::on_left_released()
                     if (this->flagsCount + this->countUnrevealed == this->mines)
                     {
                         Common::Coords dummyCoords;
-                        this->gameOver(dummyCoords, "win");
+                        this->gameOver(dummyCoords, false);
                     }
                 }
                 emit this->smiley_surprised_signal();
@@ -509,7 +504,7 @@ void Field::on_left_released()
         else if (this->field2DVector[coordsTemp.col][coordsTemp.row] != 'F' && ! this->isNumber(coordsTemp))
         {
             if (this->tempRevealed)
-                button->setStyleSheet(stylesheet->stylesheet_button_unrevealed);
+                button->setStyleSheet(this->stylesheet->stylesheet_button_unrevealed);
         }
         this->tempRevealed = false;
     }
@@ -527,7 +522,7 @@ void Field::on_right_released()
         {
             if (! this->isFlagSet(coordsTemp))
             {
-                button->setStyleSheet(stylesheet->stylesheet_button_flag);
+                button->setStyleSheet(this->stylesheet->stylesheet_button_flag);
                 this->field2DVector[coordsTemp.col][coordsTemp.row] = 'F';
                 this->flagsCount++;
                 this->minesLeft--;
@@ -535,7 +530,7 @@ void Field::on_right_released()
             }
             else
             {
-                button->setStyleSheet(stylesheet->stylesheet_button_unrevealed);
+                button->setStyleSheet(this->stylesheet->stylesheet_button_unrevealed);
                 this->field2DVector[coordsTemp.col][coordsTemp.row] = ' ';
                 this->flagsCount--;
                 this->minesLeft++;
@@ -562,7 +557,7 @@ void Field::on_double_clicked()
         if (this->flagsCount + this->countUnrevealed == this->mines)
         {
             Common::Coords dummyCoords;
-            this->gameOver(dummyCoords, "win");
+            this->gameOver(dummyCoords, false);
         }
     }
 }

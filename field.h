@@ -25,7 +25,7 @@ private:
         Cell* button;
         Common::Coords coords;
     };
-    QVector<buttonStruct> buttonStructVector;
+    QVector<buttonStruct> buttonsVector;
 
     Cell** cell;
     QGridLayout *layout;
@@ -38,7 +38,7 @@ private:
     void printNumber(const Common::Coords&, const int&);
     void autoReveal(const Common::Coords&, QVector<int>&);
     bool isFlagSet(const Common::Coords&);
-    void gameOver(const Common::Coords&, const QString&);
+    void gameOver(const Common::Coords&, bool);
     Common::Coords getButtonCoords(Cell*);
 
 public:
@@ -65,7 +65,7 @@ public:
     void flagAutoReveal(const Common::Coords&);
 signals:
     void game_started_signal();
-    void game_over_signal(const QString&);
+    void game_over_signal(bool);
     void minesleft_changed_signal(const int&);
     void smiley_surprised_signal();
     void left_pressed_signal();

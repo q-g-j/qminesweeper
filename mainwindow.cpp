@@ -7,9 +7,9 @@
 #include "solver.h"
 #include "timer.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
@@ -23,13 +23,13 @@ MainWindow::MainWindow(QWidget *parent)
     minesLeftNumberWidth = ui->labelMinesLeftOnes->width();
     spacerMiddleLeftFixedWidth = 8;
 
-    // width and height of a cell in pixels:
-    this->cellSize = 25;
-
     this->fieldLayout = new QGridLayout(ui->fieldWrapper);
 
     QFontDatabase::addApplicationFont(":/fonts/NotoSans-CondensedMedium.ttf");
     QFontDatabase::addApplicationFont(":/fonts/digital-7.ttf");
+
+    // width and height of a cell in pixels:
+    this->cellSize = 25;
 
     // start in easy mode:
     this->difficulty.cols = 9;
@@ -144,7 +144,6 @@ void MainWindow::new_game_slot(const Difficulty::DifficultyStruct& difficulty)
     this->difficulty.rows = difficulty.rows;
     this->difficulty.mines = difficulty.mines;
     this->newGame(difficulty);
-    this->timer->counterFine = 0;
 }
 
 void MainWindow::on_actionQuit_triggered()
@@ -159,7 +158,6 @@ void MainWindow::on_smiley_released()
     difficulty_.rows = this->difficulty.rows;
     difficulty_.mines = this->difficulty.mines;
     this->newGame(difficulty_);
-    this->timer->counterFine = 0;
 }
 
 void MainWindow::smiley_surprised_slot()
@@ -173,12 +171,12 @@ void MainWindow::smiley_surprised_slot()
     }
 }
 
-void MainWindow::game_over_slot(const QString& mode)
+void MainWindow::game_over_slot(bool hasLost)
 {
     this->timer->timerStop();
-    if (mode == "lose")
+    if (hasLost == true)
         ui->smiley->setStyleSheet(this->stylesheet.stylesheet_smiley_lost);
-    else if (mode == "win")
+    else if (hasLost == false)
         ui->smiley->setStyleSheet(this->stylesheet.stylesheet_smiley_won);
 }
 

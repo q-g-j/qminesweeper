@@ -45,7 +45,7 @@ private slots:
     void on_smiley_released();
     void new_game_slot(const Difficulty::DifficultyStruct&);
     void smiley_surprised_slot();
-    void game_over_slot(const QString&);
+    void game_over_slot(bool);
     void minesleft_changed_slot(const int&);
     void start_timer_slot();
     void on_actionPlace_Flags_triggered();
