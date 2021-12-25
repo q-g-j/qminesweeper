@@ -19,8 +19,7 @@ private:
     int countUnrevealed;
     bool firstTurn;
     QPoint currentMousePosition;
-    bool hasPressedAndMoved;
-    Common::Coords pressedButtonCoords;
+    Common::Coords leftPressedButtonCoords;
     Common::Coords lastButtonCoords;
     struct buttonStruct
     {
