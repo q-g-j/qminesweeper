@@ -76,21 +76,14 @@ void Field::create2DVectors()
                 cell->setStyleSheet(this->stylesheet->stylesheet_button_common);
                 cell->setStyleSheet(this->stylesheet->stylesheet_button_unrevealed);
                 cell->setFixedSize(this->cellSize, this->cellSize);
+
+                this->layout->addWidget(cell, j - 1, i - 1, 1, 1);
             }
 
         }
-
         this->field2DVector.push_back(charRow);
         this->mines2DVector.push_back(charRow);
         this->cells2DVector.push_back(cellRow);
-    }
-    // add all cells to the layout:
-    for (int i = 1; i <= this->cols; i++)
-    {
-        for (int j = 1; j <= this->rows; j++)
-        {
-            this->layout->addWidget(this->cells2DVector[i][j], j - 1, i - 1, 1, 1);
-        }
     }
 }
 
