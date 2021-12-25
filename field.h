@@ -41,7 +41,7 @@ private:
     void gameOver(const Common::Coords&, bool);
     Common::Coords getCoordsFromButton(Cell*);
     Cell* getButtonFromCoords(const Common::Coords&);
-    Common::Coords getCoordsFromRelativePosition();
+    Common::Coords getCoordsFromMousePosition();
 
 public:
     explicit Field(QWidget *parent = nullptr,

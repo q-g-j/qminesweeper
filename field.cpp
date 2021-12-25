@@ -449,7 +449,7 @@ Common::Coords Field::gridPosition(Cell* button)
 }
 */
 
-Common::Coords Field::getCoordsFromRelativePosition()
+Common::Coords Field::getCoordsFromMousePosition()
 {
     Common::Coords returnCoords = this->leftPressedButtonCoords;
 
@@ -484,7 +484,7 @@ void Field::on_left_pressed()
 
         this->leftPressedButtonCoords = leftPressedCoords;
 
-        Common::Coords currentMouseCoords = this->getCoordsFromRelativePosition();
+        Common::Coords currentMouseCoords = this->getCoordsFromMousePosition();
         if
                 (
                  this->field2DVector[leftPressedCoords.col][leftPressedCoords.row] == ' '
@@ -504,7 +504,7 @@ void Field::on_left_released()
     {
         Cell *button = qobject_cast<Cell*>(sender());
         Common::Coords coordsTemp = this->getCoordsFromButton(button);
-        Common::Coords currentMouseCoords = this->getCoordsFromRelativePosition();
+        Common::Coords currentMouseCoords = this->getCoordsFromMousePosition();
         if
                 (
                  currentMouseCoords.col != this->leftPressedButtonCoords.col
@@ -630,7 +630,7 @@ void Field::on_left_pressed_and_moved(QMouseEvent *e)
     if (this->isGameOver != true && e->buttons() == Qt::LeftButton)
     {
         this->currentMousePosition = e->pos();
-        Common::Coords newButtonCoords = this->getCoordsFromRelativePosition();
+        Common::Coords newButtonCoords = this->getCoordsFromMousePosition();
 
         if (this->lastButtonCoords.col == 0)
         {
