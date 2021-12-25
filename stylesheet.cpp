@@ -9,10 +9,7 @@ Stylesheet::Stylesheet()
 
 void Stylesheet::initializeStylesheet()
 {
-    QFile smiley                        (":/stylesheet/infobar_smiley.css");
-    QFile smiley_won                    (":/stylesheet/infobar_smiley_won.css");
-    QFile smiley_lost                   (":/stylesheet/infobar_smiley_lost.css");
-    QFile smiley_surprised              (":/stylesheet/infobar_smiley_surprised.css");
+    QFile file_button_common            (":/stylesheet/button_common.css");
     QFile file_button_flag              (":/stylesheet/button_flag.css");
     QFile file_button_mine              (":/stylesheet/button_mine.css");
     QFile file_button_mine_hit          (":/stylesheet/button_mine_hit.css");
@@ -27,10 +24,11 @@ void Stylesheet::initializeStylesheet()
     QFile file_button_6                 (":/stylesheet/button_6.css");
     QFile file_button_7                 (":/stylesheet/button_7.css");
     QFile file_button_8                 (":/stylesheet/button_8.css");
-    smiley.open                         (QFile::ReadOnly);
-    smiley_won.open                     (QFile::ReadOnly);
-    smiley_lost.open                    (QFile::ReadOnly);
-    smiley_surprised.open               (QFile::ReadOnly);
+    QFile smiley                        (":/stylesheet/infobar_smiley.css");
+    QFile smiley_won                    (":/stylesheet/infobar_smiley_won.css");
+    QFile smiley_lost                   (":/stylesheet/infobar_smiley_lost.css");
+    QFile smiley_surprised              (":/stylesheet/infobar_smiley_surprised.css");
+    file_button_common.open             (QFile::ReadOnly);
     file_button_flag.open               (QFile::ReadOnly);
     file_button_mine.open               (QFile::ReadOnly);
     file_button_mine_hit.open           (QFile::ReadOnly);
@@ -45,10 +43,11 @@ void Stylesheet::initializeStylesheet()
     file_button_6.open                  (QFile::ReadOnly);
     file_button_7.open                  (QFile::ReadOnly);
     file_button_8.open                  (QFile::ReadOnly);
-    this->stylesheet_smiley             = QLatin1String(smiley.readAll());
-    this->stylesheet_smiley_won         = QLatin1String(smiley_won.readAll());
-    this->stylesheet_smiley_lost        = QLatin1String(smiley_lost.readAll());
-    this->stylesheet_smiley_surprised   = QLatin1String(smiley_surprised.readAll());
+    smiley.open                         (QFile::ReadOnly);
+    smiley_won.open                     (QFile::ReadOnly);
+    smiley_lost.open                    (QFile::ReadOnly);
+    smiley_surprised.open               (QFile::ReadOnly);
+    this->stylesheet_button_common      = QLatin1String(file_button_common.readAll());
     this->stylesheet_button_flag        = QLatin1String(file_button_flag.readAll());
     this->stylesheet_button_mine        = QLatin1String(file_button_mine.readAll());
     this->stylesheet_button_mine_hit    = QLatin1String(file_button_mine_hit.readAll());
@@ -63,10 +62,11 @@ void Stylesheet::initializeStylesheet()
     this->stylesheet_button_6           = QLatin1String(file_button_6.readAll());
     this->stylesheet_button_7           = QLatin1String(file_button_7.readAll());
     this->stylesheet_button_8           = QLatin1String(file_button_8.readAll());
-    smiley.close();
-    smiley_won.close();
-    smiley_lost.close();
-    smiley_surprised.close();
+    this->stylesheet_smiley             = QLatin1String(smiley.readAll());
+    this->stylesheet_smiley_won         = QLatin1String(smiley_won.readAll());
+    this->stylesheet_smiley_lost        = QLatin1String(smiley_lost.readAll());
+    this->stylesheet_smiley_surprised   = QLatin1String(smiley_surprised.readAll());
+    file_button_common.close();
     file_button_flag.close();
     file_button_mine.close();
     file_button_mine_hit.close();
@@ -81,4 +81,8 @@ void Stylesheet::initializeStylesheet()
     file_button_6.close();
     file_button_7.close();
     file_button_8.close();
+    smiley.close();
+    smiley_won.close();
+    smiley_lost.close();
+    smiley_surprised.close();
 }

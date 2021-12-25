@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>fonts/NotoSans-CondensedMedium.ttf</file>
         <file>stylesheet/button_1.css</file>
         <file>stylesheet/button_2.css</file>
         <file>stylesheet/button_3.css</file>
@@ -45,5 +44,6 @@
         <file>icons/png/window-icon.png</file>
         <file>stylesheet/button_pressed.css</file>
         <file>icons/png/button_pressed.png</file>
+        <file>stylesheet/button_common.css</file>
     </qresource>
 </RCC>

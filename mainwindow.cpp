@@ -25,7 +25,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->fieldLayout = new QGridLayout(ui->fieldWrapper);
 
-    QFontDatabase::addApplicationFont(":/fonts/NotoSans-CondensedMedium.ttf");
     QFontDatabase::addApplicationFont(":/fonts/digital-7.ttf");
 
     // width and height of a cell in pixels:
@@ -80,7 +79,6 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     }
 
     this->field = new Field(ui->fieldWrapper, &this->stylesheet, difficulty_.cols, difficulty_.rows, difficulty_.mines, this->cellSize);
-    this->field->addCells();
     this->clearLayout(this->fieldLayout);
     this->fieldLayout->setSpacing(0);
     this->fieldLayout->setContentsMargins(0,0,0,0);

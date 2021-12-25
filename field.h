@@ -26,23 +26,22 @@ private:
         Cell* button;
         Common::Coords coords;
     };
-    QVector<buttonStruct> buttonsVector;
-
+    QVector<QVector<char>> mines2DVector;
     QVector<QVector<Cell*>> cells2DVector;
+    QVector<buttonStruct> buttonsVector;
     QGridLayout *layout;
     Stylesheet *stylesheet;
 
     // private methods:
-    QVector<QVector<char>> create2DVector();
-    void createCells();
-    void fillMinesVector(const Common::Coords&);
+    void create2DVectors();
+    void fillMines2DVector(const Common::Coords&);
     void printNumber(const Common::Coords&, const int&);
     void autoReveal(const Common::Coords&, QVector<int>&);
     bool isFlagSet(const Common::Coords&);
     void gameOver(const Common::Coords&, bool);
     Common::Coords getCoordsFromButton(Cell*);
     Cell* getButtonFromCoords(const Common::Coords&);
-    Common::Coords getCoordsFromRelativePosition(const QPoint&, const Common::Coords&);
+    Common::Coords getCoordsFromRelativePosition();
 
 public:
     explicit Field(QWidget *parent = nullptr,
@@ -55,14 +54,12 @@ public:
 
     // public variables:
     QVector<QVector<char>> field2DVector;
-    QVector<QVector<char>> mines2DVector;
     int cellSize;
     int cols;
     int rows;
     bool isGameOver;
 
     // public methods:
-    void addCells();
     bool isNumber(const Common::Coords&);
     QVector<Common::Coords> findNeighbours(const QVector<QVector<char>>&, const Common::Coords&, const char&);
     void flagAutoReveal(const Common::Coords&);

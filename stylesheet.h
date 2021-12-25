@@ -1,11 +1,14 @@
 #ifndef STYLESHEET_H
 #define STYLESHEET_H
 
+#include <QString>
+
 class Stylesheet
 {
 public:
     Stylesheet();
 
+    QString stylesheet_button_common;
     QString stylesheet_button_flag;
     QString stylesheet_button_mine;
     QString stylesheet_button_mine_hit;

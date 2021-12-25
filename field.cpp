@@ -19,15 +19,14 @@ Field::Field(QWidget *parent, Stylesheet *stylesheet_, const int& cols_, const i
     this->flagsCount = 0;
     this->firstTurn = true;
     this->isGameOver = false;
-    this->field2DVector = this->create2DVector();
-    this->mines2DVector = this->create2DVector();
-    this->createCells();
     emit this->minesleft_changed_signal(this->minesLeft);
 
     this->layout = new QGridLayout;
     this->layout->setSpacing(0);
     this->layout->setContentsMargins(0,0,0,0);
     this->setLayout(this->layout);
+
+    this->create2DVectors();
 }
 
 Field::~Field()
@@ -42,38 +41,61 @@ Field::~Field()
     }
 }
 
-QVector<QVector<char>> Field::create2DVector()
+void Field::create2DVectors()
 {
-    QVector<QVector<char>> temp2DVector;
     for(int i = 0; i <= this->cols; i++)
     {
-        QVector<char> row;
+        QVector<char> charRow;
+        QVector<Cell*> cellRow;
         for(int j = 0; j <= this->rows; j++)
         {
-            row.push_back(' ');
-        }
-        temp2DVector.push_back(row);
-    }
-    return temp2DVector;
-}
+            charRow.push_back(' ');
+            Cell *cell;
+            cell = new Cell;
+            cellRow.push_back(cell);
 
-void Field::createCells()
-{
-    for (int i = 0; i <= this->cols; i++)
-    {
-        QVector<Cell*> row;
-        for (int j = 0; j <= this->rows; j++)
-        {
-            Cell *cell_;
-            cell_ = new Cell;
-            row.push_back(cell_);
+            if (i != 0 && j !=0)
+            {
+                // create a vector holding structs of each button together with its coords:
+                Common::Coords coordsTemp;
+                coordsTemp.col = i;
+                coordsTemp.row = j;
+                buttonStruct structTemp;
+                structTemp.coords = coordsTemp;
+                structTemp.button = cell;
+                this->buttonsVector.append(structTemp);
+
+                cell->setMouseTracking(true);
+
+                connect(cell, &Cell::double_clicked_signal, this, &Field::on_double_clicked);
+                connect(cell, &Cell::left_pressed_signal, this, &Field::on_left_pressed);
+                connect(cell, &Cell::left_released_signal, this, &Field::on_left_released);
+                connect(cell, &Cell::right_released_signal, this, &Field::on_right_released);
+                connect(cell, &Cell::left_pressed_and_moved_signal, this, &Field::on_left_pressed_and_moved);
+
+                cell->setStyleSheet(this->stylesheet->stylesheet_button_common);
+                cell->setStyleSheet(this->stylesheet->stylesheet_button_unrevealed);
+                cell->setFixedSize(this->cellSize, this->cellSize);
+            }
+
         }
-        this->cells2DVector.push_back(row);
+
+        this->field2DVector.push_back(charRow);
+        this->mines2DVector.push_back(charRow);
+        this->cells2DVector.push_back(cellRow);
+    }
+    // add all cells to the layout:
+    for (int i = 1; i <= this->cols; i++)
+    {
+        for (int j = 1; j <= this->rows; j++)
+        {
+            this->layout->addWidget(this->cells2DVector[i][j], j - 1, i - 1, 1, 1);
+        }
     }
 }
 
 // place mines at random positions of this->minesVector:
-void Field::fillMinesVector(const Common::Coords& userFirstInput)
+void Field::fillMines2DVector(const Common::Coords& userFirstInput)
 {
     Common::Coords coords;
     int sizeOfField = this->cols * this->rows;
@@ -91,36 +113,6 @@ void Field::fillMinesVector(const Common::Coords& userFirstInput)
     {
         coords = Common::intToCoords(tempVector.at(i), this->cols);
         this->mines2DVector[coords.col][coords.row] = 'X';
-    }
-}
-
-void Field::addCells()
-{
-    for (int i = 1; i <= this->cols; i++)
-    {
-        for (int j = 1; j <= this->rows; j++)
-        {
-            this->cells2DVector[i][j]->setStyleSheet(this->stylesheet->stylesheet_button_unrevealed);
-            this->cells2DVector[i][j]->setFixedSize(this->cellSize, this->cellSize);
-            this->layout->addWidget(this->cells2DVector[i][j], j - 1, i - 1, 1, 1);
-
-            // create a vector holding structs of each button together with its coords:
-            Common::Coords coordsTemp;
-            coordsTemp.col = i;
-            coordsTemp.row = j;
-            buttonStruct structTemp;
-            structTemp.coords = coordsTemp;
-            structTemp.button = this->cells2DVector[i][j];
-            this->buttonsVector.append(structTemp);
-
-            this->cells2DVector[i][j]->setMouseTracking(true);
-
-            connect(this->cells2DVector[i][j], &Cell::double_clicked_signal, this, &Field::on_double_clicked);
-            connect(this->cells2DVector[i][j], &Cell::left_pressed_signal, this, &Field::on_left_pressed);
-            connect(this->cells2DVector[i][j], &Cell::left_released_signal, this, &Field::on_left_released);
-            connect(this->cells2DVector[i][j], &Cell::right_released_signal, this, &Field::on_right_released);
-            connect(this->cells2DVector[i][j], &Cell::left_pressed_and_moved_signal, this, &Field::on_left_pressed_and_moved);
-        }
     }
 }
 
@@ -465,25 +457,25 @@ Common::Coords Field::gridPosition(Cell* button)
 }
 */
 
-Common::Coords Field::getCoordsFromRelativePosition(const QPoint& position, const Common::Coords& buttonCoords)
+Common::Coords Field::getCoordsFromRelativePosition()
 {
-    Common::Coords returnCoords = buttonCoords;
+    Common::Coords returnCoords = this->leftPressedButtonCoords;
 
-    if (position.x() < 0)
+    if (this->currentMousePosition.x() < 0)
     {
-        returnCoords.col = buttonCoords.col - ((position.x() * -1) / 25 + 1);
+        returnCoords.col = this->leftPressedButtonCoords.col - ((this->currentMousePosition.x() * -1) / 25 + 1);
     }
-    else if (position.x() >= this->cellSize)
+    else if (this->currentMousePosition.x() >= this->cellSize)
     {
-        returnCoords.col = buttonCoords.col + ((position.x()) / 25);
+        returnCoords.col = this->leftPressedButtonCoords.col + ((this->currentMousePosition.x()) / 25);
     }
-    if (position.y() < 0)
+    if (this->currentMousePosition.y() < 0)
     {
-        returnCoords.row = buttonCoords.row - ((position.y() * -1) / 25 + 1);
+        returnCoords.row = this->leftPressedButtonCoords.row - ((this->currentMousePosition.y() * -1) / 25 + 1);
     }
-    else if (position.y() >= this->cellSize)
+    else if (this->currentMousePosition.y() >= this->cellSize)
     {
-        returnCoords.row = buttonCoords.row + ((position.y()) / 25);
+        returnCoords.row = this->leftPressedButtonCoords.row + ((this->currentMousePosition.y()) / 25);
     }
 
     return returnCoords;
@@ -500,7 +492,7 @@ void Field::on_left_pressed()
 
         this->leftPressedButtonCoords = leftPressedCoords;
 
-        Common::Coords currentMouseCoords = this->getCoordsFromRelativePosition(this->currentMousePosition, leftPressedCoords);
+        Common::Coords currentMouseCoords = this->getCoordsFromRelativePosition();
         if
                 (
                  this->field2DVector[leftPressedCoords.col][leftPressedCoords.row] == ' '
@@ -520,7 +512,7 @@ void Field::on_left_released()
     {
         Cell *button = qobject_cast<Cell*>(sender());
         Common::Coords coordsTemp = this->getCoordsFromButton(button);
-        Common::Coords currentMouseCoords = this->getCoordsFromRelativePosition(this->currentMousePosition, this->leftPressedButtonCoords);
+        Common::Coords currentMouseCoords = this->getCoordsFromRelativePosition();
         if
                 (
                  currentMouseCoords.col != this->leftPressedButtonCoords.col
@@ -544,7 +536,7 @@ void Field::on_left_released()
                 // fill mines2DVector with mines only once after users first guess:
                 if (this->firstTurn)
                 {
-                    this->fillMinesVector(coordsTemp);
+                    this->fillMines2DVector(coordsTemp);
                     emit this->game_started_signal();
                 }
 
@@ -646,7 +638,7 @@ void Field::on_left_pressed_and_moved(QMouseEvent *e)
     if (this->isGameOver != true && e->buttons() == Qt::LeftButton)
     {
         this->currentMousePosition = e->pos();
-        Common::Coords newButtonCoords = this->getCoordsFromRelativePosition(this->currentMousePosition, this->leftPressedButtonCoords);
+        Common::Coords newButtonCoords = this->getCoordsFromRelativePosition();
 
         if (this->lastButtonCoords.col == 0)
         {
@@ -657,12 +649,32 @@ void Field::on_left_pressed_and_moved(QMouseEvent *e)
             this->lastButtonCoords.row = this->leftPressedButtonCoords.row;
         }
 
+//        qDebug() << "last:" << QString::number(this->lastButtonCoords.col) << "," << QString::number(this->lastButtonCoords.row) <<
+//                    "new:"  << QString::number(newButtonCoords.col) << "," << QString::number(newButtonCoords.row);
+
         if
                 (
-                 newButtonCoords.col >= 1
-                 && newButtonCoords.col <= this->cols
-                 && newButtonCoords.row >= 1
-                 && newButtonCoords.row <= this->rows
+                 newButtonCoords.col < 1
+                 || newButtonCoords.col > this->cols
+                 || newButtonCoords.row < 1
+                 || newButtonCoords.row > this->rows
+                 )
+        {
+            if (this->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
+            {
+                this->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(this->stylesheet->stylesheet_button_unrevealed);
+            }
+            if (newButtonCoords.col < 1) this->lastButtonCoords.col = 0;
+            else if (newButtonCoords.col > this->cols) this->lastButtonCoords.col = this->cols - 1;
+            if (newButtonCoords.row < 1) this->lastButtonCoords.row = 0;
+            else if (newButtonCoords.row > this->rows) this->lastButtonCoords.row = this->rows - 1;
+        }
+        else if
+                (
+                 this->lastButtonCoords.col >= 1
+                 && this->lastButtonCoords.row >= 1
+                 && this->lastButtonCoords.col <= this->cols
+                 && this->lastButtonCoords.row <= this->rows
                  )
         {
             if (this->lastButtonCoords.col != newButtonCoords.col || this->lastButtonCoords.row != newButtonCoords.row)
@@ -679,15 +691,8 @@ void Field::on_left_pressed_and_moved(QMouseEvent *e)
                 {
                     this->getButtonFromCoords(newButtonCoords)->setStyleSheet(this->stylesheet->stylesheet_button_pressed);
                 }
-            }
-            this->lastButtonCoords.col = newButtonCoords.col;
-            this->lastButtonCoords.row = newButtonCoords.row;
-        }
-        else
-        {
-            if (this->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
-            {
-                this->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(this->stylesheet->stylesheet_button_unrevealed);
+                this->lastButtonCoords.col = newButtonCoords.col;
+                this->lastButtonCoords.row = newButtonCoords.row;
             }
         }
     }
