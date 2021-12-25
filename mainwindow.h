@@ -49,6 +49,7 @@ private slots:
     void minesleft_changed_slot(const int&);
     void start_timer_slot();
     void on_actionPlace_Flags_triggered();
+    void field_debug_slot();
 
 protected:
 };

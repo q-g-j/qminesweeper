@@ -14,10 +14,6 @@
 #include <common.h>
 #include <solver.h>
 
-Solver::Solver() = default;
-
-Solver::~Solver() = default;
-
 void Solver::autoSolve(Field& field, const int& cols, const int& rows, bool doPlaceFlags, bool doFlagAutoReveal, bool doSolve)
 {
     QVector<int> poolCoveredVector;

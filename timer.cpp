@@ -29,21 +29,31 @@ void Timer::timer_slot()
         int seconds, tenSeconds, minutes, tenMinutes;
         seconds = this->counter % 10;
         if (this->counter < 60)
+        {
             tenSeconds = (this->counter - (this->counter % 10)) / 10;
+        }
         else
+        {
             tenSeconds = ((this->counter % 60) - ((this->counter % 60) % 10)) / 10;
+        }
         minutes = (this->counter / 60) % 10;
         if ((this->counter / 60) < 99)
+        {
             tenMinutes = ((this->counter / 60) - (this->counter / 60) % 10) / 10;
+        }
         else
+        {
             tenMinutes = 9;
+        }
         this->timerSeconds->setText(QString::number(seconds));
         this->timerTenSeconds->setText(QString::number(tenSeconds));
         this->timerMinutes->setText(QString::number(minutes));
         this->timerTenMinutes->setText(QString::number(tenMinutes));
     }
     if (this->counterFine < 599900)
+    {
         this->counterFine++;
+    }
 }
 
 void Timer::timerStart()

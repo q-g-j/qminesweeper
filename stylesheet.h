@@ -9,6 +9,7 @@ public:
     QString stylesheet_button_flag;
     QString stylesheet_button_mine;
     QString stylesheet_button_mine_hit;
+    QString stylesheet_button_pressed;
     QString stylesheet_button_revealed;
     QString stylesheet_button_unrevealed;
     QString stylesheet_button_1;

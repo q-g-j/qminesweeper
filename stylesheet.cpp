@@ -16,6 +16,7 @@ void Stylesheet::initializeStylesheet()
     QFile file_button_flag              (":/stylesheet/button_flag.css");
     QFile file_button_mine              (":/stylesheet/button_mine.css");
     QFile file_button_mine_hit          (":/stylesheet/button_mine_hit.css");
+    QFile file_button_pressed           (":/stylesheet/button_pressed.css");
     QFile file_button_revealed          (":/stylesheet/button_revealed.css");
     QFile file_button_unrevealed        (":/stylesheet/button_unrevealed.css");
     QFile file_button_1                 (":/stylesheet/button_1.css");
@@ -33,6 +34,7 @@ void Stylesheet::initializeStylesheet()
     file_button_flag.open               (QFile::ReadOnly);
     file_button_mine.open               (QFile::ReadOnly);
     file_button_mine_hit.open           (QFile::ReadOnly);
+    file_button_pressed.open            (QFile::ReadOnly);
     file_button_revealed.open           (QFile::ReadOnly);
     file_button_unrevealed.open         (QFile::ReadOnly);
     file_button_1.open                  (QFile::ReadOnly);
@@ -50,6 +52,7 @@ void Stylesheet::initializeStylesheet()
     this->stylesheet_button_flag        = QLatin1String(file_button_flag.readAll());
     this->stylesheet_button_mine        = QLatin1String(file_button_mine.readAll());
     this->stylesheet_button_mine_hit    = QLatin1String(file_button_mine_hit.readAll());
+    this->stylesheet_button_pressed     = QLatin1String(file_button_pressed.readAll());
     this->stylesheet_button_revealed    = QLatin1String(file_button_revealed.readAll());
     this->stylesheet_button_unrevealed  = QLatin1String(file_button_unrevealed.readAll());
     this->stylesheet_button_1           = QLatin1String(file_button_1.readAll());
@@ -67,6 +70,7 @@ void Stylesheet::initializeStylesheet()
     file_button_flag.close();
     file_button_mine.close();
     file_button_mine_hit.close();
+    file_button_pressed.close();
     file_button_revealed.close();
     file_button_unrevealed.close();
     file_button_1.close();

@@ -13,14 +13,14 @@ public:
     explicit Cell(QWidget *parent = nullptr);
 
 protected:
-    void mouseDoubleClickEvent(QMouseEvent *e);
-    void mouseReleaseEvent(QMouseEvent *e);
-    void mousePressEvent(QMouseEvent *e);
+    void mouseDoubleClickEvent(QMouseEvent*);
+    void mouseReleaseEvent(QMouseEvent*);
+    void mousePressEvent(QMouseEvent*);
     bool eventFilter(QObject*, QEvent*);
 signals:
     void double_clicked_signal();
-    void left_released_signal();
     void left_pressed_signal();
+    void left_released_signal();
     void right_released_signal();
     void left_pressed_and_moved_signal(QMouseEvent*);
 };

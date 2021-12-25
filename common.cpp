@@ -48,9 +48,13 @@ Common::Coords Common::intToCoords(const int& position, const int& cols)
 int Common::CoordsToInt(const Common::Coords& coords, const int& cols)
 {
     if (coords.row == 1)
+    {
         return coords.col;
+    }
     else
+    {
         return cols * (coords.row - 1) + coords.col;
+    }
 }
 
 void Common::sleep(const int& milliseconds)

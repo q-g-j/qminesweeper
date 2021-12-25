@@ -18,8 +18,10 @@ private:
     int minesLeft;
     int countUnrevealed;
     bool firstTurn;
-    bool tempRevealed;
-    QPoint mouseCurrentPosition;
+    QPoint currentMousePosition;
+    bool hasPressedAndMoved;
+    Common::Coords pressedButtonCoords;
+    Common::Coords lastButtonCoords;
     struct buttonStruct
     {
         Cell* button;
@@ -39,7 +41,9 @@ private:
     void autoReveal(const Common::Coords&, QVector<int>&);
     bool isFlagSet(const Common::Coords&);
     void gameOver(const Common::Coords&, bool);
-    Common::Coords getButtonCoords(Cell*);
+    Common::Coords getCoordsFromButton(Cell*);
+    Cell* getButtonFromCoords(const Common::Coords&);
+    Common::Coords getCoordsFromRelativePosition(QPoint&, Common::Coords&);
 
 public:
     explicit Field(QWidget *parent = nullptr,
@@ -69,6 +73,7 @@ signals:
     void minesleft_changed_signal(const int&);
     void smiley_surprised_signal();
     void left_pressed_signal();
+    void field_debug_signal();
 private slots:
     void on_left_pressed();
     void on_left_released();

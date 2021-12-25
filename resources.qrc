@@ -43,6 +43,7 @@
         <file>fonts/digital-7.ttf</file>
         <file>icons/png/menubar_cheat_place_flags.png</file>
         <file>icons/png/window-icon.png</file>
+        <file>stylesheet/button_pressed.css</file>
+        <file>icons/png/button_pressed.png</file>
     </qresource>
 </RCC>
-

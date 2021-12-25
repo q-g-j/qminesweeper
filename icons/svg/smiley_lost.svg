@@ -27,13 +27,13 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:snap-global="true"
-     inkscape:zoom="0.45291837"
-     inkscape:cx="218.58243"
-     inkscape:cy="610.48528"
+     inkscape:zoom="0.22645919"
+     inkscape:cx="-309.10647"
+     inkscape:cy="993.55652"
      inkscape:window-width="1920"
-     inkscape:window-height="1007"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-height="866"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
   <defs
@@ -71,8 +71,8 @@
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:23.821;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 116.62012,306.95686 c 0,0 43.73266,-47.23126 91.83859,-47.23126 48.10591,0 86.59065,47.23126 86.59065,47.23126"
+       style="fill:none;stroke:#000000;stroke-width:21.7714;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 126.50778,307.27937 c 0,0 38.88577,-44.37121 81.66013,-44.37121 42.77432,0 76.9938,44.37121 76.9938,44.37121"
        id="path4572"
        sodipodi:nodetypes="czc"
        inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/smiley_lost.png"

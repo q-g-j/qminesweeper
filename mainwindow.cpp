@@ -46,14 +46,20 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::clearLayout(QLayout *layout) {
+// delete all items from a layout:
+// (found here: https://stackoverflow.com/a/4857631)
+void MainWindow::clearLayout(QLayout *layout)
+{
     QLayoutItem *item;
-    while((item = layout->takeAt(0))) {
-        if (item->layout()) {
+    while((item = layout->takeAt(0)))
+    {
+        if (item->layout())
+        {
             clearLayout(item->layout());
             delete item->layout();
         }
-        if (item->widget()) {
+        if (item->widget())
+        {
            delete item->widget();
         }
         delete item;
@@ -62,10 +68,16 @@ void MainWindow::clearLayout(QLayout *layout) {
 
 void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
 {
-    if (this->field != nullptr) delete this->field;
-    if (this->timer != nullptr) delete this->timer;
-    this->field = nullptr;
-    this->timer = nullptr;
+    if (this->field != nullptr)
+    {
+        delete this->field;
+        this->field = nullptr;
+    }
+    if (this->timer != nullptr)
+    {
+        delete this->timer;
+        this->timer = nullptr;
+    }
 
     this->field = new Field(ui->fieldWrapper, &this->stylesheet, difficulty_.cols, difficulty_.rows, difficulty_.mines, this->cellSize);
     this->field->addCells();
@@ -80,6 +92,7 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     connect(this->field, &Field::minesleft_changed_signal, this, &MainWindow::minesleft_changed_slot);
     connect(this->field, &Field::smiley_surprised_signal, this, &MainWindow::smiley_surprised_slot);
     connect(this->field, &Field::game_started_signal, this, &MainWindow::start_timer_slot);
+//    connect(this->field, &Field::field_debug_signal, this, &MainWindow::field_debug_slot);
 
     this->minesleft_changed_slot(difficulty_.mines);
 
@@ -167,7 +180,9 @@ void MainWindow::smiley_surprised_slot()
         ui->smiley->setStyleSheet(this->stylesheet.stylesheet_smiley_surprised);
         Common::sleep(350);
         if (field->isGameOver != true)
+        {
             ui->smiley->setStyleSheet(this->stylesheet.stylesheet_smiley);
+        }
     }
 }
 
@@ -175,15 +190,21 @@ void MainWindow::game_over_slot(bool hasLost)
 {
     this->timer->timerStop();
     if (hasLost == true)
+    {
         ui->smiley->setStyleSheet(this->stylesheet.stylesheet_smiley_lost);
+    }
     else if (hasLost == false)
+    {
         ui->smiley->setStyleSheet(this->stylesheet.stylesheet_smiley_won);
+    }
 }
 
 void MainWindow::minesleft_changed_slot(const int& minesLeft)
 {
     if (minesLeft < 0)
+    {
         ui->labelMinesLeftOnes->setText("0");
+    }
     else if (minesLeft < 10)
     {
         ui->labelMinesLeftOnes->setText(QString::number(minesLeft));
@@ -233,3 +254,7 @@ void MainWindow::on_actionPlace_Flags_triggered()
 ;
 }
 
+void MainWindow::field_debug_slot()
+{
+    qDebug() << QString::number(this->timer->counterFine);
+}
