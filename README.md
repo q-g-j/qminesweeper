@@ -10,9 +10,9 @@ Controls:
 
 |Mouse button|Action|
 |-----------|------|
-|Left click|reveal a cell|
+|Left click|reveal a square|
 |Right click|place or remove a flag|
-|Double left click on a number|auto reveal connected secure cells (if flags are placed right)|
+|Double left click on a number|automatically reveal linked safe cells (if flags are placed correctly) |
 |Left click on smiley|start a new game with the same difficulty|
 
 Screenshots:
