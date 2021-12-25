@@ -630,47 +630,44 @@ void Field::on_left_pressed_and_moved(QMouseEvent *e)
 {
     if (this->isGameOver != true && e->buttons() == Qt::LeftButton)
     {
-//        if (this->field2DVector[this->pressedButtonCoords.col][this->pressedButtonCoords.row] == ' ')
+        this->currentMousePosition = e->pos();
+        Common::Coords newButtonCoords = this->getCoordsFromRelativePosition(this->currentMousePosition, this->pressedButtonCoords);
+
+        if (this->lastButtonCoords.col == 0)
         {
-            this->currentMousePosition = e->pos();
-            Common::Coords newButtonCoords = this->getCoordsFromRelativePosition(this->currentMousePosition, this->pressedButtonCoords);
+            this->lastButtonCoords.col = this->pressedButtonCoords.col;
+        }
+        if (this->lastButtonCoords.row == 0)
+        {
+            this->lastButtonCoords.row = this->pressedButtonCoords.row;
+        }
 
-            if (this->lastButtonCoords.col == 0)
+        if (newButtonCoords.col >= 1 && newButtonCoords.col <= this->cols && newButtonCoords.row >= 1 && newButtonCoords.row <= this->rows)
+        {
+            if (this->lastButtonCoords.col != newButtonCoords.col || this->lastButtonCoords.row != newButtonCoords.row)
             {
-                this->lastButtonCoords.col = this->pressedButtonCoords.col;
-            }
-            if (this->lastButtonCoords.row == 0)
-            {
-                this->lastButtonCoords.row = this->pressedButtonCoords.row;
-            }
-
-            if (newButtonCoords.col >= 1 && newButtonCoords.col <= this->cols && newButtonCoords.row >= 1 && newButtonCoords.row <= this->rows)
-            {
-                if (this->lastButtonCoords.col != newButtonCoords.col || this->lastButtonCoords.row != newButtonCoords.row)
+                if (this->field2DVector[this->pressedButtonCoords.col][this->pressedButtonCoords.row] == ' ')
                 {
-                    if (this->field2DVector[this->pressedButtonCoords.col][this->pressedButtonCoords.row] == ' ')
-                    {
-                        this->getButtonFromCoords(this->pressedButtonCoords)->setStyleSheet(this->stylesheet->stylesheet_button_unrevealed);
-                    }
-                    if (this->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
-                    {
-                        this->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(this->stylesheet->stylesheet_button_unrevealed);
-                    }
-                    if (this->field2DVector[newButtonCoords.col][newButtonCoords.row] == ' ')
-                    {
-                        this->getButtonFromCoords(newButtonCoords)->setStyleSheet(this->stylesheet->stylesheet_button_pressed);
-                    }
+                    this->getButtonFromCoords(this->pressedButtonCoords)->setStyleSheet(this->stylesheet->stylesheet_button_unrevealed);
                 }
-                this->lastButtonCoords.col = newButtonCoords.col;
-                this->lastButtonCoords.row = newButtonCoords.row;
-                this->hasPressedAndMoved = true;
-            }
-            else
-            {
                 if (this->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
                 {
                     this->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(this->stylesheet->stylesheet_button_unrevealed);
                 }
+                if (this->field2DVector[newButtonCoords.col][newButtonCoords.row] == ' ')
+                {
+                    this->getButtonFromCoords(newButtonCoords)->setStyleSheet(this->stylesheet->stylesheet_button_pressed);
+                }
+            }
+            this->lastButtonCoords.col = newButtonCoords.col;
+            this->lastButtonCoords.row = newButtonCoords.row;
+            this->hasPressedAndMoved = true;
+        }
+        else
+        {
+            if (this->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
+            {
+                this->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(this->stylesheet->stylesheet_button_unrevealed);
             }
         }
     }
