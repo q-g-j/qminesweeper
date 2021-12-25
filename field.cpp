@@ -73,8 +73,7 @@ void Field::create2DVectors()
                 connect(cell, &Cell::right_released_signal, this, &Field::on_right_released);
                 connect(cell, &Cell::left_pressed_and_moved_signal, this, &Field::on_left_pressed_and_moved);
 
-                cell->setStyleSheet(this->stylesheet->stylesheet_button_common);
-                cell->setStyleSheet(this->stylesheet->stylesheet_button_unrevealed);
+                cell->setStyleSheet(this->stylesheet->stylesheet_button_common + this->stylesheet->stylesheet_button_unrevealed);
                 cell->setFixedSize(this->cellSize, this->cellSize);
 
                 this->layout->addWidget(cell, j - 1, i - 1, 1, 1);
@@ -657,10 +656,23 @@ void Field::on_left_pressed_and_moved(QMouseEvent *e)
             {
                 this->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(this->stylesheet->stylesheet_button_unrevealed);
             }
-            if (newButtonCoords.col < 1) this->lastButtonCoords.col = 0;
-            else if (newButtonCoords.col > this->cols) this->lastButtonCoords.col = this->cols - 1;
-            if (newButtonCoords.row < 1) this->lastButtonCoords.row = 0;
-            else if (newButtonCoords.row > this->rows) this->lastButtonCoords.row = this->rows - 1;
+
+            if (newButtonCoords.col < 1)
+            {
+                this->lastButtonCoords.col = 0;
+            }
+            else if (newButtonCoords.col > this->cols)
+            {
+                this->lastButtonCoords.col = this->cols - 1;
+            }
+            if (newButtonCoords.row < 1)
+            {
+                this->lastButtonCoords.row = 0;
+            }
+            else if (newButtonCoords.row > this->rows)
+            {
+                this->lastButtonCoords.row = this->rows - 1;
+            }
         }
         else if
                 (
