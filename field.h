@@ -28,7 +28,7 @@ private:
     };
     QVector<buttonStruct> buttonsVector;
 
-    Cell** cell;
+    QVector<QVector<Cell*>> cells2DVector;
     QGridLayout *layout;
     Stylesheet *stylesheet;
 
@@ -42,7 +42,7 @@ private:
     void gameOver(const Common::Coords&, bool);
     Common::Coords getCoordsFromButton(Cell*);
     Cell* getButtonFromCoords(const Common::Coords&);
-    Common::Coords getCoordsFromRelativePosition(QPoint&, Common::Coords&);
+    Common::Coords getCoordsFromRelativePosition(const QPoint&, const Common::Coords&);
 
 public:
     explicit Field(QWidget *parent = nullptr,

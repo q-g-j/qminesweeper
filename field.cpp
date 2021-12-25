@@ -32,22 +32,23 @@ Field::Field(QWidget *parent, Stylesheet *stylesheet_, const int& cols_, const i
 
 Field::~Field()
 {
-    for (int i=0; i <= cols; i++)
+    for (int i = 0; i <= cols; i++)
     {
-        delete[] this->cell[i];
-        this->cell[i] = nullptr;
+        for (int j = 0; j <= rows; j++)
+        {
+            delete this->cells2DVector[i][j];
+            this->cells2DVector[i][j] = nullptr;
+        }
     }
-    delete[] this->cell;    
-    this->cell = nullptr;
 }
 
 QVector<QVector<char>> Field::create2DVector()
 {
     QVector<QVector<char>> temp2DVector;
-    for(int i = 0; i <= this->cols; ++i)
+    for(int i = 0; i <= this->cols; i++)
     {
         QVector<char> row;
-        for(int j = 0; j <= this->rows; ++j)
+        for(int j = 0; j <= this->rows; j++)
         {
             row.push_back(' ');
         }
@@ -58,10 +59,16 @@ QVector<QVector<char>> Field::create2DVector()
 
 void Field::createCells()
 {
-    this->cell = new Cell*[this->cols + 1];
-    for (int i=0; i < (this->cols + 1); i++)
+    for (int i = 0; i <= this->cols; i++)
     {
-        this->cell[i] = new Cell[this->rows + 1];
+        QVector<Cell*> row;
+        for (int j = 0; j <= this->rows; j++)
+        {
+            Cell *cell_;
+            cell_ = new Cell;
+            row.push_back(cell_);
+        }
+        this->cells2DVector.push_back(row);
     }
 }
 
@@ -93,9 +100,9 @@ void Field::addCells()
     {
         for (int j = 1; j <= this->rows; j++)
         {
-            this->cell[i][j].setStyleSheet(this->stylesheet->stylesheet_button_unrevealed);
-            this->cell[i][j].setFixedSize(this->cellSize, this->cellSize);
-            this->layout->addWidget(&this->cell[i][j], j - 1, i - 1, 1, 1);
+            this->cells2DVector[i][j]->setStyleSheet(this->stylesheet->stylesheet_button_unrevealed);
+            this->cells2DVector[i][j]->setFixedSize(this->cellSize, this->cellSize);
+            this->layout->addWidget(this->cells2DVector[i][j], j - 1, i - 1, 1, 1);
 
             // create a vector holding structs of each button together with its coords:
             Common::Coords coordsTemp;
@@ -103,16 +110,16 @@ void Field::addCells()
             coordsTemp.row = j;
             buttonStruct structTemp;
             structTemp.coords = coordsTemp;
-            structTemp.button = &this->cell[i][j];
+            structTemp.button = this->cells2DVector[i][j];
             this->buttonsVector.append(structTemp);
 
-            this->cell[i][j].setMouseTracking(true);
+            this->cells2DVector[i][j]->setMouseTracking(true);
 
-            connect(&this->cell[i][j], &Cell::double_clicked_signal, this, &Field::on_double_clicked);
-            connect(&this->cell[i][j], &Cell::left_pressed_signal, this, &Field::on_left_pressed);
-            connect(&this->cell[i][j], &Cell::left_released_signal, this, &Field::on_left_released);
-            connect(&this->cell[i][j], &Cell::right_released_signal, this, &Field::on_right_released);
-            connect(&this->cell[i][j], &Cell::left_pressed_and_moved_signal, this, &Field::on_left_pressed_and_moved);
+            connect(this->cells2DVector[i][j], &Cell::double_clicked_signal, this, &Field::on_double_clicked);
+            connect(this->cells2DVector[i][j], &Cell::left_pressed_signal, this, &Field::on_left_pressed);
+            connect(this->cells2DVector[i][j], &Cell::left_released_signal, this, &Field::on_left_released);
+            connect(this->cells2DVector[i][j], &Cell::right_released_signal, this, &Field::on_right_released);
+            connect(this->cells2DVector[i][j], &Cell::left_pressed_and_moved_signal, this, &Field::on_left_pressed_and_moved);
         }
     }
 }
@@ -199,49 +206,49 @@ void Field::printNumber(const Common::Coords& coords, const int& number)
     if (number == 0)
     {
         this->field2DVector[coords.col][coords.row] = '0';
-        this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet->stylesheet_button_revealed);
+        this->cells2DVector[coords.col][coords.row]->setStyleSheet(this->stylesheet->stylesheet_button_revealed);
     }
     else
     {
         if (number == 1)
         {
             this->field2DVector[coords.col][coords.row] = '1';
-            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet->stylesheet_button_1);
+            this->cells2DVector[coords.col][coords.row]->setStyleSheet(this->stylesheet->stylesheet_button_1);
         }
         else if (number == 2)
         {
             this->field2DVector[coords.col][coords.row] = '2';
-            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet->stylesheet_button_2);
+            this->cells2DVector[coords.col][coords.row]->setStyleSheet(this->stylesheet->stylesheet_button_2);
         }
         else if (number == 3)
         {
             this->field2DVector[coords.col][coords.row] = '3';
-            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet->stylesheet_button_3);
+            this->cells2DVector[coords.col][coords.row]->setStyleSheet(this->stylesheet->stylesheet_button_3);
         }
         else if (number == 4)
         {
             this->field2DVector[coords.col][coords.row] = '4';
-            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet->stylesheet_button_4);
+            this->cells2DVector[coords.col][coords.row]->setStyleSheet(this->stylesheet->stylesheet_button_4);
         }
         else if (number == 5)
         {
             this->field2DVector[coords.col][coords.row] = '5';
-            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet->stylesheet_button_5);
+            this->cells2DVector[coords.col][coords.row]->setStyleSheet(this->stylesheet->stylesheet_button_5);
         }
         else if (number == 6)
         {
             this->field2DVector[coords.col][coords.row] = '6';
-            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet->stylesheet_button_6);
+            this->cells2DVector[coords.col][coords.row]->setStyleSheet(this->stylesheet->stylesheet_button_6);
         }
         else if (number == 7)
         {
             this->field2DVector[coords.col][coords.row] = '7';
-            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet->stylesheet_button_7);
+            this->cells2DVector[coords.col][coords.row]->setStyleSheet(this->stylesheet->stylesheet_button_7);
         }
         else if (number == 8)
         {
             this->field2DVector[coords.col][coords.row] = '8';
-            this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet->stylesheet_button_8);
+            this->cells2DVector[coords.col][coords.row]->setStyleSheet(this->stylesheet->stylesheet_button_8);
         }
     }
 }
@@ -260,15 +267,15 @@ void Field::gameOver(const Common::Coords& coords, bool hasLost)
         {
             if (this->mines2DVector[i][j] == 'X')
             {
-                this->cell[i][j].setStyleSheet(this->stylesheet->stylesheet_button_mine);
+                this->cells2DVector[i][j]->setStyleSheet(this->stylesheet->stylesheet_button_mine);
             }
             else if (this->mines2DVector[i][j] == '0')
             {
-                this->cell[i][j].setStyleSheet(this->stylesheet->stylesheet_button_revealed);
+                this->cells2DVector[i][j]->setStyleSheet(this->stylesheet->stylesheet_button_revealed);
             }
             else if (this->mines2DVector[i][j] == 'H')
             {
-                this->cell[i][j].setStyleSheet(this->stylesheet->stylesheet_button_mine_hit);
+                this->cells2DVector[i][j]->setStyleSheet(this->stylesheet->stylesheet_button_mine_hit);
             }
             else if (hasLost == true)
             {
@@ -283,7 +290,7 @@ void Field::gameOver(const Common::Coords& coords, bool hasLost)
     }
     if (mines2DVector[coords.col][coords.row] == 'X')
     {
-        this->cell[coords.col][coords.row].setStyleSheet(this->stylesheet->stylesheet_button_mine_hit);
+        this->cells2DVector[coords.col][coords.row]->setStyleSheet(this->stylesheet->stylesheet_button_mine_hit);
     }
 }
 
@@ -458,7 +465,7 @@ Common::Coords Field::gridPosition(Cell* button)
 }
 */
 
-Common::Coords Field::getCoordsFromRelativePosition(QPoint& position, Common::Coords& buttonCoords)
+Common::Coords Field::getCoordsFromRelativePosition(const QPoint& position, const Common::Coords& buttonCoords)
 {
     Common::Coords returnCoords = buttonCoords;
 
