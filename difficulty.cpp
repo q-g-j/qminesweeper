@@ -9,8 +9,8 @@ Difficulty::Difficulty(QWidget *parent) :
     ui(new Ui::Difficulty)
 {
     ui->setupUi(this);
-    intValidatorCols = new QIntValidator(9, 60, this);
-    intValidatorRows = new QIntValidator(9, 30, this);
+    intValidatorCols = new QIntValidator(9, 70, this);
+    intValidatorRows = new QIntValidator(9, 35, this);
     intValidatorMines = new QIntValidator(1, 9999, this);
     ui->lineEdit_custom_cols->setValidator(this->intValidatorCols);
     ui->lineEdit_custom_rows->setValidator(this->intValidatorRows);
@@ -65,8 +65,8 @@ void Difficulty::on_button_start_clicked()
         if (ui->lineEdit_custom_cols->text() == ""
                 || ui->lineEdit_custom_rows->text() == ""
                 || ui->lineEdit_custom_mines->text() == ""
-                || cols > 60
-                || rows > 30
+                || cols > 70
+                || rows > 35
                 || cols < 9
                 || rows < 9
                 || mines > (cols * rows - 1)
@@ -74,9 +74,9 @@ void Difficulty::on_button_start_clicked()
         {
             QString msg = "Wrong input, try again. Valid numbers are:\n\n"
                     "columns:\n"
-                    "   9 to 60\n"
+                    "   9 to 70\n"
                     "rows:\n"
-                    "   9 to 30\n"
+                    "   9 to 35\n"
                     "mines:\n"
                     "   1 to (columns * rows - 1)";
             QMessageBox::warning(this, "Error", msg);

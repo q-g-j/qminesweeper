@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QGridLayout>
 
-#include "cell.h"
+#include "button.h"
 #include "common.h"
 #include "stylesheet.h"
 
@@ -23,11 +23,11 @@ private:
     Common::Coords lastButtonCoords;
     struct buttonStruct
     {
-        Cell* button;
+        Button* button;
         Common::Coords coords;
     };
     QVector<QVector<char>> mines2DVector;
-    QVector<QVector<Cell*>> cells2DVector;
+    QVector<QVector<Button*>> buttons2DVector;
     QVector<buttonStruct> buttonsVector;
     QGridLayout *layout;
     Stylesheet *stylesheet;
@@ -39,8 +39,8 @@ private:
     void autoReveal(const Common::Coords&, QVector<int>&);
     bool isFlagSet(const Common::Coords&);
     void gameOver(const Common::Coords&, bool);
-    Common::Coords getCoordsFromButton(Cell*);
-    Cell* getButtonFromCoords(const Common::Coords&);
+    Common::Coords getCoordsFromButton(Button*);
+    Button* getButtonFromCoords(const Common::Coords&);
     Common::Coords getCoordsFromMousePosition();
 
 public:
@@ -49,12 +49,12 @@ public:
                    const int& cols = 9,
                    const int& rows = 9,
                    const int& mines = 10,
-                   const int& cellSize = 25);
+                   const int& buttonSize = 25);
     ~Field();
 
     // public variables:
     QVector<QVector<char>> field2DVector;
-    int cellSize;
+    int buttonSize;
     int cols;
     int rows;
     bool isGameOver;

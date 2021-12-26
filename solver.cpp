@@ -20,7 +20,7 @@ void Solver::autoSolve(Field& field, const int& cols, const int& rows, bool doPl
 
     if (doPlaceFlags)
     {
-        // for each cell in field2DVector:
+        // for each button in field2DVector:
         for (int i = 1; i <= cols; ++i)
         {
             for (int j = 1; j <= cols; ++j)
@@ -40,8 +40,8 @@ void Solver::autoSolve(Field& field, const int& cols, const int& rows, bool doPl
                     QVector<Common::Coords> flagsVector;
                     flagsVector = field.findNeighbours(field.field2DVector, tempCoords, 'F');
 
-                    // if the number of covered neighbors plus the number of neighbor flags matches the current cells number,
-                    // add the covered cells to poolCoveredVector:
+                    // if the number of covered neighbors plus the number of neighbor flags matches the current buttons number,
+                    // add the covered buttons to poolCoveredVector:
                     if ((flagsVector.size() + coveredVector.size()) == field.field2DVector[tempCoords.col][tempCoords.row] - 48)
                     {
                         for (int k = 0; k < coveredVector.size(); ++k)
@@ -68,7 +68,7 @@ void Solver::autoSolve(Field& field, const int& cols, const int& rows, bool doPl
             }
         }
     }
-    // run field.flagAutoReveal() on all cells:
+    // run field.flagAutoReveal() on all buttons:
     if (doFlagAutoReveal)
     {
         for (int i = 1; i <= rows; ++i)
@@ -83,7 +83,7 @@ void Solver::autoSolve(Field& field, const int& cols, const int& rows, bool doPl
         }
     }
 
-    // re-run the whole function, if there are cells in poolCoveredVector or
+    // re-run the whole function, if there are buttons in poolCoveredVector or
     // if it's the first run of this function when "s" or "S" (= "solve") was hit:
     if (poolCoveredVector.size() != 0 || doSolve == true)
     {

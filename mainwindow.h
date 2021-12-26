@@ -25,7 +25,7 @@ private:
     Stylesheet stylesheet;
 
     int cols, rows;
-    int cellSize;
+    int buttonSize;
     int labelMinesLeftFrameWidth;
     int labelMinesLeftFrameHeight;
     int timerFrameHeight;

@@ -14,7 +14,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    cell.cpp \
+    button.cpp \
     common.cpp \
     difficulty.cpp \
     field.cpp \
@@ -25,7 +25,7 @@ SOURCES += \
     timer.cpp
 
 HEADERS += \
-    cell.h \
+    button.h \
     common.h \
     difficulty.h \
     field.h \

@@ -27,8 +27,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QFontDatabase::addApplicationFont(":/fonts/digital-7.ttf");
 
-    // width and height of a cell in pixels:
-    this->cellSize = 25;
+    // width and height of a button in pixels:
+    this->buttonSize = 25;
 
     // start in easy mode:
     this->difficulty.cols = 9;
@@ -78,13 +78,13 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
         this->timer = nullptr;
     }
 
-    this->field = new Field(ui->fieldWrapper, &this->stylesheet, difficulty_.cols, difficulty_.rows, difficulty_.mines, this->cellSize);
+    this->field = new Field(ui->fieldWrapper, &this->stylesheet, difficulty_.cols, difficulty_.rows, difficulty_.mines, this->buttonSize);
     this->clearLayout(this->fieldLayout);
     this->fieldLayout->setSpacing(0);
     this->fieldLayout->setContentsMargins(0,0,0,0);
     this->fieldLayout->addWidget(this->field);
     ui->fieldWrapper->setLayout(this->fieldLayout);
-    ui->fieldWrapper->setMinimumSize(field->cols * field->cellSize, field->rows * field->cellSize);
+    ui->fieldWrapper->setMinimumSize(field->cols * field->buttonSize, field->rows * field->buttonSize);
 
     connect(this->field, &Field::game_over_signal, this, &MainWindow::game_over_slot);
     connect(this->field, &Field::minesleft_changed_signal, this, &MainWindow::minesleft_changed_slot);
