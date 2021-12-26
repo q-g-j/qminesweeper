@@ -843,14 +843,7 @@ QFrame {
     <addaction name="actionNew"/>
     <addaction name="actionQuit"/>
    </widget>
-   <widget class="QMenu" name="menuCheat">
-    <property name="title">
-     <string>Cheat</string>
-    </property>
-    <addaction name="actionPlace_Flags"/>
-   </widget>
    <addaction name="menuGame"/>
-   <addaction name="menuCheat"/>
   </widget>
   <action name="actionHow_to_play">
    <property name="text">
@@ -890,6 +883,16 @@ QFrame {
    </property>
    <property name="text">
     <string>Place Flags</string>
+   </property>
+  </action>
+  <action name="actionAuto_reveal">
+   <property name="text">
+    <string>Auto-reveal</string>
+   </property>
+  </action>
+  <action name="actionSolve">
+   <property name="text">
+    <string>Try to solve</string>
    </property>
   </action>
  </widget>

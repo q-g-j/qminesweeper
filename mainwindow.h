@@ -7,6 +7,7 @@
 
 #include "difficulty.h"
 #include "field.h"
+#include "solver.h"
 #include "stylesheet.h"
 
 QT_BEGIN_NAMESPACE
@@ -22,9 +23,9 @@ private:
     QGridLayout *fieldLayout;
     Field *field = nullptr;
     Timer *timer = nullptr;
+    Solver solver;
     Stylesheet stylesheet;
 
-    int cols, rows;
     int buttonSize;
     int labelMinesLeftFrameWidth;
     int labelMinesLeftFrameHeight;
@@ -48,9 +49,8 @@ private slots:
     void game_over_slot(bool);
     void minesleft_changed_slot(const int&);
     void start_timer_slot();
-    void on_actionPlace_Flags_triggered();
     void field_debug_slot();
-
 protected:
+    void keyReleaseEvent(QKeyEvent *event);
 };
 #endif // MAINWINDOW_H

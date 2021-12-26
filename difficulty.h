@@ -10,7 +10,7 @@ class Difficulty;
 
 class Difficulty : public QDialog
 {
-    Q_OBJECT    
+    Q_OBJECT
 private:
     QValidator *intValidatorCols;
     QValidator *intValidatorRows;

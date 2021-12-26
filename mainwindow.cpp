@@ -5,7 +5,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "common.h"
-#include "solver.h"
 #include "timer.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -36,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->difficulty.rows = 9;
     this->difficulty.mines = 10;
 
-    ui->menuCheat->menuAction()->setVisible(false);
+//    ui->menuCheat->menuAction()->setVisible(false);
 
     this->newGame(this->difficulty);
 }
@@ -79,7 +78,7 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
         this->timer = nullptr;
     }
 
-    this->field = new Field(ui->fieldWrapper, &this->stylesheet, difficulty_.cols, difficulty_.rows, difficulty_.mines, this->buttonSize);
+    this->field = new Field(ui->fieldWrapper, difficulty_.cols, difficulty_.rows, difficulty_.mines, this->buttonSize);
     this->clearLayout(this->fieldLayout);
     this->fieldLayout->setSpacing(0);
     this->fieldLayout->setContentsMargins(0,0,0,0);
@@ -91,6 +90,7 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     connect(this->field, &Field::minesleft_changed_signal, this, &MainWindow::minesleft_changed_slot);
     connect(this->field, &Field::smiley_surprised_signal, this, &MainWindow::smiley_surprised_slot);
     connect(this->field, &Field::game_started_signal, this, &MainWindow::start_timer_slot);
+    connect(&this->solver, &Solver::place_remove_flag_signal, field, &Field::place_remove_flags_slot);
 //    connect(this->field, &Field::field_debug_signal, this, &MainWindow::field_debug_slot);
 
     this->minesleft_changed_slot(difficulty_.mines);
@@ -139,6 +139,11 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     this->setFixedSize(this->size().width(), this->size().height());
 
     this->timer = new Timer(ui->timerSeconds, ui->timerTenSeconds, ui->timerMinutes, ui->timerTenMinutes);
+}
+
+void MainWindow::field_debug_slot()
+{
+    qDebug() << QString::number(this->timer->counterFine);
 }
 
 // open a dialog (difficulty.ui) to choose difficulty:
@@ -248,12 +253,32 @@ void MainWindow::start_timer_slot()
     this->timer->timerStart();
 }
 
-void MainWindow::on_actionPlace_Flags_triggered()
+void MainWindow::keyReleaseEvent(QKeyEvent *e)
 {
-;
-}
+    if (e->key() == Qt::Key_F)
+    {
+        solver.autoSolve(*field, true, false, false);
+    }
+    else if (e->key() == Qt::Key_R)
+    {
+        solver.autoSolve(*field, false, true, false);
 
-void MainWindow::field_debug_slot()
-{
-    qDebug() << QString::number(this->timer->counterFine);
+        // check if player has won:
+        if (field->flagsCount + field->countUnrevealed == field->mines)
+        {
+            Common::Coords dummyCoords;
+            field->gameOver(dummyCoords, false);
+        }
+    }
+    else if (e->key() == Qt::Key_S)
+    {
+        solver.autoSolve(*field, true, true, true);
+
+        // check if player has won:
+        if (field->flagsCount + field->countUnrevealed == field->mines)
+        {
+            Common::Coords dummyCoords;
+            field->gameOver(dummyCoords, false);
+        }
+    }
 }

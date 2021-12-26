@@ -1,4 +1,3 @@
-#include <QApplication>
 #include <QDebug>
 #include <QSizePolicy>
 #include <QVector>
@@ -8,9 +7,8 @@
 #include "common.h"
 #include "field.h"
 
-Field::Field(QWidget *parent, Stylesheet *stylesheet_, const int& cols_, const int& rows_, const int& mines_, const int& buttonSize_) : QWidget(parent)
+Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& mines_, const int& buttonSize_) : QWidget(parent)
 {
-    this->stylesheet = stylesheet_;
     this->cols = cols_;
     this->rows = rows_;
     this->mines = mines_;
@@ -289,7 +287,6 @@ void Field::autoReveal(const Common::Coords& coords, QVector<int>& poolVector)
     QVector<Common::Coords> neighboursUnrevealedVector;
     neighboursUnrevealedVector = this->findNeighbours(this->field2DVector, coords, ' ');
 
-    // check if player has won:
     for (int i = 0; i < neighboursUnrevealedVector.size(); ++i)
     {
         QVector<Common::Coords> neighboursMinesVector;
@@ -319,7 +316,7 @@ void Field::autoReveal(const Common::Coords& coords, QVector<int>& poolVector)
     }
 }
 
-void Field::flagAutoReveal(const Common::Coords& coords)
+void Field::flagAutoReveal(const Common::Coords& coords, bool hasCheated)
 {
     // create a new vector of surrounding flags:
     QVector<Common::Coords> neighboursFlagsVector;
@@ -398,12 +395,11 @@ void Field::flagAutoReveal(const Common::Coords& coords)
                     }
                 }
             }
-            if (neighboursUnrevealedVector.size() != 0)
+            if (neighboursUnrevealedVector.size() != 0
+                    && this->flagsCount + this->countUnrevealed != this->mines
+                    && hasCheated == false)
             {
-                if (this->flagsCount + this->countUnrevealed != this->mines)
-                {
-                    emit this->smiley_surprised_signal();
-                }
+                emit this->smiley_surprised_signal();
             }
         }
     }
@@ -608,7 +604,7 @@ void Field::on_double_clicked()
         Common::Coords coordsTemp = this->getCoordsFromButton(button);
         if (this->isNumber(coordsTemp))
         {
-            this->flagAutoReveal(coordsTemp);
+            this->flagAutoReveal(coordsTemp, false);
         }
 
         // check if player has won:
@@ -690,4 +686,14 @@ void Field::on_left_pressed_and_moved(QMouseEvent *e)
             }
         }
     }
+}
+
+void Field::place_remove_flags_slot(const Common::Coords& coords)
+{
+    this->field2DVector[coords.col][coords.row] = 'F';
+    this->setButtonIcon(this->getButtonFromCoords(coords), "button_flag");
+    this->flagsCount++;
+    this->minesLeft--;
+    this->countUnrevealed--;
+    emit this->minesleft_changed_signal(this->minesLeft);
 }
