@@ -261,7 +261,7 @@ void MainWindow::start_timer_slot()
 
 void MainWindow::keyReleaseEvent(QKeyEvent *e)
 {
-    if (field->isSolverRunning != true)
+    if (field->isSolverRunning != true && field->isGameOver != true)
     {
         if (e->key() == Qt::Key_F)
         {
