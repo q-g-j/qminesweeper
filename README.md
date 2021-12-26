@@ -9,11 +9,14 @@ Controls:
 ---------
 
 |Mouse button|Action|
-|-----------|------|
+|-|-|
 |Left click|reveal a square|
 |Right click|place or remove a flag|
 |Double left click on a number|automatically reveal linked squares with no mine (if flags are placed correctly) |
 |Left click on smiley|start a new game with the same difficulty|
+
+|Key|Action|
+|-|-|
 |'F'|let the computer place the flags|
 |'R'|auto-reveal after placing flags|
 |'S'|the computer tries to solve the game (repeat the above two recursively)|
