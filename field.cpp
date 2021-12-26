@@ -281,7 +281,7 @@ void Field::gameOver(const Common::Coords& coords, bool hasLost)
 }
 
 // automatically reveal all connected buttons, as long as they have no neighbour mines:
-void Field::autoReveal(const Common::Coords& coords, QVector<int>& poolVector)
+void Field::autoReveal(const Common::Coords& coords, QVector<int>& poolVector, bool aiReveal)
 {
     // create vector holding unrevealed neighbours:
     QVector<Common::Coords> neighboursUnrevealedVector;
@@ -303,6 +303,10 @@ void Field::autoReveal(const Common::Coords& coords, QVector<int>& poolVector)
                 }
                 else
                 {
+                    if (aiReveal)
+                    {
+                        Common::sleep(3);
+                    }
                     poolVector.push_back(Common::CoordsToInt(neighboursUnrevealedVector.at(i), this->cols));
                     this->printNumber(neighboursUnrevealedVector.at(i), neighboursMinesVector.size());
                     --this->countUnrevealed;
@@ -310,13 +314,13 @@ void Field::autoReveal(const Common::Coords& coords, QVector<int>& poolVector)
             }
             if (neighboursMinesVector.size() == 0)
             {
-                this->autoReveal(neighboursUnrevealedVector.at(i), poolVector);
+                this->autoReveal(neighboursUnrevealedVector.at(i), poolVector, aiReveal);
             }
         }
     }
 }
 
-void Field::flagAutoReveal(const Common::Coords& coords, bool hasCheated)
+void Field::flagAutoReveal(const Common::Coords& coords, bool hasCheated, bool aiReveal)
 {
     // create a new vector of surrounding flags:
     QVector<Common::Coords> neighboursFlagsVector;
@@ -384,7 +388,7 @@ void Field::flagAutoReveal(const Common::Coords& coords, bool hasCheated)
                             this->printNumber(coordsTemp, 0);
                             poolVector.push_back(Common::CoordsToInt(coordsTemp, this->cols));
                             --this->countUnrevealed;
-                            this->autoReveal(coordsTemp, poolVector);
+                            this->autoReveal(coordsTemp, poolVector, aiReveal);
                         }
                         else
                         {
@@ -547,7 +551,7 @@ void Field::on_left_released()
                     // automatically reveal all neighbours of squares with no neighbour mines:
                     QVector<int> poolVector;
                     // automatically reveal all neighbours of squares with no neighbour mines:
-                    this->autoReveal(coordsTemp, poolVector);
+                    this->autoReveal(coordsTemp, poolVector, false);
                     this->firstTurn = false;
 
                     // check if player has won:
@@ -604,7 +608,7 @@ void Field::on_double_clicked()
         Common::Coords coordsTemp = this->getCoordsFromButton(button);
         if (this->isNumber(coordsTemp))
         {
-            this->flagAutoReveal(coordsTemp, false);
+            this->flagAutoReveal(coordsTemp, false, false);
         }
 
         // check if player has won:

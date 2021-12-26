@@ -30,7 +30,7 @@ private:
     void create2DVectors();
     void fillMines2DVector(const Common::Coords&);
     void printNumber(const Common::Coords&, const int&);
-    void autoReveal(const Common::Coords&, QVector<int>&);
+    void autoReveal(const Common::Coords&, QVector<int>&, bool);
     bool isFlagSet(const Common::Coords&);
     Common::Coords getCoordsFromButton(Button*);
     Common::Coords getCoordsFromMousePosition();
@@ -60,7 +60,7 @@ public:
     Button* getButtonFromCoords(const Common::Coords&);
     bool isNumber(const Common::Coords&);
     QVector<Common::Coords> findNeighbours(const QVector<QVector<char>>&, const Common::Coords&, const char&);
-    void flagAutoReveal(const Common::Coords&, bool);
+    void flagAutoReveal(const Common::Coords&, bool, bool);
     void gameOver(const Common::Coords&, bool);
 signals:
     void game_started_signal();

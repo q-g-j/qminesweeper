@@ -62,7 +62,7 @@ void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, b
         {
             for (int i = 0; i < poolCoveredVector.size(); i++)
             {
-                Common::sleep(60);
+                Common::sleep(40);
                 Common::Coords tempCoords;
                 tempCoords = Common::intToCoords(poolCoveredVector.at(i), field.cols);
                 emit this->place_remove_flag_signal(tempCoords);
@@ -79,7 +79,7 @@ void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, b
                 Common::Coords tempCoords;
                 tempCoords.row = i;
                 tempCoords.col = j;
-                field.flagAutoReveal(tempCoords, true);
+                field.flagAutoReveal(tempCoords, true, true);
             }
         }
     }
