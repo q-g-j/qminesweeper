@@ -63,12 +63,3 @@ void Common::sleep(const int& milliseconds)
     QTimer::singleShot(milliseconds, &loop, &QEventLoop::quit);
     loop.exec();
 }
-
-void Common::setIcon(Button *button, const int& buttonSize, const QString &iconName)
-{
-    QPixmap icon(":/icons/png/" + iconName + ".png");
-    QIcon ButtonIcon(icon);
-    button->setIcon(icon);
-    QSize size(buttonSize, buttonSize);
-    button->setIconSize(size);
-}

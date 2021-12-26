@@ -33,6 +33,7 @@ private:
     Stylesheet *stylesheet;
 
     // private methods:
+    void setButtonIcon(Button*, const QString&);
     void create2DVectors();
     void fillMines2DVector(const Common::Coords&);
     void printNumber(const Common::Coords&, const int&);

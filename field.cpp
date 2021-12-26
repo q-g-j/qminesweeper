@@ -42,6 +42,15 @@ Field::~Field()
     }
 }
 
+void Field::setButtonIcon(Button *button, const QString &iconName)
+{
+    QPixmap icon(":/icons/png/" + iconName + ".png");
+    QIcon ButtonIcon(icon);
+    button->setIcon(icon);
+    QSize size(buttonSize, buttonSize);
+    button->setIconSize(size);
+}
+
 void Field::create2DVectors()
 {
     for(int i = 0; i <= this->cols; i++)
@@ -74,7 +83,7 @@ void Field::create2DVectors()
                 connect(button, &Button::right_released_signal, this, &Field::on_right_released);
                 connect(button, &Button::left_pressed_and_moved_signal, this, &Field::on_left_pressed_and_moved);
 
-                Common::setIcon(button, this->buttonSize, "button_unrevealed");
+                this->setButtonIcon(button, "button_unrevealed");
 
                 button->setFixedSize(this->buttonSize, this->buttonSize);
 
@@ -189,47 +198,47 @@ void Field::printNumber(const Common::Coords& coords, const int& number)
     if (number == 0)
     {
         this->field2DVector[coords.col][coords.row] = '0';
-        Common::setIcon(this->buttons2DVector[coords.col][coords.row], this->buttonSize, "button_revealed");
+        this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_revealed");
     }
     else if (number == 1)
     {
         this->field2DVector[coords.col][coords.row] = '1';
-        Common::setIcon(this->buttons2DVector[coords.col][coords.row], this->buttonSize, "button_1");
+        this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_1");
     }
     else if (number == 2)
     {
         this->field2DVector[coords.col][coords.row] = '2';
-        Common::setIcon(this->buttons2DVector[coords.col][coords.row], this->buttonSize, "button_2");
+        this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_2");
     }
     else if (number == 3)
     {
         this->field2DVector[coords.col][coords.row] = '3';
-        Common::setIcon(this->buttons2DVector[coords.col][coords.row], this->buttonSize, "button_3");
+        this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_3");
     }
     else if (number == 4)
     {
         this->field2DVector[coords.col][coords.row] = '4';
-        Common::setIcon(this->buttons2DVector[coords.col][coords.row], this->buttonSize, "button_4");
+        this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_4");
     }
     else if (number == 5)
     {
         this->field2DVector[coords.col][coords.row] = '5';
-        Common::setIcon(this->buttons2DVector[coords.col][coords.row], this->buttonSize, "button_5");
+        this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_5");
     }
     else if (number == 6)
     {
         this->field2DVector[coords.col][coords.row] = '6';
-        Common::setIcon(this->buttons2DVector[coords.col][coords.row], this->buttonSize, "button_6");
+        this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_6");
     }
     else if (number == 7)
     {
         this->field2DVector[coords.col][coords.row] = '7';
-        Common::setIcon(this->buttons2DVector[coords.col][coords.row], this->buttonSize, "button_7");
+        this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_7");
     }
     else if (number == 8)
     {
         this->field2DVector[coords.col][coords.row] = '8';
-        Common::setIcon(this->buttons2DVector[coords.col][coords.row], this->buttonSize, "button_8");
+        this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_8");
     }
 }
 
@@ -247,11 +256,11 @@ void Field::gameOver(const Common::Coords& coords, bool hasLost)
         {
             if (this->mines2DVector[i][j] == 'X')
             {
-                Common::setIcon(this->buttons2DVector[i][j], this->buttonSize, "button_mine");
+                this->setButtonIcon(this->buttons2DVector[i][j], "button_mine");
             }
             else if (this->mines2DVector[i][j] == 'H')
             {
-                Common::setIcon(this->buttons2DVector[i][j], this->buttonSize, "button_mine");
+                this->setButtonIcon(this->buttons2DVector[i][j], "button_mine");
             }
             else if (hasLost == true)
             {
@@ -269,7 +278,7 @@ void Field::gameOver(const Common::Coords& coords, bool hasLost)
     }
     if (mines2DVector[coords.col][coords.row] == 'X')
     {
-        Common::setIcon(this->buttons2DVector[coords.col][coords.row], this->buttonSize, "button_mine");
+        this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_mine");
     }
 }
 
@@ -483,7 +492,7 @@ void Field::on_left_pressed()
                 && leftPressedCoords.col == currentMouseCoords.col
                 && leftPressedCoords.row == currentMouseCoords.row)
         {
-            Common::setIcon(this->getButtonFromCoords(leftPressedCoords), this->buttonSize, "button_pressed");
+            this->setButtonIcon(this->getButtonFromCoords(leftPressedCoords), "button_pressed");
         }
     }
 }
@@ -570,7 +579,7 @@ void Field::on_right_released()
         {
             if (! this->isFlagSet(coordsTemp))
             {
-                Common::setIcon(button, this->buttonSize, "button_flag");
+                this->setButtonIcon(button, "button_flag");
                 this->field2DVector[coordsTemp.col][coordsTemp.row] = 'F';
                 this->flagsCount++;
                 this->minesLeft--;
@@ -578,7 +587,7 @@ void Field::on_right_released()
             }
             else
             {
-                Common::setIcon(button, this->buttonSize, "button_unrevealed");
+                this->setButtonIcon(button, "button_unrevealed");
                 this->field2DVector[coordsTemp.col][coordsTemp.row] = ' ';
                 this->flagsCount--;
                 this->minesLeft++;
@@ -637,7 +646,7 @@ void Field::on_left_pressed_and_moved(QMouseEvent *e)
         {
             if (this->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
             {
-                Common::setIcon(this->getButtonFromCoords(this->lastButtonCoords), this->buttonSize, "button_unrevealed");
+                this->setButtonIcon(this->getButtonFromCoords(this->lastButtonCoords), "button_unrevealed");
             }
 
             if (newButtonCoords.col < 1)
@@ -666,15 +675,15 @@ void Field::on_left_pressed_and_moved(QMouseEvent *e)
             {
                 if (this->field2DVector[this->leftPressedButtonCoords.col][this->leftPressedButtonCoords.row] == ' ')
                 {
-                    Common::setIcon(this->getButtonFromCoords(this->leftPressedButtonCoords), this->buttonSize, "button_unrevealed");
+                    this->setButtonIcon(this->getButtonFromCoords(this->leftPressedButtonCoords), "button_unrevealed");
                 }
                 if (this->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
                 {
-                    Common::setIcon(this->getButtonFromCoords(this->lastButtonCoords), this->buttonSize, "button_unrevealed");
+                    this->setButtonIcon(this->getButtonFromCoords(this->lastButtonCoords), "button_unrevealed");
                 }
                 if (this->field2DVector[newButtonCoords.col][newButtonCoords.row] == ' ')
                 {
-                    Common::setIcon(this->getButtonFromCoords(newButtonCoords), this->buttonSize, "button_pressed");
+                    this->setButtonIcon(this->getButtonFromCoords(newButtonCoords), "button_pressed");
                 }
                 this->lastButtonCoords.col = newButtonCoords.col;
                 this->lastButtonCoords.row = newButtonCoords.row;
