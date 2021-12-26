@@ -247,10 +247,6 @@ void Field::gameOver(const Common::Coords& coords, bool hasLost)
             {
                 this->buttons2DVector[i][j]->setStyleSheet(this->stylesheet->stylesheet_button_mine);
             }
-            else if (this->mines2DVector[i][j] == '0')
-            {
-                this->buttons2DVector[i][j]->setStyleSheet(this->stylesheet->stylesheet_button_revealed);
-            }
             else if (this->mines2DVector[i][j] == 'H')
             {
                 this->buttons2DVector[i][j]->setStyleSheet(this->stylesheet->stylesheet_button_mine_hit);
@@ -260,9 +256,12 @@ void Field::gameOver(const Common::Coords& coords, bool hasLost)
                 Common::Coords coordsTemp;
                 coordsTemp.col = i;
                 coordsTemp.row = j;
-                QVector<Common::Coords> neighboursMinesVector = this->findNeighbours(this->mines2DVector, coordsTemp, 'X');
-                QVector<Common::Coords> neighboursMinesHitVector = this->findNeighbours(this->mines2DVector, coordsTemp, 'H');
-                this->printNumber(coordsTemp, static_cast<int>(neighboursMinesVector.size() + neighboursMinesHitVector.size()));
+                if ( ! this->isNumber(coordsTemp))
+                {
+                    QVector<Common::Coords> neighboursMinesVector = this->findNeighbours(this->mines2DVector, coordsTemp, 'X');
+                    QVector<Common::Coords> neighboursMinesHitVector = this->findNeighbours(this->mines2DVector, coordsTemp, 'H');
+                    this->printNumber(coordsTemp, static_cast<int>(neighboursMinesVector.size() + neighboursMinesHitVector.size()));
+                }
             }
         }
     }
