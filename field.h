@@ -29,6 +29,7 @@ private:
     // private methods:
     void create2DVectors();
     void fillMines2DVector(const Common::Coords&);
+    void setNumber(const Common::Coords&, const int&);
     void printNumber(const Common::Coords&, const int&);
     void autoReveal(const Common::Coords&, QVector<int>&, bool);
     bool isFlagSet(const Common::Coords&);
@@ -54,6 +55,7 @@ public:
     int minesLeft;
     int countUnrevealed;
     bool isGameOver;
+    bool isSolverRunning;
 
     // public methods:
     void setButtonIcon(Button*, const QString&);

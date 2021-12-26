@@ -149,10 +149,13 @@ void MainWindow::field_debug_slot()
 // open a dialog (difficulty.ui) to choose difficulty:
 void MainWindow::on_actionNew_triggered()
 {
-    Difficulty difficulty_(this);
-    connect(&difficulty_, &Difficulty::button_clicked_signal, this, &MainWindow::new_game_slot);
-    difficulty_.setModal(true);
-    difficulty_.exec();
+    if (field->isSolverRunning != true)
+    {
+        Difficulty difficulty_(this);
+        connect(&difficulty_, &Difficulty::button_clicked_signal, this, &MainWindow::new_game_slot);
+        difficulty_.setModal(true);
+        difficulty_.exec();
+    }
 }
 
 void MainWindow::new_game_slot(const Difficulty::DifficultyStruct& difficulty)
@@ -170,11 +173,14 @@ void MainWindow::on_actionQuit_triggered()
 
 void MainWindow::on_smiley_released()
 {
-    Difficulty::DifficultyStruct difficulty_;
-    difficulty_.cols = this->difficulty.cols;
-    difficulty_.rows = this->difficulty.rows;
-    difficulty_.mines = this->difficulty.mines;
-    this->newGame(difficulty_);
+    if (field->isSolverRunning != true)
+    {
+        Difficulty::DifficultyStruct difficulty_;
+        difficulty_.cols = this->difficulty.cols;
+        difficulty_.rows = this->difficulty.rows;
+        difficulty_.mines = this->difficulty.mines;
+        this->newGame(difficulty_);
+    }
 }
 
 void MainWindow::smiley_surprised_slot()
@@ -255,30 +261,33 @@ void MainWindow::start_timer_slot()
 
 void MainWindow::keyReleaseEvent(QKeyEvent *e)
 {
-    if (e->key() == Qt::Key_F)
+    if (field->isSolverRunning != true)
     {
-        solver.autoSolve(*field, true, false, false);
-    }
-    else if (e->key() == Qt::Key_R)
-    {
-        solver.autoSolve(*field, false, true, false);
-
-        // check if player has won:
-        if (field->flagsCount + field->countUnrevealed == field->mines)
+        if (e->key() == Qt::Key_F)
         {
-            Common::Coords dummyCoords;
-            field->gameOver(dummyCoords, false);
+            solver.autoSolve(*field, true, false, false);
         }
-    }
-    else if (e->key() == Qt::Key_S)
-    {
-        solver.autoSolve(*field, true, true, true);
-
-        // check if player has won:
-        if (field->flagsCount + field->countUnrevealed == field->mines)
+        else if (e->key() == Qt::Key_R)
         {
-            Common::Coords dummyCoords;
-            field->gameOver(dummyCoords, false);
+            solver.autoSolve(*field, false, true, false);
+
+            // check if player has won:
+            if (field->flagsCount + field->countUnrevealed == field->mines)
+            {
+                Common::Coords dummyCoords;
+                field->gameOver(dummyCoords, false);
+            }
+        }
+        else if (e->key() == Qt::Key_S)
+        {
+            solver.autoSolve(*field, true, true, true);
+
+            // check if player has won:
+            if (field->flagsCount + field->countUnrevealed == field->mines)
+            {
+                Common::Coords dummyCoords;
+                field->gameOver(dummyCoords, false);
+            }
         }
     }
 }

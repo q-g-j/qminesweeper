@@ -18,6 +18,7 @@ Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& min
     this->flagsCount = 0;
     this->firstTurn = true;
     this->isGameOver = false;
+    this->isSolverRunning = false;
     emit this->minesleft_changed_signal(this->minesLeft);
 
     this->layout = new QGridLayout;
@@ -189,53 +190,56 @@ QVector<Common::Coords> Field::findNeighbours(const QVector<QVector<char>>& temp
     }
     return findNeighboursReturn;
 }
+// put the number of surrounding mines in this->field2DVector[coords.col][coords.row]:
+void Field::setNumber(const Common::Coords& coords, const int& number)
+{
+    for (int i = 0; i < 8; i++)
+    {
+        if (i == number)
+        {
+            this->field2DVector[coords.col][coords.row] = i + 48;
+            break;
+        }
+    }
+}
 
 // print the number of surrounding mines in this->button[coords.col][coords.row]:
 void Field::printNumber(const Common::Coords& coords, const int& number)
 {
     if (number == 0)
     {
-        this->field2DVector[coords.col][coords.row] = '0';
         this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_revealed");
     }
     else if (number == 1)
     {
-        this->field2DVector[coords.col][coords.row] = '1';
         this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_1");
     }
     else if (number == 2)
     {
-        this->field2DVector[coords.col][coords.row] = '2';
         this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_2");
     }
     else if (number == 3)
     {
-        this->field2DVector[coords.col][coords.row] = '3';
         this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_3");
     }
     else if (number == 4)
     {
-        this->field2DVector[coords.col][coords.row] = '4';
         this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_4");
     }
     else if (number == 5)
     {
-        this->field2DVector[coords.col][coords.row] = '5';
         this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_5");
     }
     else if (number == 6)
     {
-        this->field2DVector[coords.col][coords.row] = '6';
         this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_6");
     }
     else if (number == 7)
     {
-        this->field2DVector[coords.col][coords.row] = '7';
         this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_7");
     }
     else if (number == 8)
     {
-        this->field2DVector[coords.col][coords.row] = '8';
         this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_8");
     }
 }
@@ -269,7 +273,8 @@ void Field::gameOver(const Common::Coords& coords, bool hasLost)
                 {
                     QVector<Common::Coords> neighboursMinesVector = this->findNeighbours(this->mines2DVector, coordsTemp, 'X');
                     QVector<Common::Coords> neighboursMinesHitVector = this->findNeighbours(this->mines2DVector, coordsTemp, 'H');
-                    this->printNumber(coordsTemp, static_cast<int>(neighboursMinesVector.size() + neighboursMinesHitVector.size()));
+                    this->setNumber(coordsTemp, neighboursMinesVector.size() + neighboursMinesHitVector.size());
+                    this->printNumber(coordsTemp, neighboursMinesVector.size() + neighboursMinesHitVector.size());
                 }
             }
         }
@@ -305,9 +310,10 @@ void Field::autoReveal(const Common::Coords& coords, QVector<int>& poolVector, b
                 {
                     if (aiReveal)
                     {
-                        Common::sleep(3);
+                        Common::sleep(5);
                     }
                     poolVector.push_back(Common::CoordsToInt(neighboursUnrevealedVector.at(i), this->cols));
+                    this->setNumber(neighboursUnrevealedVector.at(i), neighboursMinesVector.size());
                     this->printNumber(neighboursUnrevealedVector.at(i), neighboursMinesVector.size());
                     --this->countUnrevealed;
                 }
@@ -385,6 +391,7 @@ void Field::flagAutoReveal(const Common::Coords& coords, bool hasCheated, bool a
                         }
                         else if (neighboursMinesOfNeighboursUnrevealedVector.size() == 0)
                         {
+                            this->setNumber(coordsTemp, 0);
                             this->printNumber(coordsTemp, 0);
                             poolVector.push_back(Common::CoordsToInt(coordsTemp, this->cols));
                             --this->countUnrevealed;
@@ -392,7 +399,8 @@ void Field::flagAutoReveal(const Common::Coords& coords, bool hasCheated, bool a
                         }
                         else
                         {
-                            this->printNumber(coordsTemp, static_cast<int>(neighboursMinesOfNeighboursUnrevealedVector.size()));
+                            this->setNumber(coordsTemp, neighboursMinesOfNeighboursUnrevealedVector.size());
+                            this->printNumber(coordsTemp, neighboursMinesOfNeighboursUnrevealedVector.size());
                             poolVector.push_back(Common::CoordsToInt(coordsTemp, this->cols));
                             --this->countUnrevealed;
                         }
@@ -478,7 +486,7 @@ Common::Coords Field::getCoordsFromMousePosition()
 
 void Field::on_left_pressed()
 {
-    if (this->isGameOver != true)
+    if (this->isGameOver != true && this->isSolverRunning != true)
     {
         this->currentMousePosition.setX(0);
         this->currentMousePosition.setY(0);
@@ -500,7 +508,7 @@ void Field::on_left_pressed()
 // handle left clicking on a button:
 void Field::on_left_released()
 {
-    if (this->isGameOver != true)
+    if (this->isGameOver != true && this->isSolverRunning != true)
     {
         Button *button = qobject_cast<Button*>(sender());
         Common::Coords coordsTemp = this->getCoordsFromButton(button);
@@ -536,6 +544,7 @@ void Field::on_left_released()
                 {
                     // reveal the players choice and place the number of surrounding mines in it:
                     neighboursMinesVector = this->findNeighbours(this->mines2DVector, coordsTemp, 'X');
+                    this->setNumber(coordsTemp, neighboursMinesVector.size());
                     this->printNumber(coordsTemp, neighboursMinesVector.size());
                     --this->countUnrevealed;
 
@@ -570,7 +579,7 @@ void Field::on_left_released()
 // place and remove flags with right click:
 void Field::on_right_released()
 {
-    if (this->isGameOver != true)
+    if (this->isGameOver != true && this->isSolverRunning != true)
     {
         Button *button = qobject_cast<Button *>(sender());
         Common::Coords coordsTemp = this->getCoordsFromButton(button);
@@ -602,7 +611,7 @@ void Field::on_right_released()
 // (flags around the numbered button must be placed right):
 void Field::on_double_clicked()
 {
-    if (this->isGameOver != true)
+    if (this->isGameOver != true && this->isSolverRunning != true)
     {
         Button *button = qobject_cast<Button *>(sender());
         Common::Coords coordsTemp = this->getCoordsFromButton(button);
@@ -622,7 +631,7 @@ void Field::on_double_clicked()
 
 void Field::on_left_pressed_and_moved(QMouseEvent *e)
 {
-    if (this->isGameOver != true && e->buttons() == Qt::LeftButton)
+    if (this->isGameOver != true && e->buttons() == Qt::LeftButton && this->isSolverRunning != true)
     {
         this->currentMousePosition = e->pos();
         Common::Coords newButtonCoords = this->getCoordsFromMousePosition();

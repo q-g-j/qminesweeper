@@ -13,6 +13,7 @@ Solver::~Solver()
 
 void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, bool doSolve)
 {
+    field.isSolverRunning = true;
     QVector<int> poolCoveredVector;
 
     if (doPlaceFlags)
@@ -89,5 +90,9 @@ void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, b
     if (poolCoveredVector.size() || doSolve)
     {
         autoSolve(field, doPlaceFlags, doFlagAutoReveal, false);
+    }
+    else
+    {
+        field.isSolverRunning = false;
     }
 }
