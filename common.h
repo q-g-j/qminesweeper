@@ -1,6 +1,10 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#include <QString>
+
+#include "button.h"
+
 class Common
 {
 public:
@@ -13,6 +17,7 @@ public:
     static Coords intToCoords(const int&, const int&);
     static int CoordsToInt(const Coords&, const int&);
     static void sleep(const int&);
+    static void setIcon(Button*, const int&, const QString&);
 };
 
 #endif // COMMON_H

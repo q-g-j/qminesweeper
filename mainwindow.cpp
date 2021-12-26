@@ -4,6 +4,7 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "common.h"
 #include "solver.h"
 #include "timer.h"
 

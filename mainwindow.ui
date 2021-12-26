@@ -249,6 +249,7 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Digital-7</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                 </font>
@@ -283,6 +284,7 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Digital-7</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                 </font>
@@ -317,6 +319,7 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Digital-7</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                 </font>
@@ -351,6 +354,7 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Digital-7</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                 </font>
@@ -596,6 +600,7 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Digital-7</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                 </font>
@@ -633,6 +638,7 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Digital-7</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                 </font>
@@ -670,6 +676,7 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Digital-7</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                 </font>
@@ -704,6 +711,7 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Digital-7</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                 </font>
@@ -741,6 +749,7 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Digital-7</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                 </font>
@@ -810,6 +819,15 @@ QFrame {
         <height>300</height>
        </size>
       </property>
+      <property name="styleSheet">
+       <string notr="true">/*Button {
+       border-style: inset;
+       border-width: 0px;
+       border-radius: 0px;
+       border-image: url(:/icons/png/button_unrevealed.png) 0 0 0 0 stretch stretch;
+}
+*/</string>
+      </property>
      </widget>
     </item>
    </layout>
@@ -820,7 +838,7 @@ QFrame {
      <x>0</x>
      <y>0</y>
      <width>481</width>
-     <height>24</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="font">
