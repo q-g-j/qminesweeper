@@ -458,19 +458,19 @@ Common::Coords Field::getCoordsFromMousePosition()
 
     if (this->currentMousePosition.x() < 0)
     {
-        returnCoords.col = this->leftPressedButtonCoords.col - ((this->currentMousePosition.x() * -1) / 25 + 1);
+        returnCoords.col = this->leftPressedButtonCoords.col - ((this->currentMousePosition.x() * -1) / this->buttonSize + 1);
     }
     else if (this->currentMousePosition.x() >= this->buttonSize)
     {
-        returnCoords.col = this->leftPressedButtonCoords.col + ((this->currentMousePosition.x()) / 25);
+        returnCoords.col = this->leftPressedButtonCoords.col + ((this->currentMousePosition.x()) / this->buttonSize);
     }
     if (this->currentMousePosition.y() < 0)
     {
-        returnCoords.row = this->leftPressedButtonCoords.row - ((this->currentMousePosition.y() * -1) / 25 + 1);
+        returnCoords.row = this->leftPressedButtonCoords.row - ((this->currentMousePosition.y() * -1) / this->buttonSize + 1);
     }
     else if (this->currentMousePosition.y() >= this->buttonSize)
     {
-        returnCoords.row = this->leftPressedButtonCoords.row + ((this->currentMousePosition.y()) / 25);
+        returnCoords.row = this->leftPressedButtonCoords.row + ((this->currentMousePosition.y()) / this->buttonSize);
     }
 
     return returnCoords;
