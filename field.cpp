@@ -260,7 +260,7 @@ void Field::gameOver(const Common::Coords& coords, bool hasLost)
             }
             else if (this->mines2DVector[i][j] == 'H')
             {
-                this->setButtonIcon(this->buttons2DVector[i][j], "button_mine");
+                this->setButtonIcon(this->buttons2DVector[i][j], "button_mine_hit");
             }
             else if (hasLost == true)
             {
@@ -278,7 +278,7 @@ void Field::gameOver(const Common::Coords& coords, bool hasLost)
     }
     if (mines2DVector[coords.col][coords.row] == 'X')
     {
-        this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_mine");
+        this->setButtonIcon(this->buttons2DVector[coords.col][coords.row], "button_mine_hit");
     }
 }
 
