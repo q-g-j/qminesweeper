@@ -19,7 +19,7 @@ Controls:
 |-|-|
 |'F'|let the computer place the flags|
 |'R'|auto-reveal after placing flags|
-|'S'|the computer tries to solve the game (repeat the above two recursively)|
+|'S'|the computer tries to solve the game (repeats the above two recursively)|
 
 Screenshots:
 -----------
