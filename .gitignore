@@ -1,13 +1,3 @@
 *.user
 ui_*.h
 .qmake.stash
-
-/screenshots/screenshot_won.jpg
-/screenshots/screenshot_lost.jpg
-/screenshots/screenshot_game.jpg
-/fonts/digital-7.ttf
-
-/screenshots/screenshot_won.jpg
-/screenshots/screenshot_lost.jpg
-/screenshots/screenshot_game.jpg
-/fonts/digital-7.ttf
