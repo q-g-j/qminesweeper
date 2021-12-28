@@ -10,6 +10,7 @@ class Timer : public QObject
     Q_OBJECT
 public:
     Timer(QLabel* = nullptr, QLabel* = nullptr, QLabel* = nullptr, QLabel* = nullptr);
+    ~Timer();
     int counterFine = 0;
     void timerStart();
     void timerStop();

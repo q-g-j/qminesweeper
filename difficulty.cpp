@@ -23,6 +23,12 @@ Difficulty::Difficulty(QWidget *parent) :
 Difficulty::~Difficulty()
 {
     delete ui;
+    delete intValidatorCols;
+    delete intValidatorRows;
+    delete intValidatorMines;
+    intValidatorCols = nullptr;
+    intValidatorRows = nullptr;
+    intValidatorMines = nullptr;
 }
 
 void Difficulty::on_button_start_clicked()

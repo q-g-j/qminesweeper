@@ -21,6 +21,12 @@ Timer::Timer(QLabel *timerSeconds_, QLabel *timerTenSeconds_, QLabel *timerMinut
     this->timerTenMinutes->setText(QString::number(0));
 }
 
+Timer::~Timer()
+{
+    delete this->timerInstance;
+    this->timerInstance = nullptr;
+}
+
 void Timer::timer_slot()
 {
     if (this->counterFine % 100 == 0)
