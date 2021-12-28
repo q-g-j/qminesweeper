@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>557</width>
+    <width>518</width>
     <height>370</height>
    </rect>
   </property>
@@ -89,12 +89,12 @@
 }
 
 QLabel {
-	margin-top: -2;
-	margin-bottom: -2;
-    margin-left: -2;
-  	margin-right: -2;
+	margin-top: -50;
+	margin-bottom: -50;
+    margin-left: -50;
+  	margin-right: -50;
 	font-style: normal;
-	font-size: 22px;
+	font-size: 23px;
 	font-family: &quot;Cursed Timer ULiL&quot;;
 	color: red;
 	background-color: black;
@@ -130,7 +130,7 @@ QFrame {
        <item>
         <widget class="QFrame" name="labelMinesLeftFrame">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <sizepolicy hsizetype="Fixed" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -138,13 +138,13 @@ QFrame {
          <property name="minimumSize">
           <size>
            <width>76</width>
-           <height>38</height>
+           <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
            <width>76</width>
-           <height>38</height>
+           <height>16777215</height>
           </size>
          </property>
          <property name="frameShape">
@@ -178,10 +178,22 @@ QFrame {
           <item row="0" column="0">
            <widget class="QWidget" name="labelMinesLeftWidget" native="true">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="MinimumExpanding">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
             </property>
             <layout class="QHBoxLayout" name="labelMinesLeftWidgetLayout">
              <property name="spacing">
@@ -213,7 +225,7 @@ QFrame {
                <property name="minimumSize">
                 <size>
                  <width>2</width>
-                 <height>10</height>
+                 <height>0</height>
                 </size>
                </property>
                <property name="maximumSize">
@@ -224,6 +236,7 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                  <stylestrategy>PreferAntialias</stylestrategy>
@@ -232,6 +245,9 @@ QFrame {
                </property>
                <property name="text">
                 <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignBottom|Qt::AlignHCenter</set>
                </property>
                <property name="indent">
                 <number>0</number>
@@ -260,6 +276,7 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                  <stylestrategy>PreferAntialias</stylestrategy>
@@ -270,7 +287,7 @@ QFrame {
                 <string>0</string>
                </property>
                <property name="alignment">
-                <set>Qt::AlignCenter</set>
+                <set>Qt::AlignBottom|Qt::AlignHCenter</set>
                </property>
                <property name="indent">
                 <number>0</number>
@@ -299,6 +316,7 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                  <stylestrategy>PreferAntialias</stylestrategy>
@@ -309,7 +327,7 @@ QFrame {
                 <string>0</string>
                </property>
                <property name="alignment">
-                <set>Qt::AlignCenter</set>
+                <set>Qt::AlignBottom|Qt::AlignHCenter</set>
                </property>
                <property name="indent">
                 <number>0</number>
@@ -338,6 +356,7 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                  <stylestrategy>PreferAntialias</stylestrategy>
@@ -348,7 +367,7 @@ QFrame {
                 <string>0</string>
                </property>
                <property name="alignment">
-                <set>Qt::AlignCenter</set>
+                <set>Qt::AlignBottom|Qt::AlignHCenter</set>
                </property>
                <property name="indent">
                 <number>0</number>
@@ -377,6 +396,7 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                  <stylestrategy>PreferAntialias</stylestrategy>
@@ -390,7 +410,7 @@ QFrame {
                 <string>0</string>
                </property>
                <property name="alignment">
-                <set>Qt::AlignCenter</set>
+                <set>Qt::AlignBottom|Qt::AlignHCenter</set>
                </property>
                <property name="indent">
                 <number>0</number>
@@ -408,7 +428,7 @@ QFrame {
                <property name="minimumSize">
                 <size>
                  <width>2</width>
-                 <height>10</height>
+                 <height>0</height>
                 </size>
                </property>
                <property name="maximumSize">
@@ -419,6 +439,7 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                  <stylestrategy>PreferAntialias</stylestrategy>
@@ -427,6 +448,9 @@ QFrame {
                </property>
                <property name="text">
                 <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignBottom|Qt::AlignHCenter</set>
                </property>
                <property name="indent">
                 <number>0</number>
@@ -526,7 +550,7 @@ QPushButton#smiley {
        <item>
         <widget class="QFrame" name="timerFrame">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <sizepolicy hsizetype="Fixed" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -534,13 +558,13 @@ QPushButton#smiley {
          <property name="minimumSize">
           <size>
            <width>84</width>
-           <height>38</height>
+           <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
            <width>84</width>
-           <height>38</height>
+           <height>16777215</height>
           </size>
          </property>
          <property name="frameShape">
@@ -573,12 +597,30 @@ QPushButton#smiley {
           </property>
           <item row="0" column="0">
            <widget class="QWidget" name="timerWidget" native="true">
-            <layout class="QHBoxLayout" name="timerWidgetLayout">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <layout class="QHBoxLayout" name="timerWidgetLayout" stretch="0,0,0,0,0,0,0">
              <property name="spacing">
               <number>0</number>
              </property>
              <property name="sizeConstraint">
-              <enum>QLayout::SetNoConstraint</enum>
+              <enum>QLayout::SetMinAndMaxSize</enum>
              </property>
              <property name="leftMargin">
               <number>0</number>
@@ -603,7 +645,7 @@ QPushButton#smiley {
                <property name="minimumSize">
                 <size>
                  <width>2</width>
-                 <height>10</height>
+                 <height>0</height>
                 </size>
                </property>
                <property name="maximumSize">
@@ -614,6 +656,7 @@ QPushButton#smiley {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                  <stylestrategy>PreferAntialias</stylestrategy>
@@ -622,6 +665,9 @@ QPushButton#smiley {
                </property>
                <property name="text">
                 <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignBottom|Qt::AlignHCenter</set>
                </property>
                <property name="indent">
                 <number>0</number>
@@ -650,6 +696,7 @@ QPushButton#smiley {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                  <stylestrategy>PreferAntialias</stylestrategy>
@@ -663,7 +710,7 @@ QPushButton#smiley {
                 <bool>false</bool>
                </property>
                <property name="alignment">
-                <set>Qt::AlignCenter</set>
+                <set>Qt::AlignBottom|Qt::AlignHCenter</set>
                </property>
                <property name="indent">
                 <number>0</number>
@@ -692,6 +739,7 @@ QPushButton#smiley {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                  <stylestrategy>PreferAntialias</stylestrategy>
@@ -705,7 +753,7 @@ QPushButton#smiley {
                 <bool>false</bool>
                </property>
                <property name="alignment">
-                <set>Qt::AlignCenter</set>
+                <set>Qt::AlignBottom|Qt::AlignHCenter</set>
                </property>
                <property name="indent">
                 <number>0</number>
@@ -734,6 +782,7 @@ QPushButton#smiley {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                  <stylestrategy>PreferAntialias</stylestrategy>
@@ -744,7 +793,7 @@ QPushButton#smiley {
                 <string>:</string>
                </property>
                <property name="alignment">
-                <set>Qt::AlignCenter</set>
+                <set>Qt::AlignBottom|Qt::AlignHCenter</set>
                </property>
                <property name="indent">
                 <number>0</number>
@@ -767,12 +816,13 @@ QPushButton#smiley {
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>16</width>
+                 <width>8</width>
                  <height>16777215</height>
                 </size>
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                  <stylestrategy>PreferAntialias</stylestrategy>
@@ -786,7 +836,7 @@ QPushButton#smiley {
                 <bool>false</bool>
                </property>
                <property name="alignment">
-                <set>Qt::AlignCenter</set>
+                <set>Qt::AlignBottom|Qt::AlignHCenter</set>
                </property>
                <property name="indent">
                 <number>0</number>
@@ -815,6 +865,7 @@ QPushButton#smiley {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                  <stylestrategy>PreferAntialias</stylestrategy>
@@ -831,7 +882,7 @@ QPushButton#smiley {
                 <bool>false</bool>
                </property>
                <property name="alignment">
-                <set>Qt::AlignCenter</set>
+                <set>Qt::AlignBottom|Qt::AlignHCenter</set>
                </property>
                <property name="indent">
                 <number>0</number>
@@ -849,7 +900,7 @@ QPushButton#smiley {
                <property name="minimumSize">
                 <size>
                  <width>2</width>
-                 <height>10</height>
+                 <height>0</height>
                 </size>
                </property>
                <property name="maximumSize">
@@ -860,6 +911,7 @@ QPushButton#smiley {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
                  <stylestrategy>PreferAntialias</stylestrategy>
@@ -868,6 +920,9 @@ QPushButton#smiley {
                </property>
                <property name="text">
                 <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignBottom|Qt::AlignHCenter</set>
                </property>
                <property name="indent">
                 <number>0</number>
@@ -909,8 +964,8 @@ QPushButton#smiley {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>557</width>
-     <height>24</height>
+     <width>518</width>
+     <height>30</height>
     </rect>
    </property>
    <property name="font">
