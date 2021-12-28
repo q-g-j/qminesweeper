@@ -73,7 +73,7 @@ void Field::create2DVectors()
                 coordsTemp.row = j;
                 structTemp.coords = coordsTemp;
                 structTemp.button = button;
-                this->buttonsVector.append(structTemp);
+                this->buttonStructVector.append(structTemp);
 
                 button->setMouseTracking(true);
 
@@ -423,8 +423,8 @@ void Field::flagAutoReveal(const Common::Coords& coords, bool hasCheated, bool a
 Common::Coords Field::getCoordsFromButton(Button *button)
 {
     buttonStruct *structTemp = std::find_if(
-                this->buttonsVector.begin(),
-                this->buttonsVector.end(),
+                this->buttonStructVector.begin(),
+                this->buttonStructVector.end(),
                 [button] (buttonStruct& s) { return s.button == button; }
             );
     return structTemp->coords;
@@ -435,8 +435,8 @@ Common::Coords Field::getCoordsFromButton(Button *button)
 Button* Field::getButtonFromCoords(const Common::Coords &coords)
 {
     buttonStruct *structTemp = std::find_if(
-                this->buttonsVector.begin(),
-                this->buttonsVector.end(),
+                this->buttonStructVector.begin(),
+                this->buttonStructVector.end(),
                 [coords] (buttonStruct& s) { return (s.coords.col == coords.col && s.coords.row == coords.row); }
             );
     return structTemp->button;

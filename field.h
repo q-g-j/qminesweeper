@@ -46,7 +46,7 @@ public:
 
     // public variables:
     QVector<QVector<char>> field2DVector;
-    QVector<buttonStruct> buttonsVector;
+    QVector<buttonStruct> buttonStructVector;
     int buttonSize;
     int cols;
     int rows;

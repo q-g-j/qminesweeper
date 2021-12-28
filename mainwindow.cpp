@@ -309,6 +309,19 @@ void MainWindow::start_timer_slot()
     this->timer->timerStart();
 }
 
+void MainWindow::has_solver_stopped_slot(const char& from)
+{
+    if (from == 'm')
+    {
+        this->newGameFromSmiley();
+        this->newGameFromMenu();
+    }
+    else if (from == 's')
+    {
+        this->newGameFromSmiley();
+    }
+}
+
 void MainWindow::keyReleaseEvent(QKeyEvent *e)
 {
     if (field->isSolverRunning != true && field->isGameOver != true)
@@ -339,18 +352,5 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e)
                 field->gameOver(dummyCoords, false);
             }
         }
-    }
-}
-
-void MainWindow::has_solver_stopped_slot(const char& from)
-{
-    if (from == 'm')
-    {
-        this->newGameFromSmiley();
-        this->newGameFromMenu();
-    }
-    else if (from == 's')
-    {
-        this->newGameFromSmiley();
     }
 }
