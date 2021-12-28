@@ -80,7 +80,7 @@ private slots:
     void on_double_clicked();
     void on_left_pressed_and_moved(QMouseEvent*);
 public slots:
-    void place_remove_flags_slot(const Common::Coords&);
+    void place_flag_slot(const Common::Coords&);
 };
 
 #endif // FIELD_H

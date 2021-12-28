@@ -54,7 +54,7 @@ private slots:
     void minesleft_changed_slot(const int&);
     void start_timer_slot();
     void field_debug_slot();
-    void has_solver_stopped_slot(const char&);
+    void solver_stopped_slot(const char&);
 protected:
     void keyReleaseEvent(QKeyEvent *event);
 };

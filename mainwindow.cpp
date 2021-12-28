@@ -107,8 +107,8 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     connect(this->field, &Field::minesleft_changed_signal, this, &MainWindow::minesleft_changed_slot);
     connect(this->field, &Field::smiley_surprised_signal, this, &MainWindow::smiley_surprised_slot);
     connect(this->field, &Field::game_started_signal, this, &MainWindow::start_timer_slot);
-    connect(this->solver, &Solver::solver_stopped_signal, this, &MainWindow::has_solver_stopped_slot);
-    connect(this->solver, &Solver::place_remove_flag_signal, field, &Field::place_remove_flags_slot);
+    connect(this->solver, &Solver::solver_stopped_signal, this, &MainWindow::solver_stopped_slot);
+    connect(this->solver, &Solver::place_flag_signal, field, &Field::place_flag_slot);
 //    connect(this->field, &Field::field_debug_signal, this, &MainWindow::field_debug_slot);
 
     this->minesleft_changed_slot(difficulty_.mines);
@@ -309,7 +309,7 @@ void MainWindow::start_timer_slot()
     this->timer->timerStart();
 }
 
-void MainWindow::has_solver_stopped_slot(const char& from)
+void MainWindow::solver_stopped_slot(const char& from)
 {
     if (from == 'm')
     {

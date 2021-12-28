@@ -702,7 +702,7 @@ void Field::on_left_pressed_and_moved(QMouseEvent *e)
     }
 }
 
-void Field::place_remove_flags_slot(const Common::Coords& coords)
+void Field::place_flag_slot(const Common::Coords& coords)
 {
     this->field2DVector[coords.col][coords.row] = 'F';
     this->setButtonIcon(this->getButtonFromCoords(coords), "button_flag");
