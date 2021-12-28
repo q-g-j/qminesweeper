@@ -6,14 +6,22 @@
 
 
 Solver::Solver(QObject(*parent)) : QObject(parent)
-{}
+{
+    this->isSolverRunning = false;
+    this->isNewGameRequestedFromMenu = false;
+    this->isNewGameRequestedFromSmiley = false;
+}
 
 Solver::~Solver()
 {}
 
 void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, bool doSolve)
 {
+    this->isSolverRunning = true;
     field.isSolverRunning = true;
+
+    if (this->cancelOnNewGameRequested()) return;
+
     QVector<int> poolCoveredVector;
 
     if (doPlaceFlags)
@@ -23,6 +31,8 @@ void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, b
         {
             for (int j = 1; j <= field.rows; j++)
             {
+                if (this->cancelOnNewGameRequested()) return;
+
                 Common::Coords tempCoords;
                 tempCoords.col = i;
                 tempCoords.row = j;
@@ -46,6 +56,8 @@ void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, b
                         {
                             for (int k = 0; k < coveredVector.size(); k++)
                             {
+                                if (this->cancelOnNewGameRequested()) return;
+
                                 int tempPosition = Common::CoordsToInt(coveredVector.at(k), field.cols);
                                 if (std::find(poolCoveredVector.begin(), poolCoveredVector.end(), tempPosition) == poolCoveredVector.end())
                                 {
@@ -63,13 +75,16 @@ void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, b
         {
             for (int i = 0; i < poolCoveredVector.size(); i++)
             {
-                Common::sleep(40);
+                if (this->cancelOnNewGameRequested()) return;
+
+                Common::sleep(30);
                 Common::Coords tempCoords;
                 tempCoords = Common::intToCoords(poolCoveredVector.at(i), field.cols);
                 emit this->place_remove_flag_signal(tempCoords);
             }
         }
     }
+
     // run field.flagAutoReveal() on all buttons:
     if (doFlagAutoReveal)
     {
@@ -77,6 +92,8 @@ void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, b
         {
             for (int j = 1; j <= field.cols; ++j)
             {
+                if (this->cancelOnNewGameRequested()) return;
+
                 Common::Coords tempCoords;
                 tempCoords.row = i;
                 tempCoords.col = j;
@@ -93,6 +110,22 @@ void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, b
     }
     else
     {
+        this->isSolverRunning = false;
         field.isSolverRunning = false;
     }
+}
+
+bool Solver::cancelOnNewGameRequested()
+{
+    if (this->isNewGameRequestedFromMenu)
+    {
+        emit solver_stopped_signal('m');
+        return true;
+    }
+    else if (this->isNewGameRequestedFromSmiley)
+    {
+        emit solver_stopped_signal('s');
+        return true;
+    }
+    else return false;
 }

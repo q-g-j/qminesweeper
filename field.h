@@ -56,6 +56,8 @@ public:
     int countUnrevealed;
     bool isGameOver;
     bool isSolverRunning;
+    bool hasSolverStopped;
+    bool isNewGameRequested;
 
     // public methods:
     void setButtonIcon(Button*, const QString&);

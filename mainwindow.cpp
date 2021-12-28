@@ -17,15 +17,28 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowCloseButtonHint);
 
-    labelMinesLeftFrameWidth = ui->labelMinesLeftFrame->width();
-    labelMinesLeftFrameHeight = ui->labelMinesLeftFrame->height();
-    timerFrameHeight = ui->timerFrame->height();
-    minesLeftNumberWidth = ui->labelMinesLeftOnes->width();
-    spacerMiddleLeftFixedWidth = 8;
+    this->labelMinesLeftFrameWidth = ui->labelMinesLeftFrame->width();
+    this->labelMinesLeftFrameHeight = ui->labelMinesLeftFrame->height();
+    this->timerFrameHeight = ui->timerFrame->height();
+    this->minesLeftNumberWidth = ui->labelMinesLeftOnes->width();
+    this->spacerMiddleLeftFixedWidth = 8;
 
     this->fieldLayout = new QGridLayout(ui->fieldWrapper);
 
-    QFontDatabase::addApplicationFont(":/fonts/digital-7.ttf");
+    QFontDatabase fontDatabase;
+    fontDatabase.addApplicationFont(":/fonts/CursedTimerUlil-Aznm.ttf");
+
+    /*
+    // get the font names from the font filenames:
+    for (int i = 0; i < fontDatabase.families(QFontDatabase::Any).size(); i++)
+    {
+        QStringList fontlist = fontDatabase.applicationFontFamilies(i);
+        for (int j = 0; j < fontlist.size(); j++)
+        {
+            qDebug() << fontlist.at(j);
+        }
+    }
+    */
 
     // width and height of a button in pixels:
     this->buttonSize = 25;
@@ -34,8 +47,6 @@ MainWindow::MainWindow(QWidget *parent) :
     this->difficulty.cols = 9;
     this->difficulty.rows = 9;
     this->difficulty.mines = 10;
-
-//    ui->menuCheat->menuAction()->setVisible(false);
 
     this->newGame(this->difficulty);
 }
@@ -77,7 +88,13 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
         delete this->timer;
         this->timer = nullptr;
     }
+    if (this->solver != nullptr)
+    {
+        delete this->solver;
+        this->solver = nullptr;
+    }
 
+    solver = new Solver;
     this->field = new Field(ui->fieldWrapper, difficulty_.cols, difficulty_.rows, difficulty_.mines, this->buttonSize);
     this->clearLayout(this->fieldLayout);
     this->fieldLayout->setSpacing(0);
@@ -90,7 +107,8 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     connect(this->field, &Field::minesleft_changed_signal, this, &MainWindow::minesleft_changed_slot);
     connect(this->field, &Field::smiley_surprised_signal, this, &MainWindow::smiley_surprised_slot);
     connect(this->field, &Field::game_started_signal, this, &MainWindow::start_timer_slot);
-    connect(&this->solver, &Solver::place_remove_flag_signal, field, &Field::place_remove_flags_slot);
+    connect(this->solver, &Solver::solver_stopped_signal, this, &MainWindow::has_solver_stopped_slot);
+    connect(this->solver, &Solver::place_remove_flag_signal, field, &Field::place_remove_flags_slot);
 //    connect(this->field, &Field::field_debug_signal, this, &MainWindow::field_debug_slot);
 
     this->minesleft_changed_slot(difficulty_.mines);
@@ -141,6 +159,37 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     this->timer = new Timer(ui->timerSeconds, ui->timerTenSeconds, ui->timerMinutes, ui->timerTenMinutes);
 }
 
+void MainWindow::newGameRequested(const char& from)
+{
+    if (from == 'm')
+    {
+        solver->isNewGameRequestedFromMenu = true;
+        field->isNewGameRequested = true;
+    }
+    else if (from == 's')
+    {
+        solver->isNewGameRequestedFromSmiley = true;
+        field->isNewGameRequested = true;
+    }
+}
+
+void MainWindow::newGameFromMenu()
+{
+    Difficulty difficulty_(this);
+    connect(&difficulty_, &Difficulty::button_clicked_signal, this, &MainWindow::new_game_slot);
+    difficulty_.setModal(false);
+    difficulty_.exec();
+}
+
+void MainWindow::newGameFromSmiley()
+{
+    Difficulty::DifficultyStruct difficulty_;
+    difficulty_.cols = this->difficulty.cols;
+    difficulty_.rows = this->difficulty.rows;
+    difficulty_.mines = this->difficulty.mines;
+    this->newGame(difficulty_);
+}
+
 void MainWindow::field_debug_slot()
 {
     qDebug() << QString::number(this->timer->counterFine);
@@ -149,12 +198,13 @@ void MainWindow::field_debug_slot()
 // open a dialog (difficulty.ui) to choose difficulty:
 void MainWindow::on_actionNew_triggered()
 {
-    if (field->isSolverRunning != true)
+    if (solver->isSolverRunning)
     {
-        Difficulty difficulty_(this);
-        connect(&difficulty_, &Difficulty::button_clicked_signal, this, &MainWindow::new_game_slot);
-        difficulty_.setModal(true);
-        difficulty_.exec();
+        this->newGameRequested('m');
+    }
+    else
+    {
+        this->newGameFromMenu();
     }
 }
 
@@ -173,13 +223,13 @@ void MainWindow::on_actionQuit_triggered()
 
 void MainWindow::on_smiley_released()
 {
-    if (field->isSolverRunning != true)
+    if (solver->isSolverRunning)
     {
-        Difficulty::DifficultyStruct difficulty_;
-        difficulty_.cols = this->difficulty.cols;
-        difficulty_.rows = this->difficulty.rows;
-        difficulty_.mines = this->difficulty.mines;
-        this->newGame(difficulty_);
+        this->newGameRequested('s');
+    }
+    else
+    {
+        this->newGameFromSmiley();
     }
 }
 
@@ -265,11 +315,11 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e)
     {
         if (e->key() == Qt::Key_F)
         {
-            solver.autoSolve(*field, true, false, false);
+            solver->autoSolve(*field, true, false, false);
         }
         else if (e->key() == Qt::Key_R)
         {
-            solver.autoSolve(*field, false, true, false);
+            solver->autoSolve(*field, false, true, false);
 
             // check if player has won:
             if (field->flagsCount + field->countUnrevealed == field->mines)
@@ -280,7 +330,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e)
         }
         else if (e->key() == Qt::Key_S)
         {
-            solver.autoSolve(*field, true, true, true);
+            solver->autoSolve(*field, true, true, true);
 
             // check if player has won:
             if (field->flagsCount + field->countUnrevealed == field->mines)
@@ -289,5 +339,18 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e)
                 field->gameOver(dummyCoords, false);
             }
         }
+    }
+}
+
+void MainWindow::has_solver_stopped_slot(const char& from)
+{
+    if (from == 'm')
+    {
+        this->newGameFromSmiley();
+        this->newGameFromMenu();
+    }
+    else if (from == 's')
+    {
+        this->newGameFromSmiley();
     }
 }

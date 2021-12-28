@@ -23,7 +23,7 @@ private:
     QGridLayout *fieldLayout;
     Field *field = nullptr;
     Timer *timer = nullptr;
-    Solver solver;
+    Solver *solver = nullptr;
     Stylesheet stylesheet;
 
     int buttonSize;
@@ -32,10 +32,14 @@ private:
     int timerFrameHeight;
     int minesLeftNumberWidth;
     int spacerMiddleLeftFixedWidth;
+
     Difficulty::DifficultyStruct difficulty;
 
     void clearLayout(QLayout*);
     void newGame(const Difficulty::DifficultyStruct&);
+    void newGameFromMenu();
+    void newGameFromSmiley();
+    void newGameRequested(const char&);
 
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -50,6 +54,7 @@ private slots:
     void minesleft_changed_slot(const int&);
     void start_timer_slot();
     void field_debug_slot();
+    void has_solver_stopped_slot(const char&);
 protected:
     void keyReleaseEvent(QKeyEvent *event);
 };

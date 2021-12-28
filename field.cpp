@@ -19,6 +19,7 @@ Field::Field(QWidget *parent, const int& cols_, const int& rows_, const int& min
     this->firstTurn = true;
     this->isGameOver = false;
     this->isSolverRunning = false;
+    this->isNewGameRequested = false;
     emit this->minesleft_changed_signal(this->minesLeft);
 
     this->layout = new QGridLayout;
@@ -308,7 +309,7 @@ void Field::autoReveal(const Common::Coords& coords, QVector<int>& poolVector, b
                 }
                 else
                 {
-                    if (aiReveal)
+                    if (aiReveal && this->isNewGameRequested == false)
                     {
                         Common::sleep(5);
                     }

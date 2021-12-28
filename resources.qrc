@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>fonts/digital-7.ttf</file>
         <file>icons/png/window-icon.png</file>
         <file>icons/png/menubar_game_quit.png</file>
         <file>icons/png/menubar_cheat_place_flags.png</file>
@@ -30,5 +29,6 @@
         <file>icons/png/smiley_won_hover.png</file>
         <file>icons/png/smiley_lost_hover.png</file>
         <file>icons/png/button_pressed.png</file>
+        <file>fonts/CursedTimerUlil-Aznm.ttf</file>
     </qresource>
 </RCC>

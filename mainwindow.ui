@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>481</width>
+    <width>557</width>
     <height>370</height>
    </rect>
   </property>
@@ -94,17 +94,17 @@ QLabel {
     margin-left: -2;
   	margin-right: -2;
 	font-style: normal;
-	font-size: 28px;
-	font-family: &quot;Digital-7&quot;;
+	font-size: 24px;
+	font-family: &quot;Cursed Timer ULiL&quot;;
 	color: red;
 	background-color: black;
 }
 
 QFrame {
-	padding-left: 3;
-	padding-right: 3;
-	padding-top: 3;
-	padding-bottom: 3;
+	padding-left: 2;
+	padding-right: 2;
+	padding-top: 2;
+	padding-bottom: 2;
 }
 </string>
       </property>
@@ -137,13 +137,13 @@ QFrame {
          </property>
          <property name="minimumSize">
           <size>
-           <width>78</width>
+           <width>76</width>
            <height>38</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>78</width>
+           <width>76</width>
            <height>38</height>
           </size>
          </property>
@@ -222,8 +222,20 @@ QFrame {
                  <height>16777215</height>
                 </size>
                </property>
+               <property name="font">
+                <font>
+                 <family>Cursed Timer ULiL</family>
+                 <pointsize>-1</pointsize>
+                 <italic>false</italic>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                 <kerning>true</kerning>
+                </font>
+               </property>
                <property name="text">
                 <string/>
+               </property>
+               <property name="indent">
+                <number>0</number>
                </property>
               </widget>
              </item>
@@ -249,8 +261,11 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                 <kerning>true</kerning>
                 </font>
                </property>
                <property name="text">
@@ -258,6 +273,9 @@ QFrame {
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
+               </property>
+               <property name="indent">
+                <number>0</number>
                </property>
               </widget>
              </item>
@@ -283,8 +301,11 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                 <kerning>true</kerning>
                 </font>
                </property>
                <property name="text">
@@ -292,6 +313,9 @@ QFrame {
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
+               </property>
+               <property name="indent">
+                <number>0</number>
                </property>
               </widget>
              </item>
@@ -317,8 +341,11 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                 <kerning>true</kerning>
                 </font>
                </property>
                <property name="text">
@@ -326,6 +353,9 @@ QFrame {
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
+               </property>
+               <property name="indent">
+                <number>0</number>
                </property>
               </widget>
              </item>
@@ -351,8 +381,11 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                 <kerning>true</kerning>
                 </font>
                </property>
                <property name="layoutDirection">
@@ -363,6 +396,9 @@ QFrame {
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
+               </property>
+               <property name="indent">
+                <number>0</number>
                </property>
               </widget>
              </item>
@@ -386,8 +422,20 @@ QFrame {
                  <height>16777215</height>
                 </size>
                </property>
+               <property name="font">
+                <font>
+                 <family>Cursed Timer ULiL</family>
+                 <pointsize>-1</pointsize>
+                 <italic>false</italic>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                 <kerning>true</kerning>
+                </font>
+               </property>
                <property name="text">
                 <string/>
+               </property>
+               <property name="indent">
+                <number>0</number>
                </property>
               </widget>
              </item>
@@ -490,13 +538,13 @@ QFrame {
          </property>
          <property name="minimumSize">
           <size>
-           <width>86</width>
+           <width>84</width>
            <height>38</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>86</width>
+           <width>84</width>
            <height>38</height>
           </size>
          </property>
@@ -569,8 +617,20 @@ QFrame {
                  <height>16777215</height>
                 </size>
                </property>
+               <property name="font">
+                <font>
+                 <family>Cursed Timer ULiL</family>
+                 <pointsize>-1</pointsize>
+                 <italic>false</italic>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                 <kerning>true</kerning>
+                </font>
+               </property>
                <property name="text">
                 <string/>
+               </property>
+               <property name="indent">
+                <number>0</number>
                </property>
               </widget>
              </item>
@@ -596,8 +656,11 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                 <kerning>true</kerning>
                 </font>
                </property>
                <property name="text">
@@ -608,6 +671,9 @@ QFrame {
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
+               </property>
+               <property name="indent">
+                <number>0</number>
                </property>
               </widget>
              </item>
@@ -633,8 +699,11 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                 <kerning>true</kerning>
                 </font>
                </property>
                <property name="text">
@@ -645,6 +714,9 @@ QFrame {
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
+               </property>
+               <property name="indent">
+                <number>0</number>
                </property>
               </widget>
              </item>
@@ -670,8 +742,11 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                 <kerning>true</kerning>
                 </font>
                </property>
                <property name="text">
@@ -679,6 +754,9 @@ QFrame {
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
+               </property>
+               <property name="indent">
+                <number>0</number>
                </property>
               </widget>
              </item>
@@ -704,8 +782,11 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                 <kerning>true</kerning>
                 </font>
                </property>
                <property name="text">
@@ -716,6 +797,9 @@ QFrame {
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
+               </property>
+               <property name="indent">
+                <number>0</number>
                </property>
               </widget>
              </item>
@@ -741,8 +825,11 @@ QFrame {
                </property>
                <property name="font">
                 <font>
+                 <family>Cursed Timer ULiL</family>
                  <pointsize>-1</pointsize>
                  <italic>false</italic>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                 <kerning>true</kerning>
                 </font>
                </property>
                <property name="layoutDirection">
@@ -756,6 +843,9 @@ QFrame {
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
+               </property>
+               <property name="indent">
+                <number>0</number>
                </property>
               </widget>
              </item>
@@ -779,8 +869,20 @@ QFrame {
                  <height>16777215</height>
                 </size>
                </property>
+               <property name="font">
+                <font>
+                 <family>Cursed Timer ULiL</family>
+                 <pointsize>-1</pointsize>
+                 <italic>false</italic>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                 <kerning>true</kerning>
+                </font>
+               </property>
                <property name="text">
                 <string/>
+               </property>
+               <property name="indent">
+                <number>0</number>
                </property>
               </widget>
              </item>
@@ -819,8 +921,8 @@ QFrame {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>481</width>
-     <height>24</height>
+     <width>557</width>
+     <height>30</height>
     </rect>
    </property>
    <property name="font">
