@@ -1,5 +1,8 @@
-qminesweeper.pro.user
+*.user
 ui_*.h
 .qmake.stash
 
-/release/qminesweeper.exe
+/screenshots/screenshot_won.jpg
+/screenshots/screenshot_lost.jpg
+/screenshots/screenshot_game.jpg
+/fonts/digital-7.ttf
