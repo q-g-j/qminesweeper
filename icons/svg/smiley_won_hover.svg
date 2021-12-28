@@ -27,15 +27,26 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:snap-global="true"
-     inkscape:zoom="0.6405233"
-     inkscape:cx="376.25485"
-     inkscape:cy="556.57616"
+     inkscape:zoom="0.32026165"
+     inkscape:cx="373.13241"
+     inkscape:cy="1075.683"
      inkscape:window-width="1920"
-     inkscape:window-height="1007"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="layer1"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:object-paths="true"
+     inkscape:snap-intersection-paths="true"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:snap-midpoints="true"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-center="true" />
   <defs
      id="defs2" />
   <g
@@ -49,7 +60,7 @@
        cx="205.83475"
        cy="230.2061"
        r="144.97375"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/smiley_won_hover.png"
+       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\smiley_won_hover.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
     <circle
@@ -58,7 +69,7 @@
        cx="159.91545"
        cy="184.94284"
        r="17.711727"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/smiley_won_hover.png"
+       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\smiley_won_hover.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
     <circle
@@ -67,16 +78,21 @@
        cx="251.75403"
        cy="184.94284"
        r="17.711727"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/smiley_won_hover.png"
+       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\smiley_won_hover.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
     <path
        style="fill:none;stroke:#000000;stroke-width:23.821;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 116.62012,259.7256 c 0,0 43.73266,47.23126 91.83859,47.23126 48.10591,0 86.59065,-47.23126 86.59065,-47.23126"
+       d="m 116.62013,259.7256 c 0,0 30.74813,46.556 89.21463,46.556 58.4665,0 89.21461,-46.556 89.21461,-46.556"
        id="path4572"
        sodipodi:nodetypes="czc"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/smiley_won_hover.png"
+       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\smiley_won_hover.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
   </g>
+  <style
+     type="text/css"
+     id="style9">
+ .fillopacity {fill-opacity: 0.2}
+ </style>
 </svg>
