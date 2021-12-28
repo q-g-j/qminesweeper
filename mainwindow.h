@@ -25,6 +25,7 @@ private:
     Timer *timer = nullptr;
     Solver *solver = nullptr;
     Stylesheet stylesheet;
+    Difficulty::DifficultyStruct difficulty;
 
     int buttonSize;
     int labelMinesLeftFrameWidth;
@@ -33,14 +34,11 @@ private:
     int minesLeftNumberWidth;
     int spacerMiddleLeftFixedWidth;
 
-    Difficulty::DifficultyStruct difficulty;
-
     void clearLayout(QLayout*);
     void newGame(const Difficulty::DifficultyStruct&);
     void newGameFromMenu();
     void newGameFromSmiley();
     void newGameRequested(const char&);
-
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();

@@ -9,9 +9,9 @@ Difficulty::Difficulty(QWidget *parent) :
     ui(new Ui::Difficulty)
 {
     ui->setupUi(this);
-    intValidatorCols = new QIntValidator(9, 70, this);
-    intValidatorRows = new QIntValidator(9, 35, this);
-    intValidatorMines = new QIntValidator(1, 9999, this);
+    this->intValidatorCols = new QIntValidator(9, 70, this);
+    this->intValidatorRows = new QIntValidator(9, 35, this);
+    this->intValidatorMines = new QIntValidator(1, 9999, this);
     ui->lineEdit_custom_cols->setValidator(this->intValidatorCols);
     ui->lineEdit_custom_rows->setValidator(this->intValidatorRows);
     ui->lineEdit_custom_mines->setValidator(this->intValidatorMines);
@@ -23,12 +23,21 @@ Difficulty::Difficulty(QWidget *parent) :
 Difficulty::~Difficulty()
 {
     delete ui;
-    delete intValidatorCols;
-    delete intValidatorRows;
-    delete intValidatorMines;
-    intValidatorCols = nullptr;
-    intValidatorRows = nullptr;
-    intValidatorMines = nullptr;
+    if (this->intValidatorCols != nullptr)
+    {
+        delete this->intValidatorCols;
+        this->intValidatorCols = nullptr;
+    }
+    if (this->intValidatorRows != nullptr)
+    {
+        delete this->intValidatorRows;
+        this->intValidatorRows = nullptr;
+    }
+    if (this->intValidatorMines != nullptr)
+    {
+        delete this->intValidatorMines;
+        this->intValidatorMines = nullptr;
+    }
 }
 
 void Difficulty::on_button_start_clicked()

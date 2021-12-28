@@ -14,6 +14,7 @@ class Field : public QWidget
 private:
     // private variables:
     bool firstTurn;
+    int minesLeft;
     QPoint currentMousePosition;
     Common::Coords leftPressedButtonCoords;
     Common::Coords lastButtonCoords;
@@ -22,6 +23,7 @@ private:
         Button* button;
         Common::Coords coords;
     };
+    QVector<buttonStruct> buttonStructVector;
     QVector<QVector<char>> mines2DVector;
     QVector<QVector<Button*>> buttons2DVector;
     QGridLayout *layout;
@@ -33,9 +35,10 @@ private:
     void printNumber(const Common::Coords&, const int&);
     void autoReveal(const Common::Coords&, QVector<int>&, bool);
     bool isFlagSet(const Common::Coords&);
+    void setButtonIcon(Button*, const QString&);
     Common::Coords getCoordsFromButton(Button*);
+    Button* getButtonFromCoords(const Common::Coords&);
     Common::Coords getCoordsFromMousePosition();
-
 public:
     explicit Field(QWidget *parent = nullptr,
                    const int& cols = 9,
@@ -46,22 +49,17 @@ public:
 
     // public variables:
     QVector<QVector<char>> field2DVector;
-    QVector<buttonStruct> buttonStructVector;
     int buttonSize;
     int cols;
     int rows;
     int mines;
     int flagsCount;
-    int minesLeft;
     int countUnrevealed;
     bool isGameOver;
     bool isSolverRunning;
-    bool hasSolverStopped;
     bool isNewGameRequested;
 
     // public methods:
-    void setButtonIcon(Button*, const QString&);
-    Button* getButtonFromCoords(const Common::Coords&);
     bool isNumber(const Common::Coords&);
     QVector<Common::Coords> findNeighbours(const QVector<QVector<char>>&, const Common::Coords&, const char&);
     void flagAutoReveal(const Common::Coords&, bool, bool);

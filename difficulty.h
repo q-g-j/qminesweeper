@@ -12,9 +12,9 @@ class Difficulty : public QDialog
 {
     Q_OBJECT
 private:
-    QValidator *intValidatorCols;
-    QValidator *intValidatorRows;
-    QValidator *intValidatorMines;
+    QValidator *intValidatorCols = nullptr;
+    QValidator *intValidatorRows = nullptr;
+    QValidator *intValidatorMines = nullptr;
 public:
     explicit Difficulty(QWidget *parent = nullptr);
     ~Difficulty();
@@ -25,11 +25,9 @@ public:
         int rows;
         int mines;
     };
-
 private slots:
     void on_button_start_clicked();
     void on_button_cancel_clicked();
-
 signals:
     void button_clicked_signal(const Difficulty::DifficultyStruct&);
 };

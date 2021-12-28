@@ -11,7 +11,6 @@ private:
     bool leftbuttonpressedflag = false;
 public:
     explicit Button(QWidget *parent = nullptr);
-
 protected:
     void mouseDoubleClickEvent(QMouseEvent*);
     void mouseReleaseEvent(QMouseEvent*);

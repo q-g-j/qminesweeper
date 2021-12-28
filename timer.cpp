@@ -23,8 +23,11 @@ Timer::Timer(QLabel *timerSeconds_, QLabel *timerTenSeconds_, QLabel *timerMinut
 
 Timer::~Timer()
 {
-    delete this->timerInstance;
-    this->timerInstance = nullptr;
+    if (this->timerInstance != nullptr)
+    {
+        delete this->timerInstance;
+        this->timerInstance = nullptr;
+    }
 }
 
 void Timer::timer_slot()

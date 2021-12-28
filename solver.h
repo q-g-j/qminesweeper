@@ -11,7 +11,6 @@ class Solver : public QObject
 private:
     // private methods:
     bool cancelOnNewGameRequested();
-
 public:
     Solver(QObject *parent = nullptr);
     ~Solver();
@@ -23,7 +22,6 @@ public:
 
     // public methods:
     void autoSolve(Field&, bool, bool, bool);
-
 signals:
     void place_flag_signal(const Common::Coords&);
     void solver_stopped_signal(const char&);

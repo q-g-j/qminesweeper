@@ -16,12 +16,11 @@ public:
     void timerStop();
 private:
     int counter = 0;
-    QTimer *timerInstance;
+    QTimer *timerInstance = nullptr;
     QLabel *timerSeconds;
     QLabel *timerTenSeconds;
     QLabel *timerMinutes;
     QLabel *timerTenMinutes;
-
 private slots:
     void timer_slot();
 };

@@ -54,6 +54,21 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    if (this->field != nullptr)
+    {
+        delete this->field;
+        this->field = nullptr;
+    }
+    if (this->timer != nullptr)
+    {
+        delete this->timer;
+        this->timer = nullptr;
+    }
+    if (this->solver != nullptr)
+    {
+        delete this->solver;
+        this->solver = nullptr;
+    }
 }
 
 // delete all items from a layout:
