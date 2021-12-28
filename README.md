@@ -24,8 +24,8 @@ Controls:
 Screenshots:
 -----------
 
-<img src="https://github.com/q-g-j/qminesweeper/raw/master/screenshots/screenshot_game.jpg" width="500">
+<img src="https://github.com/q-g-j/qminesweeper/raw/master/screenshots/screenshot_game.png" width="500">
 
-<img src="https://github.com/q-g-j/qminesweeper/raw/master/screenshots/screenshot_lost.jpg" width="500">
+<img src="https://github.com/q-g-j/qminesweeper/raw/master/screenshots/screenshot_lost.png" width="500">
 
-<img src="https://github.com/q-g-j/qminesweeper/raw/master/screenshots/screenshot_won.jpg" width="500">
+<img src="https://github.com/q-g-j/qminesweeper/raw/master/screenshots/screenshot_won.png" width="500">
