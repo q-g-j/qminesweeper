@@ -9,7 +9,7 @@ class Timer : public QObject
 {
     Q_OBJECT
 public:
-    Timer(QLabel* = nullptr, QLabel* = nullptr, QLabel* = nullptr, QLabel* = nullptr);
+    Timer();
     ~Timer();
     int counterFine = 0;
     void timerStart();
@@ -17,12 +17,10 @@ public:
 private:
     int counter = 0;
     QTimer *timerInstance = nullptr;
-    QLabel *timerSeconds;
-    QLabel *timerTenSeconds;
-    QLabel *timerMinutes;
-    QLabel *timerTenMinutes;
 private slots:
     void timer_slot();
+signals:
+    void set_infobar_time_signal(const QString&, const int&);
 };
 
 #endif // TIMER_H

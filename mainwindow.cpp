@@ -17,18 +17,18 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowCloseButtonHint);
 
-    this->labelMinesLeftFrameWidth = ui->labelMinesLeftFrame->width();
-    this->labelMinesLeftFrameHeight = ui->labelMinesLeftFrame->height();
+    this->minesLeftFrameWidth = ui->minesLeftFrame->width();
+    this->minesLeftFrameHeight = ui->minesLeftFrame->height();
     this->timerFrameHeight = ui->timerFrame->height();
-    this->minesLeftNumberWidth = ui->labelMinesLeftOnes->width();
+    this->minesLeftNumberWidth = ui->minesLeftOnes->width();
     this->spacerMiddleLeftFixedWidth = 8;
 
     this->fieldLayout = new QGridLayout(ui->fieldWrapper);
 
+    /*
     QFontDatabase fontDatabase;
     fontDatabase.addApplicationFont(":/fonts/CursedTimerUlil-Aznm.ttf");
 
-    /*
     // get the font names from the font filenames:
     for (int i = 0; i < fontDatabase.families(QFontDatabase::Any).size(); i++)
     {
@@ -109,6 +109,7 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
         this->solver = nullptr;
     }
 
+    this->timer = new Timer();
     solver = new Solver;
     this->field = new Field(ui->fieldWrapper, difficulty_.cols, difficulty_.rows, difficulty_.mines, this->buttonSize);
     this->clearLayout(this->fieldLayout);
@@ -124,54 +125,53 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     connect(this->field, &Field::game_started_signal, this, &MainWindow::start_timer_slot);
     connect(this->solver, &Solver::solver_stopped_signal, this, &MainWindow::solver_stopped_slot);
     connect(this->solver, &Solver::place_flag_signal, field, &Field::place_flag_slot);
+    connect(timer, &Timer::set_infobar_time_signal, this, &MainWindow::set_infobar_time_slot);
 //    connect(this->field, &Field::field_debug_signal, this, &MainWindow::field_debug_slot);
 
     this->minesleft_changed_slot(difficulty_.mines);
 
-    ui->timerTenMinutes->setText("0");
-    ui->timerMinutes->setText("0");
-    ui->timerTenSeconds->setText("0");
-    ui->timerSeconds->setText("0");
+    this->setInfoBarNumber(ui->timerTenMinutes, 0);
+    this->setInfoBarNumber(ui->timerMinutes, 0);
+    this->setInfoBarNumber(ui->timerTenSeconds, 0);
+    this->setInfoBarNumber(ui->timerSeconds, 0);
     ui->smiley->setStyleSheet(this->stylesheet.stylesheet_smiley);
 
     if (difficulty_.mines < 100)
     {
-        ui->labelMinesLeftTens->show();
-        ui->labelMinesLeftOnes->show();
-        ui->labelMinesLeftThousands->hide();
-        ui->labelMinesLeftHundreds->hide();
-        ui->labelMinesLeftFrame->resize(labelMinesLeftFrameWidth - 2 * minesLeftNumberWidth, labelMinesLeftFrameHeight);
-        ui->spacerMiddleLeftFixed->changeSize(spacerMiddleLeftFixedWidth + 2 * minesLeftNumberWidth, labelMinesLeftFrameHeight);
+        ui->minesLeftTens->show();
+        ui->minesLeftOnes->show();
+        ui->minesLeftThousands->hide();
+        ui->minesLeftHundreds->hide();
+        ui->minesLeftFrame->resize(minesLeftFrameWidth - 2 * minesLeftNumberWidth, minesLeftFrameHeight);
+        ui->spacerMiddleLeftFixed->changeSize(spacerMiddleLeftFixedWidth + 2 * minesLeftNumberWidth, minesLeftFrameHeight);
     }
     else if (difficulty_.mines < 1000)
     {
-        ui->labelMinesLeftHundreds->show();
-        ui->labelMinesLeftTens->show();
-        ui->labelMinesLeftOnes->show();
-        ui->labelMinesLeftThousands->hide();
-        ui->labelMinesLeftFrame->resize(labelMinesLeftFrameWidth - minesLeftNumberWidth, labelMinesLeftFrameHeight);
-        ui->spacerMiddleLeftFixed->changeSize(spacerMiddleLeftFixedWidth + minesLeftNumberWidth, labelMinesLeftFrameHeight);
+        ui->minesLeftHundreds->show();
+        ui->minesLeftTens->show();
+        ui->minesLeftOnes->show();
+        ui->minesLeftThousands->hide();
+        ui->minesLeftFrame->resize(minesLeftFrameWidth - minesLeftNumberWidth, minesLeftFrameHeight);
+        ui->spacerMiddleLeftFixed->changeSize(spacerMiddleLeftFixedWidth + minesLeftNumberWidth, minesLeftFrameHeight);
     }
     else
     {
-        ui->labelMinesLeftThousands->show();
-        ui->labelMinesLeftHundreds->show();
-        ui->labelMinesLeftTens->show();
-        ui->labelMinesLeftOnes->show();
-        ui->labelMinesLeftFrame->resize(labelMinesLeftFrameWidth, labelMinesLeftFrameHeight);
-        ui->spacerMiddleLeftFixed->changeSize(spacerMiddleLeftFixedWidth, labelMinesLeftFrameHeight);
+        ui->minesLeftThousands->show();
+        ui->minesLeftHundreds->show();
+        ui->minesLeftTens->show();
+        ui->minesLeftOnes->show();
+        ui->minesLeftFrame->resize(minesLeftFrameWidth, minesLeftFrameHeight);
+        ui->spacerMiddleLeftFixed->changeSize(spacerMiddleLeftFixedWidth, minesLeftFrameHeight);
     }
 
     // after changing the size of a spacer, need to invalidate its parent's layout:
     ui->infoBarLayout->invalidate();
 
-    ui->labelMinesLeftFrame->adjustSize();
+    ui->minesLeftFrame->adjustSize();
     ui->timerFrame->adjustSize();
     this->centralWidget()->adjustSize();
     this->adjustSize();
     this->setFixedSize(this->size().width(), this->size().height());
-
-    this->timer = new Timer(ui->timerSeconds, ui->timerTenSeconds, ui->timerMinutes, ui->timerTenMinutes);
 }
 
 void MainWindow::newGameRequested(const char& from)
@@ -203,6 +203,50 @@ void MainWindow::newGameFromSmiley()
     difficulty_.rows = this->difficulty.rows;
     difficulty_.mines = this->difficulty.mines;
     this->newGame(difficulty_);
+}
+
+void MainWindow::setInfoBarNumber(QWidget *widget, const int &number)
+{
+    if (number == 0)
+    {
+        widget->setStyleSheet(stylesheet.stylesheet_digital_0);
+    }
+    else if (number == 1)
+    {
+        widget->setStyleSheet(stylesheet.stylesheet_digital_1);
+    }
+    else if (number == 2)
+    {
+        widget->setStyleSheet(stylesheet.stylesheet_digital_2);
+    }
+    else if (number == 3)
+    {
+        widget->setStyleSheet(stylesheet.stylesheet_digital_3);
+    }
+    else if (number == 4)
+    {
+        widget->setStyleSheet(stylesheet.stylesheet_digital_4);
+    }
+    else if (number == 5)
+    {
+        widget->setStyleSheet(stylesheet.stylesheet_digital_5);
+    }
+    else if (number == 6)
+    {
+        widget->setStyleSheet(stylesheet.stylesheet_digital_6);
+    }
+    else if (number == 7)
+    {
+        widget->setStyleSheet(stylesheet.stylesheet_digital_7);
+    }
+    else if (number == 8)
+    {
+        widget->setStyleSheet(stylesheet.stylesheet_digital_8);
+    }
+    else if (number == 9)
+    {
+        widget->setStyleSheet(stylesheet.stylesheet_digital_9);
+    }
 }
 
 void MainWindow::field_debug_slot()
@@ -278,33 +322,33 @@ void MainWindow::minesleft_changed_slot(const int& minesLeft)
 {
     if (minesLeft < 0)
     {
-        ui->labelMinesLeftOnes->setText("0");
+        ui->minesLeftOnes->setStyleSheet(stylesheet.stylesheet_digital_0);
     }
     else if (minesLeft < 10)
     {
-        ui->labelMinesLeftOnes->setText(QString::number(minesLeft));
-        ui->labelMinesLeftTens->setText("");
-        ui->labelMinesLeftHundreds->setText("");
-        ui->labelMinesLeftThousands->setText("");
+        this->setInfoBarNumber(ui->minesLeftOnes, minesLeft);
+        ui->minesLeftTens->setStyleSheet("QWidget { border-image: none; }");
+        ui->minesLeftHundreds->setStyleSheet("QWidget { border-image: none; }");
+        ui->minesLeftThousands->setStyleSheet("QWidget { border-image: none; }");
     }
     else if (minesLeft < 100)
     {
         int ones = minesLeft % 10;
         int tens = minesLeft / 10;
-        ui->labelMinesLeftOnes->setText(QString::number(ones));
-        ui->labelMinesLeftTens->setText(QString::number(tens));
-        ui->labelMinesLeftHundreds->setText("");
-        ui->labelMinesLeftThousands->setText("");
+        this->setInfoBarNumber(ui->minesLeftOnes, ones);
+        this->setInfoBarNumber(ui->minesLeftTens, tens);
+        ui->minesLeftHundreds->setStyleSheet("QWidget { border-image: none; }");
+        ui->minesLeftThousands->setStyleSheet("QWidget { border-image: none; }");
     }
     else if (minesLeft < 1000)
     {
         int ones = minesLeft % 10;
         int tens = (minesLeft % 100) / 10;
         int hundreds = minesLeft / 100;
-        ui->labelMinesLeftOnes->setText(QString::number(ones));
-        ui->labelMinesLeftTens->setText(QString::number(tens));
-        ui->labelMinesLeftHundreds->setText(QString::number(hundreds));
-        ui->labelMinesLeftThousands->setText("");
+        this->setInfoBarNumber(ui->minesLeftOnes, ones);
+        this->setInfoBarNumber(ui->minesLeftTens, tens);
+        this->setInfoBarNumber(ui->minesLeftHundreds, hundreds);
+        ui->minesLeftThousands->setStyleSheet("QWidget { border-image: none; }");
     }
     else
     {
@@ -312,10 +356,10 @@ void MainWindow::minesleft_changed_slot(const int& minesLeft)
         int tens = ((minesLeft % 1000) % 100) / 10;
         int hundreds = (minesLeft % 1000) / 100;
         int thousands = minesLeft / 1000;
-        ui->labelMinesLeftOnes->setText(QString::number(ones));
-        ui->labelMinesLeftTens->setText(QString::number(tens));
-        ui->labelMinesLeftHundreds->setText(QString::number(hundreds));
-        ui->labelMinesLeftThousands->setText(QString::number(thousands));
+        this->setInfoBarNumber(ui->minesLeftOnes, ones);
+        this->setInfoBarNumber(ui->minesLeftTens, tens);
+        this->setInfoBarNumber(ui->minesLeftHundreds, hundreds);
+        this->setInfoBarNumber(ui->minesLeftThousands, thousands);
     }
 }
 
@@ -334,6 +378,26 @@ void MainWindow::solver_stopped_slot(const char& from)
     else if (from == 's')
     {
         this->newGameFromSmiley();
+    }
+}
+
+void MainWindow::set_infobar_time_slot(const QString& t, const int& number)
+{
+    if (t == "seconds")
+    {
+        this->setInfoBarNumber(ui->timerSeconds, number);
+    }
+    else if (t == "tenSeconds")
+    {
+        this->setInfoBarNumber(ui->timerTenSeconds, number);
+    }
+    else if (t == "minutes")
+    {
+        this->setInfoBarNumber(ui->timerMinutes, number);
+    }
+    else if (t == "tenMinutes")
+    {
+        this->setInfoBarNumber(ui->timerTenMinutes, number);
     }
 }
 

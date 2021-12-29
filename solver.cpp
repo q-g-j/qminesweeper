@@ -5,7 +5,7 @@
 #include <solver.h>
 
 
-Solver::Solver(QObject(*parent)) : QObject(parent)
+Solver::Solver()
 {
     this->isSolverRunning = false;
     this->isNewGameRequestedFromMenu = false;

@@ -28,8 +28,8 @@ private:
     Difficulty::DifficultyStruct difficulty;
 
     int buttonSize;
-    int labelMinesLeftFrameWidth;
-    int labelMinesLeftFrameHeight;
+    int minesLeftFrameWidth;
+    int minesLeftFrameHeight;
     int timerFrameHeight;
     int minesLeftNumberWidth;
     int spacerMiddleLeftFixedWidth;
@@ -42,6 +42,8 @@ private:
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    void setInfoBarNumber(QWidget*, const int&);
 private slots:
     void on_actionNew_triggered();
     void on_actionQuit_triggered();
@@ -53,6 +55,7 @@ private slots:
     void start_timer_slot();
     void field_debug_slot();
     void solver_stopped_slot(const char&);
+    void set_infobar_time_slot(const QString&, const int&);
 protected:
     void keyReleaseEvent(QKeyEvent *event);
 };

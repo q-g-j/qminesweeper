@@ -30,5 +30,27 @@
         <file>icons/png/smiley_lost_hover.png</file>
         <file>icons/png/button_pressed.png</file>
         <file>fonts/CursedTimerUlil-Aznm.ttf</file>
+        <file>icons/png/digital_0.png</file>
+        <file>icons/png/digital_1.png</file>
+        <file>icons/png/digital_2.png</file>
+        <file>icons/png/digital_3.png</file>
+        <file>icons/png/digital_4.png</file>
+        <file>icons/png/digital_5.png</file>
+        <file>icons/png/digital_6.png</file>
+        <file>icons/png/digital_7.png</file>
+        <file>icons/png/digital_8.png</file>
+        <file>icons/png/digital_9.png</file>
+        <file>stylesheet/digital_0.css</file>
+        <file>stylesheet/digital_1.css</file>
+        <file>stylesheet/digital_2.css</file>
+        <file>stylesheet/digital_3.css</file>
+        <file>stylesheet/digital_4.css</file>
+        <file>stylesheet/digital_5.css</file>
+        <file>stylesheet/digital_6.css</file>
+        <file>stylesheet/digital_7.css</file>
+        <file>stylesheet/digital_8.css</file>
+        <file>stylesheet/digital_9.css</file>
+        <file>stylesheet/digital_colon.css</file>
+        <file>icons/png/digital_colon.png</file>
     </qresource>
 </RCC>

@@ -2,12 +2,8 @@
 
 #include "timer.h"
 
-Timer::Timer(QLabel *timerSeconds_, QLabel *timerTenSeconds_, QLabel *timerMinutes_, QLabel *timerTenMinutes_)
+Timer::Timer()
 {
-    this->timerSeconds = timerSeconds_;
-    this->timerTenSeconds = timerTenSeconds_;
-    this->timerMinutes = timerMinutes_;
-    this->timerTenMinutes = timerTenMinutes_;
     this->timerInstance = new QTimer(this);
     this->timerInstance->setTimerType(Qt::PreciseTimer);
 
@@ -15,10 +11,10 @@ Timer::Timer(QLabel *timerSeconds_, QLabel *timerTenSeconds_, QLabel *timerMinut
 
     connect(this->timerInstance, SIGNAL(timeout()), this, SLOT(timer_slot()));
 
-    this->timerSeconds->setText(QString::number(0));
-    this->timerTenSeconds->setText(QString::number(0));
-    this->timerMinutes->setText(QString::number(0));
-    this->timerTenMinutes->setText(QString::number(0));
+    emit this->set_infobar_time_signal("seconds", 0);
+    emit this->set_infobar_time_signal("tenSeconds", 0);
+    emit this->set_infobar_time_signal("minutes", 0);
+    emit this->set_infobar_time_signal("tenMinutes", 0);
 }
 
 Timer::~Timer()
@@ -54,10 +50,10 @@ void Timer::timer_slot()
         {
             tenMinutes = 9;
         }
-        this->timerSeconds->setText(QString::number(seconds));
-        this->timerTenSeconds->setText(QString::number(tenSeconds));
-        this->timerMinutes->setText(QString::number(minutes));
-        this->timerTenMinutes->setText(QString::number(tenMinutes));
+        emit this->set_infobar_time_signal("seconds", seconds);
+        emit this->set_infobar_time_signal("tenSeconds", tenSeconds);
+        emit this->set_infobar_time_signal("minutes", minutes);
+        emit this->set_infobar_time_signal("tenMinutes", tenMinutes);
     }
     if (this->counterFine < 599900)
     {

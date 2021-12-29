@@ -12,7 +12,7 @@ private:
     // private methods:
     bool cancelOnNewGameRequested();
 public:
-    Solver(QObject *parent = nullptr);
+    Solver();
     ~Solver();
 
     // public variables:
