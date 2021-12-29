@@ -12,7 +12,7 @@ Button::Button(QWidget *parent) : QPushButton(parent)
 
 void Button::mouseDoubleClickEvent(QMouseEvent *e)
 {
-    if(e->button() == Qt::LeftButton)
+    if (e->button() == Qt::LeftButton)
     {
         emit this->double_clicked_signal();
     }
@@ -20,7 +20,7 @@ void Button::mouseDoubleClickEvent(QMouseEvent *e)
 
 void Button::mouseReleaseEvent(QMouseEvent *e)
 {
-    if(e->button() == Qt::LeftButton)
+    if (e->button() == Qt::LeftButton)
     {
         emit this->left_released_signal();
     }
@@ -32,7 +32,11 @@ void Button::mouseReleaseEvent(QMouseEvent *e)
 
 void Button::mousePressEvent(QMouseEvent *e)
 {
-    if(e->button() == Qt::LeftButton)
+//    if(e->buttons() == (Qt::LeftButton | Qt::RightButton))
+//    {
+//        ;
+//    }
+    if (e->button() == Qt::LeftButton)
     {
         emit this->left_pressed_signal();
     }
@@ -53,6 +57,5 @@ bool Button::eventFilter(QObject* /*object*/, QEvent *e)
             emit this->left_pressed_and_moved_signal(mouseEvent);
         }
     }
-
     return false;
 }

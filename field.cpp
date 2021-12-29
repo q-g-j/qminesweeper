@@ -492,16 +492,15 @@ void Field::on_left_pressed()
         this->currentMousePosition.setX(0);
         this->currentMousePosition.setY(0);
         Button *button = qobject_cast<Button*>(sender());
-        Common::Coords leftPressedCoords = this->getCoordsFromButton(button);
 
-        this->leftPressedButtonCoords = leftPressedCoords;
+        this->leftPressedButtonCoords = this->getCoordsFromButton(button);
 
         Common::Coords currentMouseCoords = this->getCoordsFromMousePosition();
-        if (this->field2DVector[leftPressedCoords.col][leftPressedCoords.row] == ' '
-                && leftPressedCoords.col == currentMouseCoords.col
-                && leftPressedCoords.row == currentMouseCoords.row)
+        if (this->field2DVector[this->leftPressedButtonCoords.col][this->leftPressedButtonCoords.row] == ' '
+                && this->leftPressedButtonCoords.col == currentMouseCoords.col
+                && this->leftPressedButtonCoords.row == currentMouseCoords.row)
         {
-            this->setButtonIcon(this->getButtonFromCoords(leftPressedCoords), "button_pressed");
+            this->setButtonIcon(this->getButtonFromCoords(this->leftPressedButtonCoords), "button_pressed");
         }
     }
 }
@@ -560,7 +559,6 @@ void Field::on_left_released()
                 {
                     // automatically reveal all neighbours of squares with no neighbour mines:
                     QVector<int> poolVector;
-                    // automatically reveal all neighbours of squares with no neighbour mines:
                     this->autoReveal(coordsTemp, poolVector, false);
                     this->firstTurn = false;
 
@@ -574,6 +572,8 @@ void Field::on_left_released()
                 emit this->smiley_surprised_signal();
             }
         }
+        this->lastButtonCoords.col = 0;
+        this->lastButtonCoords.row = 0;
     }
 }
 
@@ -582,8 +582,18 @@ void Field::on_right_released()
 {
     if (this->isGameOver != true && this->isSolverRunning != true)
     {
-        Button *button = qobject_cast<Button *>(sender());
-        Common::Coords coordsTemp = this->getCoordsFromButton(button);
+        Button *button;
+        Common::Coords coordsTemp;
+        if (this->lastButtonCoords.col != 0 || this->lastButtonCoords.row != 0)
+        {
+            coordsTemp = this->getCoordsFromMousePosition();
+            button = this->getButtonFromCoords(coordsTemp);
+        }
+        else
+        {
+            button = qobject_cast<Button *>(sender());
+            coordsTemp = this->getCoordsFromButton(button);
+        }
 
         if (this->field2DVector[coordsTemp.col][coordsTemp.row] == ' ' || this->field2DVector[coordsTemp.col][coordsTemp.row] == 'F')
         {
