@@ -12,7 +12,7 @@ Controls:
 |-|-|
 |Left click|reveal a square|
 |Right click|place or remove a flag|
-|Double left click on a number|automatically reveal linked squares with no mine (if flags are placed correctly) |
+|Left + right click on a number|automatically reveal linked squares with no mine (if flags are placed correctly) |
 |Left click on smiley|start a new game with the same difficulty|
 
 |Key|Action|
