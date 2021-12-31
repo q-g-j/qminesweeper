@@ -15,6 +15,8 @@ Common::Coords MouseInput::getCoordsFromMousePosition()
 {
     Common::Coords returnCoords = this->pressedButtonCoords;
 
+    assert (field->buttonSize != 0);
+
     if (this->currentMousePosition.x() < 0)
     {
         returnCoords.col = this->pressedButtonCoords.col - (((this->currentMousePosition.x() * -1) / field->buttonSize) + 1);
