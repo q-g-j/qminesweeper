@@ -3,12 +3,14 @@
 
 #include <QGridLayout>
 #include <QMainWindow>
-#include "timer.h"
 
+#include "common.h"
 #include "difficulty.h"
 #include "field.h"
+#include "mouseinput.h"
 #include "solver.h"
 #include "stylesheet.h"
+#include "timer.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,15 +26,17 @@ private:
     Field *field = nullptr;
     Timer *timer = nullptr;
     Solver *solver = nullptr;
+    MouseInput *mouseInput = nullptr;
+    Common *common = nullptr;
     Stylesheet stylesheet;
     Difficulty::DifficultyStruct difficulty;
 
-    int buttonSize;
-    int minesLeftFrameWidth;
-    int minesLeftFrameHeight;
-    int timerFrameHeight;
-    int minesLeftNumberWidth;
-    int spacerMiddleLeftFixedWidth;
+    quint16 buttonSize;
+    quint16 minesLeftFrameWidth;
+    quint16 minesLeftFrameHeight;
+    quint16 timerFrameHeight;
+    quint16 minesLeftNumberWidth;
+    quint16 spacerMiddleLeftFixedWidth;
 
     void clearLayout(QLayout*);
     void newGame(const Difficulty::DifficultyStruct&);
@@ -43,7 +47,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void setInfoBarNumber(QWidget*, const int&);
+    void setInfoBarNumber(QWidget*, const quint16&);
 private slots:
     void on_actionNew_triggered();
     void on_actionQuit_triggered();
@@ -51,11 +55,10 @@ private slots:
     void new_game_slot(const Difficulty::DifficultyStruct&);
     void smiley_surprised_slot();
     void game_over_slot(bool);
-    void minesleft_changed_slot(const int&);
+    void minesleft_changed_slot(const qint16&);
     void start_timer_slot();
-    void field_debug_slot();
     void solver_stopped_slot(const char&);
-    void set_infobar_time_slot(const QString&, const int&);
+    void set_infobar_time_slot(const QString&, const quint16&);
 protected:
     void keyReleaseEvent(QKeyEvent *event);
 };

@@ -22,7 +22,7 @@ void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, b
 
     if (this->cancelOnNewGameRequested()) return;
 
-    QVector<int> poolCoveredVector;
+    QVector<quint16> poolCoveredVector;
 
     if (doPlaceFlags)
     {
@@ -58,7 +58,7 @@ void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, b
                             {
                                 if (this->cancelOnNewGameRequested()) return;
 
-                                int tempPosition = Common::CoordsToInt(coveredVector.at(k), field.cols);
+    quint16 tempPosition = Common::CoordsToInt(coveredVector.at(k), field.cols);
                                 if (std::find(poolCoveredVector.begin(), poolCoveredVector.end(), tempPosition) == poolCoveredVector.end())
                                 {
                                     poolCoveredVector.push_back(tempPosition);
@@ -80,7 +80,7 @@ void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, b
                 Common::sleep(30);
                 Common::Coords tempCoords;
                 tempCoords = Common::intToCoords(poolCoveredVector.at(i), field.cols);
-                emit this->place_flag_signal(tempCoords);
+                emit this->solver_place_flag_signal(tempCoords);
             }
         }
     }

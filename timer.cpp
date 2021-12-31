@@ -31,7 +31,7 @@ void Timer::timer_slot()
     if (this->counterFine % 100 == 0)
     {
         this->counter = this->counterFine / 100;
-        int seconds, tenSeconds, minutes, tenMinutes;
+    quint16 seconds, tenSeconds, minutes, tenMinutes;
         seconds = this->counter % 10;
         if (this->counter < 60)
         {

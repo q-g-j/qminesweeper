@@ -21,9 +21,9 @@ public:
     Ui::Difficulty *ui;
 
     struct DifficultyStruct {
-        int cols;
-        int rows;
-        int mines;
+    quint16 cols;
+    quint16 rows;
+    quint16 mines;
     };
 private slots:
     void on_button_start_clicked();

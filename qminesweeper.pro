@@ -20,6 +20,7 @@ SOURCES += \
     field.cpp \
     main.cpp \
     mainwindow.cpp \
+    mouseinput.cpp \
     solver.cpp \
     stylesheet.cpp \
     timer.cpp
@@ -30,6 +31,7 @@ HEADERS += \
     difficulty.h \
     field.h \
     mainwindow.h \
+    mouseinput.h \
     solver.h \
     stylesheet.h \
     timer.h

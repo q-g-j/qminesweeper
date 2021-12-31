@@ -1,6 +1,9 @@
 #include <QDebug>
 #include <QSizePolicy>
-#include <QFontDatabase>
+#include <QStyle>
+#include <QDesktopWidget>
+#include <QScreen>
+//#include <QFontDatabase>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -25,9 +28,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->fieldLayout = new QGridLayout(ui->fieldWrapper);
 
+    this->common = new Common;
+    this->solver = new Solver;
+
     /*
     QFontDatabase fontDatabase;
-    fontDatabase.addApplicationFont(":/fonts/CursedTimerUlil-Aznm.ttf");
+    fontDatabase.addApplicationFont(":/fonts/font.ttf");
 
     // get the font names from the font filenames:
     for (int i = 0; i < fontDatabase.families(QFontDatabase::Any).size(); i++)
@@ -54,10 +60,20 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    if (this->common != nullptr)
+    {
+        delete this->common;
+        this->common = nullptr;
+    }
     if (this->field != nullptr)
     {
         delete this->field;
         this->field = nullptr;
+    }
+    if (this->mouseInput != nullptr)
+    {
+        delete this->mouseInput;
+        this->mouseInput = nullptr;
     }
     if (this->timer != nullptr)
     {
@@ -98,38 +114,40 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
         delete this->field;
         this->field = nullptr;
     }
+    if (this->mouseInput != nullptr)
+    {
+        delete this->mouseInput;
+        this->mouseInput = nullptr;
+    }
     if (this->timer != nullptr)
     {
         delete this->timer;
         this->timer = nullptr;
     }
-    if (this->solver != nullptr)
-    {
-        delete this->solver;
-        this->solver = nullptr;
-    }
 
-    this->timer = new Timer();
-    solver = new Solver;
+    this->timer = new Timer;
     this->field = new Field(ui->fieldWrapper, difficulty_.cols, difficulty_.rows, difficulty_.mines, this->buttonSize);
+    this->mouseInput = new MouseInput(field);
+
+    connect(this->field, &Field::connect_button_signal, mouseInput, &MouseInput::connect_button_slot);
+    connect(this->field, &Field::game_over_signal, this, &MainWindow::game_over_slot);
+    connect(this->field, &Field::minesleft_changed_signal, this, &MainWindow::minesleft_changed_slot);
+    connect(this->field, &Field::smiley_surprised_signal, this, &MainWindow::smiley_surprised_slot);
+    connect(this->field, &Field::game_started_signal, this, &MainWindow::start_timer_slot);
+    connect(this->solver, &Solver::solver_stopped_signal, this, &MainWindow::solver_stopped_slot);
+    connect(this->solver, &Solver::solver_place_flag_signal, field, &Field::solver_place_flag_slot);
+    connect(this->timer, &Timer::set_infobar_time_signal, this, &MainWindow::set_infobar_time_slot);
+    connect(this->mouseInput, &MouseInput::print_debug_signal, this->common, &Common::print_debug_slot);
+
+    field->create2DVectors();
+
     this->clearLayout(this->fieldLayout);
     this->fieldLayout->setSpacing(0);
     this->fieldLayout->setContentsMargins(0,0,0,0);
     this->fieldLayout->addWidget(this->field);
     ui->fieldWrapper->setLayout(this->fieldLayout);
     ui->fieldWrapper->setMinimumSize(field->cols * field->buttonSize, field->rows * field->buttonSize);
-
-    connect(this->field, &Field::game_over_signal, this, &MainWindow::game_over_slot);
-    connect(this->field, &Field::minesleft_changed_signal, this, &MainWindow::minesleft_changed_slot);
-    connect(this->field, &Field::smiley_surprised_signal, this, &MainWindow::smiley_surprised_slot);
-    connect(this->field, &Field::game_started_signal, this, &MainWindow::start_timer_slot);
-    connect(this->solver, &Solver::solver_stopped_signal, this, &MainWindow::solver_stopped_slot);
-    connect(this->solver, &Solver::place_flag_signal, field, &Field::place_flag_slot);
-    connect(timer, &Timer::set_infobar_time_signal, this, &MainWindow::set_infobar_time_slot);
-//    connect(this->field, &Field::field_debug_signal, this, &MainWindow::field_debug_slot);
-
     this->minesleft_changed_slot(difficulty_.mines);
-
     this->setInfoBarNumber(ui->timerTenMinutes, 0);
     this->setInfoBarNumber(ui->timerMinutes, 0);
     this->setInfoBarNumber(ui->timerTenSeconds, 0);
@@ -168,10 +186,18 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     ui->infoBarLayout->invalidate();
 
     ui->minesLeftFrame->adjustSize();
-    ui->timerFrame->adjustSize();
     this->centralWidget()->adjustSize();
     this->adjustSize();
     this->setFixedSize(this->size().width(), this->size().height());
+    QList<QScreen*> screens = QGuiApplication::screens();
+    for (quint16 i = 0; i < screens.size(); i++)
+    {
+        this->setGeometry(QStyle::alignedRect(
+                              Qt::LeftToRight,
+                              Qt::AlignCenter,
+                              this->size(),
+                              screens[i]->availableGeometry()));
+    }
 }
 
 void MainWindow::newGameRequested(const char& from)
@@ -205,7 +231,7 @@ void MainWindow::newGameFromSmiley()
     this->newGame(difficulty_);
 }
 
-void MainWindow::setInfoBarNumber(QWidget *widget, const int &number)
+void MainWindow::setInfoBarNumber(QWidget *widget, const quint16 &number)
 {
     if (number == 0)
     {
@@ -247,11 +273,6 @@ void MainWindow::setInfoBarNumber(QWidget *widget, const int &number)
     {
         widget->setStyleSheet(stylesheet.stylesheet_digital_9);
     }
-}
-
-void MainWindow::field_debug_slot()
-{
-    qDebug() << QString::number(this->timer->counterFine);
 }
 
 // open a dialog (difficulty.ui) to choose difficulty:
@@ -318,7 +339,7 @@ void MainWindow::game_over_slot(bool hasLost)
     }
 }
 
-void MainWindow::minesleft_changed_slot(const int& minesLeft)
+void MainWindow::minesleft_changed_slot(const qint16& minesLeft)
 {
     if (minesLeft < 0)
     {
@@ -333,8 +354,8 @@ void MainWindow::minesleft_changed_slot(const int& minesLeft)
     }
     else if (minesLeft < 100)
     {
-        int ones = minesLeft % 10;
-        int tens = minesLeft / 10;
+    quint16 ones = minesLeft % 10;
+    quint16 tens = minesLeft / 10;
         this->setInfoBarNumber(ui->minesLeftOnes, ones);
         this->setInfoBarNumber(ui->minesLeftTens, tens);
         ui->minesLeftHundreds->setStyleSheet("QWidget { border-image: none; }");
@@ -342,9 +363,9 @@ void MainWindow::minesleft_changed_slot(const int& minesLeft)
     }
     else if (minesLeft < 1000)
     {
-        int ones = minesLeft % 10;
-        int tens = (minesLeft % 100) / 10;
-        int hundreds = minesLeft / 100;
+    quint16 ones = minesLeft % 10;
+    quint16 tens = (minesLeft % 100) / 10;
+    quint16 hundreds = minesLeft / 100;
         this->setInfoBarNumber(ui->minesLeftOnes, ones);
         this->setInfoBarNumber(ui->minesLeftTens, tens);
         this->setInfoBarNumber(ui->minesLeftHundreds, hundreds);
@@ -352,10 +373,10 @@ void MainWindow::minesleft_changed_slot(const int& minesLeft)
     }
     else
     {
-        int ones = minesLeft % 10;
-        int tens = ((minesLeft % 1000) % 100) / 10;
-        int hundreds = (minesLeft % 1000) / 100;
-        int thousands = minesLeft / 1000;
+    quint16 ones = minesLeft % 10;
+    quint16 tens = ((minesLeft % 1000) % 100) / 10;
+    quint16 hundreds = (minesLeft % 1000) / 100;
+    quint16 thousands = minesLeft / 1000;
         this->setInfoBarNumber(ui->minesLeftOnes, ones);
         this->setInfoBarNumber(ui->minesLeftTens, tens);
         this->setInfoBarNumber(ui->minesLeftHundreds, hundreds);
@@ -381,7 +402,7 @@ void MainWindow::solver_stopped_slot(const char& from)
     }
 }
 
-void MainWindow::set_infobar_time_slot(const QString& t, const int& number)
+void MainWindow::set_infobar_time_slot(const QString& t, const quint16& number)
 {
     if (t == "seconds")
     {

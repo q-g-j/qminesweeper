@@ -23,7 +23,7 @@ public:
     // public methods:
     void autoSolve(Field&, bool, bool, bool);
 signals:
-    void place_flag_signal(const Common::Coords&);
+    void solver_place_flag_signal(const Common::Coords&);
     void solver_stopped_signal(const char&);
 };
 
