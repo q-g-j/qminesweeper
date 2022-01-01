@@ -33,6 +33,11 @@ MainWindow::MainWindow(QWidget *parent) :
     this->common = new Common;
     this->solver = new Solver;
 
+#ifdef __APPLE__
+    ui->minesLeftFrame->setFrameShape(QFrame::NoFrame);
+    ui->timerFrame->setFrameShape(QFrame::NoFrame);
+#endif
+
     /*
     QFontDatabase fontDatabase;
     fontDatabase.addApplicationFont(":/fonts/font.ttf");
