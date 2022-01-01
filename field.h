@@ -22,23 +22,23 @@ private:
     QGridLayout *layout;
 public:
     explicit Field(QWidget *parent = nullptr,
-                   const quint16& cols = 9,
-                   const quint16& rows = 9,
-                   const quint16& mines = 10,
-                   const quint16& buttonSize = 25);
+                   const qint32& cols = 9,
+                   const qint32& rows = 9,
+                   const qint32& mines = 10,
+                   const qint32& buttonSize = 25);
     ~Field();
 
     // public variables:
     QVector<QVector<char>> field2DVector;
     QVector<QVector<char>> mines2DVector;
     QVector<buttonStruct> buttonStructVector;
-    quint16 buttonSize;
-    quint16 cols;
-    quint16 rows;
-    quint16 mines;
+    qint32 buttonSize;
+    qint32 cols;
+    qint32 rows;
+    qint32 mines;
     qint16 minesLeft;
-    quint16 flagsCount;
-    quint16 countUnrevealed;
+    qint32 flagsCount;
+    qint32 countUnrevealed;
     bool firstTurn;
     bool isGameOver;
     bool isSolverRunning;
@@ -47,21 +47,21 @@ public:
     // public methods:
     void create2DVectors();
     bool isNumber(const Common::Coords&);
-    void setNumber(const Common::Coords&, const quint16&);
-    void printNumber(const Common::Coords&, const quint16&);
+    void setNumber(const Common::Coords&, const qint32&);
+    void printNumber(const Common::Coords&, const qint32&);
     void fillMines2DVector(const Common::Coords&);
     Common::Coords getCoordsFromButton(Button*);
     Button* getButtonFromCoords(const Common::Coords&);
     void setButtonIcon(Button*, const QString&);
     QVector<Common::Coords> findNeighbours(const QVector<QVector<char>>&, const Common::Coords&, const char&);
-    void autoReveal(const Common::Coords&, QVector<quint16>&, bool);
+    void autoReveal(const Common::Coords&, QVector<qint32>&, bool);
     void flagAutoReveal(const Common::Coords&, bool, bool);
     void gameOver(const Common::Coords&, bool);
 signals:
     void connect_button_signal(Button*);
     void game_started_signal();
     void game_over_signal(bool);
-    void minesleft_changed_signal(const quint16&);
+    void minesleft_changed_signal(const qint32&);
     void smiley_surprised_signal();
 public slots:
     void solver_place_flag_slot(const Common::Coords&);

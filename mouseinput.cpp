@@ -57,7 +57,7 @@ void MouseInput::leftAndRightPressed(const Common::Coords& coords)
 {
     this->leftAndRightPressedNeighboursCoveredVector.clear();
     this->leftAndRightPressedNeighboursCoveredVector = field->findNeighbours(field->field2DVector, coords, ' ');
-    for (quint16 i = 0; i < leftAndRightPressedNeighboursCoveredVector.size(); i++)
+    for (qint32 i = 0; i < leftAndRightPressedNeighboursCoveredVector.size(); i++)
     {
         Button *button = field->getButtonFromCoords(leftAndRightPressedNeighboursCoveredVector[i]);
         field->setButtonIcon(button, "revealed");
@@ -187,7 +187,7 @@ void MouseInput::leftReleased()
             if (field->isGameOver != true)
             {
                 // automatically reveal all neighbours of squares with no neighbour mines:
-                QVector<quint16> poolVector;
+                QVector<qint32> poolVector;
                 field->autoReveal(coordsTemp, poolVector, false);
                 field->firstTurn = false;
 
@@ -350,7 +350,7 @@ void MouseInput::left_and_right_released_slot()
 //                emit this->print_debug_signal("left and right released");
                 this->leftAndRightReleased(coords);
             }
-            for (quint16 i = 0; i < this->leftAndRightPressedNeighboursCoveredVector.size(); i++)
+            for (qint32 i = 0; i < this->leftAndRightPressedNeighboursCoveredVector.size(); i++)
             {
                 if (! field->isNumber(this->leftAndRightPressedNeighboursCoveredVector[i])
                         && field->isGameOver != true)

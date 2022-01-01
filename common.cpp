@@ -13,14 +13,14 @@ Common::Common()
 Common::~Common()
 {}
 
-QVector<quint16> Common::randomShuffle(const quint16& high, const quint16& userFirstInput)
+QVector<qint32> Common::randomShuffle(const qint32& high, const qint32& userFirstInput)
 {
-    QVector<quint16> returnVector;
+    QVector<qint32> returnVector;
     while (returnVector.size() < high - 1)
     {
-        for (quint16 i = 1; i < high; i++)
+        for (qint32 i = 1; i < high; i++)
         {
-    quint16 value = QRandomGenerator::global()->bounded(high) + 1;
+    qint32 value = QRandomGenerator::global()->bounded(high) + 1;
             if (value != userFirstInput)
             {
                 if (std::find(returnVector.begin(), returnVector.end(), value) == returnVector.end())
@@ -34,7 +34,7 @@ QVector<quint16> Common::randomShuffle(const quint16& high, const quint16& userF
 }
 
 // convert coords in type integer to coords in type struct (e.g. position = 4 will return coords.col = 4, coords.row = 1):
-Common::Coords Common::intToCoords(const quint16& position, const quint16& cols)
+Common::Coords Common::intToCoords(const qint32& position, const qint32& cols)
 {
     Common::Coords coords;
 
@@ -57,7 +57,7 @@ Common::Coords Common::intToCoords(const quint16& position, const quint16& cols)
 }
 
 // the above function the other way around
-quint16 Common::CoordsToInt(const Common::Coords& coords, const quint16& cols)
+qint32 Common::CoordsToInt(const Common::Coords& coords, const qint32& cols)
 {
     if (coords.row == 1)
     {
@@ -69,7 +69,7 @@ quint16 Common::CoordsToInt(const Common::Coords& coords, const quint16& cols)
     }
 }
 
-void Common::sleep(const quint16& milliseconds)
+void Common::sleep(const qint32& milliseconds)
 {
     QEventLoop loop;
     QTimer::singleShot(milliseconds, &loop, &QEventLoop::quit);
