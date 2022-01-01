@@ -3,7 +3,8 @@ A Qt5/C++ based Minesweeper clone
 
 Latest release:
 ---------------
-[qminesweeper.exe](https://github.com/q-g-j/qminesweeper/releases/download/latest/qminesweeper.exe) (win32 static build)
+[qminesweeper.exe](https://github.com/q-g-j/qminesweeper/releases/download/latest/qminesweeper.exe) (Windows 32 bit static build)<br/>
+[qminesweeper.dmg](https://github.com/q-g-j/qminesweeper/releases/download/latest/qminesweeper.dmg) (macOS 64 bit build)
 
 Controls:
 ---------
