@@ -60,6 +60,6 @@ private slots:
     void solver_stopped_slot(const char&);
     void set_infobar_time_slot(const QString&, const quint16&);
 protected:
-    void keyReleaseEvent(QKeyEvent *event);
+    bool eventFilter(QObject*, QEvent*);
 };
 #endif // MAINWINDOW_H

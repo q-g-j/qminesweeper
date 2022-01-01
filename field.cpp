@@ -44,7 +44,6 @@ Field::~Field()
 void Field::setButtonIcon(Button *button, const QString &iconName)
 {
     QPixmap icon(":/icons/png/button_" + iconName + ".png");
-    QIcon ButtonIcon(icon);
     button->setIcon(icon);
     QSize size(buttonSize, buttonSize);
     button->setIconSize(size);
@@ -75,6 +74,7 @@ void Field::create2DVectors()
                 this->buttonStructVector.append(structTemp);
                 button->setMouseTracking(true);
                 button->setFixedSize(this->buttonSize, this->buttonSize);
+                button->setAttribute(Qt::WA_LayoutUsesWidgetRect);
                 this->setButtonIcon(button, "unrevealed");
                 this->layout->addWidget(button, j - 1, i - 1, 1, 1);
                 emit this->connect_button_signal(button);

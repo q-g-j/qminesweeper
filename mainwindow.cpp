@@ -1,7 +1,7 @@
 #include <QDebug>
 #include <QSizePolicy>
 #include <QStyle>
-#include <QDesktopWidget>
+#include <QFrame>
 #include <QScreen>
 //#include <QFontDatabase>
 
@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    installEventFilter(this);
 
     this->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
@@ -142,10 +144,10 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     field->create2DVectors();
 
     this->clearLayout(this->fieldLayout);
-    this->fieldLayout->setSpacing(0);
-    this->fieldLayout->setContentsMargins(0,0,0,0);
     this->fieldLayout->addWidget(this->field);
     ui->fieldWrapper->setLayout(this->fieldLayout);
+    this->fieldLayout->setSpacing(0);
+    this->fieldLayout->setContentsMargins(0,0,0,0);
     ui->fieldWrapper->setMinimumSize(field->cols * field->buttonSize, field->rows * field->buttonSize);
     this->minesleft_changed_slot(difficulty_.mines);
     this->setInfoBarNumber(ui->timerTenMinutes, 0);
@@ -422,35 +424,41 @@ void MainWindow::set_infobar_time_slot(const QString& t, const quint16& number)
     }
 }
 
-void MainWindow::keyReleaseEvent(QKeyEvent *e)
+bool MainWindow::eventFilter(QObject* object, QEvent *e)
 {
-    if (field->isSolverRunning != true && field->isGameOver != true)
+    if (object == this && e->type() == QEvent::KeyPress)
     {
-        if (e->key() == Qt::Key_F)
-        {
-            solver->autoSolve(*field, true, false, false);
-        }
-        else if (e->key() == Qt::Key_R)
-        {
-            solver->autoSolve(*field, false, true, false);
+        QKeyEvent *keyEvent = static_cast<QKeyEvent*>(e);
 
-            // check if player has won:
-            if (field->flagsCount + field->countUnrevealed == field->mines)
+        if (field->isSolverRunning != true && field->isGameOver != true)
+        {
+            if (keyEvent->key() == Qt::Key_F)
             {
-                Common::Coords dummyCoords;
-                field->gameOver(dummyCoords, false);
+                solver->autoSolve(*field, true, false, false);
             }
-        }
-        else if (e->key() == Qt::Key_S)
-        {
-            solver->autoSolve(*field, true, true, true);
-
-            // check if player has won:
-            if (field->flagsCount + field->countUnrevealed == field->mines)
+            else if (keyEvent->key() == Qt::Key_R)
             {
-                Common::Coords dummyCoords;
-                field->gameOver(dummyCoords, false);
+                solver->autoSolve(*field, false, true, false);
+
+                // check if player has won:
+                if (field->flagsCount + field->countUnrevealed == field->mines)
+                {
+                    Common::Coords dummyCoords;
+                    field->gameOver(dummyCoords, false);
+                }
+            }
+            else if (keyEvent->key() == Qt::Key_S)
+            {
+                solver->autoSolve(*field, true, true, true);
+
+                // check if player has won:
+                if (field->flagsCount + field->countUnrevealed == field->mines)
+                {
+                    Common::Coords dummyCoords;
+                    field->gameOver(dummyCoords, false);
+                }
             }
         }
     }
+    return false;
 }

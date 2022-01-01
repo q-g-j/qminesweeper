@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>518</width>
-    <height>370</height>
+    <width>421</width>
+    <height>357</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -114,7 +114,6 @@
 *[objectName='timerWidget'] {
 	background-color: black;
 }
-
 </string>
       </property>
       <layout class="QHBoxLayout" name="infoBarLayout">
@@ -245,14 +244,6 @@
                  <width>2</width>
                  <height>16777215</height>
                 </size>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Cursed Timer ULiL</family>
-                 <italic>false</italic>
-                 <stylestrategy>PreferAntialias</stylestrategy>
-                 <kerning>true</kerning>
-                </font>
                </property>
                <property name="text">
                 <string/>
@@ -408,14 +399,6 @@
                  <width>2</width>
                  <height>16777215</height>
                 </size>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Cursed Timer ULiL</family>
-                 <italic>false</italic>
-                 <stylestrategy>PreferAntialias</stylestrategy>
-                 <kerning>true</kerning>
-                </font>
                </property>
                <property name="text">
                 <string/>
@@ -625,14 +608,6 @@ QPushButton#smiley {
                  <height>16777215</height>
                 </size>
                </property>
-               <property name="font">
-                <font>
-                 <family>Cursed Timer ULiL</family>
-                 <italic>false</italic>
-                 <stylestrategy>PreferAntialias</stylestrategy>
-                 <kerning>true</kerning>
-                </font>
-               </property>
                <property name="text">
                 <string/>
                </property>
@@ -819,14 +794,6 @@ QPushButton#smiley {
                  <height>16777215</height>
                 </size>
                </property>
-               <property name="font">
-                <font>
-                 <family>Cursed Timer ULiL</family>
-                 <italic>false</italic>
-                 <stylestrategy>PreferAntialias</stylestrategy>
-                 <kerning>true</kerning>
-                </font>
-               </property>
                <property name="text">
                 <string/>
                </property>
@@ -873,8 +840,8 @@ QPushButton#smiley {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>518</width>
-     <height>30</height>
+     <width>421</width>
+     <height>17</height>
     </rect>
    </property>
    <property name="font">

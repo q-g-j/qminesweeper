@@ -49,6 +49,7 @@ RESOURCES += \
     resources.qrc
 
 RC_ICONS = icons/ico/exe.ico
+ICON = icons/ico/exe_128.icns
 
 DISTFILES += \
     README.md

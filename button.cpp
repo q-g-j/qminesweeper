@@ -10,13 +10,13 @@ Button::Button(QWidget *parent) : QPushButton(parent)
     installEventFilter(this);
 }
 
-bool Button::eventFilter(QObject* /*object*/, QEvent *e)
+bool Button::eventFilter(QObject* object, QEvent *e)
 {
-    QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(e);
-
-    if (e->type() == QEvent::MouseButtonPress)
+    if (object == this && e->type() == QEvent::MouseButtonPress)
     {
-        if(mouseEvent->buttons() == (Qt::LeftButton | Qt::RightButton))
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(e);
+
+        if (mouseEvent->buttons() == (Qt::LeftButton | Qt::RightButton))
         {
             this->leftandrightbuttonpressedflag = true;
             emit this->left_and_right_pressed_signal();
@@ -33,8 +33,10 @@ bool Button::eventFilter(QObject* /*object*/, QEvent *e)
         }
     }
 
-    if (e->type() == QEvent::MouseButtonRelease)
+    if (object == this && e->type() == QEvent::MouseButtonRelease)
     {
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(e);
+
         if (this->leftandrightbuttonpressedflag
                 && mouseEvent->buttons() != (Qt::LeftButton | Qt::RightButton))
         {
@@ -53,8 +55,10 @@ bool Button::eventFilter(QObject* /*object*/, QEvent *e)
         this->leftandrightbuttonpressedflag = false;
     }
 
-    if (e->type() == QEvent::MouseMove)
+    if (object == this && e->type() == QEvent::MouseMove)
     {
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(e);
+
         if (this->leftbuttonpressedflag)
         {
             if (! this->leftandrightbuttonpressedflag)
