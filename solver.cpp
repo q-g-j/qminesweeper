@@ -22,14 +22,14 @@ void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, b
 
     if (this->cancelOnNewGameRequested()) return;
 
-    QVector<qint32> poolCoveredVector;
+    QVector<quint16> poolCoveredVector;
 
     if (doPlaceFlags)
     {
         // for each button in field2DVector:
-        for (qint32 i = 1; i <= field.cols; i++)
+        for (quint16 i = 1; i <= field.cols; i++)
         {
-            for (qint32 j = 1; j <= field.rows; j++)
+            for (quint16 j = 1; j <= field.rows; j++)
             {
                 if (this->cancelOnNewGameRequested()) return;
 
@@ -54,11 +54,11 @@ void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, b
                         // add the covered buttons to poolCoveredVector:
                         if ((flagsVector.size() + coveredVector.size()) == field.field2DVector[tempCoords.col][tempCoords.row] - 48)
                         {
-                            for (qint32 k = 0; k < coveredVector.size(); k++)
+                            for (quint16 k = 0; k < coveredVector.size(); k++)
                             {
                                 if (this->cancelOnNewGameRequested()) return;
 
-    qint32 tempPosition = Common::CoordsToInt(coveredVector.at(k), field.cols);
+    quint16 tempPosition = Common::CoordsToInt(coveredVector.at(k), field.cols);
                                 if (std::find(poolCoveredVector.begin(), poolCoveredVector.end(), tempPosition) == poolCoveredVector.end())
                                 {
                                     poolCoveredVector.push_back(tempPosition);
@@ -73,7 +73,7 @@ void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, b
         // place a flag at the coords of each element of poolCoveredVector:
         if (poolCoveredVector.size() != 0)
         {
-            for (qint32 i = 0; i < poolCoveredVector.size(); i++)
+            for (quint16 i = 0; i < poolCoveredVector.size(); i++)
             {
                 if (this->cancelOnNewGameRequested()) return;
 
@@ -88,9 +88,9 @@ void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, b
     // run field.flagAutoReveal() on all buttons:
     if (doFlagAutoReveal)
     {
-        for (qint32 i = 1; i <= field.rows; ++i)
+        for (quint16 i = 1; i <= field.rows; ++i)
         {
-            for (qint32 j = 1; j <= field.cols; ++j)
+            for (quint16 j = 1; j <= field.cols; ++j)
             {
                 if (this->cancelOnNewGameRequested()) return;
 

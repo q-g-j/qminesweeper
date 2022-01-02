@@ -11,16 +11,16 @@ class Timer : public QObject
 public:
     Timer();
     ~Timer();
-    qint32  counterFine = 0;
+    quint32  counterFine = 0;
     void timerStart();
     void timerStop();
 private:
-    qint32 counter = 0;
+    quint16 counter = 0;
     QTimer *timerInstance = nullptr;
 private slots:
     void timer_slot();
 signals:
-    void set_infobar_time_signal(const QString&, const qint32&);
+    void set_infobar_time_signal(const QString&, const quint16&);
 };
 
 #endif // TIMER_H

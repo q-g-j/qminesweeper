@@ -12,36 +12,45 @@ class MouseInput : public QObject
 {
     Q_OBJECT
 private:
+    Common *common;
     Field *field;
+
     bool isLeftAndRightPressed;
 
-    Common::Coords lastButtonCoords;
-    Common::Coords pressedButtonCoords;
-    Common::Coords leftAndRightPressedButtonCoords;
     QPoint currentMousePosition;
+    Common::Coords pressedButtonCoords;
+    Common::Coords lastButtonCoords;
     QVector<Common::Coords> leftAndRightPressedNeighboursCoveredVector;
 
     void leftPressed();
     void rightPressed();
+    void leftAndRightPressed();
+
     void leftReleased();
-    void rightReleased(const Common::Coords&);
-    void leftAndRightPressed(const Common::Coords&);
-    void leftAndRightReleased(const Common::Coords&);
-    void leftPressedAndMoved(QMouseEvent*);
-    Common::Coords getCoordsFromMousePosition();
+    void rightReleased();
+    void leftAndRightReleased();
+
+    void leftPressedAndMoved();
+    void leftAndRightPressedAndMoved();
+
+    Common::Coords getCoordsFromRelativeMousePosition();
 public:
     MouseInput(Field*);
     ~MouseInput();
 public slots:
+    void connect_button_slot(Button*);
+
     void left_pressed_slot();
     void right_pressed_slot();
+    void left_and_right_pressed_slot();
+
     void left_released_slot();
     void right_released_slot();
-    void left_and_right_pressed_slot();
     void left_and_right_released_slot();
+
     void left_pressed_and_moved_slot(QMouseEvent*);
+    void right_pressed_and_moved_slot(QMouseEvent*);
     void left_and_right_pressed_and_moved_slot(QMouseEvent*);
-    void connect_button_slot(Button*);
 signals:
     void print_debug_signal(const QString&);
 };

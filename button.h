@@ -13,6 +13,7 @@ private:
     bool leftandrightbuttonpressedflag = false;
 public:
     explicit Button(QWidget *parent = nullptr);
+    ~Button();
 protected:
     bool eventFilter(QObject*, QEvent*);
 signals:
@@ -24,7 +25,10 @@ signals:
     void left_and_right_pressed_signal();
     void left_and_right_released_signal();
     void left_pressed_and_moved_signal(QMouseEvent*);
+    void right_pressed_and_moved_signal(QMouseEvent*);
     void left_and_right_pressed_and_moved_signal(QMouseEvent*);
+
+    void print_debug_signal(const QString&);
 };
 
 #endif // BUTTON_H

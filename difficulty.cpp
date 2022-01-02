@@ -74,9 +74,9 @@ void Difficulty::on_button_start_clicked()
 
     else if (ui->radioButton_custom->isChecked())
     {
-    qint32 cols = ui->lineEdit_custom_cols->text().toInt();
-    qint32 rows = ui->lineEdit_custom_rows->text().toInt();
-    qint32 mines = ui->lineEdit_custom_mines->text().toInt();
+    quint16 cols = ui->lineEdit_custom_cols->text().toInt();
+    quint16 rows = ui->lineEdit_custom_rows->text().toInt();
+    quint16 mines = ui->lineEdit_custom_mines->text().toInt();
         if (ui->lineEdit_custom_cols->text() == ""
                 || ui->lineEdit_custom_rows->text() == ""
                 || ui->lineEdit_custom_mines->text() == ""
