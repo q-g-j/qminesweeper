@@ -182,51 +182,51 @@ void MouseInput::leftAndRightReleased()
 {
     Common::Coords newCoords = this->getCoordsFromRelativeMousePosition();
 
-     if (newCoords.col > 0
-             && newCoords.col <= field->cols
-             && newCoords.row > 0
-             && newCoords.row <= field->rows)
-     {
-         if (newCoords.col == this->lastButtonCoords.col
-                 && newCoords.row == this->lastButtonCoords.row)
-         {
-             if (field->isNumber(newCoords))
-             {
-                 field->flagAutoReveal(newCoords, false, false);
-             }
-         }
+    if (newCoords.col > 0
+            && newCoords.col <= field->cols
+            && newCoords.row > 0
+            && newCoords.row <= field->rows)
+    {
+        if (newCoords.col == this->lastButtonCoords.col
+                && newCoords.row == this->lastButtonCoords.row)
+        {
+            if (field->isNumber(newCoords))
+            {
+                field->flagAutoReveal(newCoords, false, false);
+            }
+        }
 
-         // check if player has won:
-         if (field->flagsCount + field->countUnrevealed == field->mines)
-         {
-             Common::Coords dummyCoords;
-             field->gameOver(dummyCoords, false);
-         }
-         if (field->field2DVector[newCoords.col][newCoords.row] == ' ')
-         {
+        // check if player has won:
+        if (field->flagsCount + field->countUnrevealed == field->mines)
+        {
+            Common::Coords dummyCoords;
+            field->gameOver(dummyCoords, false);
+        }
+        if (field->field2DVector[newCoords.col][newCoords.row] == ' ')
+        {
             field->setButtonIcon(field->getButtonFromCoords(newCoords), "unrevealed");
-         }
-         if (this->lastButtonCoords.col != 0
-                 && this->lastButtonCoords.row != 0)
-         {
-             for (quint16 i = 0; i < this->leftAndRightPressedNeighboursCoveredVector.size(); i++)
-             {
-                 if (field->field2DVector[this->leftAndRightPressedNeighboursCoveredVector[i].col][this->leftAndRightPressedNeighboursCoveredVector[i].row] == ' ')
-                 {
-                     if (! field->isGameOver && ! field->isSolverRunning)
-                     {
-                     field->setButtonIcon(field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i]), "unrevealed");
-                     }
-                 }
-             }
-             if (field->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
-             {
+        }
+        if (this->lastButtonCoords.col != 0
+                && this->lastButtonCoords.row != 0)
+        {
+            for (quint16 i = 0; i < this->leftAndRightPressedNeighboursCoveredVector.size(); i++)
+            {
+                if (field->field2DVector[this->leftAndRightPressedNeighboursCoveredVector[i].col][this->leftAndRightPressedNeighboursCoveredVector[i].row] == ' ')
+                {
+                    if (! field->isGameOver && ! field->isSolverRunning)
+                    {
+                        field->setButtonIcon(field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i]), "unrevealed");
+                    }
+                }
+            }
+            if (field->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
+            {
                 field->setButtonIcon(field->getButtonFromCoords(this->lastButtonCoords), "unrevealed");
-             }
-         }
-     }
-     this->currentMousePosition.setX(0);
-     this->currentMousePosition.setY(0);
+            }
+        }
+    }
+    this->currentMousePosition.setX(0);
+    this->currentMousePosition.setY(0);
 }
 void MouseInput::leftPressedAndMoved()
 {
@@ -415,7 +415,6 @@ void MouseInput::left_and_right_pressed_slot(QMouseEvent* e)
         Button* button = static_cast<Button*>(sender());
         this->pressedButtonCoords = field->getCoordsFromButton(button);
         this->currentMousePosition = e->pos();
-        this->lastButtonCoords = this->getCoordsFromRelativeMousePosition();
         this->leftAndRightPressed();
     }
 }
