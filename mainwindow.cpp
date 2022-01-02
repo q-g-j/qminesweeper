@@ -56,9 +56,9 @@ MainWindow::MainWindow(QWidget *parent) :
     this->buttonSize = 25;
 
     // start in easy mode:
-    this->difficulty.cols = 9;
-    this->difficulty.rows = 9;
-    this->difficulty.mines = 10;
+    this->difficulty.cols = 70;
+    this->difficulty.rows = 35;
+    this->difficulty.mines = 300;
 
     this->newGame(this->difficulty);
 }

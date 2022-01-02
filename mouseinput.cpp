@@ -447,12 +447,33 @@ void MouseInput::right_pressed_and_moved_slot(QMouseEvent* e)
 //        emit this->print_debug_signal(QString::number(this->currentMousePosition.x()) + "," + QString::number(this->currentMousePosition.y()));
     }
 }
-void MouseInput::left_and_right_pressed_and_moved_slot(QMouseEvent* e)
+void MouseInput::left_and_right_pressed_and_moved_slot(QMouseEvent* e, bool areBothPressed)
 {
     if (! field->isGameOver && ! field->isSolverRunning)
     {
         this->currentMousePosition = e->pos();
 //        emit this->print_debug_signal(QString::number(this->currentMousePosition.x()) + "," + QString::number(this->currentMousePosition.y()));
-        this->leftAndRightPressedAndMoved();
+        if (areBothPressed)
+        {
+            this->leftAndRightPressedAndMoved();
+        }
+        else
+        {
+            for (quint16 i = 0; i < this->leftAndRightPressedNeighboursCoveredVector.size(); i++)
+            {
+                if (field->field2DVector[this->leftAndRightPressedNeighboursCoveredVector[i].col][this->leftAndRightPressedNeighboursCoveredVector[i].row] == ' ')
+                {
+                    if (! field->isGameOver && ! field->isSolverRunning)
+                    {
+                       field->setButtonIcon(field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i]), "unrevealed");
+                    }
+                }
+            }
+            if (field->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
+            {
+                field->setButtonIcon(field->getButtonFromCoords(this->lastButtonCoords), "unrevealed");
+            }
+
+        }
     }
 }
