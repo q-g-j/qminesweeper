@@ -7,6 +7,8 @@ MouseInput::MouseInput(Field *field_)
 {
     this->common = new Common;
     this->field = field_;
+    this->lastButtonCoords.col = 0;
+    this->lastButtonCoords.row = 0;
     this->isLeftAndRightPressed = false;
 }
 
@@ -83,66 +85,66 @@ void MouseInput::leftReleased()
             && newCoords.row > 0
             && newCoords.row <= field->rows)
     {
-        if (field->field2DVector[newCoords.col][newCoords.row] == ' ')
-        {
-            QVector<Common::Coords> neighboursMinesVector;
-
-            // fill mines2DVector with mines only once after users first guess:
-            if (field->firstTurn)
+            if (field->field2DVector[newCoords.col][newCoords.row] == ' ')
             {
-                field->fillMines2DVector(newCoords);
-                emit field->game_started_signal();
-            }
+                QVector<Common::Coords> neighboursMinesVector;
 
-            // if user hit a mine, reveal the game field - game is lost:
-            if (field->mines2DVector[newCoords.col][newCoords.row] == 'X')
-            {
-                field->gameOver(newCoords, true);
-            }
-
-            else
-            {
-                // reveal the players choice and place the number of surrounding mines in it:
-                neighboursMinesVector = field->findNeighbours(field->mines2DVector, newCoords, 'X');
-                field->setNumber(newCoords, neighboursMinesVector.size());
-                field->printNumber(newCoords, neighboursMinesVector.size());
-                --field->countUnrevealed;
-
-                // check if player has won:
-                if (field->flagsCount + field->countUnrevealed == field->mines)
+                // fill mines2DVector with mines only once after users first guess:
+                if (field->firstTurn)
                 {
-                    Common::Coords dummyCoords;
-                    field->gameOver(dummyCoords, false);
+                    field->fillMines2DVector(newCoords);
+                    emit field->game_started_signal();
+                }
+
+                // if user hit a mine, reveal the game field - game is lost:
+                if (field->mines2DVector[newCoords.col][newCoords.row] == 'X')
+                {
+                    field->gameOver(newCoords, true);
+                }
+
+                else
+                {
+                    // reveal the players choice and place the number of surrounding mines in it:
+                    neighboursMinesVector = field->findNeighbours(field->mines2DVector, newCoords, 'X');
+                    field->setNumber(newCoords, neighboursMinesVector.size());
+                    field->printNumber(newCoords, neighboursMinesVector.size());
+                    --field->countUnrevealed;
+
+                    // check if player has won:
+                    if (field->flagsCount + field->countUnrevealed == field->mines)
+                    {
+                        Common::Coords dummyCoords;
+                        field->gameOver(dummyCoords, false);
+                    }
+                }
+                if (field->isGameOver != true)
+                {
+                    // automatically reveal all neighbours of squares with no neighbour mines:
+                    QVector<quint16> poolVector;
+                    field->autoReveal(newCoords, poolVector, false);
+                    field->firstTurn = false;
+
+                    // check if player has won:
+                    if (field->flagsCount + field->countUnrevealed == field->mines)
+                    {
+                        Common::Coords dummyCoords;
+                        field->gameOver(dummyCoords, false);
+                    }
                 }
             }
-            if (field->isGameOver != true)
-            {
-                // automatically reveal all neighbours of squares with no neighbour mines:
-                QVector<quint16> poolVector;
-                field->autoReveal(newCoords, poolVector, false);
-                field->firstTurn = false;
 
-                // check if player has won:
-                if (field->flagsCount + field->countUnrevealed == field->mines)
-                {
-                    Common::Coords dummyCoords;
-                    field->gameOver(dummyCoords, false);
-                }
+            emit field->smiley_surprised_signal();
+
+        if (newCoords.col != this->pressedButtonCoords.col || newCoords.row != this->pressedButtonCoords.row)
+        {
+            if (field->field2DVector[this->pressedButtonCoords.col][this->pressedButtonCoords.row] == ' ')
+            {
+                field->setButtonIcon(field->getButtonFromCoords(this->pressedButtonCoords), "unrevealed");
             }
         }
+        this->currentMousePosition.setX(0);
+        this->currentMousePosition.setY(0);
     }
-
-    if (newCoords.col != this->pressedButtonCoords.col || newCoords.row != this->pressedButtonCoords.row)
-    {
-        if (field->field2DVector[this->pressedButtonCoords.col][this->pressedButtonCoords.row] == ' ')
-        {
-            field->setButtonIcon(field->getButtonFromCoords(this->pressedButtonCoords), "unrevealed");
-        }
-    }
-    this->currentMousePosition.setX(0);
-    this->currentMousePosition.setY(0);
-
-    emit field->smiley_surprised_signal();
 }
 void MouseInput::rightReleased()
 {
@@ -185,9 +187,13 @@ void MouseInput::leftAndRightReleased()
              && newCoords.row > 0
              && newCoords.row <= field->rows)
      {
-         if (field->isNumber(newCoords))
+         if (newCoords.col == this->lastButtonCoords.col
+                 && newCoords.row == this->lastButtonCoords.row)
          {
-             field->flagAutoReveal(newCoords, false, false);
+             if (field->isNumber(newCoords))
+             {
+                 field->flagAutoReveal(newCoords, false, false);
+             }
          }
 
          // check if player has won:
@@ -200,20 +206,24 @@ void MouseInput::leftAndRightReleased()
          {
             field->setButtonIcon(field->getButtonFromCoords(newCoords), "unrevealed");
          }
-     }
-     for (quint16 i = 0; i < this->leftAndRightPressedNeighboursCoveredVector.size(); i++)
-     {
-         if (field->field2DVector[this->leftAndRightPressedNeighboursCoveredVector[i].col][this->leftAndRightPressedNeighboursCoveredVector[i].row] == ' ')
+         if (this->lastButtonCoords.col != 0
+                 && this->lastButtonCoords.row != 0)
          {
-             if (! field->isGameOver && ! field->isSolverRunning)
+             for (quint16 i = 0; i < this->leftAndRightPressedNeighboursCoveredVector.size(); i++)
              {
-                field->setButtonIcon(field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i]), "unrevealed");
+                 if (field->field2DVector[this->leftAndRightPressedNeighboursCoveredVector[i].col][this->leftAndRightPressedNeighboursCoveredVector[i].row] == ' ')
+                 {
+                     if (! field->isGameOver && ! field->isSolverRunning)
+                     {
+                     field->setButtonIcon(field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i]), "unrevealed");
+                     }
+                 }
+             }
+             if (field->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
+             {
+                field->setButtonIcon(field->getButtonFromCoords(this->lastButtonCoords), "unrevealed");
              }
          }
-     }
-     if (field->field2DVector[this->pressedButtonCoords.col][this->pressedButtonCoords.row] == ' ')
-     {
-           field->setButtonIcon(field->getButtonFromCoords(this->pressedButtonCoords), "unrevealed");
      }
      this->currentMousePosition.setX(0);
      this->currentMousePosition.setY(0);
@@ -277,12 +287,9 @@ void MouseInput::leftPressedAndMoved()
             {
                 field->setButtonIcon(field->getButtonFromCoords(newButtonCoords), "pressed");
             }
-//            qDebug() << "last:" << QString::number(this->lastButtonCoords.col) << "," << QString::number(this->lastButtonCoords.row) <<
-//                        "new:"  << QString::number(newButtonCoords.col) << "," << QString::number(newButtonCoords.row);
             this->lastButtonCoords.col = newButtonCoords.col;
             this->lastButtonCoords.row = newButtonCoords.row;
         }
-
     }
 }
 void MouseInput::leftAndRightPressedAndMoved()
@@ -342,14 +349,14 @@ void MouseInput::leftAndRightPressedAndMoved()
                 {
                     field->setButtonIcon(field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i]), "unrevealed");
                 }
-                if (field->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
-                {
-                    field->setButtonIcon(field->getButtonFromCoords(this->lastButtonCoords), "unrevealed");
-                }
             }
             if (field->field2DVector[newButtonCoords.col][newButtonCoords.row] == ' ')
             {
                 field->setButtonIcon(field->getButtonFromCoords(newButtonCoords), "pressed");
+            }
+            if (field->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
+            {
+                field->setButtonIcon(field->getButtonFromCoords(this->lastButtonCoords), "unrevealed");
             }
             this->leftAndRightPressedNeighboursCoveredVector = field->findNeighbours(field->field2DVector, newButtonCoords, ' ');
             for (quint16 i = 0; i < leftAndRightPressedNeighboursCoveredVector.size(); i++)
@@ -360,8 +367,6 @@ void MouseInput::leftAndRightPressedAndMoved()
                     field->setButtonIcon(button, "pressed");
                 }
             }
-//            qDebug() << "last:" << QString::number(this->lastButtonCoords.col) << "," << QString::number(this->lastButtonCoords.row) <<
-//                        "new:"  << QString::number(newButtonCoords.col) << "," << QString::number(newButtonCoords.row);
             this->lastButtonCoords.col = newButtonCoords.col;
             this->lastButtonCoords.row = newButtonCoords.row;
         }
@@ -382,30 +387,35 @@ void MouseInput::connect_button_slot(Button *button)
     connect(button, &Button::left_and_right_pressed_and_moved_signal, this, &MouseInput::left_and_right_pressed_and_moved_slot);
     connect(button, &Button::print_debug_signal, this->common, &Common::print_debug_slot);
 }
-void MouseInput::left_pressed_slot()
+void MouseInput::left_pressed_slot(QMouseEvent* e)
 {
     if (! field->isGameOver && ! field->isSolverRunning)
     {
         Button* button = static_cast<Button*>(sender());
         this->pressedButtonCoords = field->getCoordsFromButton(button);
+        this->currentMousePosition = e->pos();
+        this->lastButtonCoords = this->getCoordsFromRelativeMousePosition();
         this->leftPressed();
     }
 }
-void MouseInput::right_pressed_slot()
+void MouseInput::right_pressed_slot(QMouseEvent* e)
 {
     if (! field->isGameOver && ! field->isSolverRunning)
     {
         Button* button = static_cast<Button*>(sender());
         this->pressedButtonCoords = field->getCoordsFromButton(button);
+        this->currentMousePosition = e->pos();
+        this->lastButtonCoords = this->getCoordsFromRelativeMousePosition();
     }
 }
-void MouseInput::left_and_right_pressed_slot()
+void MouseInput::left_and_right_pressed_slot(QMouseEvent* e)
 {
     if (! field->isGameOver && ! field->isSolverRunning)
     {
         Button* button = static_cast<Button*>(sender());
         this->pressedButtonCoords = field->getCoordsFromButton(button);
-
+        this->currentMousePosition = e->pos();
+        this->lastButtonCoords = this->getCoordsFromRelativeMousePosition();
         this->leftAndRightPressed();
     }
 }
@@ -447,33 +457,12 @@ void MouseInput::right_pressed_and_moved_slot(QMouseEvent* e)
 //        emit this->print_debug_signal(QString::number(this->currentMousePosition.x()) + "," + QString::number(this->currentMousePosition.y()));
     }
 }
-void MouseInput::left_and_right_pressed_and_moved_slot(QMouseEvent* e, bool areBothPressed)
+void MouseInput::left_and_right_pressed_and_moved_slot(QMouseEvent* e)
 {
     if (! field->isGameOver && ! field->isSolverRunning)
     {
         this->currentMousePosition = e->pos();
 //        emit this->print_debug_signal(QString::number(this->currentMousePosition.x()) + "," + QString::number(this->currentMousePosition.y()));
-        if (areBothPressed)
-        {
-            this->leftAndRightPressedAndMoved();
-        }
-        else
-        {
-            for (quint16 i = 0; i < this->leftAndRightPressedNeighboursCoveredVector.size(); i++)
-            {
-                if (field->field2DVector[this->leftAndRightPressedNeighboursCoveredVector[i].col][this->leftAndRightPressedNeighboursCoveredVector[i].row] == ' ')
-                {
-                    if (! field->isGameOver && ! field->isSolverRunning)
-                    {
-                       field->setButtonIcon(field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i]), "unrevealed");
-                    }
-                }
-            }
-            if (field->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
-            {
-                field->setButtonIcon(field->getButtonFromCoords(this->lastButtonCoords), "unrevealed");
-            }
-
-        }
+        this->leftAndRightPressedAndMoved();
     }
 }

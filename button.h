@@ -18,15 +18,15 @@ protected:
     bool eventFilter(QObject*, QEvent*);
 signals:
     void double_clicked_signal();
-    void left_pressed_signal();
-    void right_pressed_signal();
+    void left_pressed_signal(QMouseEvent*);
+    void right_pressed_signal(QMouseEvent*);
     void left_released_signal();
     void right_released_signal();
-    void left_and_right_pressed_signal();
+    void left_and_right_pressed_signal(QMouseEvent*);
     void left_and_right_released_signal();
     void left_pressed_and_moved_signal(QMouseEvent*);
     void right_pressed_and_moved_signal(QMouseEvent*);
-    void left_and_right_pressed_and_moved_signal(QMouseEvent*, bool);
+    void left_and_right_pressed_and_moved_signal(QMouseEvent*);
 
     void print_debug_signal(const QString&);
 };

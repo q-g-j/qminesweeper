@@ -40,9 +40,9 @@ public:
 public slots:
     void connect_button_slot(Button*);
 
-    void left_pressed_slot();
-    void right_pressed_slot();
-    void left_and_right_pressed_slot();
+    void left_pressed_slot(QMouseEvent*);
+    void right_pressed_slot(QMouseEvent*);
+    void left_and_right_pressed_slot(QMouseEvent*);
 
     void left_released_slot();
     void right_released_slot();
@@ -50,7 +50,7 @@ public slots:
 
     void left_pressed_and_moved_slot(QMouseEvent*);
     void right_pressed_and_moved_slot(QMouseEvent*);
-    void left_and_right_pressed_and_moved_slot(QMouseEvent*, bool);
+    void left_and_right_pressed_and_moved_slot(QMouseEvent*);
 signals:
     void print_debug_signal(const QString&);
 };

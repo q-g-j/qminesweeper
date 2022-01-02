@@ -24,17 +24,19 @@ bool Button::eventFilter(QObject* object, QEvent *e)
         {
 //            emit this->print_debug_signal("left and right pressed");
             this->leftandrightbuttonpressedflag = true;
-            emit this->left_and_right_pressed_signal();
+            emit this->left_and_right_pressed_signal(mouseEvent);
         }
-        else if (mouseEvent->button() == Qt::LeftButton)
+        else if (mouseEvent->button() == Qt::LeftButton
+                 && ! this->leftandrightbuttonpressedflag)
         {
 //            emit this->print_debug_signal("left pressed");
-            emit this->left_pressed_signal();
+            emit this->left_pressed_signal(mouseEvent);
         }
-        else if (mouseEvent->button() == Qt::RightButton)
+        else if (mouseEvent->button() == Qt::RightButton
+                 && ! this->leftandrightbuttonpressedflag)
         {
 //            emit this->print_debug_signal("right pressed");
-            emit this->right_pressed_signal();
+            emit this->right_pressed_signal(mouseEvent);
         }
     }
 
@@ -58,6 +60,20 @@ bool Button::eventFilter(QObject* object, QEvent *e)
             this->leftandrightbuttonpressedflag = false;
             emit this->left_and_right_released_signal();
         }
+        else if (this->leftandrightbuttonpressedflag
+                && mouseEvent->button() == (Qt::LeftButton)
+                && mouseEvent->buttons() == (Qt::RightButton))
+        {
+//            emit this->print_debug_signal("right pressed and left released");
+            emit this->left_and_right_released_signal();
+        }
+        else if (this->leftandrightbuttonpressedflag
+                && mouseEvent->button() == (Qt::RightButton)
+                && mouseEvent->buttons() == (Qt::LeftButton))
+        {
+//            emit this->print_debug_signal("left pressed and right released");
+            emit this->left_and_right_released_signal();
+        }
         else if (mouseEvent->button() == Qt::LeftButton
                  && mouseEvent->buttons() != (Qt::RightButton))
         {
@@ -79,13 +95,7 @@ bool Button::eventFilter(QObject* object, QEvent *e)
         if (mouseEvent->buttons() == (Qt::LeftButton | Qt::RightButton))
         {
 //            emit this->print_debug_signal("left and right pressed and moved");
-            emit this->left_and_right_pressed_and_moved_signal(mouseEvent, true);
-        }
-        else if (mouseEvent->buttons() != (Qt::LeftButton | Qt::RightButton)
-                 && this->leftandrightbuttonpressedflag)
-        {
-//            emit this->print_debug_signal("right pressed and moved");
-            emit this->left_and_right_pressed_and_moved_signal(mouseEvent, false);
+            emit this->left_and_right_pressed_and_moved_signal(mouseEvent);
         }
         else if (mouseEvent->buttons() == Qt::LeftButton
                  && ! this->leftandrightbuttonpressedflag)
