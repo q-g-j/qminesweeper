@@ -64,7 +64,7 @@ void Field::create2DVectors()
             button = new Button;
             buttonRow.push_back(button);
 
-            if (i != 0 && j !=0)
+            if (i != 0 && j != 0)
             {
                 // create a vector holding structs of each button together with its coords:
                 buttonStruct structTemp;
