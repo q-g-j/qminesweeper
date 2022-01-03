@@ -124,10 +124,12 @@ QVector<Common::Coords> Field::findNeighbours(const QVector<QVector<char>>& temp
 
     for (size_t x = 0; x < 8; ++x)
     {
-        if (! (coords.col == 1 && neighboursVector[x][0] == -1)
+        if (
+                ! (coords.col == 1 && neighboursVector[x][0] == -1)
                 && ! (coords.row == 1 && neighboursVector[x][1] == -1)
                 && ! (coords.col == this->cols && neighboursVector[x][0] == 1)
-                && ! (coords.row == this->rows && neighboursVector[x][1] == 1))
+                && ! (coords.row == this->rows && neighboursVector[x][1] == 1)
+                )
         {
             if (content == this->isNumber(coords))
             {
@@ -380,9 +382,11 @@ void Field::flagAutoReveal(const Common::Coords& coords, bool hasCheated, bool a
                     }
                 }
             }
-            if (neighboursUnrevealedVector.size() != 0
+            if (
+                    neighboursUnrevealedVector.size() != 0
                     && this->flagsCount + this->countUnrevealed != this->mines
-                    && hasCheated == false)
+                    && hasCheated == false
+                    )
             {
                 emit this->smiley_surprised_signal();
             }

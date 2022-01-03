@@ -53,9 +53,9 @@ MainWindow::MainWindow(QWidget *parent) :
     this->buttonSize = 25;
 
     // start in easy mode:
-    this->difficulty.cols = 30;
-    this->difficulty.rows = 16;
-    this->difficulty.mines = 30;
+    this->difficulty.cols = 9;
+    this->difficulty.rows = 9;
+    this->difficulty.mines = 10;
 
     this->newGame(this->difficulty);
 }
@@ -127,7 +127,13 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
 
     this->solver = new Solver;
     this->timer = new Timer;
-    this->field = new Field(ui->fieldWrapper, difficulty_.cols, difficulty_.rows, difficulty_.mines, this->buttonSize);
+    this->field = new Field(
+                ui->fieldWrapper,
+                difficulty_.cols,
+                difficulty_.rows,
+                difficulty_.mines,
+                this->buttonSize
+                );
     this->mouseInput = new MouseInput(field);
 
     connect(this->field, &Field::connect_button_signal, mouseInput, &MouseInput::connect_button_slot);
@@ -193,11 +199,14 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     QList<QScreen*> screens = QGuiApplication::screens();
     for (quint16 i = 0; i < screens.size(); i++)
     {
-        this->setGeometry(QStyle::alignedRect(
-                              Qt::LeftToRight,
-                              Qt::AlignCenter,
-                              this->size(),
-                              screens[i]->availableGeometry()));
+        this->setGeometry(
+                    QStyle::alignedRect(
+                        Qt::LeftToRight,
+                        Qt::AlignCenter,
+                        this->size(),
+                        screens[i]->availableGeometry()
+                        )
+                    );
     }
 }
 

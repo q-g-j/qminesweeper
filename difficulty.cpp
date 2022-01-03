@@ -74,10 +74,11 @@ void Difficulty::on_button_start_clicked()
 
     else if (ui->radioButton_custom->isChecked())
     {
-    quint16 cols = ui->lineEdit_custom_cols->text().toInt();
-    quint16 rows = ui->lineEdit_custom_rows->text().toInt();
-    quint16 mines = ui->lineEdit_custom_mines->text().toInt();
-        if (ui->lineEdit_custom_cols->text() == ""
+        quint16 cols = ui->lineEdit_custom_cols->text().toInt();
+        quint16 rows = ui->lineEdit_custom_rows->text().toInt();
+        quint16 mines = ui->lineEdit_custom_mines->text().toInt();
+        if (
+                ui->lineEdit_custom_cols->text() == ""
                 || ui->lineEdit_custom_rows->text() == ""
                 || ui->lineEdit_custom_mines->text() == ""
                 || cols > 70
@@ -85,7 +86,8 @@ void Difficulty::on_button_start_clicked()
                 || cols < 9
                 || rows < 9
                 || mines > (cols * rows - 1)
-                || mines < 1)
+                || mines < 1
+                )
         {
             QString msg = "Wrong input, try again. Valid numbers are:\n\n"
                     "columns:\n"

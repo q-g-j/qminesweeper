@@ -20,7 +20,7 @@ QVector<quint16> Common::randomShuffle(const quint16& high, const quint16& userF
     {
         for (quint16 i = 1; i < high; i++)
         {
-    quint16 value = QRandomGenerator::global()->bounded(high) + 1;
+            quint16 value = QRandomGenerator::global()->bounded(high) + 1;
             if (value != userFirstInput)
             {
                 if (std::find(returnVector.begin(), returnVector.end(), value) == returnVector.end())

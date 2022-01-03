@@ -58,7 +58,7 @@ void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, b
                             {
                                 if (this->cancelOnNewGameRequested()) return;
 
-    quint16 tempPosition = Common::CoordsToInt(coveredVector.at(k), field.cols);
+                                quint16 tempPosition = Common::CoordsToInt(coveredVector.at(k), field.cols);
                                 if (std::find(poolCoveredVector.begin(), poolCoveredVector.end(), tempPosition) == poolCoveredVector.end())
                                 {
                                     poolCoveredVector.push_back(tempPosition);

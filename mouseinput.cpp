@@ -55,10 +55,12 @@ void MouseInput::leftAndRightPressed()
 {
     Common::Coords newCoords = this->getCoordsFromRelativeMousePosition();
 
-    if (newCoords.col > 0
-                 && newCoords.col <= field->cols
-                 && newCoords.row > 0
-                 && newCoords.row <= field->rows)
+    if (
+            newCoords.col > 0
+            && newCoords.col <= field->cols
+            && newCoords.row > 0
+            && newCoords.row <= field->rows
+            )
     {
         this->leftAndRightPressedNeighboursCoveredVector = field->findNeighbours(field->field2DVector, newCoords, ' ');
         for (quint16 i = 0; i < leftAndRightPressedNeighboursCoveredVector.size(); i++)
@@ -76,10 +78,12 @@ void MouseInput::leftReleased()
 {
     Common::Coords newCoords = this->getCoordsFromRelativeMousePosition();
 
-    if (newCoords.col > 0
+    if (
+            newCoords.col > 0
             && newCoords.col <= field->cols
             && newCoords.row > 0
-            && newCoords.row <= field->rows)
+            && newCoords.row <= field->rows
+            )
     {
             if (field->field2DVector[newCoords.col][newCoords.row] == ' ')
             {
@@ -147,10 +151,12 @@ void MouseInput::rightReleased()
     Button *button;
     button = field->getButtonFromCoords(newCoords);
 
-    if (newCoords.col > 0
+    if (
+            newCoords.col > 0
             && newCoords.col <= field->cols
             && newCoords.row > 0
-            && newCoords.row <= field->rows)
+            && newCoords.row <= field->rows
+            )
     {
         if (field->field2DVector[newCoords.col][newCoords.row] == ' ')
         {
@@ -177,13 +183,17 @@ void MouseInput::leftAndRightReleased()
 {
     Common::Coords newCoords = this->getCoordsFromRelativeMousePosition();
 
-    if (newCoords.col > 0
+    if (
+            newCoords.col > 0
             && newCoords.col <= field->cols
             && newCoords.row > 0
-            && newCoords.row <= field->rows)
+            && newCoords.row <= field->rows
+            )
     {
-        if (newCoords.col == this->lastButtonCoords.col
-                && newCoords.row == this->lastButtonCoords.row)
+        if (
+                newCoords.col == this->lastButtonCoords.col
+                && newCoords.row == this->lastButtonCoords.row
+                )
         {
             if (field->isNumber(newCoords))
             {
@@ -201,10 +211,12 @@ void MouseInput::leftAndRightReleased()
         {
             field->getButtonFromCoords(newCoords)->setStyleSheet(stylesheet.button_unrevealed);
         }
-        if (this->lastButtonCoords.col > 0
+        if (
+                this->lastButtonCoords.col > 0
                 && this->lastButtonCoords.col <= field->cols
                 && this->lastButtonCoords.row > 0
-                && this->lastButtonCoords.row <= field->rows)
+                && this->lastButtonCoords.row <= field->rows
+                )
         {
             for (quint16 i = 0; i < this->leftAndRightPressedNeighboursCoveredVector.size(); i++)
             {
@@ -238,16 +250,20 @@ void MouseInput::leftPressedAndMoved()
         this->lastButtonCoords.row = this->pressedButtonCoords.row;
     }
 
-    if (newButtonCoords.col < 1
+    if (
+            newButtonCoords.col < 1
             || newButtonCoords.col > field->cols
             || newButtonCoords.row < 1
-            || newButtonCoords.row > field->rows)
+            || newButtonCoords.row > field->rows
+            )
     {
 //        emit this->print_debug_signal(QString::number(lastButtonCoords.col) + "," + QString::number(lastButtonCoords.row));
-        if (this->lastButtonCoords.col > 0
-                 && this->lastButtonCoords.col <= field->cols
-                 && this->lastButtonCoords.row > 0
-                 && this->lastButtonCoords.row <= field->rows)
+        if (
+                this->lastButtonCoords.col > 0
+                && this->lastButtonCoords.col <= field->cols
+                && this->lastButtonCoords.row > 0
+                && this->lastButtonCoords.row <= field->rows
+                )
         {
             if (field->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
             {
@@ -272,10 +288,12 @@ void MouseInput::leftPressedAndMoved()
             this->lastButtonCoords.row = field->rows + 1;
         }
     }
-    else if (this->lastButtonCoords.col >= 0
+    else if (
+             this->lastButtonCoords.col >= 0
              && this->lastButtonCoords.col <= field->cols + 1
              && this->lastButtonCoords.row >= 0
-             && this->lastButtonCoords.row <= field->rows + 1)
+             && this->lastButtonCoords.row <= field->rows + 1
+             )
     {
         if (this->lastButtonCoords.col != newButtonCoords.col || this->lastButtonCoords.row != newButtonCoords.row)
         {
@@ -283,10 +301,12 @@ void MouseInput::leftPressedAndMoved()
             {
                 field->getButtonFromCoords(this->pressedButtonCoords)->setStyleSheet(stylesheet.button_unrevealed);
             }
-            if (this->lastButtonCoords.col > 0
-                     && this->lastButtonCoords.col <= field->cols
-                     && this->lastButtonCoords.row > 0
-                     && this->lastButtonCoords.row <= field->rows)
+            if (
+                    this->lastButtonCoords.col > 0
+                    && this->lastButtonCoords.col <= field->cols
+                    && this->lastButtonCoords.row > 0
+                    && this->lastButtonCoords.row <= field->rows
+                    )
             {
                 if (field->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
                 {
@@ -315,15 +335,19 @@ void MouseInput::leftAndRightPressedAndMoved()
         this->lastButtonCoords.row = this->pressedButtonCoords.row;
     }
 
-    if (newButtonCoords.col < 1
+    if (
+            newButtonCoords.col < 1
             || newButtonCoords.col > field->cols
             || newButtonCoords.row < 1
-            || newButtonCoords.row > field->rows)
+            || newButtonCoords.row > field->rows
+            )
     {
-        if (this->lastButtonCoords.col > 0
-                 && this->lastButtonCoords.col <= field->cols
-                 && this->lastButtonCoords.row > 0
-                 && this->lastButtonCoords.row <= field->rows)
+        if (
+                this->lastButtonCoords.col > 0
+                && this->lastButtonCoords.col <= field->cols
+                && this->lastButtonCoords.row > 0
+                && this->lastButtonCoords.row <= field->rows
+                )
         {
             for (quint16 i = 0; i < this->leftAndRightPressedNeighboursCoveredVector.size(); i++)
             {
@@ -354,10 +378,12 @@ void MouseInput::leftAndRightPressedAndMoved()
             this->lastButtonCoords.row = field->rows + 1;
         }
     }
-    else if (this->lastButtonCoords.col >= 0
+    else if (
+             this->lastButtonCoords.col >= 0
              && this->lastButtonCoords.col <= field->cols + 1
              && this->lastButtonCoords.row >= 0
-             && this->lastButtonCoords.row <= field->rows + 1)
+             && this->lastButtonCoords.row <= field->rows + 1
+             )
     {
         if (this->lastButtonCoords.col != newButtonCoords.col || this->lastButtonCoords.row != newButtonCoords.row)
         {
@@ -372,10 +398,12 @@ void MouseInput::leftAndRightPressedAndMoved()
             {
                 field->getButtonFromCoords(newButtonCoords)->setStyleSheet(stylesheet.button_pressed);
             }
-            if (this->lastButtonCoords.col > 0
-                     && this->lastButtonCoords.col <= field->cols
-                     && this->lastButtonCoords.row > 0
-                     && this->lastButtonCoords.row <= field->rows)
+            if (
+                    this->lastButtonCoords.col > 0
+                    && this->lastButtonCoords.col <= field->cols
+                    && this->lastButtonCoords.row > 0
+                    && this->lastButtonCoords.row <= field->rows
+                    )
             {
                 if (field->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
                 {
