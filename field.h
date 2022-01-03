@@ -20,6 +20,7 @@ private:
     };
     QVector<QVector<Button*>> buttons2DVector;
     QGridLayout *layout;
+    Stylesheet *stylesheet;
 public:
     explicit Field(QWidget *parent = nullptr,
                    const quint16& cols = 9,
@@ -52,7 +53,6 @@ public:
     void fillMines2DVector(const Common::Coords&);
     Common::Coords getCoordsFromButton(Button*);
     Button* getButtonFromCoords(const Common::Coords&);
-    void setButtonIcon(Button*, const QString&);
     QVector<Common::Coords> findNeighbours(const QVector<QVector<char>>&, const Common::Coords&, const char&);
     void autoReveal(const Common::Coords&, QVector<quint16>&, bool);
     void flagAutoReveal(const Common::Coords&, bool, bool);

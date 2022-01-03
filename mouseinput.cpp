@@ -6,6 +6,7 @@
 MouseInput::MouseInput(Field *field_)
 {
     this->common = new Common;
+    this->stylesheet = new Stylesheet;
     this->field = field_;
     this->lastButtonCoords.col = 0;
     this->lastButtonCoords.row = 0;
@@ -16,6 +17,8 @@ MouseInput::~MouseInput()
 {
     delete this->common;
     common = nullptr;
+    delete this->stylesheet;
+    stylesheet = nullptr;
 }
 
 // methods:
@@ -49,7 +52,7 @@ void MouseInput::leftPressed()
 {
     if (field->field2DVector[this->pressedButtonCoords.col][this->pressedButtonCoords.row] == ' ')
     {
-        field->setButtonIcon(field->getButtonFromCoords(this->pressedButtonCoords), "pressed");
+        field->getButtonFromCoords(this->pressedButtonCoords)->setStyleSheet(this->stylesheet->button_pressed);
     }
 }
 void MouseInput::rightPressed()
@@ -68,11 +71,11 @@ void MouseInput::leftAndRightPressed()
         for (quint16 i = 0; i < leftAndRightPressedNeighboursCoveredVector.size(); i++)
         {
             Button *button = field->getButtonFromCoords(leftAndRightPressedNeighboursCoveredVector[i]);
-            field->setButtonIcon(button, "pressed");
+            button->setStyleSheet(this->stylesheet->button_pressed);
         }
         if (field->field2DVector[newCoords.col][newCoords.row] == ' ')
         {
-            field->setButtonIcon(field->getButtonFromCoords(newCoords), "pressed");
+            field->getButtonFromCoords(newCoords)->setStyleSheet(this->stylesheet->button_pressed);
         }
     }
 }
@@ -139,7 +142,7 @@ void MouseInput::leftReleased()
         {
             if (field->field2DVector[this->pressedButtonCoords.col][this->pressedButtonCoords.row] == ' ')
             {
-                field->setButtonIcon(field->getButtonFromCoords(this->pressedButtonCoords), "unrevealed");
+                field->getButtonFromCoords(this->pressedButtonCoords)->setStyleSheet(this->stylesheet->button_unrevealed);
             }
         }
         this->currentMousePosition.setX(0);
@@ -159,7 +162,7 @@ void MouseInput::rightReleased()
     {
         if (field->field2DVector[newCoords.col][newCoords.row] == ' ')
         {
-            field->setButtonIcon(button, "flag");
+            button->setStyleSheet(this->stylesheet->button_flag);
             field->field2DVector[newCoords.col][newCoords.row] = 'F';
             field->flagsCount++;
             field->minesLeft--;
@@ -167,7 +170,7 @@ void MouseInput::rightReleased()
         }
         else if (! field->isNumber(newCoords))
         {
-            field->setButtonIcon(button, "unrevealed");
+            button->setStyleSheet(this->stylesheet->button_unrevealed);
             field->field2DVector[newCoords.col][newCoords.row] = ' ';
             field->flagsCount--;
             field->minesLeft++;
@@ -204,7 +207,7 @@ void MouseInput::leftAndRightReleased()
         }
         if (field->field2DVector[newCoords.col][newCoords.row] == ' ')
         {
-            field->setButtonIcon(field->getButtonFromCoords(newCoords), "unrevealed");
+            field->getButtonFromCoords(newCoords)->setStyleSheet(this->stylesheet->button_unrevealed);
         }
         if (this->lastButtonCoords.col > 0
                 && this->lastButtonCoords.col <= field->cols
@@ -217,13 +220,13 @@ void MouseInput::leftAndRightReleased()
                 {
                     if (! field->isGameOver && ! field->isSolverRunning)
                     {
-                        field->setButtonIcon(field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i]), "unrevealed");
+                        field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i])->setStyleSheet(this->stylesheet->button_unrevealed);
                     }
                 }
             }
             if (field->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
             {
-                field->setButtonIcon(field->getButtonFromCoords(this->lastButtonCoords), "unrevealed");
+                field->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(this->stylesheet->button_unrevealed);
             }
         }
     }
@@ -256,7 +259,7 @@ void MouseInput::leftPressedAndMoved()
         {
             if (field->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
             {
-                field->setButtonIcon(field->getButtonFromCoords(this->lastButtonCoords), "unrevealed");
+                field->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(this->stylesheet->button_unrevealed);
             }
         }
 
@@ -286,7 +289,7 @@ void MouseInput::leftPressedAndMoved()
         {
             if (field->field2DVector[this->pressedButtonCoords.col][this->pressedButtonCoords.row] == ' ')
             {
-                field->setButtonIcon(field->getButtonFromCoords(this->pressedButtonCoords), "unrevealed");
+                field->getButtonFromCoords(this->pressedButtonCoords)->setStyleSheet(this->stylesheet->button_unrevealed);
             }
             if (this->lastButtonCoords.col > 0
                      && this->lastButtonCoords.col <= field->cols
@@ -295,12 +298,12 @@ void MouseInput::leftPressedAndMoved()
             {
                 if (field->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
                 {
-                    field->setButtonIcon(field->getButtonFromCoords(this->lastButtonCoords), "unrevealed");
+                    field->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(this->stylesheet->button_unrevealed);
                 }
             }
             if (field->field2DVector[newButtonCoords.col][newButtonCoords.row] == ' ')
             {
-                field->setButtonIcon(field->getButtonFromCoords(newButtonCoords), "pressed");
+                field->getButtonFromCoords(newButtonCoords)->setStyleSheet(this->stylesheet->button_pressed);
             }
             this->lastButtonCoords.col = newButtonCoords.col;
             this->lastButtonCoords.row = newButtonCoords.row;
@@ -327,7 +330,7 @@ void MouseInput::leftAndRightPressedAndMoved()
     {
         for (quint16 i = 0; i < this->leftAndRightPressedNeighboursCoveredVector.size(); i++)
         {
-            field->setButtonIcon(field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i]), "unrevealed");
+            field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i])->setStyleSheet(this->stylesheet->button_unrevealed);
         }
         if (this->lastButtonCoords.col > 0
                  && this->lastButtonCoords.col <= field->cols
@@ -338,7 +341,7 @@ void MouseInput::leftAndRightPressedAndMoved()
 
             if (field->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
             {
-                field->setButtonIcon(field->getButtonFromCoords(this->lastButtonCoords), "unrevealed");
+                field->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(this->stylesheet->button_unrevealed);
             }
         }
 
@@ -370,12 +373,12 @@ void MouseInput::leftAndRightPressedAndMoved()
             {
                 if (field->field2DVector[this->leftAndRightPressedNeighboursCoveredVector[i].col][this->leftAndRightPressedNeighboursCoveredVector[i].row] == ' ')
                 {
-                    field->setButtonIcon(field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i]), "unrevealed");
+                    field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i])->setStyleSheet(this->stylesheet->button_unrevealed);
                 }
             }
             if (field->field2DVector[newButtonCoords.col][newButtonCoords.row] == ' ')
             {
-                field->setButtonIcon(field->getButtonFromCoords(newButtonCoords), "pressed");
+                field->getButtonFromCoords(newButtonCoords)->setStyleSheet(this->stylesheet->button_pressed);
             }
             if (this->lastButtonCoords.col > 0
                      && this->lastButtonCoords.col <= field->cols
@@ -384,7 +387,7 @@ void MouseInput::leftAndRightPressedAndMoved()
             {
                 if (field->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
                 {
-                    field->setButtonIcon(field->getButtonFromCoords(this->lastButtonCoords), "unrevealed");
+                    field->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(this->stylesheet->button_unrevealed);
                 }
             }
             this->leftAndRightPressedNeighboursCoveredVector = field->findNeighbours(field->field2DVector, newButtonCoords, ' ');
@@ -393,7 +396,7 @@ void MouseInput::leftAndRightPressedAndMoved()
                 if (field->field2DVector[leftAndRightPressedNeighboursCoveredVector[i].col][leftAndRightPressedNeighboursCoveredVector[i].row] == ' ')
                 {
                     Button *button = field->getButtonFromCoords(leftAndRightPressedNeighboursCoveredVector[i]);
-                    field->setButtonIcon(button, "pressed");
+                    button->setStyleSheet(this->stylesheet->button_pressed);
                 }
             }
             this->lastButtonCoords.col = newButtonCoords.col;
@@ -491,14 +494,14 @@ void MouseInput::left_and_right_pressed_and_moved_slot(QMouseEvent* e)
 {
     if (! field->isGameOver && ! field->isSolverRunning)
     {
-        if (this->lastButtonCoords.col >= 0
-                 && this->lastButtonCoords.col <= field->cols + 1
-                 && this->lastButtonCoords.row >= 0
-                 && this->lastButtonCoords.row <= field->rows + 1)
+        if (this->lastButtonCoords.col > 0
+                 && this->lastButtonCoords.col <= field->cols
+                 && this->lastButtonCoords.row > 0
+                 && this->lastButtonCoords.row <= field->rows)
         {
-        this->currentMousePosition = e->pos();
-//        emit this->print_debug_signal(QString::number(this->currentMousePosition.x()) + "," + QString::number(this->currentMousePosition.y()));
-        this->leftAndRightPressedAndMoved();
+            this->currentMousePosition = e->pos();
+//            emit this->print_debug_signal(QString::number(this->currentMousePosition.x()) + "," + QString::number(this->currentMousePosition.y()));
+            this->leftAndRightPressedAndMoved();
         }
     }
 }

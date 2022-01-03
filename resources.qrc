@@ -51,5 +51,19 @@
         <file>stylesheet/digital_9.css</file>
         <file>stylesheet/digital_colon.css</file>
         <file>icons/png/digital_colon.png</file>
+        <file>stylesheet/button_1.css</file>
+        <file>stylesheet/button_2.css</file>
+        <file>stylesheet/button_3.css</file>
+        <file>stylesheet/button_4.css</file>
+        <file>stylesheet/button_5.css</file>
+        <file>stylesheet/button_6.css</file>
+        <file>stylesheet/button_7.css</file>
+        <file>stylesheet/button_8.css</file>
+        <file>stylesheet/button_mine.css</file>
+        <file>stylesheet/button_mine_hit.css</file>
+        <file>stylesheet/button_pressed.css</file>
+        <file>stylesheet/button_revealed.css</file>
+        <file>stylesheet/button_unrevealed.css</file>
+        <file>stylesheet/button_flag.css</file>
     </qresource>
 </RCC>

@@ -7,6 +7,7 @@
 #include "button.h"
 #include "common.h"
 #include "field.h"
+#include "stylesheet.h"
 
 class MouseInput : public QObject
 {
@@ -14,6 +15,7 @@ class MouseInput : public QObject
 private:
     Common *common;
     Field *field;
+    Stylesheet *stylesheet;
 
     bool isLeftAndRightPressed;
 
