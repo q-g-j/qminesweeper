@@ -1,10 +1,11 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
+#include <QLabel>
 #include <QMouseEvent>
 #include <QPushButton>
 
-class Button : public QPushButton
+class Button : public QLabel
 {
     Q_OBJECT
 private:

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QGridLayout>
+#include <QPixmap>
 
 #include "button.h"
 #include "common.h"
@@ -30,6 +31,21 @@ public:
     ~Field();
 
     // public variables:
+    QPixmap button_1;
+    QPixmap button_2;
+    QPixmap button_3;
+    QPixmap button_4;
+    QPixmap button_5;
+    QPixmap button_6;
+    QPixmap button_7;
+    QPixmap button_8;
+    QPixmap button_mine;
+    QPixmap button_mine_hit;
+    QPixmap button_revealed;
+    QPixmap button_unrevealed;
+    QPixmap button_pressed;
+    QPixmap button_flag;
+
     QVector<QVector<char>> field2DVector;
     QVector<QVector<char>> mines2DVector;
     QVector<buttonStruct> buttonStructVector;
@@ -57,6 +73,7 @@ public:
     void autoReveal(const Common::Coords&, QVector<quint16>&, bool);
     void flagAutoReveal(const Common::Coords&, bool, bool);
     void gameOver(const Common::Coords&, bool);
+    void setButtonIcon(Button*, const QPixmap&);
 signals:
     void connect_button_signal(Button*);
     void game_started_signal();

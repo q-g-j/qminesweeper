@@ -35,7 +35,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35"
-     inkscape:cx="85.714286"
+     inkscape:cx="-50"
      inkscape:cy="827.14286"
      inkscape:document-units="mm"
      inkscape:current-layer="layer2"
@@ -47,9 +47,9 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:window-width="1920"
-     inkscape:window-height="1007"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:pagecheckerboard="0">
     <inkscape:grid
@@ -79,7 +79,7 @@
        id="path1799"
        style="display:inline;fill:#b4b4b4;fill-opacity:1;stroke-width:0.874436"
        d="M 60.392193,75.133606 V 375.13361 L 360.39219,75.133606 Z m 299.999997,0 L 60.392193,375.13361 H 360.39219 Z"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_2.png"
+       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\button_2.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
   </g>
@@ -95,7 +95,7 @@
        x="142.32166"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:233.183px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.874435"
        xml:space="preserve"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_2.png"
+       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\button_2.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23"><tspan
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:256.501px;font-family:Arial;-inkscape-font-specification:'Arial, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#008000;stroke-width:0.874435"

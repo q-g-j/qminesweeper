@@ -40,8 +40,8 @@
      inkscape:snap-text-baseline="true"
      inkscape:snap-page="true"
      inkscape:zoom="0.56123737"
-     inkscape:cx="465.93476"
-     inkscape:cy="510.47919"
+     inkscape:cx="380.40945"
+     inkscape:cy="601.34984"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
      inkscape:window-x="-8"
@@ -59,21 +59,21 @@
        id="path4879"
        style="display:inline;opacity:1;fill:#666666;fill-opacity:1;stroke-width:2.76603"
        d="M 371.16,367.6744 H 71.159996 L 371.16,67.67442 Z"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_unrevealed.png"
+       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\button_unrevealed.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
     <path
        id="path4316"
        style="display:inline;opacity:1;fill:#e6e6e6;fill-opacity:1;stroke-width:2.76603"
        d="M 71.159997,67.674421 V 367.6744 L 371.15998,67.674421 Z"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_unrevealed.png"
+       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\button_unrevealed.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
     <path
        id="path4313"
        style="display:inline;opacity:1;fill:#b3b3b3;stroke-width:5.93741"
        d="m 101.15996,97.675095 h 240 V 337.67509 h -240 z"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_unrevealed.png"
+       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\button_unrevealed.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
   </g>

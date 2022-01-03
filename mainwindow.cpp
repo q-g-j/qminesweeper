@@ -159,7 +159,7 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     this->setInfoBarNumber(ui->timerMinutes, 0);
     this->setInfoBarNumber(ui->timerTenSeconds, 0);
     this->setInfoBarNumber(ui->timerSeconds, 0);
-    ui->smiley->setStyleSheet(stylesheet.smiley);
+    ui->smiley->setStyleSheet(this->stylesheet.smiley);
 
     if (difficulty_.mines < 100)
     {
@@ -245,43 +245,43 @@ void MainWindow::setInfoBarNumber(QWidget *widget, const quint16 &number)
 {
     if (number == 0)
     {
-        widget->setStyleSheet(stylesheet.digital_0);
+        widget->setStyleSheet(this->stylesheet.digital_0);
     }
     else if (number == 1)
     {
-        widget->setStyleSheet(stylesheet.digital_1);
+        widget->setStyleSheet(this->stylesheet.digital_1);
     }
     else if (number == 2)
     {
-        widget->setStyleSheet(stylesheet.digital_2);
+        widget->setStyleSheet(this->stylesheet.digital_2);
     }
     else if (number == 3)
     {
-        widget->setStyleSheet(stylesheet.digital_3);
+        widget->setStyleSheet(this->stylesheet.digital_3);
     }
     else if (number == 4)
     {
-        widget->setStyleSheet(stylesheet.digital_4);
+        widget->setStyleSheet(this->stylesheet.digital_4);
     }
     else if (number == 5)
     {
-        widget->setStyleSheet(stylesheet.digital_5);
+        widget->setStyleSheet(this->stylesheet.digital_5);
     }
     else if (number == 6)
     {
-        widget->setStyleSheet(stylesheet.digital_6);
+        widget->setStyleSheet(this->stylesheet.digital_6);
     }
     else if (number == 7)
     {
-        widget->setStyleSheet(stylesheet.digital_7);
+        widget->setStyleSheet(this->stylesheet.digital_7);
     }
     else if (number == 8)
     {
-        widget->setStyleSheet(stylesheet.digital_8);
+        widget->setStyleSheet(this->stylesheet.digital_8);
     }
     else if (number == 9)
     {
-        widget->setStyleSheet(stylesheet.digital_9);
+        widget->setStyleSheet(this->stylesheet.digital_9);
     }
 }
 
@@ -327,11 +327,11 @@ void MainWindow::smiley_surprised_slot()
 {
     if (field->isGameOver != true)
     {
-        ui->smiley->setStyleSheet(stylesheet.smiley_surprised);
+        ui->smiley->setStyleSheet(this->stylesheet.smiley_surprised);
         Common::sleep(350);
         if (field->isGameOver != true)
         {
-            ui->smiley->setStyleSheet(stylesheet.smiley);
+            ui->smiley->setStyleSheet(this->stylesheet.smiley);
         }
     }
 }
@@ -341,11 +341,11 @@ void MainWindow::game_over_slot(bool hasLost)
     this->timer->timerStop();
     if (hasLost == true)
     {
-        ui->smiley->setStyleSheet(stylesheet.smiley_lost);
+        ui->smiley->setStyleSheet(this->stylesheet.smiley_lost);
     }
     else if (hasLost == false)
     {
-        ui->smiley->setStyleSheet(stylesheet.smiley_won);
+        ui->smiley->setStyleSheet(this->stylesheet.smiley_won);
     }
 }
 
@@ -353,7 +353,7 @@ void MainWindow::minesleft_changed_slot(const qint16& minesLeft)
 {
     if (minesLeft < 0)
     {
-        ui->minesLeftOnes->setStyleSheet(stylesheet.digital_0);
+        ui->minesLeftOnes->setStyleSheet(this->stylesheet.digital_0);
     }
     else if (minesLeft < 10)
     {

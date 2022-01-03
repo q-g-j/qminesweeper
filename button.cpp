@@ -1,11 +1,10 @@
 #include <QApplication>
 #include <QMouseEvent>
-#include <QPushButton>
 #include <QDebug>
 
 #include "button.h"
 
-Button::Button(QWidget *parent) : QPushButton(parent)
+Button::Button(QWidget *parent) : QLabel(parent)
 {
     this->installEventFilter(this);
 }

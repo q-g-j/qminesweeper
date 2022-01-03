@@ -1,7 +1,6 @@
 #include <QDebug>
 #include <QSizePolicy>
 #include <QVector>
-#include <QPixmap>
 
 #include "button.h"
 #include "common.h"
@@ -27,6 +26,21 @@ Field::Field(QWidget *parent, const quint16& cols_, const quint16& rows_, const 
     this->layout->setSpacing(0);
     this->layout->setContentsMargins(0,0,0,0);
     this->setLayout(this->layout);
+
+    this->button_1.load(":/icons/png/button_1");
+    this->button_2.load(":/icons/png/button_2");
+    this->button_3.load(":/icons/png/button_3");
+    this->button_4.load(":/icons/png/button_4");
+    this->button_5.load(":/icons/png/button_5");
+    this->button_6.load(":/icons/png/button_6");
+    this->button_7.load(":/icons/png/button_7");
+    this->button_8.load(":/icons/png/button_8");
+    this->button_revealed.load(":/icons/png/button_revealed");
+    this->button_unrevealed.load(":/icons/png/button_unrevealed");
+    this->button_pressed.load(":/icons/png/button_pressed");
+    this->button_mine.load(":/icons/png/button_mine");
+    this->button_mine_hit.load(":/icons/png/button_mine_hit");
+    this->button_flag.load(":/icons/png/button_flag");
 }
 
 Field::~Field()
@@ -41,6 +55,13 @@ Field::~Field()
     }
     delete this->layout;
     this->layout = nullptr;
+}
+
+void Field::setButtonIcon(Button* button, const QPixmap& iconName)
+{
+    button->setPixmap(iconName);
+    QSize size(this->buttonSize, this->buttonSize);
+    button->setScaledContents( true );
 }
 
 void Field::create2DVectors()
@@ -69,7 +90,8 @@ void Field::create2DVectors()
                 button->setMouseTracking(true);
                 button->setFixedSize(this->buttonSize, this->buttonSize);
                 button->setAttribute(Qt::WA_LayoutUsesWidgetRect);
-                button->setStyleSheet(stylesheet.button_unrevealed);
+                this->setButtonIcon(button, this->button_unrevealed);
+                button->setScaledContents( true );
                 this->layout->addWidget(button, j - 1, i - 1, 1, 1);
                 emit this->connect_button_signal(button);
             }
@@ -174,47 +196,47 @@ void Field::printNumber(const Common::Coords& coords, const quint16& number)
     Button *button = this->getButtonFromCoords(coords);
     if (number == 0)
     {
-        button->setStyleSheet(stylesheet.button_revealed);
+        this->setButtonIcon(this->getButtonFromCoords(coords), this->button_revealed);
         button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 1)
     {
-        button->setStyleSheet(stylesheet.button_1);
+        this->setButtonIcon(this->getButtonFromCoords(coords), this->button_1);
         button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 2)
     {
-        button->setStyleSheet(stylesheet.button_2);
+        this->setButtonIcon(this->getButtonFromCoords(coords), this->button_2);
         button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 3)
     {
-        button->setStyleSheet(stylesheet.button_3);
+        this->setButtonIcon(this->getButtonFromCoords(coords), this->button_3);
         button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 4)
     {
-        button->setStyleSheet(stylesheet.button_4);
+        this->setButtonIcon(this->getButtonFromCoords(coords), this->button_4);
         button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 5)
     {
-        button->setStyleSheet(stylesheet.button_5);
+        this->setButtonIcon(this->getButtonFromCoords(coords), this->button_5);
         button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 6)
     {
-        button->setStyleSheet(stylesheet.button_6);
+        this->setButtonIcon(this->getButtonFromCoords(coords), this->button_6);
         button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 7)
     {
-        button->setStyleSheet(stylesheet.button_7);
+        this->setButtonIcon(this->getButtonFromCoords(coords), this->button_7);
         button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 8)
     {
-        button->setStyleSheet(stylesheet.button_8);
+        this->setButtonIcon(this->getButtonFromCoords(coords), this->button_8);
         button->setFocusPolicy(Qt::NoFocus);
     }
 }
@@ -233,11 +255,11 @@ void Field::gameOver(const Common::Coords& coords, bool hasLost)
         {
             if (this->mines2DVector[i][j] == 'X')
             {
-                this->buttons2DVector[i][j]->setStyleSheet(stylesheet.button_mine);
+                this->setButtonIcon(this->buttons2DVector[i][j], this->button_mine);
             }
             else if (this->mines2DVector[i][j] == 'H')
             {
-                this->buttons2DVector[i][j]->setStyleSheet(stylesheet.button_mine_hit);
+                this->setButtonIcon(this->buttons2DVector[i][j], this->button_mine_hit);
             }
             else if (hasLost == true)
             {
@@ -256,7 +278,7 @@ void Field::gameOver(const Common::Coords& coords, bool hasLost)
     }
     if (mines2DVector[coords.col][coords.row] == 'X')
     {
-        this->getButtonFromCoords(coords)->setStyleSheet(stylesheet.button_mine_hit);
+        this->setButtonIcon(this->getButtonFromCoords(coords), button_mine_hit);
     }
 }
 
@@ -420,7 +442,7 @@ Button* Field::getButtonFromCoords(const Common::Coords &coords)
 void Field::solver_place_flag_slot(const Common::Coords& coords)
 {
     this->field2DVector[coords.col][coords.row] = 'F';
-    this->getButtonFromCoords(coords)->setStyleSheet(stylesheet.button_flag);
+    this->setButtonIcon(this->getButtonFromCoords(coords), button_flag);
     this->flagsCount++;
     this->minesLeft--;
     this->countUnrevealed--;

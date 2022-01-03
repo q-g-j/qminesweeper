@@ -119,7 +119,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.30246157"
-     inkscape:cx="46.286872"
+     inkscape:cx="-114.06408"
      inkscape:cy="831.51059"
      inkscape:document-units="mm"
      inkscape:current-layer="layer2"
@@ -131,9 +131,9 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:window-width="1920"
-     inkscape:window-height="1007"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:pagecheckerboard="0"
      inkscape:snap-bbox="true"
@@ -176,7 +176,7 @@
        id="path1799"
        style="display:inline;fill:#b4b4b4;fill-opacity:1;stroke-width:0.874436"
        d="M 60.392193,75.133606 V 375.13361 L 360.39219,75.133606 Z m 299.999997,0 L 60.392193,375.13361 H 360.39219 Z"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_mine_hit.png"
+       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\button_mine_hit.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
   </g>
@@ -190,28 +190,28 @@
        style="fill:none;stroke:#dc0000;stroke-width:33.915;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 333.39331,225.13361 -246.00223,-1e-5"
        id="path1741"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_mine_hit.png"
+       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\button_mine_hit.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
     <path
        style="fill:none;stroke:#dc0000;stroke-width:33.915;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 210.3922,102.13249 V 348.13472"
        id="path1743"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_mine_hit.png"
+       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\button_mine_hit.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
     <path
        style="fill:none;stroke:#dc0000;stroke-width:21.4138;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 289.46032,146.06549 131.32408,304.20172"
        id="path1626"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_mine_hit.png"
+       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\button_mine_hit.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
     <path
        style="fill:none;stroke:#dc0000;stroke-width:21.4138;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 131.32408,146.06549 289.46032,304.20172"
        id="path1298"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_mine_hit.png"
+       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\button_mine_hit.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
     <circle
@@ -220,7 +220,7 @@
        cx="210.39218"
        cy="225.13364"
        r="89.775002"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_mine_hit.png"
+       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\button_mine_hit.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
     <ellipse
@@ -231,7 +231,7 @@
        cx="32.465099"
        id="path2169"
        style="display:inline;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:9.05101;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/button_mine_hit.png"
+       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\button_mine_hit.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
   </g>
