@@ -2,4 +2,3 @@
 ui_*.h
 .qmake.stash
 __MACOSX
-git-update-tag
