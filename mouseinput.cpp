@@ -395,6 +395,10 @@ void MouseInput::left_pressed_slot(QMouseEvent* e)
         this->pressedButtonCoords = field->getCoordsFromButton(button);
         this->currentMousePosition = e->pos();
         this->lastButtonCoords = this->getCoordsFromRelativeMousePosition();
+        if (this->lastButtonCoords.col < 1) this->lastButtonCoords.col = 1;
+        else if (this->lastButtonCoords.col > field->cols) this->lastButtonCoords.col = field->cols;
+        if (this->lastButtonCoords.row < 1) this->lastButtonCoords.row = 1;
+        else if (this->lastButtonCoords.col > field->rows) this->lastButtonCoords.col = field->rows;
         this->leftPressed();
     }
 }
@@ -406,6 +410,10 @@ void MouseInput::right_pressed_slot(QMouseEvent* e)
         this->pressedButtonCoords = field->getCoordsFromButton(button);
         this->currentMousePosition = e->pos();
         this->lastButtonCoords = this->getCoordsFromRelativeMousePosition();
+        if (this->lastButtonCoords.col < 1) this->lastButtonCoords.col = 1;
+        else if (this->lastButtonCoords.col > field->cols) this->lastButtonCoords.col = field->cols;
+        if (this->lastButtonCoords.row < 1) this->lastButtonCoords.row = 1;
+        else if (this->lastButtonCoords.col > field->rows) this->lastButtonCoords.col = field->rows;
     }
 }
 void MouseInput::left_and_right_pressed_slot(QMouseEvent* e)
