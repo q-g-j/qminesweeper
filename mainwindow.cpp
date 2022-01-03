@@ -58,6 +58,8 @@ MainWindow::MainWindow(QWidget *parent) :
     this->difficulty.mines = 10;
 
     this->newGame(this->difficulty);
+
+    this->setFocus();
 }
 
 MainWindow::~MainWindow()

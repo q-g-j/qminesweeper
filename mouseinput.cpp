@@ -45,7 +45,10 @@ void MouseInput::leftPressed()
 {
     if (field->field2DVector[this->pressedButtonCoords.col][this->pressedButtonCoords.row] == ' ')
     {
-        field->setButtonIcon(field->getButtonFromCoords(this->pressedButtonCoords), field->button_pressed);
+        if (! field->isGameOver && ! field->isSolverRunning)
+        {
+            field->setButtonIcon(field->getButtonFromCoords(this->pressedButtonCoords), field->button_pressed);
+        }
     }
 }
 void MouseInput::rightPressed()
@@ -66,11 +69,23 @@ void MouseInput::leftAndRightPressed()
         for (quint16 i = 0; i < leftAndRightPressedNeighboursCoveredVector.size(); i++)
         {
             Button *button = field->getButtonFromCoords(leftAndRightPressedNeighboursCoveredVector[i]);
-            field->setButtonIcon(button, field->button_pressed);
+            if (! field->isGameOver && ! field->isSolverRunning)
+            {
+                if (! field->isGameOver && ! field->isSolverRunning)
+                {
+                    field->setButtonIcon(button, field->button_pressed);
+                }
+            }
         }
         if (field->field2DVector[newCoords.col][newCoords.row] == ' ')
         {
-            field->setButtonIcon(field->getButtonFromCoords(newCoords), field->button_pressed);
+            if (! field->isGameOver && ! field->isSolverRunning)
+            {
+                if (! field->isGameOver && ! field->isSolverRunning)
+                {
+                    field->setButtonIcon(field->getButtonFromCoords(newCoords), field->button_pressed);
+                }
+            }
         }
     }
 }
@@ -138,7 +153,10 @@ void MouseInput::leftReleased()
         {
             if (field->field2DVector[this->pressedButtonCoords.col][this->pressedButtonCoords.row] == ' ')
             {
-                field->setButtonIcon(field->getButtonFromCoords(this->pressedButtonCoords), field->button_unrevealed);
+                if (! field->isGameOver && ! field->isSolverRunning)
+                {
+                    field->setButtonIcon(field->getButtonFromCoords(this->pressedButtonCoords), field->button_unrevealed);
+                }
             }
         }
         this->currentMousePosition.setX(0);
@@ -449,7 +467,10 @@ void MouseInput::leftAndRightPressedAndMoved()
                 if (field->field2DVector[leftAndRightPressedNeighboursCoveredVector[i].col][leftAndRightPressedNeighboursCoveredVector[i].row] == ' ')
                 {
                     Button *button = field->getButtonFromCoords(leftAndRightPressedNeighboursCoveredVector[i]);
-                    field->setButtonIcon(button, field->button_pressed);
+                    if (! field->isGameOver && ! field->isSolverRunning)
+                    {
+                        field->setButtonIcon(button, field->button_pressed);
+                    }
                 }
             }
             this->lastButtonCoords.col = newButtonCoords.col;
