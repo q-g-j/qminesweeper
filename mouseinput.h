@@ -13,9 +13,9 @@ class MouseInput : public QObject
 {
     Q_OBJECT
 private:
-    Common *common;
     Field *field;
-    Stylesheet *stylesheet;
+    Stylesheet stylesheet;
+    Common common;
 
     bool isLeftAndRightPressed;
 

@@ -24,7 +24,6 @@ Field::Field(QWidget *parent, const quint16& cols_, const quint16& rows_, const 
     emit this->minesleft_changed_signal(this->minesLeft);
 
     this->layout = new QGridLayout;
-    this->stylesheet = new Stylesheet;
     this->layout->setSpacing(0);
     this->layout->setContentsMargins(0,0,0,0);
     this->setLayout(this->layout);
@@ -42,8 +41,6 @@ Field::~Field()
     }
     delete this->layout;
     this->layout = nullptr;
-    delete this->stylesheet;
-    this->stylesheet = nullptr;
 }
 
 void Field::create2DVectors()
@@ -72,7 +69,7 @@ void Field::create2DVectors()
                 button->setMouseTracking(true);
                 button->setFixedSize(this->buttonSize, this->buttonSize);
                 button->setAttribute(Qt::WA_LayoutUsesWidgetRect);
-                button->setStyleSheet(this->stylesheet->button_unrevealed);
+                button->setStyleSheet(stylesheet.button_unrevealed);
                 this->layout->addWidget(button, j - 1, i - 1, 1, 1);
                 emit this->connect_button_signal(button);
             }
@@ -172,50 +169,51 @@ void Field::setNumber(const Common::Coords& coords, const quint16& number)
 // print the number of surrounding mines in this->button[coords.col][coords.row]:
 void Field::printNumber(const Common::Coords& coords, const quint16& number)
 {
+    Button *button = this->getButtonFromCoords(coords);
     if (number == 0)
     {
-        this->buttons2DVector[coords.col][coords.row]->setStyleSheet(this->stylesheet->button_revealed);
-        this->buttons2DVector[coords.col][coords.row]->setFocusPolicy(Qt::NoFocus);
+        button->setStyleSheet(stylesheet.button_revealed);
+        button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 1)
     {
-        this->buttons2DVector[coords.col][coords.row]->setStyleSheet(this->stylesheet->button_1);
-        this->buttons2DVector[coords.col][coords.row]->setFocusPolicy(Qt::NoFocus);
+        button->setStyleSheet(stylesheet.button_1);
+        button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 2)
     {
-        this->buttons2DVector[coords.col][coords.row]->setStyleSheet(this->stylesheet->button_2);
-        this->buttons2DVector[coords.col][coords.row]->setFocusPolicy(Qt::NoFocus);
+        button->setStyleSheet(stylesheet.button_2);
+        button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 3)
     {
-        this->buttons2DVector[coords.col][coords.row]->setStyleSheet(this->stylesheet->button_3);
-        this->buttons2DVector[coords.col][coords.row]->setFocusPolicy(Qt::NoFocus);
+        button->setStyleSheet(stylesheet.button_3);
+        button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 4)
     {
-        this->buttons2DVector[coords.col][coords.row]->setStyleSheet(this->stylesheet->button_4);
-        this->buttons2DVector[coords.col][coords.row]->setFocusPolicy(Qt::NoFocus);
+        button->setStyleSheet(stylesheet.button_4);
+        button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 5)
     {
-        this->buttons2DVector[coords.col][coords.row]->setStyleSheet(this->stylesheet->button_5);
-        this->buttons2DVector[coords.col][coords.row]->setFocusPolicy(Qt::NoFocus);
+        button->setStyleSheet(stylesheet.button_5);
+        button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 6)
     {
-        this->buttons2DVector[coords.col][coords.row]->setStyleSheet(this->stylesheet->button_6);
-        this->buttons2DVector[coords.col][coords.row]->setFocusPolicy(Qt::NoFocus);
+        button->setStyleSheet(stylesheet.button_6);
+        button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 7)
     {
-        this->buttons2DVector[coords.col][coords.row]->setStyleSheet(this->stylesheet->button_7);
-        this->buttons2DVector[coords.col][coords.row]->setFocusPolicy(Qt::NoFocus);
+        button->setStyleSheet(stylesheet.button_7);
+        button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 8)
     {
-        this->buttons2DVector[coords.col][coords.row]->setStyleSheet(this->stylesheet->button_8);
-        this->buttons2DVector[coords.col][coords.row]->setFocusPolicy(Qt::NoFocus);
+        button->setStyleSheet(stylesheet.button_8);
+        button->setFocusPolicy(Qt::NoFocus);
     }
 }
 
@@ -233,11 +231,11 @@ void Field::gameOver(const Common::Coords& coords, bool hasLost)
         {
             if (this->mines2DVector[i][j] == 'X')
             {
-                this->buttons2DVector[i][j]->setStyleSheet(this->stylesheet->button_mine);
+                this->buttons2DVector[i][j]->setStyleSheet(stylesheet.button_mine);
             }
             else if (this->mines2DVector[i][j] == 'H')
             {
-                this->buttons2DVector[i][j]->setStyleSheet(this->stylesheet->button_mine_hit);
+                this->buttons2DVector[i][j]->setStyleSheet(stylesheet.button_mine_hit);
             }
             else if (hasLost == true)
             {
@@ -256,7 +254,7 @@ void Field::gameOver(const Common::Coords& coords, bool hasLost)
     }
     if (mines2DVector[coords.col][coords.row] == 'X')
     {
-        this->getButtonFromCoords(coords)->setStyleSheet(this->stylesheet->button_mine_hit);
+        this->getButtonFromCoords(coords)->setStyleSheet(stylesheet.button_mine_hit);
     }
 }
 
@@ -418,7 +416,7 @@ Button* Field::getButtonFromCoords(const Common::Coords &coords)
 void Field::solver_place_flag_slot(const Common::Coords& coords)
 {
     this->field2DVector[coords.col][coords.row] = 'F';
-    this->getButtonFromCoords(coords)->setStyleSheet(this->stylesheet->button_flag);
+    this->getButtonFromCoords(coords)->setStyleSheet(stylesheet.button_flag);
     this->flagsCount++;
     this->minesLeft--;
     this->countUnrevealed--;

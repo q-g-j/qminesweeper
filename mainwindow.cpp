@@ -7,7 +7,6 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "common.h"
 #include "timer.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -26,11 +25,9 @@ MainWindow::MainWindow(QWidget *parent) :
     this->minesLeftFrameHeight = ui->minesLeftFrame->height();
     this->timerFrameHeight = ui->timerFrame->height();
     this->minesLeftNumberWidth = ui->minesLeftOnes->width();
-    this->spacerMiddleLeftFixedWidth = 8;
+    this->spacerMiddleLeftFixedWidth = 7;
 
     this->fieldLayout = new QGridLayout(ui->fieldWrapper);
-
-    this->common = new Common;
 
 #ifdef __APPLE__
     ui->minesLeftFrame->setFrameShape(QFrame::NoFrame);
@@ -56,9 +53,9 @@ MainWindow::MainWindow(QWidget *parent) :
     this->buttonSize = 25;
 
     // start in easy mode:
-    this->difficulty.cols = 9;
-    this->difficulty.rows = 9;
-    this->difficulty.mines = 10;
+    this->difficulty.cols = 30;
+    this->difficulty.rows = 16;
+    this->difficulty.mines = 30;
 
     this->newGame(this->difficulty);
 }
@@ -66,11 +63,6 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-    if (this->common != nullptr)
-    {
-        delete this->common;
-        this->common = nullptr;
-    }
     if (this->field != nullptr)
     {
         delete this->field;
@@ -146,7 +138,7 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     connect(this->solver, &Solver::solver_stopped_signal, this, &MainWindow::solver_stopped_slot);
     connect(this->solver, &Solver::solver_place_flag_signal, field, &Field::solver_place_flag_slot);
     connect(this->timer, &Timer::set_infobar_time_signal, this, &MainWindow::set_infobar_time_slot);
-    connect(this->mouseInput, &MouseInput::print_debug_signal, this->common, &Common::print_debug_slot);
+    connect(this->mouseInput, &MouseInput::print_debug_signal, &this->common, &Common::print_debug_slot);
 
     field->create2DVectors();
 
@@ -161,7 +153,7 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     this->setInfoBarNumber(ui->timerMinutes, 0);
     this->setInfoBarNumber(ui->timerTenSeconds, 0);
     this->setInfoBarNumber(ui->timerSeconds, 0);
-    ui->smiley->setStyleSheet(this->stylesheet.smiley);
+    ui->smiley->setStyleSheet(stylesheet.smiley);
 
     if (difficulty_.mines < 100)
     {
@@ -326,11 +318,11 @@ void MainWindow::smiley_surprised_slot()
 {
     if (field->isGameOver != true)
     {
-        ui->smiley->setStyleSheet(this->stylesheet.smiley_surprised);
+        ui->smiley->setStyleSheet(stylesheet.smiley_surprised);
         Common::sleep(350);
         if (field->isGameOver != true)
         {
-            ui->smiley->setStyleSheet(this->stylesheet.smiley);
+            ui->smiley->setStyleSheet(stylesheet.smiley);
         }
     }
 }
@@ -340,11 +332,11 @@ void MainWindow::game_over_slot(bool hasLost)
     this->timer->timerStop();
     if (hasLost == true)
     {
-        ui->smiley->setStyleSheet(this->stylesheet.smiley_lost);
+        ui->smiley->setStyleSheet(stylesheet.smiley_lost);
     }
     else if (hasLost == false)
     {
-        ui->smiley->setStyleSheet(this->stylesheet.smiley_won);
+        ui->smiley->setStyleSheet(stylesheet.smiley_won);
     }
 }
 
@@ -363,8 +355,8 @@ void MainWindow::minesleft_changed_slot(const qint16& minesLeft)
     }
     else if (minesLeft < 100)
     {
-    quint16 ones = minesLeft % 10;
-    quint16 tens = minesLeft / 10;
+        quint16 ones = minesLeft % 10;
+        quint16 tens = minesLeft / 10;
         this->setInfoBarNumber(ui->minesLeftOnes, ones);
         this->setInfoBarNumber(ui->minesLeftTens, tens);
         ui->minesLeftHundreds->setStyleSheet("QWidget { border-image: none; }");
@@ -372,9 +364,9 @@ void MainWindow::minesleft_changed_slot(const qint16& minesLeft)
     }
     else if (minesLeft < 1000)
     {
-    quint16 ones = minesLeft % 10;
-    quint16 tens = (minesLeft % 100) / 10;
-    quint16 hundreds = minesLeft / 100;
+        quint16 ones = minesLeft % 10;
+        quint16 tens = (minesLeft % 100) / 10;
+        quint16 hundreds = minesLeft / 100;
         this->setInfoBarNumber(ui->minesLeftOnes, ones);
         this->setInfoBarNumber(ui->minesLeftTens, tens);
         this->setInfoBarNumber(ui->minesLeftHundreds, hundreds);
@@ -382,10 +374,10 @@ void MainWindow::minesleft_changed_slot(const qint16& minesLeft)
     }
     else
     {
-    quint16 ones = minesLeft % 10;
-    quint16 tens = ((minesLeft % 1000) % 100) / 10;
-    quint16 hundreds = (minesLeft % 1000) / 100;
-    quint16 thousands = minesLeft / 1000;
+        quint16 ones = minesLeft % 10;
+        quint16 tens = ((minesLeft % 1000) % 100) / 10;
+        quint16 hundreds = (minesLeft % 1000) / 100;
+        quint16 thousands = minesLeft / 1000;
         this->setInfoBarNumber(ui->minesLeftOnes, ones);
         this->setInfoBarNumber(ui->minesLeftTens, tens);
         this->setInfoBarNumber(ui->minesLeftHundreds, hundreds);

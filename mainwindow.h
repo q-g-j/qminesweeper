@@ -27,7 +27,7 @@ private:
     Timer *timer = nullptr;
     Solver *solver = nullptr;
     MouseInput *mouseInput = nullptr;
-    Common *common = nullptr;
+    Common common;
     Stylesheet stylesheet;
     Difficulty::DifficultyStruct difficulty;
 
@@ -53,10 +53,10 @@ private slots:
     void on_actionQuit_triggered();
     void on_smiley_released();
     void new_game_slot(const Difficulty::DifficultyStruct&);
-    void smiley_surprised_slot();
     void game_over_slot(bool);
-    void minesleft_changed_slot(const qint16&);
     void start_timer_slot();
+    void smiley_surprised_slot();
+    void minesleft_changed_slot(const qint16&);
     void solver_stopped_slot(const char&);
     void set_infobar_time_slot(const QString&, const quint16&);
 protected:

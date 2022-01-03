@@ -20,7 +20,7 @@ private:
     };
     QVector<QVector<Button*>> buttons2DVector;
     QGridLayout *layout;
-    Stylesheet *stylesheet;
+    Stylesheet stylesheet;
 public:
     explicit Field(QWidget *parent = nullptr,
                    const quint16& cols = 9,

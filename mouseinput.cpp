@@ -1,12 +1,9 @@
 #include <QDebug>
 
-#include "common.h"
 #include "mouseinput.h"
 
 MouseInput::MouseInput(Field *field_)
 {
-    this->common = new Common;
-    this->stylesheet = new Stylesheet;
     this->field = field_;
     this->lastButtonCoords.col = 0;
     this->lastButtonCoords.row = 0;
@@ -15,10 +12,6 @@ MouseInput::MouseInput(Field *field_)
 
 MouseInput::~MouseInput()
 {
-    delete this->common;
-    common = nullptr;
-    delete this->stylesheet;
-    stylesheet = nullptr;
 }
 
 // methods:
@@ -52,7 +45,7 @@ void MouseInput::leftPressed()
 {
     if (field->field2DVector[this->pressedButtonCoords.col][this->pressedButtonCoords.row] == ' ')
     {
-        field->getButtonFromCoords(this->pressedButtonCoords)->setStyleSheet(this->stylesheet->button_pressed);
+        field->getButtonFromCoords(this->pressedButtonCoords)->setStyleSheet(stylesheet.button_pressed);
     }
 }
 void MouseInput::rightPressed()
@@ -71,11 +64,11 @@ void MouseInput::leftAndRightPressed()
         for (quint16 i = 0; i < leftAndRightPressedNeighboursCoveredVector.size(); i++)
         {
             Button *button = field->getButtonFromCoords(leftAndRightPressedNeighboursCoveredVector[i]);
-            button->setStyleSheet(this->stylesheet->button_pressed);
+            button->setStyleSheet(stylesheet.button_pressed);
         }
         if (field->field2DVector[newCoords.col][newCoords.row] == ' ')
         {
-            field->getButtonFromCoords(newCoords)->setStyleSheet(this->stylesheet->button_pressed);
+            field->getButtonFromCoords(newCoords)->setStyleSheet(stylesheet.button_pressed);
         }
     }
 }
@@ -134,15 +127,14 @@ void MouseInput::leftReleased()
                         field->gameOver(dummyCoords, false);
                     }
                 }
+                emit field->smiley_surprised_signal();
             }
-
-            emit field->smiley_surprised_signal();
 
         if (newCoords.col != this->pressedButtonCoords.col || newCoords.row != this->pressedButtonCoords.row)
         {
             if (field->field2DVector[this->pressedButtonCoords.col][this->pressedButtonCoords.row] == ' ')
             {
-                field->getButtonFromCoords(this->pressedButtonCoords)->setStyleSheet(this->stylesheet->button_unrevealed);
+                field->getButtonFromCoords(this->pressedButtonCoords)->setStyleSheet(stylesheet.button_unrevealed);
             }
         }
         this->currentMousePosition.setX(0);
@@ -162,7 +154,7 @@ void MouseInput::rightReleased()
     {
         if (field->field2DVector[newCoords.col][newCoords.row] == ' ')
         {
-            button->setStyleSheet(this->stylesheet->button_flag);
+            button->setStyleSheet(stylesheet.button_flag);
             field->field2DVector[newCoords.col][newCoords.row] = 'F';
             field->flagsCount++;
             field->minesLeft--;
@@ -170,7 +162,7 @@ void MouseInput::rightReleased()
         }
         else if (! field->isNumber(newCoords))
         {
-            button->setStyleSheet(this->stylesheet->button_unrevealed);
+            button->setStyleSheet(stylesheet.button_unrevealed);
             field->field2DVector[newCoords.col][newCoords.row] = ' ';
             field->flagsCount--;
             field->minesLeft++;
@@ -207,7 +199,7 @@ void MouseInput::leftAndRightReleased()
         }
         if (field->field2DVector[newCoords.col][newCoords.row] == ' ')
         {
-            field->getButtonFromCoords(newCoords)->setStyleSheet(this->stylesheet->button_unrevealed);
+            field->getButtonFromCoords(newCoords)->setStyleSheet(stylesheet.button_unrevealed);
         }
         if (this->lastButtonCoords.col > 0
                 && this->lastButtonCoords.col <= field->cols
@@ -220,13 +212,13 @@ void MouseInput::leftAndRightReleased()
                 {
                     if (! field->isGameOver && ! field->isSolverRunning)
                     {
-                        field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i])->setStyleSheet(this->stylesheet->button_unrevealed);
+                        field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i])->setStyleSheet(stylesheet.button_unrevealed);
                     }
                 }
             }
             if (field->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
             {
-                field->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(this->stylesheet->button_unrevealed);
+                field->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(stylesheet.button_unrevealed);
             }
         }
     }
@@ -259,7 +251,7 @@ void MouseInput::leftPressedAndMoved()
         {
             if (field->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
             {
-                field->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(this->stylesheet->button_unrevealed);
+                field->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(stylesheet.button_unrevealed);
             }
         }
 
@@ -289,7 +281,7 @@ void MouseInput::leftPressedAndMoved()
         {
             if (field->field2DVector[this->pressedButtonCoords.col][this->pressedButtonCoords.row] == ' ')
             {
-                field->getButtonFromCoords(this->pressedButtonCoords)->setStyleSheet(this->stylesheet->button_unrevealed);
+                field->getButtonFromCoords(this->pressedButtonCoords)->setStyleSheet(stylesheet.button_unrevealed);
             }
             if (this->lastButtonCoords.col > 0
                      && this->lastButtonCoords.col <= field->cols
@@ -298,12 +290,12 @@ void MouseInput::leftPressedAndMoved()
             {
                 if (field->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
                 {
-                    field->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(this->stylesheet->button_unrevealed);
+                    field->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(stylesheet.button_unrevealed);
                 }
             }
             if (field->field2DVector[newButtonCoords.col][newButtonCoords.row] == ' ')
             {
-                field->getButtonFromCoords(newButtonCoords)->setStyleSheet(this->stylesheet->button_pressed);
+                field->getButtonFromCoords(newButtonCoords)->setStyleSheet(stylesheet.button_pressed);
             }
             this->lastButtonCoords.col = newButtonCoords.col;
             this->lastButtonCoords.row = newButtonCoords.row;
@@ -328,20 +320,20 @@ void MouseInput::leftAndRightPressedAndMoved()
             || newButtonCoords.row < 1
             || newButtonCoords.row > field->rows)
     {
-        for (quint16 i = 0; i < this->leftAndRightPressedNeighboursCoveredVector.size(); i++)
-        {
-            field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i])->setStyleSheet(this->stylesheet->button_unrevealed);
-        }
         if (this->lastButtonCoords.col > 0
                  && this->lastButtonCoords.col <= field->cols
                  && this->lastButtonCoords.row > 0
                  && this->lastButtonCoords.row <= field->rows)
         {
-//                    emit this->print_debug_signal(QString::number(lastButtonCoords.col) + "," + QString::number(lastButtonCoords.row));
+            for (quint16 i = 0; i < this->leftAndRightPressedNeighboursCoveredVector.size(); i++)
+            {
+                field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i])->setStyleSheet(stylesheet.button_unrevealed);
+            }
+    //                    emit this->print_debug_signal(QString::number(lastButtonCoords.col) + "," + QString::number(lastButtonCoords.row));
 
             if (field->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
             {
-                field->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(this->stylesheet->button_unrevealed);
+                field->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(stylesheet.button_unrevealed);
             }
         }
 
@@ -373,12 +365,12 @@ void MouseInput::leftAndRightPressedAndMoved()
             {
                 if (field->field2DVector[this->leftAndRightPressedNeighboursCoveredVector[i].col][this->leftAndRightPressedNeighboursCoveredVector[i].row] == ' ')
                 {
-                    field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i])->setStyleSheet(this->stylesheet->button_unrevealed);
+                    field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i])->setStyleSheet(stylesheet.button_unrevealed);
                 }
             }
             if (field->field2DVector[newButtonCoords.col][newButtonCoords.row] == ' ')
             {
-                field->getButtonFromCoords(newButtonCoords)->setStyleSheet(this->stylesheet->button_pressed);
+                field->getButtonFromCoords(newButtonCoords)->setStyleSheet(stylesheet.button_pressed);
             }
             if (this->lastButtonCoords.col > 0
                      && this->lastButtonCoords.col <= field->cols
@@ -387,7 +379,7 @@ void MouseInput::leftAndRightPressedAndMoved()
             {
                 if (field->field2DVector[this->lastButtonCoords.col][this->lastButtonCoords.row] == ' ')
                 {
-                    field->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(this->stylesheet->button_unrevealed);
+                    field->getButtonFromCoords(this->lastButtonCoords)->setStyleSheet(stylesheet.button_unrevealed);
                 }
             }
             this->leftAndRightPressedNeighboursCoveredVector = field->findNeighbours(field->field2DVector, newButtonCoords, ' ');
@@ -396,7 +388,7 @@ void MouseInput::leftAndRightPressedAndMoved()
                 if (field->field2DVector[leftAndRightPressedNeighboursCoveredVector[i].col][leftAndRightPressedNeighboursCoveredVector[i].row] == ' ')
                 {
                     Button *button = field->getButtonFromCoords(leftAndRightPressedNeighboursCoveredVector[i]);
-                    button->setStyleSheet(this->stylesheet->button_pressed);
+                    button->setStyleSheet(stylesheet.button_pressed);
                 }
             }
             this->lastButtonCoords.col = newButtonCoords.col;
@@ -417,7 +409,7 @@ void MouseInput::connect_button_slot(Button *button)
     connect(button, &Button::left_pressed_and_moved_signal, this, &MouseInput::left_pressed_and_moved_slot);
     connect(button, &Button::right_pressed_and_moved_signal, this, &MouseInput::right_pressed_and_moved_slot);
     connect(button, &Button::left_and_right_pressed_and_moved_signal, this, &MouseInput::left_and_right_pressed_and_moved_slot);
-    connect(button, &Button::print_debug_signal, this->common, &Common::print_debug_slot);
+    connect(button, &Button::print_debug_signal, &this->common, &Common::print_debug_slot);
 }
 void MouseInput::left_pressed_slot(QMouseEvent* e)
 {
@@ -437,7 +429,6 @@ void MouseInput::right_pressed_slot(QMouseEvent* e)
         Button* button = static_cast<Button*>(sender());
         this->pressedButtonCoords = field->getCoordsFromButton(button);
         this->currentMousePosition = e->pos();
-        this->lastButtonCoords = this->getCoordsFromRelativeMousePosition();
         this->lastButtonCoords = this->getCoordsFromRelativeMousePosition();
     }
 }
@@ -494,14 +485,14 @@ void MouseInput::left_and_right_pressed_and_moved_slot(QMouseEvent* e)
 {
     if (! field->isGameOver && ! field->isSolverRunning)
     {
-        if (this->lastButtonCoords.col > 0
-                 && this->lastButtonCoords.col <= field->cols
-                 && this->lastButtonCoords.row > 0
-                 && this->lastButtonCoords.row <= field->rows)
-        {
-            this->currentMousePosition = e->pos();
+        this->currentMousePosition = e->pos();
 //            emit this->print_debug_signal(QString::number(this->currentMousePosition.x()) + "," + QString::number(this->currentMousePosition.y()));
-            this->leftAndRightPressedAndMoved();
-        }
+
+        if (this->lastButtonCoords.col < 0) this->lastButtonCoords.col = 0;
+        else if (this->lastButtonCoords.col > field->cols + 1) this->lastButtonCoords.col = field->cols + 1;
+        if (this->lastButtonCoords.row < 0) this->lastButtonCoords.row = 0;
+        else if (this->lastButtonCoords.row > field->rows + 1) this->lastButtonCoords.row = field->rows + 1;
+
+        this->leftAndRightPressedAndMoved();
     }
 }

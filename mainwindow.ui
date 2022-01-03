@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>421</width>
-    <height>357</height>
+    <height>363</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -427,7 +427,7 @@
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>8</width>
+           <width>7</width>
            <height>1</height>
           </size>
          </property>
@@ -841,7 +841,7 @@ QPushButton#smiley {
      <x>0</x>
      <y>0</y>
      <width>421</width>
-     <height>17</height>
+     <height>23</height>
     </rect>
    </property>
    <property name="font">
