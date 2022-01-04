@@ -9,9 +9,7 @@ Button::Button(QWidget *parent) : QLabel(parent)
     this->installEventFilter(this);
 }
 
-Button::~Button()
-{
-}
+Button::~Button() {}
 
 bool Button::eventFilter(QObject* object, QEvent *e)
 {

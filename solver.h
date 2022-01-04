@@ -16,15 +16,16 @@ public:
     ~Solver();
 
     // public variables:
-    bool isSolverRunning;
-    bool isNewGameRequestedFromMenu;
-    bool isNewGameRequestedFromSmiley;
+    bool isSolverRunning = false;
+    bool isNewGameRequestedFromMenu = false;
+    bool isNewGameRequestedFromSmiley = false;
 
     // public methods:
     void autoSolve(Field&, bool, bool, bool);
 signals:
     void solver_place_flag_signal(const Common::Coords&);
     void solver_stopped_signal(const char&);
+    void is_solver_running_signal(bool);
 };
 
 #endif // SOLVER_H

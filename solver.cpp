@@ -5,20 +5,14 @@
 #include <solver.h>
 
 
-Solver::Solver()
-{
-    this->isSolverRunning = false;
-    this->isNewGameRequestedFromMenu = false;
-    this->isNewGameRequestedFromSmiley = false;
-}
+Solver::Solver() {}
 
-Solver::~Solver()
-{}
+Solver::~Solver() {}
 
 void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, bool doSolve)
 {
+    emit this->is_solver_running_signal(true);
     this->isSolverRunning = true;
-    field.isSolverRunning = true;
 
     if (this->cancelOnNewGameRequested()) return;
 
@@ -104,14 +98,16 @@ void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, b
 
     // re-run the whole function, if there are buttons in poolCoveredVector or
     // if it's the first run of this function when "s" or "S" (= "solve") was hit:
-    if (poolCoveredVector.size() || doSolve)
+    if (! this->isNewGameRequestedFromMenu && ! this->isNewGameRequestedFromSmiley
+            && (poolCoveredVector.size() || doSolve))
     {
         autoSolve(field, doPlaceFlags, doFlagAutoReveal, false);
     }
     else
     {
         this->isSolverRunning = false;
-        field.isSolverRunning = false;
+        emit this->is_solver_running_signal(false);
+        return;
     }
 }
 

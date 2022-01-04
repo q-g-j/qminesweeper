@@ -20,10 +20,11 @@ public:
     ~Difficulty();
     Ui::Difficulty *ui;
 
+    // start in easy mode:
     struct DifficultyStruct {
-    quint16 cols;
-    quint16 rows;
-    quint16 mines;
+    quint16 cols = 9;
+    quint16 rows = 9;
+    quint16 mines = 10;
     };
 private slots:
     void on_button_start_clicked();

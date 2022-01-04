@@ -17,7 +17,8 @@ private:
     Stylesheet stylesheet;
     Common common;
 
-    bool isLeftAndRightPressed;
+    bool isLeftAndRightPressed = false;
+    bool isSolverRunning = false;
 
     QPoint currentMousePosition;
     Common::Coords pressedButtonCoords;
@@ -39,6 +40,10 @@ private:
 public:
     MouseInput(Field*);
     ~MouseInput();
+
+    bool isGameOver = false;
+    bool isNewGameRequested = false;
+    bool isMouseInputProcessing = false;
 public slots:
     void connect_button_slot(Button*);
 
@@ -53,6 +58,8 @@ public slots:
     void left_pressed_and_moved_slot(QMouseEvent*);
     void right_pressed_and_moved_slot(QMouseEvent*);
     void left_and_right_pressed_and_moved_slot(QMouseEvent*);
+
+    void is_solver_running_slot(bool);
 signals:
     void print_debug_signal(const QString&);
 };

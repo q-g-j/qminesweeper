@@ -14,11 +14,6 @@ Field::Field(QWidget *parent, const quint16& cols_, const quint16& rows_, const 
     this->buttonSize = buttonSize_;
     this->minesLeft = mines_;
     this->countUnrevealed = cols_ * rows_;
-    this->flagsCount = 0;
-    this->firstTurn = true;
-    this->isGameOver = false;
-    this->isSolverRunning = false;
-    this->isNewGameRequested = false;
 
     emit this->minesleft_changed_signal(this->minesLeft);
 
@@ -447,4 +442,9 @@ void Field::solver_place_flag_slot(const Common::Coords& coords)
     this->minesLeft--;
     this->countUnrevealed--;
     emit this->minesleft_changed_signal(this->minesLeft);
+}
+
+void Field::is_solver_running_slot(bool running)
+{
+    this->isSolverRunning = running;
 }

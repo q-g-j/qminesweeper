@@ -31,12 +31,12 @@ private:
     Stylesheet stylesheet;
     Difficulty::DifficultyStruct difficulty;
 
-    quint16 buttonSize;
+    quint16 buttonSize = 25;
     quint16 minesLeftFrameWidth;
     quint16 minesLeftFrameHeight;
     quint16 timerFrameHeight;
     quint16 minesLeftNumberWidth;
-    quint16 spacerMiddleLeftFixedWidth;
+    quint16 spacerMiddleLeftFixedWidth = 7;
 
     void clearLayout(QLayout*);
     void newGame(const Difficulty::DifficultyStruct&);

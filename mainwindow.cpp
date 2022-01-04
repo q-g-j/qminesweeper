@@ -15,20 +15,22 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    installEventFilter(this);
+    this->installEventFilter(this);
 
     this->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-
-    setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowCloseButtonHint);
+    this->setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowCloseButtonHint);
+    this->setFocus();
 
     this->minesLeftFrameWidth = ui->minesLeftFrame->width();
     this->minesLeftFrameHeight = ui->minesLeftFrame->height();
     this->timerFrameHeight = ui->timerFrame->height();
     this->minesLeftNumberWidth = ui->minesLeftOnes->width();
-    this->spacerMiddleLeftFixedWidth = 7;
 
     this->fieldLayout = new QGridLayout(ui->fieldWrapper);
 
+    this->newGame(this->difficulty);
+
+// on macOS the QFrame border is not displayed correctly, so disable it:
 #ifdef __APPLE__
     ui->minesLeftFrame->setFrameShape(QFrame::NoFrame);
     ui->timerFrame->setFrameShape(QFrame::NoFrame);
@@ -48,18 +50,6 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     }
     */
-
-    // width and height of a button in pixels:
-    this->buttonSize = 25;
-
-    // start in easy mode:
-    this->difficulty.cols = 9;
-    this->difficulty.rows = 9;
-    this->difficulty.mines = 10;
-
-    this->newGame(this->difficulty);
-
-    this->setFocus();
 }
 
 MainWindow::~MainWindow()
@@ -111,6 +101,11 @@ void MainWindow::clearLayout(QLayout *layout)
 
 void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
 {
+    if (this->mouseInput != nullptr)
+    {
+        delete this->mouseInput;
+        this->mouseInput = nullptr;
+    }
     if (this->field != nullptr)
     {
         delete this->field;
@@ -145,6 +140,8 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     connect(this->field, &Field::game_started_signal, this, &MainWindow::start_timer_slot);
     connect(this->solver, &Solver::solver_stopped_signal, this, &MainWindow::solver_stopped_slot);
     connect(this->solver, &Solver::solver_place_flag_signal, field, &Field::solver_place_flag_slot);
+    connect(this->solver, &Solver::is_solver_running_signal, field, &Field::is_solver_running_slot);
+    connect(this->solver, &Solver::is_solver_running_signal, mouseInput, &MouseInput::is_solver_running_slot);
     connect(this->timer, &Timer::set_infobar_time_signal, this, &MainWindow::set_infobar_time_slot);
     connect(this->mouseInput, &MouseInput::print_debug_signal, &this->common, &Common::print_debug_slot);
 
@@ -218,11 +215,13 @@ void MainWindow::newGameRequested(const char& from)
     {
         solver->isNewGameRequestedFromMenu = true;
         field->isNewGameRequested = true;
+        mouseInput->isNewGameRequested = true;
     }
     else if (from == 's')
     {
         solver->isNewGameRequestedFromSmiley = true;
         field->isNewGameRequested = true;
+        mouseInput->isNewGameRequested = true;
     }
 }
 
@@ -340,6 +339,7 @@ void MainWindow::smiley_surprised_slot()
 
 void MainWindow::game_over_slot(bool hasLost)
 {
+    mouseInput->isGameOver = true;
     this->timer->timerStop();
     if (hasLost == true)
     {
@@ -444,11 +444,17 @@ bool MainWindow::eventFilter(QObject* object, QEvent *e)
         {
             if (keyEvent->key() == Qt::Key_F)
             {
-                solver->autoSolve(*field, true, false, false);
+                if (! mouseInput->isMouseInputProcessing) // the game crashes, if pressing the key too early after the last mouse click
+                {
+                    solver->autoSolve(*field, true, false, false);
+                }
             }
             else if (keyEvent->key() == Qt::Key_R)
             {
-                solver->autoSolve(*field, false, true, false);
+                if (! mouseInput->isMouseInputProcessing) // the game crashes, if pressing the key too early after the last mouse click
+                {
+                    solver->autoSolve(*field, false, true, false);
+                }
 
                 // check if player has won:
                 if (field->flagsCount + field->countUnrevealed == field->mines)
@@ -459,7 +465,10 @@ bool MainWindow::eventFilter(QObject* object, QEvent *e)
             }
             else if (keyEvent->key() == Qt::Key_S)
             {
-                solver->autoSolve(*field, true, true, true);
+                if (! mouseInput->isMouseInputProcessing) // the game crashes, if pressing the key too early after the last mouse click
+                {
+                    solver->autoSolve(*field, true, true, true);
+                }
 
                 // check if player has won:
                 if (field->flagsCount + field->countUnrevealed == field->mines)

@@ -7,11 +7,9 @@
 
 #include "common.h"
 
-Common::Common()
-{}
+Common::Common() {}
 
-Common::~Common()
-{}
+Common::~Common() {}
 
 QVector<quint16> Common::randomShuffle(const quint16& high, const quint16& userFirstInput)
 {

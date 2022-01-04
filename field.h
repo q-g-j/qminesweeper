@@ -54,12 +54,12 @@ public:
     quint16 rows;
     quint16 mines;
     qint16 minesLeft;
-    quint16 flagsCount;
     quint16 countUnrevealed;
-    bool firstTurn;
-    bool isGameOver;
-    bool isSolverRunning;
-    bool isNewGameRequested;
+    quint16 flagsCount = 0;
+    bool firstTurn = true;
+    bool isGameOver = false;
+    bool isSolverRunning = false;
+    bool isNewGameRequested = false;
 
     // public methods:
     void create2DVectors();
@@ -82,6 +82,7 @@ signals:
     void smiley_surprised_signal();
 public slots:
     void solver_place_flag_slot(const Common::Coords&);
+    void is_solver_running_slot(bool);
 };
 
 #endif // FIELD_H
