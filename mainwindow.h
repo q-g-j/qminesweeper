@@ -22,7 +22,7 @@ class MainWindow : public QMainWindow
 
 private:
     Ui::MainWindow *ui;
-    QGridLayout *fieldLayout;
+    QGridLayout *fieldLayout = nullptr;
     Field *field = nullptr;
     Timer *timer = nullptr;
     Solver *solver = nullptr;

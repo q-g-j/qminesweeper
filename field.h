@@ -16,11 +16,11 @@ private:
     // private variables:
     struct buttonStruct
     {
-        Button* button;
+        Button* button = nullptr;
         Common::Coords coords;
     };
     QVector<QVector<Button*>> buttons2DVector;
-    QGridLayout *layout;
+    QGridLayout *layout = nullptr;
     Stylesheet stylesheet;
 public:
     explicit Field(QWidget *parent = nullptr,

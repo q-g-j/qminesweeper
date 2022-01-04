@@ -149,16 +149,19 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
 
     this->clearLayout(this->fieldLayout);
     this->fieldLayout->addWidget(this->field);
-    ui->fieldWrapper->setLayout(this->fieldLayout);
     this->fieldLayout->setSpacing(0);
     this->fieldLayout->setContentsMargins(0,0,0,0);
-    ui->fieldWrapper->setMinimumSize(field->cols * field->buttonSize, field->rows * field->buttonSize);
+    ui->fieldWrapper->setLayout(this->fieldLayout);
+    ui->fieldWrapper->setMinimumSize(
+                field->cols * field->buttonSize,
+                field->rows * field->buttonSize
+                );
+    ui->smiley->setStyleSheet(this->stylesheet.smiley);
     this->minesleft_changed_slot(difficulty_.mines);
     this->setInfoBarNumber(ui->timerTenMinutes, 0);
     this->setInfoBarNumber(ui->timerMinutes, 0);
     this->setInfoBarNumber(ui->timerTenSeconds, 0);
     this->setInfoBarNumber(ui->timerSeconds, 0);
-    ui->smiley->setStyleSheet(this->stylesheet.smiley);
 
     if (difficulty_.mines < 100)
     {
@@ -166,8 +169,14 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
         ui->minesLeftOnes->show();
         ui->minesLeftThousands->hide();
         ui->minesLeftHundreds->hide();
-        ui->minesLeftFrame->resize(minesLeftFrameWidth - 2 * minesLeftNumberWidth, minesLeftFrameHeight);
-        ui->spacerMiddleLeftFixed->changeSize(spacerMiddleLeftFixedWidth + 2 * minesLeftNumberWidth, minesLeftFrameHeight);
+        ui->minesLeftFrame->resize(
+                    minesLeftFrameWidth - 2 * minesLeftNumberWidth,
+                    minesLeftFrameHeight
+                    );
+        ui->spacerMiddleLeftFixed->changeSize(
+                    spacerMiddleLeftFixedWidth + 2 * minesLeftNumberWidth,
+                    minesLeftFrameHeight
+                    );
     }
     else if (difficulty_.mines < 1000)
     {
@@ -175,8 +184,14 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
         ui->minesLeftTens->show();
         ui->minesLeftOnes->show();
         ui->minesLeftThousands->hide();
-        ui->minesLeftFrame->resize(minesLeftFrameWidth - minesLeftNumberWidth, minesLeftFrameHeight);
-        ui->spacerMiddleLeftFixed->changeSize(spacerMiddleLeftFixedWidth + minesLeftNumberWidth, minesLeftFrameHeight);
+        ui->minesLeftFrame->resize(
+                    minesLeftFrameWidth - minesLeftNumberWidth,
+                    minesLeftFrameHeight
+                    );
+        ui->spacerMiddleLeftFixed->changeSize(
+                    spacerMiddleLeftFixedWidth + minesLeftNumberWidth,
+                    minesLeftFrameHeight
+                    );
     }
     else
     {
@@ -194,7 +209,10 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     ui->minesLeftFrame->adjustSize();
     this->centralWidget()->adjustSize();
     this->adjustSize();
-    this->setFixedSize(this->size().width(), this->size().height());
+    this->setFixedSize(
+                this->size().width(),
+                this->size().height()
+                );
     QList<QScreen*> screens = QGuiApplication::screens();
     for (quint16 i = 0; i < screens.size(); i++)
     {
@@ -242,7 +260,10 @@ void MainWindow::newGameFromSmiley()
     this->newGame(difficulty_);
 }
 
-void MainWindow::setInfoBarNumber(QWidget *widget, const quint16 &number)
+void MainWindow::setInfoBarNumber(
+        QWidget *widget,
+        const quint16 &number
+        )
 {
     if (number == 0)
     {
@@ -289,7 +310,7 @@ void MainWindow::setInfoBarNumber(QWidget *widget, const quint16 &number)
 // open a dialog (difficulty.ui) to choose difficulty:
 void MainWindow::on_actionNew_triggered()
 {
-    if (solver->isSolverRunning)
+    if (solver->isSolverRunning == true)
     {
         this->newGameRequested('m');
     }
@@ -314,7 +335,7 @@ void MainWindow::on_actionQuit_triggered()
 
 void MainWindow::on_smiley_released()
 {
-    if (solver->isSolverRunning)
+    if (solver->isSolverRunning == true)
     {
         this->isNewGameRequested = true;
         this->newGameRequested('s');
@@ -415,7 +436,10 @@ void MainWindow::solver_stopped_slot(const char& from)
     }
 }
 
-void MainWindow::set_infobar_time_slot(const QString& t, const quint16& number)
+void MainWindow::set_infobar_time_slot(
+        const QString& t,
+        const quint16& number
+        )
 {
     if (t == "seconds")
     {
@@ -435,7 +459,10 @@ void MainWindow::set_infobar_time_slot(const QString& t, const quint16& number)
     }
 }
 
-bool MainWindow::eventFilter(QObject* object, QEvent *e)
+bool MainWindow::eventFilter(
+        QObject* object,
+        QEvent *e
+        )
 {
     if (object == this && e->type() == QEvent::KeyRelease)
     {
