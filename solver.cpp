@@ -11,8 +11,8 @@ Solver::~Solver() {}
 
 void Solver::autoSolve(Field& field, bool doPlaceFlags, bool doFlagAutoReveal, bool doSolve)
 {
-    emit this->is_solver_running_signal(true);
     this->isSolverRunning = true;
+    emit this->is_solver_running_signal(true);
 
     if (this->cancelOnNewGameRequested()) return;
 

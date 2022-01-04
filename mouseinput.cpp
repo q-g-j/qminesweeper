@@ -481,7 +481,6 @@ void MouseInput::connect_button_slot(Button *button)
 }
 void MouseInput::left_pressed_slot(QMouseEvent* e)
 {
-    this->isMouseInputProcessing = true;
     if (! this->isGameOver && ! this->isSolverRunning && ! this->isNewGameRequested)
     {
         Button* button = static_cast<Button*>(sender());
@@ -490,11 +489,9 @@ void MouseInput::left_pressed_slot(QMouseEvent* e)
         this->lastButtonCoords = this->getCoordsFromRelativeMousePosition();
         this->leftPressed();
     }
-    this->isMouseInputProcessing = false;
 }
 void MouseInput::right_pressed_slot(QMouseEvent* e)
 {
-    this->isMouseInputProcessing = true;
     if (! this->isGameOver && ! this->isSolverRunning && ! this->isNewGameRequested)
     {
         Button* button = static_cast<Button*>(sender());
@@ -502,11 +499,9 @@ void MouseInput::right_pressed_slot(QMouseEvent* e)
         this->currentMousePosition = e->pos();
         this->lastButtonCoords = this->getCoordsFromRelativeMousePosition();
     }
-    this->isMouseInputProcessing = false;
 }
 void MouseInput::left_and_right_pressed_slot(QMouseEvent* e)
 {
-    this->isMouseInputProcessing = true;
     if (! this->isGameOver && ! this->isSolverRunning && ! this->isNewGameRequested)
     {
         Button* button = static_cast<Button*>(sender());
@@ -515,59 +510,47 @@ void MouseInput::left_and_right_pressed_slot(QMouseEvent* e)
         this->lastButtonCoords = this->getCoordsFromRelativeMousePosition();
         this->leftAndRightPressed();
     }
-    this->isMouseInputProcessing = false;
 }
 void MouseInput::left_released_slot()
 {
-    this->isMouseInputProcessing = true;
     if (! this->isGameOver && ! this->isSolverRunning && ! this->isNewGameRequested)
     {
         this->leftReleased();
     }
-    this->isMouseInputProcessing = false;
 }
 void MouseInput::right_released_slot()
 {
-    this->isMouseInputProcessing = true;
     if (! this->isGameOver && ! this->isSolverRunning && ! this->isNewGameRequested)
     {
         this->rightReleased();
     }
-    this->isMouseInputProcessing = false;
 }
 void MouseInput::left_and_right_released_slot()
 {
-    this->isMouseInputProcessing = true;
     if (! this->isGameOver && ! this->isSolverRunning && ! this->isNewGameRequested)
     {
         this->leftAndRightReleased();
     }
-    this->isMouseInputProcessing = false;
 }
 void MouseInput::left_pressed_and_moved_slot(QMouseEvent* e)
 {
-    this->isMouseInputProcessing = true;
     if (! this->isGameOver && ! this->isSolverRunning && ! this->isNewGameRequested)
     {
         this->currentMousePosition = e->pos();
 //        emit this->print_debug_signal(QString::number(this->currentMousePosition.x()) + "," + QString::number(this->currentMousePosition.y()));
         this->leftPressedAndMoved();
     }
-    this->isMouseInputProcessing = false;
 }
 void MouseInput::right_pressed_and_moved_slot(QMouseEvent* e)
 {
-    this->isMouseInputProcessing = true;
     if (! this->isGameOver && ! this->isSolverRunning && ! this->isNewGameRequested)
     {
         this->currentMousePosition = e->pos();
 //        emit this->print_debug_signal(QString::number(this->currentMousePosition.x()) + "," + QString::number(this->currentMousePosition.y()));
     }
-    this->isMouseInputProcessing = false;
 }
 void MouseInput::left_and_right_pressed_and_moved_slot(QMouseEvent* e)
 {
-    this->isMouseInputProcessing = true;
     if (! this->isGameOver && ! this->isSolverRunning && ! this->isNewGameRequested)
     {
         this->currentMousePosition = e->pos();
@@ -580,7 +563,6 @@ void MouseInput::left_and_right_pressed_and_moved_slot(QMouseEvent* e)
 
         this->leftAndRightPressedAndMoved();
     }
-    this->isMouseInputProcessing = false;
 }
 void MouseInput::is_solver_running_slot(bool running)
 {

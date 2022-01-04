@@ -38,6 +38,8 @@ private:
     quint16 minesLeftNumberWidth;
     quint16 spacerMiddleLeftFixedWidth = 7;
 
+    bool isNewGameRequested = false;
+
     void clearLayout(QLayout*);
     void newGame(const Difficulty::DifficultyStruct&);
     void newGameFromMenu();

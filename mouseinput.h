@@ -43,7 +43,6 @@ public:
 
     bool isGameOver = false;
     bool isNewGameRequested = false;
-    bool isMouseInputProcessing = false;
 public slots:
     void connect_button_slot(Button*);
 

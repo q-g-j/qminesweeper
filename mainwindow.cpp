@@ -136,7 +136,7 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     connect(this->field, &Field::connect_button_signal, mouseInput, &MouseInput::connect_button_slot);
     connect(this->field, &Field::game_over_signal, this, &MainWindow::game_over_slot);
     connect(this->field, &Field::minesleft_changed_signal, this, &MainWindow::minesleft_changed_slot);
-    connect(this->field, &Field::smiley_surprised_signal, this, &MainWindow::smiley_surprised_slot);
+    connect(this->field, &Field::smiley_surprised_signal, this, &MainWindow::smiley_surprised_slot, Qt::QueuedConnection);
     connect(this->field, &Field::game_started_signal, this, &MainWindow::start_timer_slot);
     connect(this->solver, &Solver::solver_stopped_signal, this, &MainWindow::solver_stopped_slot);
     connect(this->solver, &Solver::solver_place_flag_signal, field, &Field::solver_place_flag_slot);
@@ -316,6 +316,7 @@ void MainWindow::on_smiley_released()
 {
     if (solver->isSolverRunning)
     {
+        this->isNewGameRequested = true;
         this->newGameRequested('s');
     }
     else
@@ -444,17 +445,13 @@ bool MainWindow::eventFilter(QObject* object, QEvent *e)
         {
             if (keyEvent->key() == Qt::Key_F)
             {
-                if (! mouseInput->isMouseInputProcessing) // the game crashes, if pressing the key too early after the last mouse click
-                {
-                    solver->autoSolve(*field, true, false, false);
-                }
+                ui->smiley->setStyleSheet(this->stylesheet.smiley);
+                solver->autoSolve(*field, true, false, false);
             }
             else if (keyEvent->key() == Qt::Key_R)
             {
-                if (! mouseInput->isMouseInputProcessing) // the game crashes, if pressing the key too early after the last mouse click
-                {
-                    solver->autoSolve(*field, false, true, false);
-                }
+                ui->smiley->setStyleSheet(this->stylesheet.smiley);
+                solver->autoSolve(*field, false, true, false);
 
                 // check if player has won:
                 if (field->flagsCount + field->countUnrevealed == field->mines)
@@ -465,10 +462,8 @@ bool MainWindow::eventFilter(QObject* object, QEvent *e)
             }
             else if (keyEvent->key() == Qt::Key_S)
             {
-                if (! mouseInput->isMouseInputProcessing) // the game crashes, if pressing the key too early after the last mouse click
-                {
-                    solver->autoSolve(*field, true, true, true);
-                }
+                ui->smiley->setStyleSheet(this->stylesheet.smiley);
+                solver->autoSolve(*field, true, true, true);
 
                 // check if player has won:
                 if (field->flagsCount + field->countUnrevealed == field->mines)
