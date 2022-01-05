@@ -8,7 +8,6 @@ class Sleep : public QObject
 {
     Q_OBJECT
 public:
-    Sleep(const quint16&);
     Sleep(QThread*, const quint16&);
     ~Sleep();
 

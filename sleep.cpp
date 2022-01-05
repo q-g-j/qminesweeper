@@ -4,12 +4,6 @@
 #include "mainwindow.h"
 #include "sleep.h"
 
-Sleep::Sleep(const quint16 &milliseconds_)
-    : QObject {}
-{
-    this->milliseconds = milliseconds_;
-}
-
 Sleep::Sleep(QThread *thread_, const quint16 &milliseconds_)
     : QObject {}
 {
