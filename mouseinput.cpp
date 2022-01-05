@@ -1,6 +1,7 @@
 #include <QDebug>
 
 #include "mouseinput.h"
+#include "sleep.h"
 
 MouseInput::MouseInput(Field *field_)
 {
@@ -159,7 +160,6 @@ void MouseInput::leftReleased()
                     field->gameOver(dummyCoords, false);
                 }
             }
-            emit field->smiley_surprised_signal();
 
             if (this->isGameOver == false && this->isSolverRunning == false && this->isNewGameRequested == false)
             {
@@ -174,6 +174,7 @@ void MouseInput::leftReleased()
                     }
                 }
             }
+            emit this->smiley_surprised_queued_signal();
         }
         this->currentMousePosition.setX(0);
         this->currentMousePosition.setY(0);

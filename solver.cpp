@@ -1,8 +1,10 @@
 #include <QVector>
 #include <QDebug>
+#include <QThread>
 
 #include <common.h>
 #include <solver.h>
+#include <sleep.h>
 
 
 Solver::Solver() {}

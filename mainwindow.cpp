@@ -3,10 +3,13 @@
 #include <QStyle>
 #include <QFrame>
 #include <QScreen>
+#include <QThread>
 //#include <QFontDatabase>
+#include <functional>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "sleep.h"
 #include "timer.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -136,7 +139,8 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     connect(this->field, &Field::connect_button_signal, mouseInput, &MouseInput::connect_button_slot);
     connect(this->field, &Field::game_over_signal, this, &MainWindow::game_over_slot);
     connect(this->field, &Field::minesleft_changed_signal, this, &MainWindow::minesleft_changed_slot);
-    connect(this->field, &Field::smiley_surprised_signal, this, &MainWindow::smiley_surprised_slot, Qt::QueuedConnection);
+    connect(this->field, &Field::smiley_surprised_signal, this, &MainWindow::smiley_surprised_slot);
+    connect(this->mouseInput, &MouseInput::smiley_surprised_queued_signal, this, &MainWindow::smiley_surprised_slot);
     connect(this->field, &Field::game_started_signal, this, &MainWindow::start_timer_slot);
     connect(this->solver, &Solver::solver_stopped_signal, this, &MainWindow::solver_stopped_slot);
     connect(this->solver, &Solver::solver_place_flag_signal, field, &Field::solver_place_flag_slot);
@@ -350,12 +354,22 @@ void MainWindow::smiley_surprised_slot()
 {
     if (field->isGameOver != true)
     {
-        ui->smiley->setStyleSheet(this->stylesheet.smiley_surprised);
-        Common::sleep(350);
-        if (field->isGameOver != true)
+        ui->smiley->setStyleSheet(stylesheet.smiley_surprised);
+
+        std::function<void(QPushButton*, const Stylesheet&)> funct = [](QPushButton* smiley, const Stylesheet &stylesheet)
         {
-            ui->smiley->setStyleSheet(this->stylesheet.smiley);
-        }
+            smiley->setStyleSheet(stylesheet.smiley);
+        };
+
+        QThread* thread = new QThread();
+        Sleep* sleep = new Sleep(std::bind(funct, ui->smiley, this->stylesheet), 350);
+
+        sleep->moveToThread(thread);
+        connect(thread, &QThread::started, sleep, &Sleep::sleep);
+        connect(sleep, &Sleep::finished, thread, &QThread::quit);
+        connect(sleep, &Sleep::finished, sleep, &Sleep::deleteLater);
+        connect(thread, &QThread::finished, thread, &QThread::deleteLater);
+        thread->start();
     }
 }
 

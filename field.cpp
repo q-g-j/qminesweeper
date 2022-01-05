@@ -64,8 +64,6 @@ void Field::setButtonIcon(
         )
 {
     button->setPixmap(iconName);
-    QSize size(this->buttonSize, this->buttonSize);
-    button->setScaledContents( true );
 }
 
 void Field::create2DVectors()
