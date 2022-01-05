@@ -18,6 +18,7 @@ Usage for the threaded sleep:
 
 Usage for the normal sleep:
     Just call the static function Sleep::sleep(const quint16&):
+        quint32 milliseconds = 500;
         Sleep::sleep(milliseconds)
 */
 
