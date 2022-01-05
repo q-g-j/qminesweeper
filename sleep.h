@@ -2,23 +2,24 @@
 #define SLEEP_H
 
 #include <QObject>
-#include <functional>
+#include <QThread>
 
 class Sleep : public QObject
 {
     Q_OBJECT
 public:
-    Sleep(std::function<void()>, const quint16&);
+    Sleep(const quint16&);
+    Sleep(QThread*, const quint16&);
     ~Sleep();
 
+    static void sleep(const quint16&);
 public slots:
-    void sleep();
+    void threadedSleep();
 signals:
     void finished();
 private:
+    QThread *thread;
     quint16 milliseconds;
-
-    std::function<void()> funct;
 };
 
 #endif // SLEEP_H

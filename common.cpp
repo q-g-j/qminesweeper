@@ -82,13 +82,6 @@ quint16 Common::CoordsToInt(
     }
 }
 
-void Common::sleep(const quint16& milliseconds)
-{
-    QEventLoop loop;
-    QTimer::singleShot(milliseconds, &loop, &QEventLoop::quit);
-    loop.exec();
-}
-
 void Common::print_debug_slot(const QString& from)
 {
     qDebug() << QTime::currentTime().toString("hh:mm:ss") << "-" << from;

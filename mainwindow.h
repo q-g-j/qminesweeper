@@ -57,6 +57,7 @@ private slots:
     void new_game_slot(const Difficulty::DifficultyStruct&);
     void game_over_slot(bool);
     void start_timer_slot();
+    void change_back_smiley_slot();
     void smiley_surprised_slot();
     void minesleft_changed_slot(const qint16&);
     void solver_stopped_slot(const char&);

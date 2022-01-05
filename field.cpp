@@ -5,6 +5,7 @@
 #include "button.h"
 #include "common.h"
 #include "field.h"
+#include "sleep.h"
 
 Field::Field(
         QWidget *parent,
@@ -405,7 +406,7 @@ void Field::autoReveal(
                 {
                     if (aiReveal == true && this->isNewGameRequested == false)
                     {
-                        Common::sleep(5);
+                        Sleep::sleep(5);
                     }
                     poolVector.push_back(Common::CoordsToInt(neighboursUnrevealedVector.at(i), this->cols));
                     this->setNumber(

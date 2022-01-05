@@ -19,7 +19,6 @@ public:
     static void setRandomSeed();
     static Coords intToCoords(const quint16&, const quint16&);
     static quint16 CoordsToInt(const Coords&, const quint16&);
-    static void sleep(const quint16&);
     static QVector<quint16> randomShuffle(const quint16&, const quint16&);
 public slots:
     void print_debug_slot(const QString&);

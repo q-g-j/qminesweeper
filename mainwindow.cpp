@@ -5,7 +5,6 @@
 #include <QScreen>
 #include <QThread>
 //#include <QFontDatabase>
-#include <functional>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -350,26 +349,24 @@ void MainWindow::on_smiley_released()
     }
 }
 
+void MainWindow::change_back_smiley_slot()
+{
+    if (field->isGameOver != true)
+    {
+        ui->smiley->setStyleSheet(stylesheet.smiley);
+    }
+}
+
 void MainWindow::smiley_surprised_slot()
 {
     if (field->isGameOver != true)
     {
         ui->smiley->setStyleSheet(stylesheet.smiley_surprised);
 
-        std::function<void(QPushButton*, const Stylesheet&)> funct = [](QPushButton* smiley, const Stylesheet &stylesheet)
-        {
-            smiley->setStyleSheet(stylesheet.smiley);
-        };
-
         QThread* thread = new QThread();
-        Sleep* sleep = new Sleep(std::bind(funct, ui->smiley, this->stylesheet), 350);
-
+        Sleep* sleep = new Sleep(thread, 350);
         sleep->moveToThread(thread);
-        connect(thread, &QThread::started, sleep, &Sleep::sleep);
-        connect(sleep, &Sleep::finished, thread, &QThread::quit);
-        connect(sleep, &Sleep::finished, sleep, &Sleep::deleteLater);
-        connect(thread, &QThread::finished, thread, &QThread::deleteLater);
-        thread->start();
+        connect(sleep, &Sleep::finished, this, &MainWindow::change_back_smiley_slot);
     }
 }
 

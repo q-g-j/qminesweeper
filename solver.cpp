@@ -92,7 +92,7 @@ void Solver::autoSolve(
             {
                 if (this->cancelOnNewGameRequested() == true) return;
 
-                Common::sleep(30);
+                Sleep::sleep(30);
                 Common::Coords tempCoords;
                 tempCoords = Common::intToCoords(
                             poolCoveredVector.at(i),
