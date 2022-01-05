@@ -6,7 +6,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
-   sodipodi:docname="menubar_quit.svg"
+   sodipodi:docname="menubar_game_quit.svg"
    inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/button_mine_hit.png"
    inkscape:export-xdpi="16.790001"
    inkscape:export-ydpi="16.790001"
@@ -119,7 +119,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.30246157"
-     inkscape:cx="-62.817898"
+     inkscape:cx="-135.55441"
      inkscape:cy="795.14234"
      inkscape:document-units="mm"
      inkscape:current-layer="layer3"
@@ -182,28 +182,28 @@
        style="fill:none;stroke:#dc0000;stroke-width:36.3482;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 352.25946,235.17499 -263.651758,-1e-5"
        id="path1741"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/menubar_quit.png"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/icons/png/menubar_game_quit.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
     <path
        style="fill:none;stroke:#dc0000;stroke-width:36.3482;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 220.43358,103.34911 V 367.00087"
        id="path1743"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/menubar_quit.png"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/icons/png/menubar_game_quit.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
     <path
        style="fill:none;stroke:#dc0000;stroke-width:22.9501;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 305.17448,150.4341 135.69269,319.91588"
        id="path1626"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/menubar_quit.png"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/icons/png/menubar_game_quit.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
     <path
        style="fill:none;stroke:#dc0000;stroke-width:22.9501;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 135.69269,150.4341 305.17448,319.91588"
        id="path1298"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/menubar_quit.png"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/icons/png/menubar_game_quit.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
     <circle
@@ -212,7 +212,7 @@
        cx="220.43356"
        cy="235.17502"
        r="96.215942"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/menubar_quit.png"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/icons/png/menubar_game_quit.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
     <ellipse
@@ -223,7 +223,7 @@
        cx="34.209175"
        id="path2169"
        style="display:inline;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:9.70038;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/images/png/menubar_quit.png"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/icons/png/menubar_game_quit.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
   </g>

@@ -28,12 +28,12 @@
      showgrid="false"
      inkscape:snap-global="true"
      inkscape:zoom="0.32026165"
-     inkscape:cx="524.57108"
+     inkscape:cx="452.7548"
      inkscape:cy="1075.683"
      inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-height="1007"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1"
      inkscape:snap-bbox="true"
@@ -60,7 +60,7 @@
        cx="205.83475"
        cy="230.2061"
        r="144.97375"
-       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\smiley_hover.png"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/icons/png/smiley_hover.png"
        inkscape:export-xdpi="4.2333331"
        inkscape:export-ydpi="4.2333331" />
     <circle
@@ -69,7 +69,7 @@
        cx="159.91545"
        cy="184.94284"
        r="17.711727"
-       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\smiley_hover.png"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/icons/png/smiley_hover.png"
        inkscape:export-xdpi="4.2333331"
        inkscape:export-ydpi="4.2333331" />
     <circle
@@ -78,7 +78,7 @@
        cx="251.75403"
        cy="184.94284"
        r="17.711727"
-       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\smiley_hover.png"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/icons/png/smiley_hover.png"
        inkscape:export-xdpi="4.2333331"
        inkscape:export-ydpi="4.2333331" />
     <path
@@ -86,7 +86,7 @@
        d="m 116.62013,259.7256 c 0,0 30.74813,46.556 89.21463,46.556 58.4665,0 89.21461,-46.556 89.21461,-46.556"
        id="path4572"
        sodipodi:nodetypes="czc"
-       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\smiley_hover.png"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/icons/png/smiley_hover.png"
        inkscape:export-xdpi="4.2333331"
        inkscape:export-ydpi="4.2333331" />
   </g>

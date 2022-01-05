@@ -28,12 +28,12 @@
      showgrid="false"
      inkscape:snap-global="true"
      inkscape:zoom="0.32026166"
-     inkscape:cx="-516.76495"
+     inkscape:cx="-99.918298"
      inkscape:cy="1031.9687"
      inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-height="1007"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1"
      inkscape:snap-bbox="true"
@@ -60,7 +60,7 @@
        cx="205.83475"
        cy="230.2061"
        r="144.97375"
-       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\smiley_lost_hover.png"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/icons/png/smiley_lost_hover.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
     <circle
@@ -69,7 +69,7 @@
        cx="159.91545"
        cy="184.94284"
        r="17.711727"
-       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\smiley_lost_hover.png"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/icons/png/smiley_lost_hover.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
     <circle
@@ -78,7 +78,7 @@
        cx="251.75403"
        cy="184.94284"
        r="17.711727"
-       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\smiley_lost_hover.png"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/icons/png/smiley_lost_hover.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
     <path
@@ -86,7 +86,7 @@
        d="m 126.50778,307.27937 c 0,0 32.59622,-43.20286 80.04396,-43.20286 47.44774,0 78.60997,43.20286 78.60997,43.20286"
        id="path4572"
        sodipodi:nodetypes="czc"
-       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\smiley_lost_hover.png"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/icons/png/smiley_lost_hover.png"
        inkscape:export-xdpi="4.23"
        inkscape:export-ydpi="4.23" />
   </g>

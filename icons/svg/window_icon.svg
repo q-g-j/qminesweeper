@@ -119,8 +119,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.30246158"
-     inkscape:cx="-694.30306"
-     inkscape:cy="631.48516"
+     inkscape:cx="562.05486"
+     inkscape:cy="629.83206"
      inkscape:document-units="mm"
      inkscape:current-layer="layer2"
      inkscape:document-rotation="0"
@@ -131,9 +131,9 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:window-width="1920"
-     inkscape:window-height="866"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-height="1007"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:pagecheckerboard="0"
      inkscape:snap-bbox="true"
@@ -180,10 +180,10 @@
      transform="translate(-72.097756,-86.839687)">
     <path
        id="path1741"
-       style="color:#000000;fill:#000000;stroke:#ffffff;stroke-width:37.79527607;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       style="color:#000000;fill:#000000;stroke:#ffffff;stroke-width:37.7953;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
        d="M 503.78906,0 A 61.03937,61.03937 0 0 0 442.74805,61.041016 V 186.68359 a 323.14961,323.14961 0 0 0 -138.52539,63.04102 l -57.79493,-57.79492 a 38.540031,38.540031 0 0 0 -27.24609,-11.29492 38.540031,38.540031 0 0 0 -27.25391,11.29492 38.540031,38.540031 0 0 0 0,54.5 l 57.79688,57.79687 A 323.14961,323.14961 0 0 0 186.68359,442.75195 H 61.039062 A 61.03937,61.03937 0 0 0 -0.00195313,503.78516 61.03937,61.03937 0 0 0 61.039062,564.82617 H 186.68359 a 323.14961,323.14961 0 0 0 63.03907,138.52539 l -57.79493,57.79492 a 38.540031,38.540031 0 0 0 0,54.50196 38.540031,38.540031 0 0 0 54.5,0 l 57.79688,-57.79492 a 323.14961,323.14961 0 0 0 138.52344,63.03906 v 125.64258 a 61.03937,61.03937 0 0 0 61.04101,61.04104 61.03937,61.03937 0 0 0 61.04102,-61.04104 V 820.89062 a 323.14961,323.14961 0 0 0 138.51953,-63.0371 l 57.79492,57.79492 a 38.540031,38.540031 0 0 0 54.50781,0 38.540031,38.540031 0 0 0 0,-54.50196 L 757.85352,703.34766 A 323.14961,323.14961 0 0 0 820.89258,564.82617 H 946.5332 a 61.03937,61.03937 0 0 0 61.041,-61.04101 61.03937,61.03937 0 0 0 -61.041,-61.03321 H 821.0957 A 323.14961,323.14961 0 0 0 757.90234,304.17969 l 57.75,-57.75 a 38.540031,38.540031 0 0 0 0,-54.5 38.540031,38.540031 0 0 0 -27.2539,-11.29492 38.540031,38.540031 0 0 0 -27.25391,11.29492 l -57.74609,57.74609 A 323.14961,323.14961 0 0 0 564.83008,186.48242 V 61.041016 A 61.03937,61.03937 0 0 0 503.78906,0 Z"
        transform="matrix(0.26458333,0,0,0.26458333,77.098276,91.83969)"
-       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\window-icon.png"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/icons/png/window-icon.png"
        inkscape:export-xdpi="4.5900002"
        inkscape:export-ydpi="4.5900002" />
     <path
@@ -191,7 +191,7 @@
        style="display:inline;fill:#ffffff;fill-rule:evenodd;stroke-width:8.62001;paint-order:fill markers stroke"
        transform="matrix(0.74899948,-0.66257059,0.57900479,0.81532414,0,0)"
        d="M 61.599997,257.17499 A 28.708467,16.365372 0 0 1 32.891529,273.54036 28.708467,16.365372 0 0 1 4.1830616,257.17499 28.708467,16.365372 0 0 1 32.891529,240.80962 28.708467,16.365372 0 0 1 61.599997,257.17499 Z"
-       inkscape:export-filename="C:\Users\Jann\source\q-g-j\qminesweeper\icons\png\window-icon.png"
+       inkscape:export-filename="/home/jann/Entwicklung/q-g-j/qminesweeper/icons/png/window-icon.png"
        inkscape:export-xdpi="4.5900002"
        inkscape:export-ydpi="4.5900002" />
   </g>
