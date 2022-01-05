@@ -17,7 +17,7 @@ Usage for the threaded sleep:
         connect(sleep, &Sleep::finished, this, &CallingClass::execute_after_sleep_slot);
 
 Usage for the normal sleep:
-    Just call the static function Sleep::sleep(const quint16&):
+    Just call the static function Sleep::sleep(const quint32&):
         quint32 milliseconds = 500;
         Sleep::sleep(milliseconds)
 */
