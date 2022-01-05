@@ -22,9 +22,9 @@ public:
 
     // start in easy mode:
     struct DifficultyStruct {
-    quint16 cols = 70;
-    quint16 rows = 35;
-    quint16 mines = 200;
+    quint16 cols = 9;
+    quint16 rows = 9;
+    quint16 mines = 10;
     };
 private slots:
     void on_button_start_clicked();
