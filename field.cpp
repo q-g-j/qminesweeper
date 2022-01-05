@@ -47,13 +47,10 @@ Field::Field(
 
 Field::~Field()
 {
-    for (quint16 i = 0; i <= cols; i++)
+    for (quint16 i = 0; i < cols * rows; i++)
     {
-        for (quint16 j = 0; j <= rows; j++)
-        {
-            delete this->buttons2DVector[i][j];
-            this->buttons2DVector[i][j] = nullptr;
-        }
+        delete this->buttonStructVector[i].button;
+        this->buttonStructVector[i].button = nullptr;
     }
     delete this->layout;
     this->layout = nullptr;
@@ -84,10 +81,8 @@ void Field::create2DVectors()
             {
                 // create a vector holding structs of each button together with its coords:
                 buttonStruct structTemp;
-                Common::Coords coordsTemp;
-                coordsTemp.col = i;
-                coordsTemp.row = j;
-                structTemp.coords = coordsTemp;
+                structTemp.col = i;
+                structTemp.row = j;
                 structTemp.button = button;
                 this->buttonStructVector.append(structTemp);
                 button->setMouseTracking(true);
@@ -104,7 +99,6 @@ void Field::create2DVectors()
         }
         this->field2DVector.push_back(charRow);
         this->mines2DVector.push_back(charRow);
-        this->buttons2DVector.push_back(buttonRow);
     }
 }
 
@@ -304,17 +298,20 @@ void Field::gameOver(
     {
         for (quint16 j = 1; j <= this->rows; j++)
         {
+            Common::Coords coordsTemp;
+            coordsTemp.col =i;
+            coordsTemp.row = j;
             if (this->mines2DVector[i][j] == 'X')
             {
                 this->setButtonIcon(
-                            this->buttons2DVector[i][j],
+                            this->getButtonFromCoords(coordsTemp),
                             this->button_mine
                             );
             }
             else if (this->mines2DVector[i][j] == 'H')
             {
                 this->setButtonIcon(
-                            this->buttons2DVector[i][j],
+                            this->getButtonFromCoords(coordsTemp),
                             this->button_mine_hit
                             );
             }
@@ -571,17 +568,22 @@ Common::Coords Field::getCoordsFromButton(Button *button)
                 this->buttonStructVector.end(),
                 [button] (buttonStruct& s) { return s.button == button; }
             );
-    return structTemp->coords;
+    Common::Coords coordsTemp;
+    coordsTemp.col = structTemp->col;
+    coordsTemp.row = structTemp->row;
+    return coordsTemp;
 //    qDebug() << QString::number(structTemp->coords.col) << ", " << QString::number(structTemp->coords.row);
 }
 
 // find a button by its coords:
 Button* Field::getButtonFromCoords(const Common::Coords &coords)
 {
+    quint16 col = coords.col;
+    quint16 row = coords.row;
     buttonStruct *structTemp = std::find_if(
                 this->buttonStructVector.begin(),
                 this->buttonStructVector.end(),
-                [coords] (buttonStruct& s) { return (s.coords.col == coords.col && s.coords.row == coords.row); }
+                [col, row] (buttonStruct& s) { return (s.col == col && s.row == row); }
             );
     return structTemp->button;
 }

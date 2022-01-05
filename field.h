@@ -17,9 +17,9 @@ private:
     struct buttonStruct
     {
         Button* button = nullptr;
-        Common::Coords coords;
+        quint16 col;
+        quint16 row;
     };
-    QVector<QVector<Button*>> buttons2DVector;
     QGridLayout *layout = nullptr;
     Stylesheet stylesheet;
 public:
