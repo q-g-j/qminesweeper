@@ -1,5 +1,4 @@
 #include <QDebug>
-#include <QSizePolicy>
 #include <QVector>
 
 #include "button.h"
@@ -29,28 +28,31 @@ Field::Field(
     this->layout->setContentsMargins(0,0,0,0);
     this->setLayout(this->layout);
 
-    this->button_1.load(":/icons/png/button_1");
-    this->button_2.load(":/icons/png/button_2");
-    this->button_3.load(":/icons/png/button_3");
-    this->button_4.load(":/icons/png/button_4");
-    this->button_5.load(":/icons/png/button_5");
-    this->button_6.load(":/icons/png/button_6");
-    this->button_7.load(":/icons/png/button_7");
-    this->button_8.load(":/icons/png/button_8");
-    this->button_revealed.load(":/icons/png/button_revealed");
-    this->button_unrevealed.load(":/icons/png/button_unrevealed");
-    this->button_pressed.load(":/icons/png/button_pressed");
-    this->button_mine.load(":/icons/png/button_mine");
-    this->button_mine_hit.load(":/icons/png/button_mine_hit");
-    this->button_flag.load(":/icons/png/button_flag");
+    this->button_1.load(":/icons/png/button_1.png");
+    this->button_2.load(":/icons/png/button_2.png");
+    this->button_3.load(":/icons/png/button_3.png");
+    this->button_4.load(":/icons/png/button_4.png");
+    this->button_5.load(":/icons/png/button_5.png");
+    this->button_6.load(":/icons/png/button_6.png");
+    this->button_7.load(":/icons/png/button_7.png");
+    this->button_8.load(":/icons/png/button_8.png");
+    this->button_revealed.load(":/icons/png/button_revealed.png");
+    this->button_unrevealed.load(":/icons/png/button_unrevealed.png");
+    this->button_pressed.load(":/icons/png/button_pressed.png");
+    this->button_mine.load(":/icons/png/button_mine.png");
+    this->button_mine_hit.load(":/icons/png/button_mine_hit.png");
+    this->button_flag.load(":/icons/png/button_flag.png");
 }
 
 Field::~Field()
 {
-    for (quint16 i = 0; i < cols * rows; i++)
+    for (quint16 i = 0; i <= cols; i++)
     {
-        delete this->buttonStructVector[i].button;
-        this->buttonStructVector[i].button = nullptr;
+        for (quint16 j = 0; j <= rows; j++)
+        {
+            delete this->buttons2DVector[i][j];
+            this->buttons2DVector[i][j] = nullptr;
+        }
     }
     delete this->layout;
     this->layout = nullptr;
@@ -69,25 +71,19 @@ void Field::create2DVectors()
     for (quint16 i = 0; i <= this->cols; i++)
     {
         QVector<char> charRow;
-        QVector<Button*> buttonRow;
+        QVector<Button*> buttonsRow;
         for (quint16 j = 0; j <= this->rows; j++)
         {
             charRow.push_back(' ');
             Button *button;
             button = new Button;
-            buttonRow.push_back(button);
 
             if (i != 0 && j != 0)
             {
-                // create a vector holding structs of each button together with its coords:
-                buttonStruct structTemp;
-                structTemp.col = i;
-                structTemp.row = j;
-                structTemp.button = button;
-                this->buttonStructVector.append(structTemp);
                 button->setMouseTracking(true);
                 button->setFixedSize(this->buttonSize, this->buttonSize);
                 button->setAttribute(Qt::WA_LayoutUsesWidgetRect);
+                button->setFocusPolicy(Qt::NoFocus);
                 this->setButtonIcon(
                             button,
                             this->button_unrevealed
@@ -96,9 +92,11 @@ void Field::create2DVectors()
                 this->layout->addWidget(button, j - 1, i - 1, 1, 1);
                 emit this->connect_button_signal(button);
             }
+            buttonsRow.append(button);
         }
         this->field2DVector.push_back(charRow);
         this->mines2DVector.push_back(charRow);
+        this->buttons2DVector.push_back(buttonsRow);
     }
 }
 
@@ -208,14 +206,12 @@ void Field::printNumber(
         const quint16& number
         )
 {
-    Button *button = this->getButtonFromCoords(coords);
     if (number == 0)
     {
         this->setButtonIcon(
                     this->getButtonFromCoords(coords),
                     this->button_revealed
                     );
-        button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 1)
     {
@@ -223,7 +219,6 @@ void Field::printNumber(
                     this->getButtonFromCoords(coords),
                     this->button_1
                     );
-        button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 2)
     {
@@ -231,15 +226,13 @@ void Field::printNumber(
                     this->getButtonFromCoords(coords),
                     this->button_2
                     );
-        button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 3)
     {
         this->setButtonIcon(
                     this->getButtonFromCoords(coords),
-                            this->button_3
-                            );
-        button->setFocusPolicy(Qt::NoFocus);
+                    this->button_3
+                    );
     }
     else if (number == 4)
     {
@@ -247,7 +240,6 @@ void Field::printNumber(
                     this->getButtonFromCoords(coords),
                     this->button_4
                     );
-        button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 5)
     {
@@ -255,7 +247,6 @@ void Field::printNumber(
                     this->getButtonFromCoords(coords),
                     this->button_5
                     );
-        button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 6)
     {
@@ -263,7 +254,6 @@ void Field::printNumber(
                     this->getButtonFromCoords(coords),
                     this->button_6
                     );
-        button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 7)
     {
@@ -271,7 +261,6 @@ void Field::printNumber(
                     this->getButtonFromCoords(coords),
                     this->button_7
                     );
-        button->setFocusPolicy(Qt::NoFocus);
     }
     else if (number == 8)
     {
@@ -279,7 +268,6 @@ void Field::printNumber(
                     this->getButtonFromCoords(coords),
                     this->button_8
                     );
-        button->setFocusPolicy(Qt::NoFocus);
     }
 }
 
@@ -563,29 +551,26 @@ void Field::flagAutoReveal(
 // return the coords of a button:
 Common::Coords Field::getCoordsFromButton(Button *button)
 {
-    buttonStruct *structTemp = std::find_if(
-                this->buttonStructVector.begin(),
-                this->buttonStructVector.end(),
-                [button] (buttonStruct& s) { return s.button == button; }
-            );
     Common::Coords coordsTemp;
-    coordsTemp.col = structTemp->col;
-    coordsTemp.row = structTemp->row;
+    for (quint16 i = 1; i <= this->cols; i++)
+    {
+        for (quint16 j = 1; j <= this->rows; j++)
+        {
+            if (this->buttons2DVector[i][j] == button)
+            {
+                coordsTemp.col = i;
+                coordsTemp.row = j;
+                return coordsTemp;
+            }
+        }
+    }
     return coordsTemp;
-//    qDebug() << QString::number(structTemp->coords.col) << ", " << QString::number(structTemp->coords.row);
 }
 
 // find a button by its coords:
 Button* Field::getButtonFromCoords(const Common::Coords &coords)
 {
-    quint16 col = coords.col;
-    quint16 row = coords.row;
-    buttonStruct *structTemp = std::find_if(
-                this->buttonStructVector.begin(),
-                this->buttonStructVector.end(),
-                [col, row] (buttonStruct& s) { return (s.col == col && s.row == row); }
-            );
-    return structTemp->button;
+    return this->buttons2DVector[coords.col][coords.row];
 }
 
 void Field::solver_place_flag_slot(const Common::Coords& coords)

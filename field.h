@@ -14,12 +14,7 @@ class Field : public QWidget
      Q_OBJECT
 private:
     // private variables:
-    struct buttonStruct
-    {
-        Button* button = nullptr;
-        quint16 col;
-        quint16 row;
-    };
+    QVector<QVector<Button*>> buttons2DVector;
     QGridLayout *layout = nullptr;
     Stylesheet stylesheet;
 public:
@@ -48,7 +43,6 @@ public:
 
     QVector<QVector<char>> field2DVector;
     QVector<QVector<char>> mines2DVector;
-    QVector<buttonStruct> buttonStructVector;
     quint16 buttonSize;
     quint16 cols;
     quint16 rows;
@@ -80,6 +74,7 @@ signals:
     void game_over_signal(bool);
     void minesleft_changed_signal(const quint16&);
     void smiley_surprised_signal();
+    void print_debug_signal(const QString&);
 public slots:
     void solver_place_flag_slot(const Common::Coords&);
     void is_solver_running_slot(bool);
