@@ -3,12 +3,7 @@
 #include <QTime>
 #include <QTimer>
 #include <QEventLoop>
-
-#if defined(_WIN32) || defined(WIN32) || defined(_WIN64) || defined(WIN64)
-    #include <windows.h>
-#else
-    #include <random>
-#endif
+#include <random>
 
 #include "common.h"
 
