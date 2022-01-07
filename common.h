@@ -16,7 +16,6 @@ public:
         qint32 col = 0;
         qint32 row = 0;
     };
-    static void setRandomSeed();
     static Coords intToCoords(const qint32&, const qint32&);
     static qint32 CoordsToInt(const Coords&, const qint32&);
     static QVector<qint32> randomShuffle(const qint32&, const qint32&);

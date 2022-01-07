@@ -8,7 +8,6 @@
     #include <windows.h>
 #else
     #include <random>
-    #include "time.h"
 #endif
 
 #include "common.h"
@@ -16,22 +15,15 @@
 Common::Common() {}
 
 Common::~Common() {}
-// needed for random_shuffle() (place the mines):
-
-void Common::setRandomSeed()
-{
-    #if defined(_WIN32) || defined(WIN32) || defined(_WIN64) || defined(WIN64)
-        srand(GetTickCount());
-    #else
-        srand(time(NULL));
-    #endif
-}
 
 QVector<qint32> Common::randomShuffle(
         const qint32& high,
         const qint32& userFirstInput
         )
 {
+    std::random_device rd;
+    std::mt19937 generator(rd());
+
     QVector<qint32> returnVector;
 
     for (qint32 i = 1; returnVector.size() < high - 1; i++)
@@ -42,7 +34,7 @@ QVector<qint32> Common::randomShuffle(
         }
     }
 
-    std::random_shuffle(returnVector.begin(), returnVector.end());
+    std::shuffle(returnVector.begin(), returnVector.end(), generator);
 
     return returnVector;
 }
