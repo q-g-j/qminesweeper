@@ -2,48 +2,55 @@
 #include <QThread>
 #include <QTime>
 #include <QTimer>
-#include <QRandomGenerator>
 #include <QEventLoop>
+
+#if defined(_WIN32) || defined(WIN32) || defined(_WIN64) || defined(WIN64)
+    #include <windows.h>
+#else
+    #include <random>
+    #include "time.h"
+#endif
 
 #include "common.h"
 
 Common::Common() {}
 
 Common::~Common() {}
+// needed for random_shuffle() (place the mines):
 
-QVector<quint16> Common::randomShuffle(
-        const quint16& high,
-        const quint16& userFirstInput
+void Common::setRandomSeed()
+{
+    #if defined(_WIN32) || defined(WIN32) || defined(_WIN64) || defined(WIN64)
+        srand(GetTickCount());
+    #else
+        srand(time(NULL));
+    #endif
+}
+
+QVector<qint32> Common::randomShuffle(
+        const qint32& high,
+        const qint32& userFirstInput
         )
 {
-    QVector<quint16> returnVector;
-    while (returnVector.size() < high - 1)
+    QVector<qint32> returnVector;
+
+    for (qint32 i = 1; returnVector.size() < high - 1; i++)
     {
-        for (quint16 i = 1; i < high; i++)
+        if (i != userFirstInput)
         {
-            quint16 value = QRandomGenerator::global()->bounded(high) + 1;
-            if (value != userFirstInput)
-            {
-                if (
-                        std::find(
-                            returnVector.begin(),
-                            returnVector.end(),
-                            value
-                            ) == returnVector.end()
-                        )
-                {
-                    returnVector.append(value);
-                }
-            }
+            returnVector.push_back(i);
         }
     }
+
+    std::random_shuffle(returnVector.begin(), returnVector.end());
+
     return returnVector;
 }
 
 // convert coords in type integer to coords in type struct (e.g. position = 4 will return coords.col = 4, coords.row = 1):
 Common::Coords Common::intToCoords(
-        const quint16& position,
-        const quint16& cols
+        const qint32& position,
+        const qint32& cols
         )
 {
     Common::Coords coords;
@@ -67,9 +74,9 @@ Common::Coords Common::intToCoords(
 }
 
 // the above function the other way around
-quint16 Common::CoordsToInt(
+qint32 Common::CoordsToInt(
         const Common::Coords& coords,
-        const quint16& cols
+        const qint32& cols
         )
 {
     if (coords.row == 1)

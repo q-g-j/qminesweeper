@@ -103,12 +103,12 @@ void Field::create2DVectors()
 // place mines at random positions of this->minesVector:
 void Field::fillMines2DVector(const Common::Coords& userFirstInput)
 {
-    QVector<quint16> tempVector = Common::randomShuffle(
+    QVector<qint32> tempVector = Common::randomShuffle(
                 this->cols * this->rows,
                 Common::CoordsToInt(userFirstInput, this->cols)
                 );
 
-    for (quint16 i = 0; i < this->mines; i++)
+    for (qint32 i = 0; i < this->mines; i++)
     {
         Common::Coords coords;
         coords = Common::intToCoords(

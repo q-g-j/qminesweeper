@@ -13,13 +13,13 @@ public:
 
     struct Coords
     {
-        qint16 col = 0;
-        qint16 row = 0;
+        qint32 col = 0;
+        qint32 row = 0;
     };
     static void setRandomSeed();
-    static Coords intToCoords(const quint16&, const quint16&);
-    static quint16 CoordsToInt(const Coords&, const quint16&);
-    static QVector<quint16> randomShuffle(const quint16&, const quint16&);
+    static Coords intToCoords(const qint32&, const qint32&);
+    static qint32 CoordsToInt(const Coords&, const qint32&);
+    static QVector<qint32> randomShuffle(const qint32&, const qint32&);
 public slots:
     void print_debug_slot(const QString&);
 };

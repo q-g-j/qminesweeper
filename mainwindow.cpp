@@ -30,6 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->fieldLayout = new QGridLayout(ui->fieldWrapper);
 
+    Common::setRandomSeed();
+
     this->newGame(this->difficulty);
 
 // on macOS the QFrame border is not displayed correctly, so disable it:
