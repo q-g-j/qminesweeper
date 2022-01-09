@@ -4,6 +4,8 @@
 #include <QDialog>
 #include <QValidator>
 
+#include "debug.h"
+
 namespace Ui {
 class Difficulty;
 }

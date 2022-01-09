@@ -553,102 +553,77 @@ void MouseInput::leftAndRightPressedAndMoved()
 // slots:
 void MouseInput::connect_button_slot(Button *button)
 {
-    connect(button, &Button::left_pressed_signal, this, &MouseInput::left_pressed_slot);
-    connect(button, &Button::right_pressed_signal, this, &MouseInput::right_pressed_slot);
-    connect(button, &Button::left_and_right_pressed_signal, this, &MouseInput::left_and_right_pressed_slot);
-    connect(button, &Button::left_released_signal, this, &MouseInput::left_released_slot);
-    connect(button, &Button::right_released_signal, this, &MouseInput::right_released_slot);
-    connect(button, &Button::left_and_right_released_signal, this, &MouseInput::left_and_right_released_slot);
-    connect(button, &Button::left_pressed_and_moved_signal, this, &MouseInput::left_pressed_and_moved_slot);
-    connect(button, &Button::right_pressed_and_moved_signal, this, &MouseInput::right_pressed_and_moved_slot);
-    connect(button, &Button::left_and_right_pressed_and_moved_signal, this, &MouseInput::left_and_right_pressed_and_moved_slot);
-    connect(button, &Button::print_debug_signal, &this->common, &Common::print_debug_slot);
+    connect(button, &Button::mouse_event_signal, this, &MouseInput::mouse_event_slot);
+#ifdef DEBUG_MODE
+    connect(button, &Button::print_debug_signal, Common::print_debug_slot);
+#endif
 }
-void MouseInput::left_pressed_slot(QMouseEvent* e)
-{
-    if (this->isGameOver == false && this->isSolverRunning == false && this->isNewGameRequested == false)
-    {
-        Button* button = static_cast<Button*>(sender());
-        this->pressedButtonCoords = field->getCoordsFromButton(button);
-        this->currentMousePosition = e->pos();
-        this->lastButtonCoords = this->getCoordsFromRelativeMousePosition();
-        this->leftPressed();
-    }
-}
-void MouseInput::right_pressed_slot(QMouseEvent* e)
-{
-    if (this->isGameOver == false && this->isSolverRunning == false && this->isNewGameRequested == false)
-    {
-        Button* button = static_cast<Button*>(sender());
-        this->pressedButtonCoords = field->getCoordsFromButton(button);
-        this->currentMousePosition = e->pos();
-        this->lastButtonCoords = this->getCoordsFromRelativeMousePosition();
-    }
-}
-void MouseInput::left_and_right_pressed_slot(QMouseEvent* e)
-{
-    if (this->isGameOver == false && this->isSolverRunning == false && this->isNewGameRequested == false)
-    {
-        Button* button = static_cast<Button*>(sender());
-        this->pressedButtonCoords = field->getCoordsFromButton(button);
-        this->currentMousePosition = e->pos();
-        this->lastButtonCoords = this->getCoordsFromRelativeMousePosition();
-        this->leftAndRightPressed();
-    }
-}
-void MouseInput::left_released_slot()
-{
-    if (this->isGameOver == false && this->isSolverRunning == false && this->isNewGameRequested == false)
-    {
-        this->leftReleased();
-    }
-}
-void MouseInput::right_released_slot()
-{
-    if (this->isGameOver == false && this->isSolverRunning == false && this->isNewGameRequested == false)
-    {
-        this->rightReleased();
-    }
-}
-void MouseInput::left_and_right_released_slot()
-{
-    if (this->isGameOver == false && this->isSolverRunning == false && this->isNewGameRequested == false)
-    {
-        this->leftAndRightReleased();
-    }
-}
-void MouseInput::left_pressed_and_moved_slot(QMouseEvent* e)
-{
-    if (this->isGameOver == false && this->isSolverRunning == false && this->isNewGameRequested == false)
-    {
-        this->currentMousePosition = e->pos();
-//        emit this->print_debug_signal(QString::number(this->currentMousePosition.x()) + "," + QString::number(this->currentMousePosition.y()));
-        this->leftPressedAndMoved();
-    }
-}
-void MouseInput::right_pressed_and_moved_slot(QMouseEvent* e)
-{
-    if (this->isGameOver == false && this->isSolverRunning == false && this->isNewGameRequested == false)
-    {
-        this->currentMousePosition = e->pos();
-//        emit this->print_debug_signal(QString::number(this->currentMousePosition.x()) + "," + QString::number(this->currentMousePosition.y()));
-    }
-}
-void MouseInput::left_and_right_pressed_and_moved_slot(QMouseEvent* e)
-{
-    if (this->isGameOver == false && this->isSolverRunning == false && this->isNewGameRequested == false)
-    {
-        this->currentMousePosition = e->pos();
-//            emit this->print_debug_signal(QString::number(this->currentMousePosition.x()) + "," + QString::number(this->currentMousePosition.y()));
 
-        if (this->lastButtonCoords.col < 0) this->lastButtonCoords.col = 0;
-        else if (this->lastButtonCoords.col > field->cols + 1) this->lastButtonCoords.col = field->cols + 1;
-        if (this->lastButtonCoords.row < 0) this->lastButtonCoords.row = 0;
-        else if (this->lastButtonCoords.row > field->rows + 1) this->lastButtonCoords.row = field->rows + 1;
+void MouseInput::mouse_event_slot(const Button::MouseStruct &mouseEventStruct)
+{
+    if (this->isGameOver == false && this->isSolverRunning == false && this->isNewGameRequested == false)
+    {
+        if (mouseEventStruct.reason == Button::MouseEnum::leftAndRightPressed)
+        {
+            Button* button = static_cast<Button*>(sender());
+            this->pressedButtonCoords = field->getCoordsFromButton(button);
+            this->currentMousePosition = mouseEventStruct.mouseEvent->pos();
+            this->lastButtonCoords = this->getCoordsFromRelativeMousePosition();
+            this->leftAndRightPressed();
+        }
+        else if (mouseEventStruct.reason == Button::MouseEnum::leftPressed)
+        {
+            Button* button = static_cast<Button*>(sender());
+            this->pressedButtonCoords = field->getCoordsFromButton(button);
+            this->currentMousePosition = mouseEventStruct.mouseEvent->pos();
+            this->lastButtonCoords = this->getCoordsFromRelativeMousePosition();
+            this->leftPressed();
+        }
+        else if (mouseEventStruct.reason == Button::MouseEnum::rightPressed)
+        {
+            Button* button = static_cast<Button*>(sender());
+            this->pressedButtonCoords = field->getCoordsFromButton(button);
+            this->currentMousePosition = mouseEventStruct.mouseEvent->pos();
+            this->lastButtonCoords = this->getCoordsFromRelativeMousePosition();
+        }
+        else if (mouseEventStruct.reason == Button::MouseEnum::leftAndRightReleased)
+        {
+            this->leftAndRightReleased();
+        }
+        else if (mouseEventStruct.reason == Button::MouseEnum::leftReleased)
+        {
+            this->leftReleased();
+        }
+        else if (mouseEventStruct.reason == Button::MouseEnum::rightReleased)
+        {
+            this->rightReleased();
+        }
+        else if (mouseEventStruct.reason == Button::MouseEnum::leftAndRightPressedAndMoved)
+        {
+            this->currentMousePosition = mouseEventStruct.mouseEvent->pos();
+    //            emit this->print_debug_signal(QString::number(this->currentMousePosition.x()) + "," + QString::number(this->currentMousePosition.y()));
 
-        this->leftAndRightPressedAndMoved();
+            if (this->lastButtonCoords.col < 0) this->lastButtonCoords.col = 0;
+            else if (this->lastButtonCoords.col > field->cols + 1) this->lastButtonCoords.col = field->cols + 1;
+            if (this->lastButtonCoords.row < 0) this->lastButtonCoords.row = 0;
+            else if (this->lastButtonCoords.row > field->rows + 1) this->lastButtonCoords.row = field->rows + 1;
+
+            this->leftAndRightPressedAndMoved();
+        }
+        else if (mouseEventStruct.reason == Button::MouseEnum::leftPressedAndMoved)
+        {
+            this->currentMousePosition = mouseEventStruct.mouseEvent->pos();
+    //        emit this->print_debug_signal(QString::number(this->currentMousePosition.x()) + "," + QString::number(this->currentMousePosition.y()));
+            this->leftPressedAndMoved();
+        }
+        else if (mouseEventStruct.reason == Button::MouseEnum::rightPressedAndMoved)
+        {
+            this->currentMousePosition = mouseEventStruct.mouseEvent->pos();
+    //        emit this->print_debug_signal(QString::number(this->currentMousePosition.x()) + "," + QString::number(this->currentMousePosition.y()));
+        }
     }
 }
+
 void MouseInput::is_solver_running_slot(bool running)
 {
     this->isSolverRunning = running;

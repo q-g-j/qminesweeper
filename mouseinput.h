@@ -6,6 +6,7 @@
 
 #include "button.h"
 #include "common.h"
+#include "debug.h"
 #include "field.h"
 #include "stylesheet.h"
 
@@ -15,7 +16,6 @@ class MouseInput : public QObject
 private:
     Field *field;
     Stylesheet stylesheet;
-    Common common;
     Button::ButtonIconsStruct buttonIcons;
 
     bool isLeftAndRightPressed = false;
@@ -46,19 +46,7 @@ public:
     bool isNewGameRequested = false;
 public slots:
     void connect_button_slot(Button*);
-
-    void left_pressed_slot(QMouseEvent*);
-    void right_pressed_slot(QMouseEvent*);
-    void left_and_right_pressed_slot(QMouseEvent*);
-
-    void left_released_slot();
-    void right_released_slot();
-    void left_and_right_released_slot();
-
-    void left_pressed_and_moved_slot(QMouseEvent*);
-    void right_pressed_and_moved_slot(QMouseEvent*);
-    void left_and_right_pressed_and_moved_slot(QMouseEvent*);
-
+    void mouse_event_slot(const Button::MouseStruct&);
     void is_solver_running_slot(bool);
 signals:
     void print_debug_signal(const QString&);

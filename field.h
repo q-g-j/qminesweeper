@@ -7,6 +7,7 @@
 
 #include "button.h"
 #include "common.h"
+#include "debug.h"
 #include "stylesheet.h"
 
 class Field : public QWidget
@@ -23,7 +24,7 @@ public:
                    const Button::ButtonIconsStruct&,
                    const quint16& cols,
                    const quint16& rows,
-                   const quint16& mines,
+                   const quint32& mines,
                    const quint16& buttonSize);
     ~Field();
 
@@ -33,10 +34,10 @@ public:
     quint16 buttonSize;
     quint16 cols;
     quint16 rows;
-    quint16 mines;
-    qint16 minesLeft;
-    quint16 countUnrevealed;
-    quint16 flagsCount = 0;
+    quint32 mines;
+    qint32 minesLeft;
+    qint32 countUnrevealed;
+    quint32 flagsCount = 0;
     bool firstTurn = true;
     bool isGameOver = false;
     bool isSolverRunning = false;

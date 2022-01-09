@@ -165,9 +165,12 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     connect(this->solver, &Solver::is_solver_running_signal, field, &Field::is_solver_running_slot);
     connect(this->solver, &Solver::is_solver_running_signal, mouseInput, &MouseInput::is_solver_running_slot);
     connect(this->timer, &Timer::current_timer_signal, this, &MainWindow::current_timer_slot);
-//    connect(this->timer, &Timer::current_timer_signal, &this->common, &Common::current_timer_slot);
-//    connect(this->mouseInput, &MouseInput::print_debug_signal, &this->common, &Common::print_debug_slot);
-//    connect(this->field, &Field::print_debug_signal, &this->common, &Common::print_debug_slot);
+
+#ifdef DEBUG_MODE
+    connect(this->timer, &Timer::current_timer_signal, &Common::current_timer_slot);
+    connect(this->mouseInput, &MouseInput::print_debug_signal, &Common::print_debug_slot);
+    connect(this->field, &Field::print_debug_signal, &Common::print_debug_slot);
+#endif
 
     field->create2DVectors();
 

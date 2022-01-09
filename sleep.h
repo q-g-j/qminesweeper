@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QThread>
 
+#include "debug.h"
+
 class Sleep : public QObject
 {
     Q_OBJECT
