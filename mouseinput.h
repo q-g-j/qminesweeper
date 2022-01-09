@@ -16,6 +16,7 @@ private:
     Field *field;
     Stylesheet stylesheet;
     Common common;
+    Button::ButtonIconsStruct buttonIcons;
 
     bool isLeftAndRightPressed = false;
     bool isSolverRunning = false;
@@ -38,7 +39,7 @@ private:
 
     Common::Coords getCoordsFromRelativeMousePosition();
 public:
-    MouseInput(Field*);
+    MouseInput(Field*, const Button::ButtonIconsStruct&);
     ~MouseInput();
 
     bool isGameOver = false;

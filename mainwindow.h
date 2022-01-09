@@ -4,6 +4,7 @@
 #include <QGridLayout>
 #include <QMainWindow>
 
+#include "button.h"
 #include "common.h"
 #include "difficulty.h"
 #include "field.h"
@@ -30,6 +31,7 @@ private:
     Common common;
     Stylesheet stylesheet;
     Difficulty::DifficultyStruct difficulty;
+    Button::ButtonIconsStruct buttonIcons;
 
     quint16 buttonSize = 25;
     quint16 minesLeftFrameWidth;
@@ -61,7 +63,7 @@ private slots:
     void smiley_surprised_slot();
     void minesleft_changed_slot(const qint16&);
     void solver_stopped_slot(const char&);
-    void set_infobar_time_slot(const QString&, const quint16&);
+    void current_timer_slot(const Timer::TimerStruct&);
 protected:
     bool eventFilter(QObject*, QEvent*);
 };

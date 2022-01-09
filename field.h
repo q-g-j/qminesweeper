@@ -17,30 +17,17 @@ private:
     QVector<QVector<Button*>> buttons2DVector;
     QGridLayout *layout = nullptr;
     Stylesheet stylesheet;
+    Button::ButtonIconsStruct buttonIcons;
 public:
-    explicit Field(QWidget *parent = nullptr,
-                   const quint16& cols = 9,
-                   const quint16& rows = 9,
-                   const quint16& mines = 10,
-                   const quint16& buttonSize = 25);
+    explicit Field(QWidget *parent,
+                   const Button::ButtonIconsStruct&,
+                   const quint16& cols,
+                   const quint16& rows,
+                   const quint16& mines,
+                   const quint16& buttonSize);
     ~Field();
 
     // public variables:
-    QPixmap button_1;
-    QPixmap button_2;
-    QPixmap button_3;
-    QPixmap button_4;
-    QPixmap button_5;
-    QPixmap button_6;
-    QPixmap button_7;
-    QPixmap button_8;
-    QPixmap button_mine;
-    QPixmap button_mine_hit;
-    QPixmap button_revealed;
-    QPixmap button_unrevealed;
-    QPixmap button_pressed;
-    QPixmap button_flag;
-
     QVector<QVector<char>> field2DVector;
     QVector<QVector<char>> mines2DVector;
     quint16 buttonSize;

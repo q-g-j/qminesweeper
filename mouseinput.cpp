@@ -3,9 +3,10 @@
 #include "mouseinput.h"
 #include "sleep.h"
 
-MouseInput::MouseInput(Field *field_)
+MouseInput::MouseInput(Field *field_, const Button::ButtonIconsStruct& buttonIcons_)
 {
     this->field = field_;
+    this->buttonIcons = buttonIcons_;
 }
 
 MouseInput::~MouseInput() {}
@@ -45,7 +46,7 @@ void MouseInput::leftPressed()
         {
             field->setButtonIcon(
                         field->getButtonFromCoords(this->pressedButtonCoords),
-                        field->button_pressed
+                        this->buttonIcons.button_pressed
                         );
         }
     }
@@ -73,7 +74,7 @@ void MouseInput::leftAndRightPressed()
                 Button *button = field->getButtonFromCoords(leftAndRightPressedNeighboursCoveredVector[i]);
                 field->setButtonIcon(
                             button,
-                            field->button_pressed
+                            this->buttonIcons.button_pressed
                             );
             }
         }
@@ -83,7 +84,7 @@ void MouseInput::leftAndRightPressed()
             {
                     field->setButtonIcon(
                                 field->getButtonFromCoords(newCoords),
-                                field->button_pressed
+                                this->buttonIcons.button_pressed
                                 );
             }
         }
@@ -169,7 +170,7 @@ void MouseInput::leftReleased()
                     {
                         field->setButtonIcon(
                                     field->getButtonFromCoords(this->pressedButtonCoords),
-                                    field->button_unrevealed
+                                    this->buttonIcons.button_unrevealed
                                     );
                     }
                 }
@@ -197,7 +198,7 @@ void MouseInput::rightReleased()
         {
             field->setButtonIcon(
                         button,
-                        field->button_flag
+                        this->buttonIcons.button_flag
                         );
             field->field2DVector[newCoords.col][newCoords.row] = 'F';
             field->flagsCount++;
@@ -208,7 +209,7 @@ void MouseInput::rightReleased()
         {
             field->setButtonIcon(
                         button,
-                        field->button_unrevealed
+                        this->buttonIcons.button_unrevealed
                         );
             field->field2DVector[newCoords.col][newCoords.row] = ' ';
             field->flagsCount--;
@@ -258,7 +259,7 @@ void MouseInput::leftAndRightReleased()
             {
                     field->setButtonIcon(
                                 field->getButtonFromCoords(newCoords),
-                                field->button_unrevealed
+                                this->buttonIcons.button_unrevealed
                                 );
             }
         }
@@ -277,7 +278,7 @@ void MouseInput::leftAndRightReleased()
                     {
                         field->setButtonIcon(
                                     field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i]),
-                                    field->button_unrevealed
+                                    this->buttonIcons.button_unrevealed
                                     );
                     }
                 }
@@ -288,7 +289,7 @@ void MouseInput::leftAndRightReleased()
                 {
                         field->setButtonIcon(
                                     field->getButtonFromCoords(this->lastButtonCoords),
-                                    field->button_unrevealed
+                                    this->buttonIcons.button_unrevealed
                                     );
                 }
             }
@@ -331,7 +332,7 @@ void MouseInput::leftPressedAndMoved()
                 {
                     field->setButtonIcon(
                                 field->getButtonFromCoords(this->lastButtonCoords),
-                                field->button_unrevealed
+                                this->buttonIcons.button_unrevealed
                                 );
                 }
             }
@@ -369,7 +370,7 @@ void MouseInput::leftPressedAndMoved()
                 {
                     field->setButtonIcon(
                                 field->getButtonFromCoords(this->pressedButtonCoords),
-                                field->button_unrevealed
+                                this->buttonIcons.button_unrevealed
                                 );
                 }
             }
@@ -386,7 +387,7 @@ void MouseInput::leftPressedAndMoved()
                     {
                         field->setButtonIcon(
                                     field->getButtonFromCoords(this->lastButtonCoords),
-                                    field->button_unrevealed
+                                    this->buttonIcons.button_unrevealed
                                     );
                     }
                 }
@@ -397,7 +398,7 @@ void MouseInput::leftPressedAndMoved()
                 {
                     field->setButtonIcon(
                                 field->getButtonFromCoords(newButtonCoords),
-                                field->button_pressed
+                                this->buttonIcons.button_pressed
                                 );
                 }
             }
@@ -439,7 +440,7 @@ void MouseInput::leftAndRightPressedAndMoved()
                 {
                     field->setButtonIcon(
                                 field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i]),
-                                field->button_unrevealed
+                                this->buttonIcons.button_unrevealed
                                 );
                 }
             }
@@ -451,7 +452,7 @@ void MouseInput::leftAndRightPressedAndMoved()
                 {
                     field->setButtonIcon(
                                 field->getButtonFromCoords(this->lastButtonCoords),
-                                field->button_unrevealed
+                                this->buttonIcons.button_unrevealed
                                 );
                 }
             }
@@ -491,7 +492,7 @@ void MouseInput::leftAndRightPressedAndMoved()
                     {
                         field->setButtonIcon(
                                     field->getButtonFromCoords(this->leftAndRightPressedNeighboursCoveredVector[i]),
-                                    field->button_unrevealed
+                                    this->buttonIcons.button_unrevealed
                                     );
                     }
                 }
@@ -502,7 +503,7 @@ void MouseInput::leftAndRightPressedAndMoved()
                 {
                     field->setButtonIcon(
                                 field->getButtonFromCoords(newButtonCoords),
-                                field->button_pressed
+                                this->buttonIcons.button_pressed
                                 );
                 }
             }
@@ -519,7 +520,7 @@ void MouseInput::leftAndRightPressedAndMoved()
                     {
                         field->setButtonIcon(
                                     field->getButtonFromCoords(this->lastButtonCoords),
-                                    field->button_unrevealed
+                                    this->buttonIcons.button_unrevealed
                                     );
                     }
                 }
@@ -538,7 +539,7 @@ void MouseInput::leftAndRightPressedAndMoved()
                         Button *button = field->getButtonFromCoords(leftAndRightPressedNeighboursCoveredVector[i]);
                         field->setButtonIcon(
                                     button,
-                                    field->button_pressed
+                                    this->buttonIcons.button_pressed
                                     );
                     }
                 }

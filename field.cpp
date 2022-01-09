@@ -8,6 +8,7 @@
 
 Field::Field(
         QWidget *parent,
+        const Button::ButtonIconsStruct& buttonIcons_,
         const quint16& cols_,
         const quint16& rows_,
         const quint16& mines_,
@@ -20,6 +21,7 @@ Field::Field(
     this->buttonSize = buttonSize_;
     this->minesLeft = mines_;
     this->countUnrevealed = cols_ * rows_;
+    this->buttonIcons = buttonIcons_;
 
     emit this->minesleft_changed_signal(this->minesLeft);
 
@@ -27,21 +29,6 @@ Field::Field(
     this->layout->setSpacing(0);
     this->layout->setContentsMargins(0,0,0,0);
     this->setLayout(this->layout);
-
-    this->button_1.load(":/icons/png/button_1.png");
-    this->button_2.load(":/icons/png/button_2.png");
-    this->button_3.load(":/icons/png/button_3.png");
-    this->button_4.load(":/icons/png/button_4.png");
-    this->button_5.load(":/icons/png/button_5.png");
-    this->button_6.load(":/icons/png/button_6.png");
-    this->button_7.load(":/icons/png/button_7.png");
-    this->button_8.load(":/icons/png/button_8.png");
-    this->button_revealed.load(":/icons/png/button_revealed.png");
-    this->button_unrevealed.load(":/icons/png/button_unrevealed.png");
-    this->button_pressed.load(":/icons/png/button_pressed.png");
-    this->button_mine.load(":/icons/png/button_mine.png");
-    this->button_mine_hit.load(":/icons/png/button_mine_hit.png");
-    this->button_flag.load(":/icons/png/button_flag.png");
 }
 
 Field::~Field()
@@ -86,7 +73,7 @@ void Field::create2DVectors()
                 button->setFocusPolicy(Qt::NoFocus);
                 this->setButtonIcon(
                             button,
-                            this->button_unrevealed
+                            this->buttonIcons.button_unrevealed
                             );
                 button->setScaledContents(true);
                 this->layout->addWidget(button, j - 1, i - 1, 1, 1);
@@ -210,63 +197,63 @@ void Field::printNumber(
     {
         this->setButtonIcon(
                     this->getButtonFromCoords(coords),
-                    this->button_revealed
+                    this->buttonIcons.button_revealed
                     );
     }
     else if (number == 1)
     {
         this->setButtonIcon(
                     this->getButtonFromCoords(coords),
-                    this->button_1
+                    this->buttonIcons.button_1
                     );
     }
     else if (number == 2)
     {
         this->setButtonIcon(
                     this->getButtonFromCoords(coords),
-                    this->button_2
+                    this->buttonIcons.button_2
                     );
     }
     else if (number == 3)
     {
         this->setButtonIcon(
                     this->getButtonFromCoords(coords),
-                    this->button_3
+                    this->buttonIcons.button_3
                     );
     }
     else if (number == 4)
     {
         this->setButtonIcon(
                     this->getButtonFromCoords(coords),
-                    this->button_4
+                    this->buttonIcons.button_4
                     );
     }
     else if (number == 5)
     {
         this->setButtonIcon(
                     this->getButtonFromCoords(coords),
-                    this->button_5
+                    this->buttonIcons.button_5
                     );
     }
     else if (number == 6)
     {
         this->setButtonIcon(
                     this->getButtonFromCoords(coords),
-                    this->button_6
+                    this->buttonIcons.button_6
                     );
     }
     else if (number == 7)
     {
         this->setButtonIcon(
                     this->getButtonFromCoords(coords),
-                    this->button_7
+                    this->buttonIcons.button_7
                     );
     }
     else if (number == 8)
     {
         this->setButtonIcon(
                     this->getButtonFromCoords(coords),
-                    this->button_8
+                    this->buttonIcons.button_8
                     );
     }
 }
@@ -293,14 +280,14 @@ void Field::gameOver(
             {
                 this->setButtonIcon(
                             this->getButtonFromCoords(coordsTemp),
-                            this->button_mine
+                            this->buttonIcons.button_mine
                             );
             }
             else if (this->mines2DVector[i][j] == 'H')
             {
                 this->setButtonIcon(
                             this->getButtonFromCoords(coordsTemp),
-                            this->button_mine_hit
+                            this->buttonIcons.button_mine_hit
                             );
             }
             else if (hasLost == true)
@@ -336,7 +323,7 @@ void Field::gameOver(
     {
         this->setButtonIcon(
                     this->getButtonFromCoords(coords),
-                    button_mine_hit
+                    this->buttonIcons.button_mine_hit
                     );
     }
 }
@@ -578,7 +565,7 @@ void Field::solver_place_flag_slot(const Common::Coords& coords)
     this->field2DVector[coords.col][coords.row] = 'F';
     this->setButtonIcon(
                 this->getButtonFromCoords(coords),
-                button_flag
+                this->buttonIcons.button_flag
                 );
     this->flagsCount++;
     this->minesLeft--;

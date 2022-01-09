@@ -11,10 +11,7 @@ Timer::Timer()
 
     connect(this->timerInstance, SIGNAL(timeout()), this, SLOT(timer_slot()));
 
-    emit this->set_infobar_time_signal("seconds", 0);
-    emit this->set_infobar_time_signal("tenSeconds", 0);
-    emit this->set_infobar_time_signal("minutes", 0);
-    emit this->set_infobar_time_signal("tenMinutes", 0);
+    emit this->current_timer_signal(this->currentTimer);
 }
 
 Timer::~Timer()
@@ -28,36 +25,32 @@ Timer::~Timer()
 
 void Timer::timer_slot()
 {
-    if (this->counterFine % 100 == 0)
+    quint32 counter = this->currentTimer.counterFine / 100;
+
+    this->currentTimer.seconds = counter % 10;
+    if (counter < 60)
     {
-        this->counter = this->counterFine / 100;
-        quint16 seconds, tenSeconds, minutes, tenMinutes;
-        seconds = this->counter % 10;
-        if (this->counter < 60)
-        {
-            tenSeconds = (this->counter - (this->counter % 10)) / 10;
-        }
-        else
-        {
-            tenSeconds = ((this->counter % 60) - ((this->counter % 60) % 10)) / 10;
-        }
-        minutes = (this->counter / 60) % 10;
-        if ((this->counter / 60) < 99)
-        {
-            tenMinutes = ((this->counter / 60) - (this->counter / 60) % 10) / 10;
-        }
-        else
-        {
-            tenMinutes = 9;
-        }
-        emit this->set_infobar_time_signal("seconds", seconds);
-        emit this->set_infobar_time_signal("tenSeconds", tenSeconds);
-        emit this->set_infobar_time_signal("minutes", minutes);
-        emit this->set_infobar_time_signal("tenMinutes", tenMinutes);
+        this->currentTimer.tenSeconds = (counter - (counter % 10)) / 10;
     }
-    if (this->counterFine < 599900)
+    else
     {
-        this->counterFine++;
+        this->currentTimer.tenSeconds = ((counter % 60) - ((counter % 60) % 10)) / 10;
+    }
+    this->currentTimer.minutes = (counter / 60) % 10;
+    if ((counter / 60) < 99)
+    {
+        this->currentTimer.tenMinutes = ((counter / 60) - (counter / 60) % 10) / 10;
+    }
+    else
+    {
+        this->currentTimer.tenMinutes = 9;
+    }
+
+    emit this->current_timer_signal(this->currentTimer);
+
+    if (this->currentTimer.counterFine < 599900)
+    {
+        this->currentTimer.counterFine++;
     }
 }
 

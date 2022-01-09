@@ -15,6 +15,24 @@ private:
 public:
     explicit Button(QWidget *parent = nullptr);
     ~Button();
+
+    struct ButtonIconsStruct
+    {
+        QPixmap button_1;
+        QPixmap button_2;
+        QPixmap button_3;
+        QPixmap button_4;
+        QPixmap button_5;
+        QPixmap button_6;
+        QPixmap button_7;
+        QPixmap button_8;
+        QPixmap button_mine;
+        QPixmap button_mine_hit;
+        QPixmap button_revealed;
+        QPixmap button_unrevealed;
+        QPixmap button_pressed;
+        QPixmap button_flag;
+    };
 protected:
     bool eventFilter(QObject*, QEvent*);
 signals:

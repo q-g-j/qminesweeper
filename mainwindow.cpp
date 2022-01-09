@@ -19,6 +19,21 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->installEventFilter(this);
 
+    this->buttonIcons.button_1.load(":/icons/png/button_1.png");
+    this->buttonIcons.button_2.load(":/icons/png/button_2.png");
+    this->buttonIcons.button_3.load(":/icons/png/button_3.png");
+    this->buttonIcons.button_4.load(":/icons/png/button_4.png");
+    this->buttonIcons.button_5.load(":/icons/png/button_5.png");
+    this->buttonIcons.button_6.load(":/icons/png/button_6.png");
+    this->buttonIcons.button_7.load(":/icons/png/button_7.png");
+    this->buttonIcons.button_8.load(":/icons/png/button_8.png");
+    this->buttonIcons.button_revealed.load(":/icons/png/button_revealed.png");
+    this->buttonIcons.button_unrevealed.load(":/icons/png/button_unrevealed.png");
+    this->buttonIcons.button_pressed.load(":/icons/png/button_pressed.png");
+    this->buttonIcons.button_mine.load(":/icons/png/button_mine.png");
+    this->buttonIcons.button_mine_hit.load(":/icons/png/button_mine_hit.png");
+    this->buttonIcons.button_flag.load(":/icons/png/button_flag.png");
+
     this->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     this->setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowCloseButtonHint);
     this->setFocus();
@@ -128,12 +143,16 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     this->timer = new Timer;
     this->field = new Field(
                 ui->fieldWrapper,
+                this->buttonIcons,
                 difficulty_.cols,
                 difficulty_.rows,
                 difficulty_.mines,
                 this->buttonSize
                 );
-    this->mouseInput = new MouseInput(field);
+    this->mouseInput = new MouseInput(
+                field,
+                this->buttonIcons
+                );
 
     connect(this->field, &Field::connect_button_signal, mouseInput, &MouseInput::connect_button_slot);
     connect(this->field, &Field::game_over_signal, this, &MainWindow::game_over_slot);
@@ -145,9 +164,10 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     connect(this->solver, &Solver::solver_place_flag_signal, field, &Field::solver_place_flag_slot);
     connect(this->solver, &Solver::is_solver_running_signal, field, &Field::is_solver_running_slot);
     connect(this->solver, &Solver::is_solver_running_signal, mouseInput, &MouseInput::is_solver_running_slot);
-    connect(this->timer, &Timer::set_infobar_time_signal, this, &MainWindow::set_infobar_time_slot);
-    connect(this->mouseInput, &MouseInput::print_debug_signal, &this->common, &Common::print_debug_slot);
-    connect(this->field, &Field::print_debug_signal, &this->common, &Common::print_debug_slot);
+    connect(this->timer, &Timer::current_timer_signal, this, &MainWindow::current_timer_slot);
+//    connect(this->timer, &Timer::current_timer_signal, &this->common, &Common::current_timer_slot);
+//    connect(this->mouseInput, &MouseInput::print_debug_signal, &this->common, &Common::print_debug_slot);
+//    connect(this->field, &Field::print_debug_signal, &this->common, &Common::print_debug_slot);
 
     field->create2DVectors();
 
@@ -448,27 +468,12 @@ void MainWindow::solver_stopped_slot(const char& from)
     }
 }
 
-void MainWindow::set_infobar_time_slot(
-        const QString& t,
-        const quint16& number
-        )
+void MainWindow::current_timer_slot(const Timer::TimerStruct& currentTimer)
 {
-    if (t == "seconds")
-    {
-        this->setInfoBarNumber(ui->timerSeconds, number);
-    }
-    else if (t == "tenSeconds")
-    {
-        this->setInfoBarNumber(ui->timerTenSeconds, number);
-    }
-    else if (t == "minutes")
-    {
-        this->setInfoBarNumber(ui->timerMinutes, number);
-    }
-    else if (t == "tenMinutes")
-    {
-        this->setInfoBarNumber(ui->timerTenMinutes, number);
-    }
+    this->setInfoBarNumber(ui->timerTenMinutes, currentTimer.tenMinutes);
+    this->setInfoBarNumber(ui->timerMinutes, currentTimer.minutes);
+    this->setInfoBarNumber(ui->timerTenSeconds, currentTimer.tenSeconds);
+    this->setInfoBarNumber(ui->timerSeconds, currentTimer.seconds);
 }
 
 bool MainWindow::eventFilter(

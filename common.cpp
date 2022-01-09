@@ -7,7 +7,14 @@
 
 #include "common.h"
 
-Common::Common() {}
+Common::Common()
+{
+    this->currentTimer.tenMinutes = 0;
+    this->currentTimer.minutes = 0;
+    this->currentTimer.tenSeconds = 0;
+    this->currentTimer.seconds = 0;
+    this->currentTimer.counterFine = 0;
+}
 
 Common::~Common() {}
 
@@ -76,7 +83,23 @@ qint32 Common::CoordsToInt(
     }
 }
 
-void Common::print_debug_slot(const QString& from)
+void Common::current_timer_slot(const Timer::TimerStruct& currentTimer_)
 {
-    qDebug() << QTime::currentTime().toString("hh:mm:ss") << "-" << from;
+    this->currentTimer = currentTimer_;
+}
+
+void Common::print_debug_slot(const QString& debugMessage)
+{
+    quint32 tenthSeconds = 0;
+    quint32 hundredthSeconds = 0;
+    tenthSeconds = (this->currentTimer.counterFine - (this->currentTimer.counterFine / 1000) * 1000) / 100;
+    hundredthSeconds = (this->currentTimer.counterFine - (this->currentTimer.counterFine / 100) * 100) / 10;
+
+    qDebug() << QString::number(this->currentTimer.tenMinutes)
+                + QString::number(this->currentTimer.minutes) + "m"
+                + QString::number(this->currentTimer.tenSeconds)
+                + QString::number(this->currentTimer.seconds) + "s"
+                + QString::number(tenthSeconds)
+                + QString::number(hundredthSeconds)
+                + QString::number(0) + "ms" + " " + debugMessage;
 }
