@@ -36,7 +36,7 @@ public:
         QPixmap button_flag;
     };
 
-    enum class MouseEnum
+    enum class MouseEnum : quint8
     {
         leftAndRightPressed,
         leftPressed,

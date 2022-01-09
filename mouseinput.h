@@ -50,7 +50,7 @@ public slots:
     void is_solver_running_slot(bool);
 signals:
     void print_debug_signal(const QString&);
-    void smiley_surprised_queued_signal();
+    void smiley_surprised_signal();
 };
 
 #endif // MOUSEINPUT_H

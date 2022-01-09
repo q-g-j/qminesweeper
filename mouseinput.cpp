@@ -175,7 +175,7 @@ void MouseInput::leftReleased()
                     }
                 }
             }
-            emit this->smiley_surprised_queued_signal();
+            emit this->smiley_surprised_signal();
         }
         this->currentMousePosition.setX(0);
         this->currentMousePosition.setY(0);
@@ -554,7 +554,7 @@ void MouseInput::leftAndRightPressedAndMoved()
 void MouseInput::connect_button_slot(Button *button)
 {
     connect(button, &Button::mouse_event_signal, this, &MouseInput::mouse_event_slot);
-#ifdef DEBUG_MODE
+#ifdef DEBUG_MESSAGES
     connect(button, &Button::print_debug_signal, Common::print_debug_slot);
 #endif
 }
@@ -566,6 +566,7 @@ void MouseInput::mouse_event_slot(const Button::MouseStruct &mouseEventStruct)
         if (mouseEventStruct.reason == Button::MouseEnum::leftAndRightPressed)
         {
             Button* button = static_cast<Button*>(sender());
+            button->setMouseTracking(true);
             this->pressedButtonCoords = field->getCoordsFromButton(button);
             this->currentMousePosition = mouseEventStruct.mouseEvent->pos();
             this->lastButtonCoords = this->getCoordsFromRelativeMousePosition();
@@ -574,6 +575,7 @@ void MouseInput::mouse_event_slot(const Button::MouseStruct &mouseEventStruct)
         else if (mouseEventStruct.reason == Button::MouseEnum::leftPressed)
         {
             Button* button = static_cast<Button*>(sender());
+            button->setMouseTracking(true);
             this->pressedButtonCoords = field->getCoordsFromButton(button);
             this->currentMousePosition = mouseEventStruct.mouseEvent->pos();
             this->lastButtonCoords = this->getCoordsFromRelativeMousePosition();
@@ -582,20 +584,27 @@ void MouseInput::mouse_event_slot(const Button::MouseStruct &mouseEventStruct)
         else if (mouseEventStruct.reason == Button::MouseEnum::rightPressed)
         {
             Button* button = static_cast<Button*>(sender());
+            button->setMouseTracking(true);
             this->pressedButtonCoords = field->getCoordsFromButton(button);
             this->currentMousePosition = mouseEventStruct.mouseEvent->pos();
             this->lastButtonCoords = this->getCoordsFromRelativeMousePosition();
         }
         else if (mouseEventStruct.reason == Button::MouseEnum::leftAndRightReleased)
         {
+            Button* button = static_cast<Button*>(sender());
+            button->setMouseTracking(false);
             this->leftAndRightReleased();
         }
         else if (mouseEventStruct.reason == Button::MouseEnum::leftReleased)
         {
+            Button* button = static_cast<Button*>(sender());
+            button->setMouseTracking(false);
             this->leftReleased();
         }
         else if (mouseEventStruct.reason == Button::MouseEnum::rightReleased)
         {
+            Button* button = static_cast<Button*>(sender());
+            button->setMouseTracking(false);
             this->rightReleased();
         }
         else if (mouseEventStruct.reason == Button::MouseEnum::leftAndRightPressedAndMoved)

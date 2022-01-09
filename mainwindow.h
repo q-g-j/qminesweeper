@@ -64,6 +64,8 @@ private slots:
     void minesleft_changed_slot(const qint16&);
     void solver_stopped_slot(const char&);
     void current_timer_slot(const Timer::TimerStruct&);
+signals:
+    void print_debug_signal(const QString&);
 protected:
     bool eventFilter(QObject*, QEvent*);
 };

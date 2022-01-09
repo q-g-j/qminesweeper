@@ -18,10 +18,10 @@ public:
 
     struct TimerStruct
     {
-        quint32 tenMinutes = 0;
-        quint32 minutes = 0;
-        quint32 tenSeconds = 0;
-        quint32 seconds = 0;
+        quint8 tenMinutes = 0;
+        quint8 minutes = 0;
+        quint8 tenSeconds = 0;
+        quint8 seconds = 0;
         quint32 counterFine = 0;
     };
 
@@ -29,10 +29,12 @@ public:
 
 private:
     QTimer *timerInstance = nullptr;
+    void timerWorker();
 private slots:
     void timer_slot();
 signals:
     void current_timer_signal(const TimerStruct&);
+    void print_debug_signal(const QString&);
 };
 
 #endif // TIMER_H

@@ -67,7 +67,6 @@ void Field::create2DVectors()
 
             if (i != 0 && j != 0)
             {
-                button->setMouseTracking(true);
                 button->setFixedSize(this->buttonSize, this->buttonSize);
                 button->setAttribute(Qt::WA_LayoutUsesWidgetRect);
                 button->setFocusPolicy(Qt::NoFocus);

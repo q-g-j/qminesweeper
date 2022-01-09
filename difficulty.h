@@ -26,7 +26,7 @@ public:
     struct DifficultyStruct {
     quint16 cols = 9;
     quint16 rows = 9;
-    quint16 mines = 10;
+    quint32 mines = 10;
     };
 private slots:
     void on_button_start_clicked();

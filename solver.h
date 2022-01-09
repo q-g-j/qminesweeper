@@ -27,6 +27,7 @@ signals:
     void solver_place_flag_signal(const Common::Coords&);
     void solver_stopped_signal(const char&);
     void is_solver_running_signal(bool);
+    void print_debug_signal(const QString&);
 };
 
 #endif // SOLVER_H

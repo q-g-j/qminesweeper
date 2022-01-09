@@ -7,8 +7,6 @@ Timer::Timer()
     this->timerInstance = new QTimer(this);
     this->timerInstance->setTimerType(Qt::PreciseTimer);
 
-    this->timerInstance->stop();
-
     connect(this->timerInstance, SIGNAL(timeout()), this, SLOT(timer_slot()));
 
     emit this->current_timer_signal(this->currentTimer);
@@ -23,23 +21,27 @@ Timer::~Timer()
     }
 }
 
-void Timer::timer_slot()
+void Timer::timerWorker()
 {
-    quint32 counter = this->currentTimer.counterFine / 100;
+#ifdef DEBUG_TIMER_MORE_ACCURATE
+    quint32 counterSeconds = this->currentTimer.counterFine / 100;
+#else
+    quint32 counterSeconds = this->currentTimer.counterFine;
+#endif
 
-    this->currentTimer.seconds = counter % 10;
-    if (counter < 60)
+    this->currentTimer.seconds = counterSeconds % 10;
+    if (counterSeconds < 60)
     {
-        this->currentTimer.tenSeconds = (counter - (counter % 10)) / 10;
+        this->currentTimer.tenSeconds = (counterSeconds - (counterSeconds % 10)) / 10;
     }
     else
     {
-        this->currentTimer.tenSeconds = ((counter % 60) - ((counter % 60) % 10)) / 10;
+        this->currentTimer.tenSeconds = ((counterSeconds % 60) - ((counterSeconds % 60) % 10)) / 10;
     }
-    this->currentTimer.minutes = (counter / 60) % 10;
-    if ((counter / 60) < 99)
+    this->currentTimer.minutes = (counterSeconds / 60) % 10;
+    if ((counterSeconds / 60) < 99)
     {
-        this->currentTimer.tenMinutes = ((counter / 60) - (counter / 60) % 10) / 10;
+        this->currentTimer.tenMinutes = ((counterSeconds / 60) - (counterSeconds / 60) % 10) / 10;
     }
     else
     {
@@ -48,7 +50,7 @@ void Timer::timer_slot()
 
     emit this->current_timer_signal(this->currentTimer);
 
-    if (this->currentTimer.counterFine < 599900)
+    if (counterSeconds < 599900)
     {
         this->currentTimer.counterFine++;
     }
@@ -56,10 +58,20 @@ void Timer::timer_slot()
 
 void Timer::timerStart()
 {
+#ifdef DEBUG_TIMER_MORE_ACCURATE
     this->timerInstance->start(10);
+#else
+    this->timerInstance->start(1000);
+#endif
+    this->timerWorker();
 }
 
 void Timer::timerStop()
 {
     this->timerInstance->stop();
+}
+
+void Timer::timer_slot()
+{
+    this->timerWorker();
 }

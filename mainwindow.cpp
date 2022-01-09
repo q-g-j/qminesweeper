@@ -141,6 +141,9 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
 
     this->solver = new Solver;
     this->timer = new Timer;
+#ifdef DEBUG_START_TIMER_EARLY
+    timer->timerStart();
+#endif
     this->field = new Field(
                 ui->fieldWrapper,
                 this->buttonIcons,
@@ -158,18 +161,21 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
     connect(this->field, &Field::game_over_signal, this, &MainWindow::game_over_slot);
     connect(this->field, &Field::minesleft_changed_signal, this, &MainWindow::minesleft_changed_slot);
     connect(this->field, &Field::smiley_surprised_signal, this, &MainWindow::smiley_surprised_slot);
-    connect(this->mouseInput, &MouseInput::smiley_surprised_queued_signal, this, &MainWindow::smiley_surprised_slot);
     connect(this->field, &Field::game_started_signal, this, &MainWindow::start_timer_slot);
+    connect(this->mouseInput, &MouseInput::smiley_surprised_signal, this, &MainWindow::smiley_surprised_slot);
     connect(this->solver, &Solver::solver_stopped_signal, this, &MainWindow::solver_stopped_slot);
     connect(this->solver, &Solver::solver_place_flag_signal, field, &Field::solver_place_flag_slot);
     connect(this->solver, &Solver::is_solver_running_signal, field, &Field::is_solver_running_slot);
     connect(this->solver, &Solver::is_solver_running_signal, mouseInput, &MouseInput::is_solver_running_slot);
     connect(this->timer, &Timer::current_timer_signal, this, &MainWindow::current_timer_slot);
 
-#ifdef DEBUG_MODE
+#ifdef DEBUG_MESSAGES
     connect(this->timer, &Timer::current_timer_signal, &Common::current_timer_slot);
+    connect(this, &MainWindow::print_debug_signal, &Common::print_debug_slot);
     connect(this->mouseInput, &MouseInput::print_debug_signal, &Common::print_debug_slot);
     connect(this->field, &Field::print_debug_signal, &Common::print_debug_slot);
+    connect(this->solver, &Solver::print_debug_signal, &Common::print_debug_slot);
+    connect(this->timer, &Timer::print_debug_signal, &Common::print_debug_slot);
 #endif
 
     field->create2DVectors();
