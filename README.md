@@ -1,6 +1,9 @@
 A Qt5/C++ based Minesweeper clone
 =================================
 
+Note for compiling from source: in Linux, the Qt version 5.15.2 might produce a buggy game executable - clicking on a button and moving the mouse will move the whole window.
+Qt versions 5.12.12, 5.14.2 and 6.2.2 work fine. The Windows and macOS versions are not affected.
+
 Latest release:
 ---------------
 |Filename|Platform|
