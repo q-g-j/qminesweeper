@@ -11,7 +11,7 @@ Field::Field(
         const Button::ButtonIconsStruct& buttonIcons_,
         const quint16& cols_,
         const quint16& rows_,
-        const quint16& mines_,
+        const quint32& mines_,
         const quint16& buttonSize_
         ) : QWidget(parent)
 {
@@ -90,12 +90,12 @@ void Field::create2DVectors()
 // place mines at random positions of this->minesVector:
 void Field::fillMines2DVector(const Common::Coords& userFirstInput)
 {
-    QVector<qint32> tempVector = Common::randomShuffle(
+    QVector<quint32> tempVector = Common::randomShuffle(
                 this->cols * this->rows,
                 Common::CoordsToInt(userFirstInput, this->cols)
                 );
 
-    for (qint32 i = 0; i < this->mines; i++)
+    for (quint32 i = 0; i < this->mines; i++)
     {
         Common::Coords coords;
         coords = Common::intToCoords(

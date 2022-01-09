@@ -15,13 +15,16 @@ bool Button::eventFilter(QObject* object, QEvent *e)
 {
     if (object == this && e->type() == QEvent::MouseButtonPress)
     {
+        MouseStruct mouseEventStruct;
         QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(e);
 
         if (mouseEvent->buttons() == (Qt::LeftButton | Qt::RightButton))
         {
 //            emit this->print_debug_signal("left and right pressed");
             this->leftandrightbuttonpressedflag = true;
-            emit this->left_and_right_pressed_signal(mouseEvent);
+            mouseEventStruct.reason = MouseEnum::leftAndRightPressed;
+            mouseEventStruct.mouseEvent = mouseEvent;
+            emit this->mouse_event_signal(mouseEventStruct);
         }
         else if (
                  mouseEvent->button() == Qt::LeftButton
@@ -29,7 +32,9 @@ bool Button::eventFilter(QObject* object, QEvent *e)
                  )
         {
 //            emit this->print_debug_signal("left pressed");
-            emit this->left_pressed_signal(mouseEvent);
+            mouseEventStruct.reason = MouseEnum::leftPressed;
+            mouseEventStruct.mouseEvent = mouseEvent;
+            emit this->mouse_event_signal(mouseEventStruct);
         }
         else if (
                  mouseEvent->button() == Qt::RightButton
@@ -37,12 +42,15 @@ bool Button::eventFilter(QObject* object, QEvent *e)
                  )
         {
 //            emit this->print_debug_signal("right pressed");
-            emit this->right_pressed_signal(mouseEvent);
+            mouseEventStruct.reason = MouseEnum::rightPressed;
+            mouseEventStruct.mouseEvent = mouseEvent;
+            emit this->mouse_event_signal(mouseEventStruct);
         }
     }
 
     else if (object == this && e->type() == QEvent::MouseButtonRelease)
     {
+        MouseStruct mouseEventStruct;
         QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(e);
 
         if (
@@ -53,7 +61,8 @@ bool Button::eventFilter(QObject* object, QEvent *e)
         {
 //            emit this->print_debug_signal("left and right released from left");
             this->leftandrightbuttonpressedflag = false;
-            emit this->left_and_right_released_signal();
+            mouseEventStruct.reason = MouseEnum::leftAndRightReleased;
+            emit this->mouse_event_signal(mouseEventStruct);
         }
         else if (
                  this->leftandrightbuttonpressedflag == true
@@ -63,7 +72,8 @@ bool Button::eventFilter(QObject* object, QEvent *e)
         {
 //            emit this->print_debug_signal("left and right released from right");
             this->leftandrightbuttonpressedflag = false;
-            emit this->left_and_right_released_signal();
+            mouseEventStruct.reason = MouseEnum::leftAndRightReleased;
+            emit this->mouse_event_signal(mouseEventStruct);
         }
         else if (
                  this->leftandrightbuttonpressedflag == true
@@ -72,7 +82,8 @@ bool Button::eventFilter(QObject* object, QEvent *e)
                  )
         {
 //            emit this->print_debug_signal("right pressed and left released");
-            emit this->left_and_right_released_signal();
+            mouseEventStruct.reason = MouseEnum::leftAndRightReleased;
+            emit this->mouse_event_signal(mouseEventStruct);
         }
         else if (
                  this->leftandrightbuttonpressedflag == true
@@ -81,7 +92,8 @@ bool Button::eventFilter(QObject* object, QEvent *e)
                  )
         {
 //            emit this->print_debug_signal("left pressed and right released");
-            emit this->left_and_right_released_signal();
+            mouseEventStruct.reason = MouseEnum::leftAndRightReleased;
+            emit this->mouse_event_signal(mouseEventStruct);
         }
         else if (
                  mouseEvent->button() == Qt::LeftButton
@@ -89,7 +101,8 @@ bool Button::eventFilter(QObject* object, QEvent *e)
                  )
         {
 //            emit this->print_debug_signal("left released");
-            emit this->left_released_signal();
+            mouseEventStruct.reason = MouseEnum::leftReleased;
+            emit this->mouse_event_signal(mouseEventStruct);
         }
         else if (
                  mouseEvent->button() == Qt::RightButton
@@ -97,18 +110,22 @@ bool Button::eventFilter(QObject* object, QEvent *e)
                  )
         {
 //            emit this->print_debug_signal("right released");
-            emit this->right_released_signal();
+            mouseEventStruct.reason = MouseEnum::rightReleased;
+            emit this->mouse_event_signal(mouseEventStruct);
         }
     }
 
     else if (object == this && e->type() == QEvent::MouseMove)
     {
+        MouseStruct mouseEventStruct;
         QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(e);
 
         if (mouseEvent->buttons() == (Qt::LeftButton | Qt::RightButton))
         {
 //            emit this->print_debug_signal("left and right pressed and moved");
-            emit this->left_and_right_pressed_and_moved_signal(mouseEvent);
+            mouseEventStruct.mouseEvent = mouseEvent;
+            mouseEventStruct.reason = MouseEnum::leftAndRightPressedAndMoved;
+            emit this->mouse_event_signal(mouseEventStruct);
         }
         else if (
                  mouseEvent->buttons() == Qt::LeftButton
@@ -116,7 +133,9 @@ bool Button::eventFilter(QObject* object, QEvent *e)
                  )
         {
 //            emit this->print_debug_signal("left pressed and moved");
-            emit this->left_pressed_and_moved_signal(mouseEvent);
+            mouseEventStruct.mouseEvent = mouseEvent;
+            mouseEventStruct.reason = MouseEnum::leftPressedAndMoved;
+            emit this->mouse_event_signal(mouseEventStruct);
         }
         else if (
                  mouseEvent->buttons() == Qt::RightButton
@@ -124,7 +143,9 @@ bool Button::eventFilter(QObject* object, QEvent *e)
                  )
         {
 //            emit this->print_debug_signal("right pressed and moved");
-            emit this->right_pressed_and_moved_signal(mouseEvent);
+            mouseEventStruct.mouseEvent = mouseEvent;
+            mouseEventStruct.reason = MouseEnum::rightPressedAndMoved;
+            emit this->mouse_event_signal(mouseEventStruct);
         }
     }
     return false;

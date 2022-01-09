@@ -5,6 +5,8 @@
 #include <QMouseEvent>
 #include <QPushButton>
 
+#include "debug.h"
+
 class Button : public QLabel
 {
     Q_OBJECT
@@ -33,20 +35,30 @@ public:
         QPixmap button_pressed;
         QPixmap button_flag;
     };
+
+    enum class MouseEnum
+    {
+        leftAndRightPressed,
+        leftPressed,
+        rightPressed,
+        leftAndRightReleased,
+        leftReleased,
+        rightReleased,
+        leftAndRightPressedAndMoved,
+        leftPressedAndMoved,
+        rightPressedAndMoved
+    };
+
+    struct MouseStruct
+    {
+        MouseEnum reason;
+        QMouseEvent *mouseEvent;
+    };
+
 protected:
     bool eventFilter(QObject*, QEvent*);
 signals:
-    void double_clicked_signal();
-    void left_pressed_signal(QMouseEvent*);
-    void right_pressed_signal(QMouseEvent*);
-    void left_and_right_pressed_signal(QMouseEvent*);
-    void left_released_signal();
-    void right_released_signal();
-    void left_and_right_released_signal();
-    void left_pressed_and_moved_signal(QMouseEvent*);
-    void right_pressed_and_moved_signal(QMouseEvent*);
-    void left_and_right_pressed_and_moved_signal(QMouseEvent*);
-
+    void mouse_event_signal(const MouseStruct&);
     void print_debug_signal(const QString&);
 };
 

@@ -5,6 +5,8 @@
 #include <QObject>
 #include <QTimer>
 
+#include "debug.h"
+
 class Timer : public QObject
 {
     Q_OBJECT

@@ -6,6 +6,7 @@
 
 #include "button.h"
 #include "common.h"
+#include "debug.h"
 #include "difficulty.h"
 #include "field.h"
 #include "mouseinput.h"
@@ -28,7 +29,6 @@ private:
     Timer *timer = nullptr;
     Solver *solver = nullptr;
     MouseInput *mouseInput = nullptr;
-    Common common;
     Stylesheet stylesheet;
     Difficulty::DifficultyStruct difficulty;
     Button::ButtonIconsStruct buttonIcons;

@@ -31,6 +31,7 @@ SOURCES += \
 HEADERS += \
     button.h \
     common.h \
+    debug.h \
     difficulty.h \
     field.h \
     mainwindow.h \

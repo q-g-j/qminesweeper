@@ -3,6 +3,7 @@
 
 #include <QObject>
 
+#include "debug.h"
 #include <field.h>
 
 class Solver : public QObject

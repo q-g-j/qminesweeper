@@ -7,28 +7,27 @@
 
 #include "common.h"
 
-Common::Common()
-{
-    this->currentTimer.tenMinutes = 0;
-    this->currentTimer.minutes = 0;
-    this->currentTimer.tenSeconds = 0;
-    this->currentTimer.seconds = 0;
-    this->currentTimer.counterFine = 0;
-}
+quint32 Common::counterFine = 0;
+quint32 Common::timerTenMinutes = 0;
+quint32 Common::timerMinutes = 0;
+quint32 Common::timerTenSeconds = 0;
+quint32 Common::timerSeconds = 0;
+
+Common::Common() {}
 
 Common::~Common() {}
 
-QVector<qint32> Common::randomShuffle(
+QVector<quint32> Common::randomShuffle(
         const qint32& high,
-        const qint32& userFirstInput
+        const quint32& userFirstInput
         )
 {
     std::random_device rd;
     std::mt19937 generator(rd());
 
-    QVector<qint32> returnVector;
+    QVector<quint32> returnVector;
 
-    for (qint32 i = 1; returnVector.size() < high - 1; i++)
+    for (quint32 i = 1; returnVector.size() < high - 1; i++)
     {
         if (i != userFirstInput)
         {
@@ -43,8 +42,8 @@ QVector<qint32> Common::randomShuffle(
 
 // convert coords in type integer to coords in type struct (e.g. position = 4 will return coords.col = 4, coords.row = 1):
 Common::Coords Common::intToCoords(
-        const qint32& position,
-        const qint32& cols
+        const quint32& position,
+        const quint32& cols
         )
 {
     Common::Coords coords;
@@ -70,7 +69,7 @@ Common::Coords Common::intToCoords(
 // the above function the other way around
 qint32 Common::CoordsToInt(
         const Common::Coords& coords,
-        const qint32& cols
+        const quint32& cols
         )
 {
     if (coords.row == 1)
@@ -85,20 +84,22 @@ qint32 Common::CoordsToInt(
 
 void Common::current_timer_slot(const Timer::TimerStruct& currentTimer_)
 {
-    this->currentTimer = currentTimer_;
+    Common::counterFine = currentTimer_.counterFine;
+    Common::timerTenMinutes = currentTimer_.tenMinutes;
+    Common::timerMinutes = currentTimer_.minutes;
+    Common::timerTenSeconds = currentTimer_.tenSeconds;
+    Common::timerSeconds = currentTimer_.seconds;
 }
 
 void Common::print_debug_slot(const QString& debugMessage)
 {
-    quint32 tenthSeconds = 0;
-    quint32 hundredthSeconds = 0;
-    tenthSeconds = (this->currentTimer.counterFine - (this->currentTimer.counterFine / 1000) * 1000) / 100;
-    hundredthSeconds = (this->currentTimer.counterFine - (this->currentTimer.counterFine / 100) * 100) / 10;
+    quint32 tenthSeconds = (Common::counterFine - (Common::counterFine / 1000) * 1000) / 100;
+    quint32 hundredthSeconds = (Common::counterFine - (Common::counterFine / 100) * 100) / 10;
 
-    qDebug() << QString::number(this->currentTimer.tenMinutes)
-                + QString::number(this->currentTimer.minutes) + "m"
-                + QString::number(this->currentTimer.tenSeconds)
-                + QString::number(this->currentTimer.seconds) + "s"
+    qDebug() << QString::number(Common::timerTenMinutes)
+                + QString::number(Common::timerMinutes) + "m"
+                + QString::number(Common::timerTenSeconds)
+                + QString::number(Common::timerSeconds) + "s"
                 + QString::number(tenthSeconds)
                 + QString::number(hundredthSeconds)
                 + QString::number(0) + "ms" + " " + debugMessage;
