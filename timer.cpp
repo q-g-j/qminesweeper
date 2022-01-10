@@ -29,26 +29,31 @@ void Timer::timerWorker()
     quint32 counterSeconds = this->currentTimer.counterFine;
 #endif
 
-    this->currentTimer.seconds = counterSeconds % 10;
-    if (counterSeconds < 60)
+#ifdef DEBUG_TIMER_MORE_ACCURATE
+    if (this->currentTimer.counterFine % 100 == 0)
+#endif
     {
-        this->currentTimer.tenSeconds = (counterSeconds - (counterSeconds % 10)) / 10;
-    }
-    else
-    {
-        this->currentTimer.tenSeconds = ((counterSeconds % 60) - ((counterSeconds % 60) % 10)) / 10;
-    }
-    this->currentTimer.minutes = (counterSeconds / 60) % 10;
-    if ((counterSeconds / 60) < 99)
-    {
-        this->currentTimer.tenMinutes = ((counterSeconds / 60) - (counterSeconds / 60) % 10) / 10;
-    }
-    else
-    {
-        this->currentTimer.tenMinutes = 9;
+        this->currentTimer.seconds = counterSeconds % 10;
+        if (counterSeconds < 60)
+        {
+            this->currentTimer.tenSeconds = (counterSeconds - (counterSeconds % 10)) / 10;
+        }
+        else
+        {
+            this->currentTimer.tenSeconds = ((counterSeconds % 60) - ((counterSeconds % 60) % 10)) / 10;
+        }
+        this->currentTimer.minutes = (counterSeconds / 60) % 10;
+        if ((counterSeconds / 60) < 99)
+        {
+            this->currentTimer.tenMinutes = ((counterSeconds / 60) - (counterSeconds / 60) % 10) / 10;
+        }
+        else
+        {
+            this->currentTimer.tenMinutes = 9;
     }
 
     emit this->current_timer_signal(this->currentTimer);
+    }
 
     if (counterSeconds < 599900)
     {
