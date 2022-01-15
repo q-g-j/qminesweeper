@@ -141,7 +141,7 @@ void MainWindow::newGame(const Difficulty::DifficultyStruct& difficulty_)
 
     this->solver = new Solver;
     this->timer = new Timer;
-#ifdef DEBUG_START_TIMER_EARLY
+#ifdef DEBUG_TIMER_START_EARLY
     timer->timerStart();
 #endif
     this->field = new Field(
