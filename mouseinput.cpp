@@ -177,15 +177,14 @@ void MouseInput::leftReleased()
             }
             emit this->smiley_surprised_signal();
         }
-        this->currentMousePosition.setX(0);
-        this->currentMousePosition.setY(0);
     }
+    this->currentMousePosition.setX(0);
+    this->currentMousePosition.setY(0);
 }
 void MouseInput::rightReleased()
 {
     Common::Coords newCoords = this->getCoordsFromRelativeMousePosition();
     Button *button;
-    button = field->getButtonFromCoords(newCoords);
 
     if (
             newCoords.col > 0
@@ -194,6 +193,7 @@ void MouseInput::rightReleased()
             && newCoords.row <= field->rows
             )
     {
+        button = field->getButtonFromCoords(newCoords);
         if (field->field2DVector[newCoords.col][newCoords.row] == ' ')
         {
             field->setButtonIcon(
