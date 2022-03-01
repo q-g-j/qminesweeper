@@ -5,9 +5,7 @@ Latest release:
 ---------------
 |Filename|Platform|
 |:---|:---|
-|[qminesweeper.exe](https://github.com/q-g-j/qminesweeper/releases/download/latest/qminesweeper.exe)|Windows - 32 bit static build|
-|[qminesweeper.dmg](https://github.com/q-g-j/qminesweeper/releases/download/latest/qminesweeper.dmg)|macOS - 64 bit|
-|[qminesweeper.AppImage](https://github.com/q-g-j/qminesweeper/releases/download/latest/qminesweeper.AppImage)|Linux - 64 bit AppImage|
+|[qminesweeper.exe](https://github.com/q-g-j/qminesweeper/releases/download/latest/qminesweeper.exe)|Windows - 32 bit static build||
 
 Controls:
 ---------
