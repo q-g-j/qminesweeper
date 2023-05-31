@@ -7,7 +7,7 @@
 
 #include "debug.h"
 
-class Button : public QLabel
+class Button : public QPushButton
 {
     Q_OBJECT
 private:

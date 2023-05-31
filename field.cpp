@@ -50,7 +50,9 @@ void Field::setButtonIcon(
         const QPixmap& iconName
         )
 {
-    button->setPixmap(iconName);
+    button->setIcon(iconName);
+    QSize size = QSize(25, 25);
+    button->setIconSize(size);
 }
 
 void Field::create2DVectors()
@@ -74,7 +76,7 @@ void Field::create2DVectors()
                             button,
                             this->buttonIcons.button_unrevealed
                             );
-                button->setScaledContents(true);
+                // button->setScaledContents(true);
                 this->layout->addWidget(button, j - 1, i - 1, 1, 1);
                 emit this->connect_button_signal(button);
             }

@@ -4,7 +4,7 @@
 
 #include "button.h"
 
-Button::Button(QWidget *parent) : QLabel(parent)
+Button::Button(QWidget *parent) : QPushButton(parent)
 {
     this->installEventFilter(this);
 }
